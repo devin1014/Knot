@@ -1,0 +1,34 @@
+{
+    "equipments": [
+        {
+            "id": 1,
+            "name": "Deep fryer",
+            "icon": "test"
+        },
+        {
+            "id": 2,
+            "name": "Freezer",
+            "icon": "test"
+        },
+        {
+            "id": 3,
+            "name": "Freezer",
+            "icon": "test"
+        },
+        {
+            "id": 4,
+            "name": "Outdoor lighting",
+            "icon": "test"
+        },
+        {
+            "id": 5,
+            "name": "Oven",
+            "icon": "test"
+        },
+        {
+            "id": 6,
+            "name": "Restaurant room",
+            "icon": "test"
+        }
+    ]
+}

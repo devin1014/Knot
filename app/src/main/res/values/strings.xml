@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">Smartlink</string>
+
+    <!--navigation-->
+    <string name="navigation_item_main">Smartlink ELEC</string>
+    <string name="navigation_item_events">Events</string>
+    <string name="navigation_item_settings">Settings</string>
+
+</resources>
