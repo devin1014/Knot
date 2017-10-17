@@ -3,4 +3,6 @@
 
     <dimen name="app_toolbar_height">64dp</dimen>
 
+    <dimen name="settings_margin">9dp</dimen>
+
 </resources>

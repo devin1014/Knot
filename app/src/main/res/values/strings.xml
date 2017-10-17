@@ -9,4 +9,12 @@
 
     <string name="request_data_error">数据请求失败了，请稍微再试</string>
 
+    <array name="settings">
+        <item>MY ACCOUNT</item>
+        <item>MY EQUIPMENTS</item>
+        <item>GIVE FEEDBACK</item>
+        <item>TERMS AND CONDITIONS</item>
+        <item>ABOUT</item>
+    </array>
+
 </resources>

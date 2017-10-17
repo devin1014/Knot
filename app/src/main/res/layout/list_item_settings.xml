@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UISetting" />
+
+        <variable
+            name="handler"
+            type="com.android.devin.core.ui.widget.recyclerview.DataBindingHandler" />
+
+    </data>
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#ffffff"
+        android:drawableEnd="@drawable/ic_navigate_next"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="@{data.name}"
+        android:textColor="#6d767b"
+        android:textSize="14dp"
+        tools:ignore="SpUsage" />
+
+</layout>
