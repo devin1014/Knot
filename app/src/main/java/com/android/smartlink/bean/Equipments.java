@@ -23,5 +23,20 @@ public class Equipments
         private String name;
 
         private String icon;
+
+        public int getId()
+        {
+            return id;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public String getIcon()
+        {
+            return icon;
+        }
     }
 }
