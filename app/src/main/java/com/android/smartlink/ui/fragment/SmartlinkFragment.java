@@ -2,24 +2,34 @@ package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.smartlink.R;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.widget.LoadingLayout;
+
+import butterknife.BindView;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-16
  * Time: 17:55
  */
-public class SmartlinkFragment extends BaseSmartlinkFragment implements RequestCallback<Modules>
+public class SmartlinkFragment extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
 {
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @BindView(R.id.loading_layout)
+    LoadingLayout mLoadingLayout;
+
     private MainRequestProvider mRequestProvider;
 
     @Nullable
@@ -34,9 +44,18 @@ public class SmartlinkFragment extends BaseSmartlinkFragment implements RequestC
     {
         super.onViewCreated(view, savedInstanceState);
 
+        initComponent(view);
+    }
+
+    private void initComponent(View view)
+    {
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         mRequestProvider = new MainRequestProvider(this);
 
         mRequestProvider.request("http://localhost:8080/examples/smartlink/main.json");
+
+        mLoadingLayout.showLoading();
     }
 
     @Override
@@ -50,12 +69,26 @@ public class SmartlinkFragment extends BaseSmartlinkFragment implements RequestC
     @Override
     public void onResponse(Modules modules)
     {
-        Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+        mLoadingLayout.showContent();
+
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onError(Throwable throwable)
     {
-        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+        mLoadingLayout.showMessage(getString(R.string.request_data_error));
+
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh()
+    {
+        // call request
+        mRequestProvider.request("http://localhost:8080/examples/smartlink/main.json");
+
+        // hide loading and show blank loading view
+        mLoadingLayout.showBlankView();
     }
 }

@@ -22,7 +22,7 @@ public class BaseSmartlinkFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        mButterKnife = ButterKnife.bind(view);
+        mButterKnife = ButterKnife.bind(this, view);
     }
 
     @Override
