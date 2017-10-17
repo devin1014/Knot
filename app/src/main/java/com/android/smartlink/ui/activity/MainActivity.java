@@ -1,9 +1,10 @@
 package com.android.smartlink.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.widget.RadioGroup;
+import android.support.design.widget.TabLayout;
+import android.support.design.widget.TabLayout.OnTabSelectedListener;
+import android.support.design.widget.TabLayout.Tab;
 import android.widget.TextView;
 
 import com.android.smartlink.R;
@@ -11,13 +12,20 @@ import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.EventsFragment;
 import com.android.smartlink.ui.fragment.SettingsFragment;
 import com.android.smartlink.ui.fragment.SmartlinkFragment;
+import com.android.smartlink.util.ViewUtil;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseSmartlinkActivity implements RadioGroup.OnCheckedChangeListener
+public class MainActivity extends BaseSmartlinkActivity implements OnTabSelectedListener
 {
-    @BindView(R.id.navigation)
-    RadioGroup mNavigation;
+    private static final int POS_MAIN = 0;
+
+    private static final int POS_EVENTS = 1;
+
+    private static final int POS_SETTINGS = 2;
+
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
 
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
@@ -36,7 +44,19 @@ public class MainActivity extends BaseSmartlinkActivity implements RadioGroup.On
 
     private void initComponent()
     {
-        mNavigation.setOnCheckedChangeListener(this);
+        String[] menus = getResources().getStringArray(R.array.menus_icon);
+
+        for (String menu : menus)
+        {
+            Tab tab = mTabLayout.newTab();
+
+            tab.setIcon(ViewUtil.getDrawable(this, menu));
+
+            mTabLayout.addTab(tab);
+        }
+
+        //noinspection deprecation
+        mTabLayout.setOnTabSelectedListener(this);
     }
 
     @Override
@@ -46,27 +66,37 @@ public class MainActivity extends BaseSmartlinkActivity implements RadioGroup.On
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId)
+    public void onTabSelected(Tab tab)
     {
-        switch (checkedId)
+        switch (tab.getPosition())
         {
-            case R.id.navigation_item_main:
+            case POS_MAIN:
 
-                mNavigationComposite.showPrimaryFragment(new SmartlinkFragment(), R.string.navigation_item_main);
-
-                break;
-
-            case R.id.navigation_item_events:
-
-                mNavigationComposite.showPrimaryFragment(new EventsFragment(), R.string.navigation_item_events);
+                mNavigationComposite.showPrimaryFragment(new SmartlinkFragment(), R.string.menu_main);
 
                 break;
 
-            case R.id.navigation_item_settings:
+            case POS_EVENTS:
 
-                mNavigationComposite.showPrimaryFragment(new SettingsFragment(), R.string.navigation_item_settings);
+                mNavigationComposite.showPrimaryFragment(new EventsFragment(), R.string.menu_events);
+
+                break;
+
+            case POS_SETTINGS:
+
+                mNavigationComposite.showPrimaryFragment(new SettingsFragment(), R.string.menu_settings);
 
                 break;
         }
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab)
+    {
+    }
+
+    @Override
+    public void onTabReselected(Tab tab)
+    {
     }
 }

@@ -2,13 +2,21 @@
 
     <string name="app_name">Smartlink</string>
 
-    <!--navigation-->
-    <string name="navigation_item_main">Smartlink ELEC</string>
-    <string name="navigation_item_events">Events</string>
-    <string name="navigation_item_settings">Settings</string>
-
+    <!--请示失败-->
     <string name="request_data_error">数据请求失败了，请稍微再试</string>
 
+    <!--菜单-->
+    <string name="menu_main">Smartlink ELEC</string>
+    <string name="menu_events">Events</string>
+    <string name="menu_settings">Settings</string>
+
+    <array name="menus_icon">
+        <item>menu_smartlink</item>
+        <item>menu_events_grey</item>
+        <item>menu_settings_grey</item>
+    </array>
+
+    <!--设置-->
     <array name="settings">
         <item>MY ACCOUNT</item>
         <item>MY EQUIPMENTS</item>
