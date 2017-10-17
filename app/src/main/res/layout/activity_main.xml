@@ -7,6 +7,14 @@
     tools:context="com.android.smartlink.ui.activity.MainActivity"
     tools:ignore="SpUsage">
 
+    <!--main background-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_background" />
+
     <!--toolbar-->
     <FrameLayout
         android:id="@+id/toolbar"

@@ -3,6 +3,7 @@ package com.android.smartlink.assist;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 
 import com.android.smartlink.application.manager.EquipmentManager;
 import com.android.smartlink.bean.Equipments;
@@ -18,6 +19,8 @@ import java.io.InputStreamReader;
  */
 public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 {
+    private static final long MIN_DURATION = 1500;
+
     private AssetManager mAssetManager;
 
     private InitializeTaskCallback mTaskCallback;
@@ -32,6 +35,13 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
     @Override
     protected Boolean doInBackground(Void... voids)
     {
+        if (mAssetManager == null)
+        {
+            return false;
+        }
+
+        final long timeStamp = SystemClock.uptimeMillis();
+
         Gson gson = new Gson();
 
         try
@@ -40,9 +50,16 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
             EquipmentManager.getInstance().setEquipments(equipments);
 
+            long duration = SystemClock.uptimeMillis() - timeStamp;
+
+            if (duration >= 0 && duration < MIN_DURATION)
+            {
+                Thread.sleep(Math.abs(MIN_DURATION - duration));
+            }
+
             return true;
         }
-        catch (IOException e)
+        catch (IOException | InterruptedException e)
         {
             e.printStackTrace();
         }
@@ -53,9 +70,19 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
     @Override
     protected void onPostExecute(Boolean result)
     {
+        if (mTaskCallback != null)
+        {
+            mTaskCallback.onInitialized(result != null && result);
+        }
+    }
+
+    public void destroy()
+    {
+        mTaskCallback = null;
+
         mAssetManager = null;
 
-        mTaskCallback.onInitialized(result != null && result);
+        cancel(true);
     }
 
     public interface InitializeTaskCallback
