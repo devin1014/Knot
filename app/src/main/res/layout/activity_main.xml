@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="#ffffff"
-            android:textSize="14dp" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
     </FrameLayout>
 

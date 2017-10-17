@@ -23,6 +23,7 @@
         android:drawableRight="@drawable/ic_navigate_next"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
+        android:onClick="@{(view)->handler.onItemClick(view,data)}"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:text="@{data.name}"
