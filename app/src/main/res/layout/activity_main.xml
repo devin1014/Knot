@@ -19,7 +19,8 @@
     <FrameLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_toolbar_height">
+        android:layout_height="@dimen/app_toolbar_height"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/toolbar_title"

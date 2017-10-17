@@ -4,16 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.widget.LoadingLayout;
+import com.android.smartlink.ui.widget.adapter.EventsAdapter;
+import com.android.smartlink.util.ConvertUtil;
 
 import butterknife.BindView;
 
@@ -30,7 +36,12 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
 
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+
     private EventsRequestProvider mRequestProvider;
+
+    private EventsAdapter mEventsAdapter;
 
     @Nullable
     @Override
@@ -49,6 +60,10 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
     private void initComponent(View view)
     {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
+
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRequestProvider = new EventsRequestProvider(this);
@@ -72,6 +87,8 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mLoadingLayout.showContent();
 
         mSwipeRefreshLayout.setRefreshing(false);
+
+        mEventsAdapter.setData(ConvertUtil.convert(events.getEvents()));
     }
 
     @Override
@@ -91,4 +108,12 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         // hide loading and show blank loading view
         mLoadingLayout.showBlankView();
     }
+
+    private DataBindingHandler<UIEvent> mOnItemClickListener = new DataBindingHandler<UIEvent>()
+    {
+        @Override
+        public void onItemClick(View view, UIEvent uiEvent)
+        {
+        }
+    };
 }

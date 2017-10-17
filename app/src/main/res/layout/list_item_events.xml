@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UIEvent" />
+
+        <variable
+            name="handler"
+            type="com.android.devin.core.ui.widget.recyclerview.DataBindingHandler" />
+
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:onClick="@{(view)-> handler.onItemClick(view,data)}"
+        android:orientation="vertical"
+        tools:ignore="SpUsage">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{data.name}"
+            android:textColor="#626469"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{data.time}"
+            android:textColor="#9fa0a4"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+</layout>
