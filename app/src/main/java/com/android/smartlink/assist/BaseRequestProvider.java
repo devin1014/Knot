@@ -15,16 +15,28 @@ public abstract class BaseRequestProvider<T>
 {
     protected RequestCallback<T> mCallback;
 
+    private boolean mDestroy;
+
     public BaseRequestProvider(RequestCallback<T> callback)
     {
         mCallback = callback;
     }
 
-    public abstract void request(String url);
+    public void request(String url)
+    {
+        mDestroy = false;
+    }
 
     public void destroy()
     {
         mCallback = null;
+
+        mDestroy = true;
+    }
+
+    protected boolean isDestroy()
+    {
+        return mDestroy;
     }
 
     protected void notifyResponse(T t)

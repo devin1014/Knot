@@ -1,13 +1,13 @@
 package com.android.smartlink.util;
 
 import com.android.smartlink.bean.Events.Event;
+import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.ui.model.UIEvent;
+import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UISetting;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.list;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -16,7 +16,7 @@ import static android.R.id.list;
  */
 public class ConvertUtil
 {
-    public static List<UIEvent> convert(List<Event> list)
+    public static List<UIEvent> convertEvents(List<Event> list)
     {
         if (list == null || list.size() == 0)
         {
@@ -33,7 +33,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UISetting> convert(String[] list)
+    public static List<UISetting> convertSettings(String[] list)
     {
         if (list == null || list.length == 0)
         {
@@ -45,6 +45,23 @@ public class ConvertUtil
         for (String item : list)
         {
             result.add(new UISetting(item));
+        }
+
+        return result;
+    }
+
+    public static List<UIModule> convertModule(List<Module> list)
+    {
+        if (list == null || list.size() == 0)
+        {
+            return null;
+        }
+
+        List<UIModule> result = new ArrayList<>();
+
+        for (Module item : list)
+        {
+            result.add(new UIModule(item));
         }
 
         return result;

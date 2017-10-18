@@ -101,7 +101,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        mEventsAdapter.setData(ConvertUtil.convert(events.getEvents()));
+        mEventsAdapter.setData(ConvertUtil.convertEvents(events.getEvents()));
     }
 
     @Override

@@ -2,6 +2,31 @@
 
     <string name="app_name">Smartlink</string>
 
+    <string name="power_kwh">%s千瓦时</string>
+
+    <string-array name="month_array">
+        <item>一月</item>
+        <item>二月</item>
+        <item>三月</item>
+        <item>四月</item>
+        <item>五月</item>
+        <item>六月</item>
+        <item>七月</item>
+        <item>八月</item>
+        <item>九月</item>
+        <item>十月</item>
+        <item>十一月</item>
+        <item>十二月</item>
+    </string-array>
+
+    <string-array name="module_status_array">
+        <item>关闭</item>
+        <item>通电</item>
+        <item>打开</item>
+        <item>待机</item>
+        <item>超载</item>
+    </string-array>
+
     <!--请示失败-->
     <string name="request_data_error">数据请求失败了，请稍微再试</string>
 

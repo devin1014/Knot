@@ -3,32 +3,27 @@
         {
             "id": 1,
             "name": "Deep fryer",
-            "icon": "test"
+            "icon": "ic_group_electrical_meter"
         },
         {
             "id": 2,
             "name": "Freezer",
-            "icon": "test"
+            "icon": "ic_group_house_freezer"
         },
         {
             "id": 3,
-            "name": "Freezer",
-            "icon": "test"
+            "name": "Outdoor lighting",
+            "icon": "ic_group_lighting"
         },
         {
             "id": 4,
-            "name": "Outdoor lighting",
-            "icon": "test"
+            "name": "Oven",
+            "icon": "ic_group_oven"
         },
         {
             "id": 5,
-            "name": "Oven",
-            "icon": "test"
-        },
-        {
-            "id": 6,
             "name": "Restaurant room",
-            "icon": "test"
+            "icon": "ic_group_air_conditioner"
         }
     ]
 }
