@@ -20,22 +20,19 @@ public class Events
     {
         private int id;
 
-        private String date;
-
         private String description;
 
         private String startTime;
 
+        private long startTimeStamp;
+
         private String endTime;
+
+        private long endTimeStamp;
 
         public int getId()
         {
             return id;
-        }
-
-        public String getDate()
-        {
-            return date;
         }
 
         public String getDescription()
@@ -48,9 +45,19 @@ public class Events
             return startTime;
         }
 
+        public long getStartTimeStamp()
+        {
+            return startTimeStamp;
+        }
+
         public String getEndTime()
         {
             return endTime;
+        }
+
+        public long getEndTimeStamp()
+        {
+            return endTimeStamp;
         }
     }
 }

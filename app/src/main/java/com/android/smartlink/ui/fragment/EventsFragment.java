@@ -6,20 +6,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.AdapterDataObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import butterknife.BindView;
 
@@ -62,7 +62,20 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
+        mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), null));
+
+        final StickyRecyclerHeadersDecoration headersDecoration = new StickyRecyclerHeadersDecoration(mEventsAdapter);
+
+        mRecyclerView.addItemDecoration(headersDecoration);
+
+        mEventsAdapter.registerAdapterDataObserver(new AdapterDataObserver()
+        {
+            @Override
+            public void onChanged()
+            {
+                headersDecoration.invalidateHeaders();
+            }
+        });
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -108,12 +121,4 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         // hide loading and show blank loading view
         mLoadingLayout.showBlankView();
     }
-
-    private DataBindingHandler<UIEvent> mOnItemClickListener = new DataBindingHandler<UIEvent>()
-    {
-        @Override
-        public void onItemClick(View view, UIEvent uiEvent)
-        {
-        }
-    };
 }
