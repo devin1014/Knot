@@ -13,11 +13,11 @@ import com.android.smartlink.ui.model.UIModule;
  * Date: 2017-10-18
  * Time: 15:56
  */
-public class ModuleAdapter extends BaseAdapter<UIModule>
+public class HomeAdapter extends BaseAdapter<UIModule>
 {
     private DataBindingHandler<UIModule> mDataBindingHandler;
 
-    public ModuleAdapter(LayoutInflater layoutInflater, DataBindingHandler<UIModule> handler)
+    public HomeAdapter(LayoutInflater layoutInflater, DataBindingHandler<UIModule> handler)
     {
         super(layoutInflater);
 
@@ -27,6 +27,6 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
     @Override
     public DataBindingHolder<UIModule> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new DataBindingHolder<>(inflater, parent, R.layout.list_item_module, mDataBindingHandler);
+        return new DataBindingHolder<>(inflater, parent, R.layout.list_item_home, mDataBindingHandler);
     }
 }

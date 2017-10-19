@@ -8,7 +8,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="12dp"
+        android:layout_margin="@dimen/app_content_margin"
         android:fadeScrollbars="false"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dp"

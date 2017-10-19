@@ -21,7 +21,7 @@ import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
+import com.android.smartlink.ui.widget.adapter.HomeAdapter;
 import com.android.smartlink.util.ConvertUtil;
 
 import butterknife.BindView;
@@ -46,7 +46,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
     private WeatherRequestProvider mWeatherRequestProvider;
 
-    private ModuleAdapter mModuleAdapter;
+    private HomeAdapter mHomeAdapter;
 
     @Nullable
     @Override
@@ -71,7 +71,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.home_list_divider)));
 
-        mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
+        mRecyclerView.setAdapter(mHomeAdapter = new HomeAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
 
         mRequestProvider = new MainRequestProvider(this);
 
@@ -102,7 +102,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        mModuleAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
+        mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
     }
 
     @Override

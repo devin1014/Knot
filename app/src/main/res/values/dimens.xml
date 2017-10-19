@@ -4,4 +4,5 @@
     <dimen name="menu_height">48dp</dimen>
     <dimen name="settings_margin">9dp</dimen>
     <dimen name="home_list_divider">12dp</dimen>
+    <dimen name="app_content_margin">12dp</dimen>
 </resources>

@@ -4,6 +4,30 @@
 
     <string name="power_kwh">%s千瓦时</string>
 
+    <!--菜单-->
+    <string name="menu_main">智能配电箱</string>
+    <string name="menu_events">事件</string>
+    <string name="menu_settings">设置</string>
+
+    <array name="menus_icon">
+        <item>menu_smartlink</item>
+        <item>menu_events_grey</item>
+        <item>menu_settings_grey</item>
+    </array>
+
+    <!--设置-->
+    <array name="settings">
+        <item>我的账户</item>
+        <item>我的设备</item>
+        <item>给于反馈</item>
+        <item>条款及条件</item>
+        <item>关于</item>
+    </array>
+
+    <!--请示失败-->
+    <string name="request_data_error">数据请求失败了，请稍微再试</string>
+
+    <!--数组-->
     <string-array name="month_array">
         <item>一月</item>
         <item>二月</item>
@@ -26,28 +50,5 @@
         <item>待机</item>
         <item>超载</item>
     </string-array>
-
-    <!--请示失败-->
-    <string name="request_data_error">数据请求失败了，请稍微再试</string>
-
-    <!--菜单-->
-    <string name="menu_main">Smartlink ELEC</string>
-    <string name="menu_events">Events</string>
-    <string name="menu_settings">Settings</string>
-
-    <array name="menus_icon">
-        <item>menu_smartlink</item>
-        <item>menu_events_grey</item>
-        <item>menu_settings_grey</item>
-    </array>
-
-    <!--设置-->
-    <array name="settings">
-        <item>MY ACCOUNT</item>
-        <item>MY EQUIPMENTS</item>
-        <item>GIVE FEEDBACK</item>
-        <item>TERMS AND CONDITIONS</item>
-        <item>ABOUT</item>
-    </array>
 
 </resources>

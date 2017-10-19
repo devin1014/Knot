@@ -69,4 +69,9 @@ public class UIModule
     {
         return AppManager.getInstance().getModuleStatus(mModule.getStatus());
     }
+
+    public int getHealth()
+    {
+        return mModule.getHealth() != null ? mModule.getHealth().getStatus() : 0;
+    }
 }

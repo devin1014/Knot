@@ -20,6 +20,12 @@ public class BindingAdapterUtil
         }
     }
 
+    @BindingAdapter({"imageLevel"}) //Used for data binding. DO NOT change it
+    public static void setImageLevel(ImageView imageView, int level)
+    {
+        imageView.setImageLevel(level);
+    }
+
     @BindingAdapter({"backgroundRes"}) //Used for data binding. DO NOT change it
     public static void setBackgroundRes(View view, int color)
     {
