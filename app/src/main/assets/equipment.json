@@ -2,27 +2,27 @@
     "equipments": [
         {
             "id": 1,
-            "name": "Deep fryer",
+            "name": "总回路",
             "icon": "ic_group_electrical_meter"
         },
         {
             "id": 2,
-            "name": "Freezer",
+            "name": "冰箱回路",
             "icon": "ic_group_house_freezer"
         },
         {
             "id": 3,
-            "name": "Outdoor lighting",
+            "name": "门廊回路",
             "icon": "ic_group_lighting"
         },
         {
             "id": 4,
-            "name": "Oven",
+            "name": "插座回路",
             "icon": "ic_group_oven"
         },
         {
             "id": 5,
-            "name": "Restaurant room",
+            "name": "餐厅回路",
             "icon": "ic_group_air_conditioner"
         }
     ]

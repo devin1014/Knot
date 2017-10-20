@@ -59,6 +59,8 @@ public class ConvertUtil
 
         List<UIModule> result = new ArrayList<>();
 
+        result.add(new UIModule(new Module(), UIModule.TYPE_STATUS));
+
         for (Module item : list)
         {
             result.add(new UIModule(item));

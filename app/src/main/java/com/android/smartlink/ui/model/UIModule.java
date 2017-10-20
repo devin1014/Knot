@@ -15,17 +15,35 @@ import com.android.smartlink.bean.Modules.Module;
  */
 public class UIModule
 {
+    public static final int TYPE_NORMAL = 1;
+
+    public static final int TYPE_STATUS = 2;
+
+    private static final String EMPTY = "";
+
     private Module mModule;
 
     private final String POWER_KWH;
 
-    private static final String EMPTY = "";
+    private int mType;
 
     public UIModule(Module module)
     {
+        this(module, TYPE_NORMAL);
+    }
+
+    public UIModule(Module module, int type)
+    {
         mModule = module;
 
+        mType = type;
+
         POWER_KWH = EquipmentManager.getInstance().getApplication().getResources().getString(R.string.power_kwh);
+    }
+
+    public final Module getSource()
+    {
+        return mModule;
     }
 
     public int getImageRes()
@@ -72,6 +90,16 @@ public class UIModule
 
     public int getHealth()
     {
-        return mModule.getHealth() != null ? mModule.getHealth().getStatus() : 0;
+        return mModule.getStatus();
+    }
+
+    public int getType()
+    {
+        return mType;
+    }
+
+    public boolean isItem()
+    {
+        return mType == TYPE_NORMAL;
     }
 }

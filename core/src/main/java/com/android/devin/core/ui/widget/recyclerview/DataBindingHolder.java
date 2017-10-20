@@ -12,11 +12,11 @@ import android.view.ViewGroup;
  * Date: 2017-05-18
  * Time: 16:34
  */
-public class DataBindingHolder<T> extends ViewHolder
+public class DataBindingHolder<T> extends ViewHolder implements DataBindingHandler<T>
 {
-    protected final ViewDataBinding mViewDataBinding;
+    private final ViewDataBinding mViewDataBinding;
 
-    protected DataBindingHandler<T> mDataBindingHandler;
+    private DataBindingHandler<T> mDataBindingHandler;
 
     public DataBindingHolder(View itemView, DataBindingHandler<T> handler)
     {
@@ -38,13 +38,28 @@ public class DataBindingHolder<T> extends ViewHolder
 
         mViewDataBinding.setVariable(variableId[0], t);
 
-        mViewDataBinding.setVariable(variableId[1], mDataBindingHandler);
+        mViewDataBinding.setVariable(variableId[1], this);
 
         mViewDataBinding.executePendingBindings();
     }
 
-    @SuppressWarnings("unchecked")
-    protected <V extends View> V findViewById(int id)
+    @Override
+    public void onItemClick(View view, T t)
+    {
+        if (mDataBindingHandler != null)
+        {
+            mDataBindingHandler.onItemClick(view, t);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    protected final ViewDataBinding getViewDataBinding()
+    {
+        return mViewDataBinding;
+    }
+
+    @SuppressWarnings({"unchecked", "unused"})
+    protected final <V extends View> V findViewById(int id)
     {
         View view = itemView.findViewById(id);
 
@@ -55,4 +70,5 @@ public class DataBindingHolder<T> extends ViewHolder
 
         return null;
     }
+
 }

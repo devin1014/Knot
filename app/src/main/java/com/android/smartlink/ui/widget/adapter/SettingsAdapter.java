@@ -3,7 +3,6 @@ package com.android.smartlink.ui.widget.adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UISetting;
@@ -15,18 +14,14 @@ import com.android.smartlink.ui.model.UISetting;
  */
 public class SettingsAdapter extends BaseAdapter<UISetting>
 {
-    private DataBindingHandler<UISetting> mBindingHandler;
-
-    public SettingsAdapter(LayoutInflater layoutInflater, DataBindingHandler<UISetting> handler)
+    public SettingsAdapter(LayoutInflater layoutInflater, OnItemClickListener<UISetting> listener)
     {
-        super(layoutInflater);
-
-        mBindingHandler = handler;
+        super(layoutInflater, listener);
     }
 
     @Override
     public DataBindingHolder<UISetting> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new DataBindingHolder<>(inflater, parent, R.layout.list_item_settings, mBindingHandler);
+        return new DataBindingHolder<>(inflater, parent, R.layout.list_item_settings, this);
     }
 }

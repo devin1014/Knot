@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
+import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
+import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
@@ -57,10 +58,10 @@ public class SettingsFragment extends BaseSmartlinkFragment
         adapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings)));
     }
 
-    private DataBindingHandler<UISetting> mOnItemClickListener = new DataBindingHandler<UISetting>()
+    private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()
     {
         @Override
-        public void onItemClick(View view, UISetting uiSetting)
+        public void onItemClick(DataBindingAdapter<UISetting> adapter, View view, UISetting uiSetting, int position)
         {
             Toast.makeText(getActivity(), uiSetting.getName(), Toast.LENGTH_SHORT).show();
         }

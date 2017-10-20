@@ -7,17 +7,22 @@
         android:minLevel="0" />
 
     <item
-        android:drawable="@drawable/module_health_good"
+        android:drawable="@drawable/notify_status_ok"
         android:maxLevel="1"
         android:minLevel="1" />
 
     <item
-        android:drawable="@drawable/module_health_warning"
+        android:drawable="@drawable/notify_status_warn"
         android:maxLevel="2"
         android:minLevel="2" />
 
     <item
-        android:drawable="@drawable/module_health_error"
+        android:drawable="@drawable/notify_status_error"
+        android:maxLevel="3"
+        android:minLevel="3" />
+
+    <item
+        android:drawable="@drawable/notify_status_info"
         android:maxLevel="3"
         android:minLevel="3" />
 

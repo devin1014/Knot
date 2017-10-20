@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIEvent;
@@ -20,19 +19,15 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
  */
 public class EventsAdapter extends BaseAdapter<UIEvent> implements StickyRecyclerHeadersAdapter<HeaderHolder>
 {
-    private DataBindingHandler<UIEvent> mDataBindingHandler;
-
-    public EventsAdapter(LayoutInflater layoutInflater, DataBindingHandler<UIEvent> handler)
+    public EventsAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIEvent> listener)
     {
-        super(layoutInflater);
-
-        mDataBindingHandler = handler;
+        super(layoutInflater, listener);
     }
 
     @Override
     public DataBindingHolder<UIEvent> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new DataBindingHolder<>(inflater.inflate(R.layout.list_item_events, parent, false), mDataBindingHandler);
+        return new DataBindingHolder<>(inflater.inflate(R.layout.list_item_events, parent, false), this);
     }
 
     @Override

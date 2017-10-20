@@ -12,7 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
+import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
+import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
@@ -73,7 +74,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.home_list_divider)));
 
-        mRecyclerView.setAdapter(mHomeAdapter = new HomeAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
+        mRecyclerView.setAdapter(mHomeAdapter = new HomeAdapter(getActivity().getLayoutInflater(), mOnHeaderClickListener));
 
         mRequestProvider = new MainRequestProvider(this);
 
@@ -138,13 +139,16 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         }
     };
 
-    private DataBindingHandler<UIModule> mOnItemClickListener = new DataBindingHandler<UIModule>()
+    private OnItemClickListener<UIModule> mOnHeaderClickListener = new OnItemClickListener<UIModule>()
     {
         @Override
-        public void onItemClick(View view, UIModule uiModule)
+        public void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
         {
-            //// TODO: 2017/10/19
-            startActivity(new Intent(getActivity(), DetailActivity.class));
+            if (position > 0)
+            {
+                startActivity(new Intent(getActivity(), DetailActivity.class));
+            }
         }
     };
+
 }

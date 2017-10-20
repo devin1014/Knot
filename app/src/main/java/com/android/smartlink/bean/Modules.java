@@ -24,8 +24,6 @@ public class Modules
 
         private int status;
 
-        private Health health;
-
         private String temperature;
 
         public int getId()
@@ -41,11 +39,6 @@ public class Modules
         public int getStatus()
         {
             return status;
-        }
-
-        public Health getHealth()
-        {
-            return health;
         }
 
         public String getTemperature()

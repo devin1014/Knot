@@ -30,7 +30,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="62dp"
-            android:background="#eaeaea"
+            android:background="#e7e9e8"
             android:paddingLeft="14dp"
             android:paddingRight="14dp">
 
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_gravity="bottom"
-            android:background="#cdcdcd"
+            android:background="#c8cac9"
             android:paddingLeft="14dp"
             android:paddingRight="14dp">
 
@@ -112,7 +112,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@null"
-                android:src="@drawable/module_health_status"
+                android:src="@drawable/module_status"
                 app:imageLevel="@{data.health}" />
 
         </RelativeLayout>

@@ -10,11 +10,11 @@ import com.android.smartlink.BR;
  * Date: 2017-10-17
  * Time: 16:24
  */
-abstract class BaseAdapter<T> extends DataBindingAdapter<T>
+public abstract class BaseAdapter<T> extends DataBindingAdapter<T>
 {
-    BaseAdapter(LayoutInflater layoutInflater)
+    BaseAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
     {
-        super(layoutInflater);
+        super(layoutInflater, listener);
     }
 
     @Override
