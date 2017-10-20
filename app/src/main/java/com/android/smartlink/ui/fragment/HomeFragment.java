@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,7 @@ import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherRequestProvider;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -141,6 +143,8 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         @Override
         public void onItemClick(View view, UIModule uiModule)
         {
+            //// TODO: 2017/10/19
+            startActivity(new Intent(getActivity(), DetailActivity.class));
         }
     };
 }
