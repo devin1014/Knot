@@ -4,6 +4,7 @@ import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +39,15 @@ public class DataBindingAdapterUtil
         if (drawableResId > 0)
         {
             imageView.setImageResource(drawableResId);
+        }
+    }
+
+    @BindingAdapter({"imageRes"}) //Used for data binding. DO NOT change it
+    public static void setImageRes(ImageView imageView, String drawableResName)
+    {
+        if (!TextUtils.isEmpty(drawableResName))
+        {
+            imageView.setImageResource(ViewUtil.getDrawable(imageView.getContext(), drawableResName));
         }
     }
 

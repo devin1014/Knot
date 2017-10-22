@@ -55,7 +55,9 @@ public class SettingsFragment extends BaseSmartlinkFragment
 
         mRecyclerView.setAdapter(adapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
 
-        adapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings)));
+        adapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings),
+
+                getResources().getStringArray(R.array.settings_image)));
     }
 
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()

@@ -24,6 +24,14 @@
         <item>关于</item>
     </array>
 
+    <array name="settings_image">
+        <item>settings_about</item>
+        <item>settings_myequipment</item>
+        <item>settings_feedback</item>
+        <item>settings_terms</item>
+        <item>settings_about</item>
+    </array>
+
     <!--请示失败-->
     <string name="request_data_error">数据请求失败了，请稍微再试</string>
 

@@ -32,7 +32,7 @@
             android:layout_marginStart="14dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/module_point_status"
+            android:src="@drawable/module_status_s"
             app:imageLevel="@{data.health}" />
 
         <TextView

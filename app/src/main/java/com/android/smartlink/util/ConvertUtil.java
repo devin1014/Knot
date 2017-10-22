@@ -33,18 +33,23 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UISetting> convertSettings(String[] list)
+    public static List<UISetting> convertSettings(String[] list, String[] res)
     {
-        if (list == null || list.length == 0)
+        if (list == null || list.length == 0 || res == null || res.length == 0)
+        {
+            return null;
+        }
+
+        if (list.length != res.length)
         {
             return null;
         }
 
         List<UISetting> result = new ArrayList<>();
 
-        for (String item : list)
+        for (int i = 0; i < list.length; i++)
         {
-            result.add(new UISetting(item));
+            result.add(new UISetting(list[i], res[i]));
         }
 
         return result;

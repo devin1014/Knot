@@ -1,5 +1,7 @@
 package com.android.smartlink.ui.model;
 
+import android.provider.ContactsContract.CommonDataKinds.Im;
+
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-17
@@ -9,13 +11,22 @@ public class UISetting
 {
     private String mName;
 
-    public UISetting(String name)
+    private String mImage;
+
+    public UISetting(String name, String image)
     {
         mName = name;
+
+        mImage = image;
     }
 
     public String getName()
     {
         return mName;
+    }
+
+    public String getImage()
+    {
+        return mImage;
     }
 }
