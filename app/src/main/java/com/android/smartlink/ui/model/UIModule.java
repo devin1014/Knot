@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.application.manager.EquipmentManager;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 
@@ -27,6 +26,8 @@ public class UIModule
 
     private int mType;
 
+    private boolean mEditMode = false;
+
     public UIModule(Module module)
     {
         this(module, TYPE_NORMAL);
@@ -38,7 +39,7 @@ public class UIModule
 
         mType = type;
 
-        POWER_KWH = EquipmentManager.getInstance().getApplication().getResources().getString(R.string.power_kwh);
+        POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.power_kwh);
     }
 
     public final Module getSource()
@@ -48,19 +49,21 @@ public class UIModule
 
     public int getImageRes()
     {
-        return EquipmentManager.getInstance().getEquipmentImageRes(mModule.getId());
+        return AppManager.getInstance().getEquipmentImageRes(mModule.getId());
     }
 
     public String getName()
     {
-        Equipment equipment = EquipmentManager.getInstance().getEquipment(mModule.getId());
+        String equipmentName = AppManager.getInstance().getEquipmentName(String.valueOf(mModule.getId()), null);
 
-        if (equipment != null)
+        if (TextUtils.isEmpty(equipmentName))
         {
-            return equipment.getName();
+            Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
+
+            return equipment != null ? equipment.getName() : null;
         }
 
-        return null;
+        return equipmentName;
     }
 
     public String getNameAndStatus()
@@ -106,5 +109,15 @@ public class UIModule
     public boolean isItem()
     {
         return mType == TYPE_NORMAL;
+    }
+
+    public boolean isEditMode()
+    {
+        return mEditMode;
+    }
+
+    public void setEditMode(boolean editMode)
+    {
+        mEditMode = editMode;
     }
 }

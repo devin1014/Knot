@@ -4,6 +4,7 @@
 
     <string name="power_kwh">%s千瓦时</string>
     <string name="events">事件</string>
+    <string name="settings_signout">登出</string>
 
     <!--菜单-->
     <string name="menu_main">智能配电箱</string>
@@ -26,8 +27,8 @@
     </array>
 
     <array name="settings_image">
-        <item>settings_about</item>
-        <item>settings_myequipment</item>
+        <item>settings_account</item>
+        <item>settings_my_equipment</item>
         <item>settings_feedback</item>
         <item>settings_terms</item>
         <item>settings_about</item>

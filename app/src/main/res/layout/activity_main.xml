@@ -30,11 +30,12 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ImageView
-                android:id="@+id/toolbar_nav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_nav_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:contentDescription="@null"
-                android:scaleType="centerInside" />
+                android:scaleType="centerInside"
+                android:src="@drawable/nav_back_selector" />
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -47,16 +48,15 @@
                 tools:ignore="SpUsage" />
 
             <ImageView
-                android:id="@+id/toolbar_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_nav_edit"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
-                android:src="@drawable/nav_filter_selector"
-                android:visibility="gone" />
+                android:src="@drawable/nav_edit_level" />
 
         </android.support.v7.widget.Toolbar>
 

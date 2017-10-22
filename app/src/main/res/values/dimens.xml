@@ -6,4 +6,7 @@
     <dimen name="home_list_divider">12dp</dimen>
     <dimen name="events_list_divider">18dp</dimen>
     <dimen name="app_content_margin">12dp</dimen>
+
+    <dimen name="content_bg_corner">5dp</dimen>
+
 </resources>

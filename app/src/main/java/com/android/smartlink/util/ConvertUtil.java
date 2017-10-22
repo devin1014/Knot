@@ -55,7 +55,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIModule> convertModule(List<Module> list)
+    public static List<UIModule> convertModule(List<Module> list, boolean addStatus)
     {
         if (list == null || list.size() == 0)
         {
@@ -64,7 +64,10 @@ public class ConvertUtil
 
         List<UIModule> result = new ArrayList<>();
 
-        result.add(new UIModule(new Module(), UIModule.TYPE_STATUS));
+        if (addStatus)
+        {
+            result.add(new UIModule(new Module(), UIModule.TYPE_STATUS));
+        }
 
         for (Module item : list)
         {

@@ -1,6 +1,5 @@
 package com.android.smartlink.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,12 +14,12 @@ import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherRequestProvider;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
-import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -109,7 +108,9 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
+        mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules(), true));
+
+        AppManager.getInstance().setModules(modules.getModules());
     }
 
     @Override
@@ -134,7 +135,9 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
             if (modules != null)
             {
-                mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
+                mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules(), true));
+
+                AppManager.getInstance().setModules(modules.getModules());
 
                 mLoadingLayout.showContent();
 
@@ -173,7 +176,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         {
             if (position > 0)
             {
-                startActivity(new Intent(getActivity(), DetailActivity.class));
+                //startActivity(new Intent(getActivity(), DetailActivity.class));
             }
         }
     };

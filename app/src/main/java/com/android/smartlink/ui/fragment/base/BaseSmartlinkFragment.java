@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.fragment.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,27 @@ import butterknife.Unbinder;
 public class BaseSmartlinkFragment extends Fragment
 {
     private Unbinder mButterKnife;
+
+    private OnFragmentCallback mCallback;
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+
+        if (context instanceof OnFragmentCallback)
+        {
+            mCallback = (OnFragmentCallback) context;
+        }
+    }
+
+    @Override
+    public void onDetach()
+    {
+        mCallback = null;
+
+        super.onDetach();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
@@ -36,5 +58,22 @@ public class BaseSmartlinkFragment extends Fragment
     public boolean onBackPressed()
     {
         return false;
+    }
+
+    public void onEditClick(boolean selected)
+    {
+    }
+
+    protected void showDetailFragment(Fragment fragment, String title, int mode)
+    {
+        if (mCallback != null)
+        {
+            mCallback.showDetailFragment(fragment, title, mode);
+        }
+    }
+
+    public interface OnFragmentCallback
+    {
+        void showDetailFragment(Fragment fragment, String title, int mode);
     }
 }

@@ -3,11 +3,18 @@ package com.android.smartlink.ui.activity.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.android.smartlink.Constants;
+import com.android.smartlink.R;
 import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
+import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -17,11 +24,17 @@ import butterknife.Unbinder;
  */
 public abstract class BaseSmartlinkActivity extends AppCompatActivity implements FragmentNavigationCompositeCallback
 {
-    protected abstract int getLayoutId();
+    @BindView(R.id.toolbar_nav_back)
+    ImageView mNavigationIcon;
+
+    @BindView(R.id.toolbar_nav_edit)
+    ImageView mEditIcon;
 
     private Unbinder mButterKnife;
 
     protected FragmentNavigationComposite mNavigationComposite;
+
+    protected abstract int getLayoutId();
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState)
@@ -71,6 +84,41 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
     @Override
     public void onFragmentsChanged()
     {
+        mNavigationIcon.setVisibility(mNavigationComposite.isPrimaryMode() ? View.GONE : View.VISIBLE);
+
+        if (mNavigationComposite.isPrimaryMode())
+        {
+            setEditMode(Constants.MODE_NORMAL);
+        }
     }
 
+    @OnClick(R.id.toolbar_nav_back)
+    public void onNavBackClick()
+    {
+        onBackPressed();
+    }
+
+    @OnClick(R.id.toolbar_nav_edit)
+    public void onNavEditClick()
+    {
+        mEditIcon.setSelected(!mEditIcon.isSelected());
+
+        ((BaseSmartlinkFragment) mNavigationComposite.getCurrentFragment()).onEditClick(mEditIcon.isSelected());
+    }
+
+    protected void setEditMode(int mode)
+    {
+        mEditIcon.setImageLevel(mode);
+
+        if (mode == Constants.MODE_NORMAL)
+        {
+            mEditIcon.setSelected(false);
+
+            mEditIcon.setVisibility(View.GONE);
+        }
+        else
+        {
+            mEditIcon.setVisibility(View.VISIBLE);
+        }
+    }
 }

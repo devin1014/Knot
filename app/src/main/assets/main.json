@@ -1,17 +1,19 @@
 {
-	"modules": [{
-		"id": 1,
-		"power": 452,
-		"status": 1
-	},
-	{
-		"id": 4,
-		"power": 107,
-		"status": 1
-	},
-	{
-		"id": 2,
-		"power": 345,
-		"status": 3
-	}]
+  "modules": [
+    {
+      "id": 1,
+      "power": 34,
+      "status": 1
+    },
+    {
+      "id": 2,
+      "power": 23,
+      "status": 3
+    },
+    {
+      "id": 4,
+      "power": 11,
+      "status": 2
+    }
+  ]
 }

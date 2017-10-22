@@ -5,11 +5,10 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 
-import com.android.smartlink.application.manager.EquipmentManager;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -48,7 +47,7 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
         {
             Equipments equipments = gson.fromJson(new InputStreamReader(mAssetManager.open("equipment.json")), Equipments.class);
 
-            EquipmentManager.getInstance().setEquipments(equipments);
+            AppManager.getInstance().setEquipments(equipments);
 
             long duration = SystemClock.uptimeMillis() - timeStamp;
 
@@ -59,7 +58,7 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
             return true;
         }
-        catch (IOException | InterruptedException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }

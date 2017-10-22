@@ -3,7 +3,6 @@ package com.android.smartlink.application;
 import android.app.Application;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.application.manager.EquipmentManager;
 import com.android.smartlink.util.LogUtil;
 import com.android.smartlink.util.TestUtil;
 import com.lzy.okgo.OkGo;
@@ -25,8 +24,6 @@ public class SmartlinkApplication extends Application
         LogUtil.init(this);
 
         OkGo.getInstance().init(this);
-
-        EquipmentManager.initialize(this);
 
         AppManager.initialize(this);
 

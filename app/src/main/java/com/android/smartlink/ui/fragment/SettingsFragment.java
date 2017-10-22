@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
@@ -19,6 +19,7 @@ import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -42,10 +43,10 @@ public class SettingsFragment extends BaseSmartlinkFragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        initComponent(view);
+        initComponent();
     }
 
-    private void initComponent(View view)
+    private void initComponent()
     {
         SettingsAdapter adapter;
 
@@ -63,9 +64,22 @@ public class SettingsFragment extends BaseSmartlinkFragment
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<UISetting> adapter, View view, UISetting uiSetting, int position)
+        public void onItemClick(DataBindingAdapter<UISetting> adapter, View view, UISetting setting, int position)
         {
-            Toast.makeText(getActivity(), uiSetting.getName(), Toast.LENGTH_SHORT).show();
+            switch (position)
+            {
+                case Constants.POS_SETTINGS_MY_EQUIPMENT:
+
+                    showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
+
+                    break;
+            }
         }
     };
+
+    @OnClick(R.id.settings_signout)
+    public void signOut()
+    {
+        //// TODO: 2017/10/22
+    }
 }
