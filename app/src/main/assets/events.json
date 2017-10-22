@@ -1,0 +1,34 @@
+{
+	"events":[
+		{
+			"id":6,
+			"startTime":"2017-10-18'T'10:37:00",
+			"startTimeStamp":1508294266275,
+			"endTime":"2017-10-18'T'11:39:46",
+			"endTimeStamp":1508294386577,
+			"description":"Your Restaurant room temperature was above 26c and is back to normal(1 hours 37min)"
+		},
+		{
+			"id":3,
+			"startTime":"2017-10-17'T'10:44:03",
+			"startTimeStamp":1508208243510,
+			"endTime":"2017-10-17'T'10:45:11",
+			"endTimeStamp":1508208311655,
+			"description":"Freezer has met an electrical fault.A maintenance operation has cleared the fault,Power supply loss has lasted 37 min."
+		},
+		{
+			"startTime":"2017-10-16'T'10:46:05",
+			"startTimeStamp":1508121965229,
+			"endTime":"2017-10-16'T'10:47:26",
+			"endTimeStamp":1508122046488,
+			"description":"Electrical problem of your Oven has been solved."
+		},
+		{
+			"startTime":"2017-10-16'T'10:48:32",
+			"startTimeStamp":1508122112055,
+			"endTime":"2017-10-16'T'10:48:58",
+			"endTimeStamp":1508122138001,
+			"description":"Congratulations for the creation of your Smartlink ELEC account"
+		}
+	]
+}

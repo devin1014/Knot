@@ -30,7 +30,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="62dp"
-            android:background="#e7e9e8"
+            android:background="#99ffffff"
             android:paddingLeft="14dp"
             android:paddingRight="14dp">
 
@@ -46,7 +46,7 @@
                 android:layout_height="36dp"
                 android:layout_centerVertical="true"
                 android:contentDescription="@null"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 app:imageRes="@{data.imageRes}" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_toEndOf="@id/image"
                 android:layout_toRightOf="@id/image"
                 android:text="@{data.name}"
-                android:textColor="#4d555b"
+                android:textColor="#585d5b"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -70,8 +70,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:text="@{data.power}"
-                android:textColor="#4d555b"
-                android:textSize="14dp" />
+                android:textColor="#585d5b"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/month"
@@ -81,8 +81,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/anchor_center_vertical"
                 android:text="@{data.month}"
-                android:textColor="#6d757b"
-                android:textSize="14dp"
+                android:textColor="#585d5b"
+                android:textSize="12dp"
                 android:visibility="@{data.consumePower() ? View.VISIBLE : View.GONE}" />
 
         </RelativeLayout>
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_gravity="bottom"
-            android:background="#c8cac9"
+            android:background="#a6ffffff"
             android:paddingLeft="14dp"
             android:paddingRight="14dp">
 
@@ -101,17 +101,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@{data.status}"
-                android:textColor="#6d757b"
-                android:textSize="16dp"
+                android:textSize="14dp"
+                app:textStatusColor="@{data.health}"
                 tools:ignore="RelativeOverlap" />
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@null"
+                android:scaleType="centerInside"
                 android:src="@drawable/module_status"
                 app:imageLevel="@{data.health}" />
 

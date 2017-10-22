@@ -8,4 +8,10 @@ package com.android.smartlink;
 public class Constants
 {
     public static final boolean DEBUG = true;
+
+    public static final int STATUS_GOOD = 1;
+
+    public static final int STATUS_WARNING = 2;
+
+    public static final int STATUS_ERROR = 3;
 }

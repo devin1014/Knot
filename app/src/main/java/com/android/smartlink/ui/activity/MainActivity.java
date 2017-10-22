@@ -44,19 +44,22 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
     private void initComponent()
     {
+        //init menus
+        //noinspection deprecation
+        mTabLayout.setOnTabSelectedListener(this);
+
         String[] menus = getResources().getStringArray(R.array.menus_icon);
 
-        for (String menu : menus)
+        for (int i = 0; i < menus.length; i++)
         {
+            String menu = menus[i];
+
             Tab tab = mTabLayout.newTab();
 
             tab.setIcon(ViewUtil.getDrawable(this, menu));
 
-            mTabLayout.addTab(tab);
+            mTabLayout.addTab(tab, i == 0);
         }
-
-        //noinspection deprecation
-        mTabLayout.setOnTabSelectedListener(this);
     }
 
     @Override

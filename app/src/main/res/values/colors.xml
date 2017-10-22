@@ -5,8 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="white">#ffffff</color>
-    <color name="module_health_good">#00ff00</color>
-    <color name="module_health_warn">#ffeb3b</color>
-    <color name="module_health_error">#ff0000</color>
+    <color name="module_status_good">#009c42</color>
+    <color name="module_status_warn">#ffb528</color>
+    <color name="module_status_error">#ff2626</color>
 
 </resources>

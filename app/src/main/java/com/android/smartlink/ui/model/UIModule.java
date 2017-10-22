@@ -63,6 +63,11 @@ public class UIModule
         return null;
     }
 
+    public String getNameAndStatus()
+    {
+        return getName() + getStatus();
+    }
+
     public boolean consumePower()
     {
         return !TextUtils.isEmpty(mModule.getPower());

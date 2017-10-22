@@ -10,9 +10,11 @@ import android.widget.TextView;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
+import com.android.smartlink.BR;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.util.DataBindingAdapterUtil;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -85,11 +87,7 @@ public class HomeAdapter extends BaseAdapter<UIModule>
                     {
                         View inflaterView = inflater.inflate(R.layout.comp_home_status_detail, statusGroup, false);
 
-                        TextView title = (TextView) inflaterView.findViewById(R.id.title);
-
-                        title.setText(module.getName() + AppManager.getInstance().getModuleStatus(module.getSource().getStatus()));
-
-                        statusGroup.addView(inflaterView);
+                        statusGroup.addView(DataBindingAdapterUtil.binding(inflaterView, BR.data, module));
                     }
                 }
             }

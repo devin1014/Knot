@@ -26,6 +26,10 @@ import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.HomeAdapter;
 import com.android.smartlink.util.ConvertUtil;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import butterknife.BindView;
 
@@ -114,6 +118,29 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
 
         mSwipeRefreshLayout.setRefreshing(false);
+
+        //FIXME,can not get feed from server ,read local file
+        {
+            Modules modules = null;
+
+            try
+            {
+                modules = new Gson().fromJson(new InputStreamReader(getActivity().getAssets().open("main.json")), Modules.class);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            if (modules != null)
+            {
+                mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
+
+                mLoadingLayout.showContent();
+
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }
     }
 
     @Override
