@@ -6,11 +6,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.AdapterDataObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
@@ -19,7 +19,10 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import butterknife.BindView;
 
@@ -62,20 +65,22 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.events_list_divider)));
+
         mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), null));
 
-        final StickyRecyclerHeadersDecoration headersDecoration = new StickyRecyclerHeadersDecoration(mEventsAdapter);
-
-        mRecyclerView.addItemDecoration(headersDecoration);
-
-        mEventsAdapter.registerAdapterDataObserver(new AdapterDataObserver()
-        {
-            @Override
-            public void onChanged()
-            {
-                headersDecoration.invalidateHeaders();
-            }
-        });
+        //        final StickyRecyclerHeadersDecoration headersDecoration = new StickyRecyclerHeadersDecoration(mEventsAdapter);
+        //
+        //        mRecyclerView.addItemDecoration(headersDecoration);
+        //
+        //        mEventsAdapter.registerAdapterDataObserver(new AdapterDataObserver()
+        //        {
+        //            @Override
+        //            public void onChanged()
+        //            {
+        //                headersDecoration.invalidateHeaders();
+        //            }
+        //        });
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -110,6 +115,29 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
 
         mSwipeRefreshLayout.setRefreshing(false);
+
+        //FIXME,can not get feed from server ,read local file
+        {
+            Events events = null;
+
+            try
+            {
+                events = new Gson().fromJson(new InputStreamReader(getActivity().getAssets().open("events.json")), Events.class);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            if (events != null)
+            {
+                mEventsAdapter.setData(ConvertUtil.convertEvents(events.getEvents()));
+
+                mLoadingLayout.showContent();
+
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }
     }
 
     @Override

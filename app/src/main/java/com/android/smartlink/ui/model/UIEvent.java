@@ -57,7 +57,7 @@ public class UIEvent
 
     private void parseDate(long startTime, long endTime)
     {
-        SimpleDateFormat format = new SimpleDateFormat("MMM dd", Locale.getDefault()); // default locale
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日", Locale.US); // default locale
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 
@@ -76,8 +76,6 @@ public class UIEvent
         calendar.setTimeInMillis(endTime);
 
         mEndTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
-
-
     }
 
     public String getName()
@@ -87,7 +85,7 @@ public class UIEvent
 
     public String getTime()
     {
-        return getWeek() + " " + mStartTime + " and " + mEndTime;
+        return getDate() + " " + mStartTime + " - " + mEndTime;
     }
 
     public int getDay()
@@ -103,5 +101,10 @@ public class UIEvent
     public String getDate()
     {
         return mDate;
+    }
+
+    public int getStatus()
+    {
+        return mSource.getStatus();
     }
 }

@@ -3,6 +3,7 @@
     <string name="app_name">Smartlink</string>
 
     <string name="power_kwh">%s千瓦时</string>
+    <string name="events">事件</string>
 
     <!--菜单-->
     <string name="menu_main">智能配电箱</string>

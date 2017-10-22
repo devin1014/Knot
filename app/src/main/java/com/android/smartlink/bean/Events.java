@@ -20,6 +20,8 @@ public class Events
     {
         private int id;
 
+        private int status;
+
         private String description;
 
         private String startTime;
@@ -33,6 +35,11 @@ public class Events
         public int getId()
         {
             return id;
+        }
+
+        public int getStatus()
+        {
+            return status;
         }
 
         public String getDescription()
