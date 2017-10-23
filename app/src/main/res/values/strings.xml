@@ -14,7 +14,7 @@
 
     <!--菜单-->
     <string name="menu_main">智能配电箱</string>
-    <string name="menu_events">事件</string>
+    <string name="menu_events">事件记录</string>
     <string name="menu_settings">设置</string>
 
     <array name="menus_icon">

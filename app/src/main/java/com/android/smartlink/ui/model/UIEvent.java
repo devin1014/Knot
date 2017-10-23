@@ -26,8 +26,6 @@ public class UIEvent
 
     private int mWeek;
 
-    private int mDay;
-
     public UIEvent(Event event)
     {
         mSource = event;
@@ -65,8 +63,6 @@ public class UIEvent
 
         calendar.setTimeInMillis(startTime);
 
-        mDay = calendar.get(Calendar.DAY_OF_YEAR);
-
         mStartTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
 
         mWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -78,6 +74,11 @@ public class UIEvent
         mEndTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }
 
+    public int getId()
+    {
+        return mSource.getId();
+    }
+
     public String getName()
     {
         return mSource.getDescription();
@@ -86,11 +87,6 @@ public class UIEvent
     public String getTime()
     {
         return getDate() + " " + mStartTime + " - " + mEndTime;
-    }
-
-    public int getDay()
-    {
-        return mDay;
     }
 
     public int getWeek()

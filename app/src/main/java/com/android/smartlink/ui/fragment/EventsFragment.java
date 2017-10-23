@@ -12,14 +12,20 @@ import android.view.ViewGroup;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.UIFilter;
+import com.android.smartlink.ui.widget.FilterPopupWindow;
+import com.android.smartlink.ui.widget.FilterPopupWindow.OnCheckChangedListener;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -28,7 +34,7 @@ import butterknife.BindView;
  * Date: 2017-10-16
  * Time: 18:00
  */
-public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnRefreshListener
+public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnRefreshListener, OnCheckChangedListener
 {
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -39,9 +45,16 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.events_filter_anchor)
+    View mFilterAnchorView;
+
     private EventsRequestProvider mRequestProvider;
 
     private EventsAdapter mEventsAdapter;
+
+    private FilterPopupWindow mFilterPopupWindow;
+
+    private List<UIFilter> mFilters;
 
     @Nullable
     @Override
@@ -55,29 +68,16 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         super.onViewCreated(view, savedInstanceState);
 
-        initComponent(view);
+        initComponent();
     }
 
-    private void initComponent(View view)
+    private void initComponent()
     {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.events_list_divider)));
 
         mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), null));
-
-        //        final StickyRecyclerHeadersDecoration headersDecoration = new StickyRecyclerHeadersDecoration(mEventsAdapter);
-        //
-        //        mRecyclerView.addItemDecoration(headersDecoration);
-        //
-        //        mEventsAdapter.registerAdapterDataObserver(new AdapterDataObserver()
-        //        {
-        //            @Override
-        //            public void onChanged()
-        //            {
-        //                headersDecoration.invalidateHeaders();
-        //            }
-        //        });
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -86,6 +86,10 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider.request("http://localhost:8080/examples/smartlink/events.json");
 
         mLoadingLayout.showLoading();
+
+        mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getModules());
+
+        mEventsAdapter.setFilter(mFilters);
     }
 
     @Override
@@ -136,5 +140,34 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         // hide loading and show blank loading view
         mLoadingLayout.showBlankView();
+    }
+
+    @Override
+    public void onEditClick(boolean selected)
+    {
+        if (mFilterPopupWindow == null)
+        {
+            mFilterPopupWindow = new FilterPopupWindow(getActivity(), this);
+        }
+
+        mFilterPopupWindow.setFilterList(mFilters);
+
+        mFilterPopupWindow.showAsDropDown(mFilterAnchorView);
+    }
+
+    @Override
+    public void onItemCheckChanged(UIFilter module, boolean checked)
+    {
+        for (UIFilter filter : mFilters)
+        {
+            if (filter.getId() == module.getId())
+            {
+                filter.setChecked(checked);
+
+                break;
+            }
+        }
+
+        mEventsAdapter.setFilter(mFilters);
     }
 }

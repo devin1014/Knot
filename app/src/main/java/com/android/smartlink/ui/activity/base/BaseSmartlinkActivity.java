@@ -10,6 +10,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
+import com.android.smartlink.ui.fragment.EventsFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 
 import butterknife.BindView;
@@ -88,7 +89,7 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
 
         if (mNavigationComposite.isPrimaryMode())
         {
-            setEditMode(Constants.MODE_NORMAL);
+            setEditMode((mNavigationComposite.getCurrentFragment() instanceof EventsFragment) ? Constants.MODE_FILTER : Constants.MODE_NORMAL);
         }
     }
 

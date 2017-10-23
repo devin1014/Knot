@@ -3,6 +3,7 @@ package com.android.smartlink.util;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.ui.model.UIEvent;
+import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UISetting;
 
@@ -72,6 +73,23 @@ public class ConvertUtil
         for (Module item : list)
         {
             result.add(new UIModule(item));
+        }
+
+        return result;
+    }
+
+    public static List<UIFilter> convertFilters(List<Module> list)
+    {
+        if (list == null || list.size() == 0)
+        {
+            return null;
+        }
+
+        List<UIFilter> result = new ArrayList<>();
+
+        for (Module item : list)
+        {
+            result.add(new UIFilter(item));
         }
 
         return result;

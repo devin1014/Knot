@@ -22,6 +22,12 @@
             android:paddingRight="@dimen/app_content_margin"
             android:paddingTop="@dimen/app_content_margin">
 
+            <View
+                android:id="@+id/events_filter_anchor"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="-12dp" />
+
             <ImageView
                 android:id="@+id/events_icon"
                 android:layout_width="32dp"

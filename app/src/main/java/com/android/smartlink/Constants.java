@@ -9,6 +9,8 @@ public class Constants
 {
     public static final boolean DEBUG = true;
 
+    public static final int ID_ALL = 0;
+
     public static final int STATUS_GOOD = 1;
 
     public static final int STATUS_WARNING = 2;
