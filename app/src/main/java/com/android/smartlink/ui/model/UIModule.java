@@ -2,18 +2,23 @@ package com.android.smartlink.ui.model;
 
 import android.text.TextUtils;
 
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
+
+import java.io.Serializable;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class UIModule
+public class UIModule implements Serializable
 {
+    private static final long serialVersionUID = 179763754284831614L;
+
     public static final int TYPE_NORMAL = 1;
 
     public static final int TYPE_STATUS = 2;
@@ -99,6 +104,26 @@ public class UIModule
     public int getHealth()
     {
         return mModule.getStatus();
+    }
+
+    public int getPowerLoadStatus()
+    {
+        if (mModule.getPowerLoad() >= 85)
+        {
+            return Constants.STATUS_WARNING;
+        }
+
+        return Constants.STATUS_GOOD;
+    }
+
+    public String getPowerLoadDescription()
+    {
+        if (mModule.getPowerLoad() >= 85)
+        {
+            return AppManager.getInstance().getString(R.string.power_load_status_alert);
+        }
+
+        return AppManager.getInstance().getString(R.string.power_load_status_ok);
     }
 
     public int getType()

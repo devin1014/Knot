@@ -40,7 +40,7 @@
                 android:layout_marginStart="14dp"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
-                android:src="@drawable/module_status" />
+                android:src="@drawable/module_status_selector" />
 
             <TextView
                 android:id="@+id/status_title"

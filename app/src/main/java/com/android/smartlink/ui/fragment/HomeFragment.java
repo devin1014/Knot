@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
@@ -66,10 +67,10 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         super.onViewCreated(view, savedInstanceState);
 
-        initComponent(view);
+        initComponent();
     }
 
-    private void initComponent(View view)
+    private void initComponent()
     {
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -174,9 +175,10 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         @Override
         public void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
         {
+            // not status item
             if (position > 0)
             {
-                //startActivity(new Intent(getActivity(), DetailActivity.class));
+                showDetailFragment(DetailFragment.newInstance(uiModule), uiModule.getName(), Constants.MODE_NORMAL);
             }
         }
     };

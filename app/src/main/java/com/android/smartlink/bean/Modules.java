@@ -1,5 +1,6 @@
 package com.android.smartlink.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,15 +17,17 @@ public class Modules
         return modules;
     }
 
-    public static class Module
+    public static class Module implements Serializable
     {
+        private static final long serialVersionUID = -4975045285069888629L;
+
         private int id;
 
         private String power;
 
         private int status;
 
-        private String temperature;
+        private int power_load;
 
         public int getId()
         {
@@ -41,9 +44,9 @@ public class Modules
             return status;
         }
 
-        public String getTemperature()
+        public int getPowerLoad()
         {
-            return temperature;
+            return power_load;
         }
     }
 }

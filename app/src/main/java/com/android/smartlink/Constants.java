@@ -30,4 +30,9 @@ public class Constants
     public static final int MODE_FILTER = 1;
 
     public static final int MODE_EDIT = 2;
+
+    // ---- Key Extras ----------------
+    private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra";
+
+    public static final String KEY_EXTRA_UI_MODULE = KEY_EXTRA_BASE + "uiModule";
 }

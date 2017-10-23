@@ -30,6 +30,25 @@ public class DataBindingAdapterUtil
         return view;
     }
 
+    public static View binding(View view, int[] variableIds, Object[] values)
+    {
+        if (variableIds.length != values.length)
+        {
+            throw new IllegalArgumentException("variableIds array size not match values array!");
+        }
+
+        ViewDataBinding viewDataBinding = DataBindingUtil.bind(view);
+
+        for (int i = 0; i < variableIds.length; i++)
+        {
+            viewDataBinding.setVariable(variableIds[i], values[i]);
+        }
+
+        viewDataBinding.executePendingBindings();
+
+        return view;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // ImageView
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

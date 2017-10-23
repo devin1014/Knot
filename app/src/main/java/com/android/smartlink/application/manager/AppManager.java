@@ -79,9 +79,7 @@ public class AppManager
         return mModules;
     }
 
-    // -------------------------------
     // ---- Equipment ----------------
-    // -------------------------------
     public void setEquipmentName(String id, String name)
     {
         mSharedPreferences.edit().putString(KEY_EQUIPMENT_NAME + id, name).apply();
@@ -138,5 +136,10 @@ public class AppManager
         }
 
         return R.mipmap.ic_launcher;
+    }
+
+    public String getString(int resId)
+    {
+        return mApplication.getResources().getString(resId);
     }
 }

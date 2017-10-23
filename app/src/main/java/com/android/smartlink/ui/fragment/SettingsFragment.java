@@ -73,6 +73,18 @@ public class SettingsFragment extends BaseSmartlinkFragment
                     showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
 
                     break;
+
+                case Constants.POS_SETTINGS_FEEDBACK:
+
+                    break;
+
+                case Constants.POS_SETTINGS_TERMS:
+
+                    break;
+
+                case Constants.POS_SETTINGS_ABOUT:
+
+                    break;
             }
         }
     };

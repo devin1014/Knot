@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UIModule" />
+
+        <variable
+            name="handler"
+            type="com.android.devin.core.ui.widget.recyclerview.DataBindingHandler" />
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpUsage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="14dp"
+            android:paddingLeft="@dimen/app_content_margin"
+            android:paddingRight="@dimen/app_content_margin"
+            android:paddingTop="14dp">
+
+            <!--status-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/common_item_bg"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:drawableLeft="@drawable/detail_state"
+                    android:drawablePadding="@dimen/app_content_margin"
+                    android:drawableStart="@drawable/detail_state"
+                    android:gravity="center_vertical"
+                    android:text="@{data.status}"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp"
+                    app:textStatusColor="@{data.health}" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/status_circle_selector"
+                    app:imageLevel="@{data.health}" />
+
+            </FrameLayout>
+
+            <!--power_load-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/app_content_margin"
+                android:background="@drawable/common_item_bg"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:drawableLeft="@drawable/detail_power_load"
+                    android:drawablePadding="@dimen/app_content_margin"
+                    android:drawableStart="@drawable/detail_power_load"
+                    android:gravity="center_vertical"
+                    android:text="@string/power_load_percent"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="center_vertical"
+                    android:text="@{data.powerLoadDescription}"
+                    android:textSize="14dp"
+                    app:textStatusColor="@{data.powerLoadStatus}" />
+
+            </FrameLayout>
+
+            <!--events-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/app_content_margin"
+                android:background="@drawable/common_item_bg"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="@{(view)->handler.onItemClick(view,data)}"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:drawableLeft="@drawable/detail_record"
+                    android:drawablePadding="@dimen/app_content_margin"
+                    android:drawableStart="@drawable/detail_record"
+                    android:gravity="center_vertical"
+                    android:text="@string/events"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp" />
+
+            </FrameLayout>
+
+            <!--power_consume-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/app_content_margin"
+                android:background="@drawable/common_item_bg"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:drawableLeft="@drawable/detail_power_consume"
+                    android:drawablePadding="@dimen/app_content_margin"
+                    android:drawableStart="@drawable/detail_power_consume"
+                    android:gravity="center_vertical"
+                    android:text="@string/power_consume_total"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/detail_power_consume_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="center_vertical"
+                    android:textColor="#818486"
+                    android:textSize="14dp" />
+
+            </FrameLayout>
+
+            <!--history data-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="172dp"
+                android:layout_marginTop="@dimen/app_content_margin"
+                android:background="@drawable/common_item_bg"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|start"
+                    android:drawableLeft="@drawable/detail_data"
+                    android:drawablePadding="@dimen/app_content_margin"
+                    android:drawableStart="@drawable/detail_data"
+                    android:gravity="center_vertical"
+                    android:text="@string/power_history_data"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="40dp"
+                    android:background="#aa888888" />
+
+            </FrameLayout>
+
+            <!--suggest-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_content_margin"
+                android:background="@drawable/common_item_bg"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|start"
+                    android:drawableLeft="@drawable/detail_suggest"
+                    android:drawablePadding="@dimen/app_content_margin"
+                    android:drawableStart="@drawable/detail_suggest"
+                    android:gravity="center_vertical"
+                    android:text="@string/power_suggest"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp" />
+
+                <com.android.devin.core.ui.widget.IndicatorView
+                    android:id="@+id/detail_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    app:indicatorColor="@color/indicator"
+                    app:indicatorDividerSize="4dp"
+                    app:indicatorSelectColor="@color/indicator_select"
+                    app:indicatorSize="4dp" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/detail_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="40dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

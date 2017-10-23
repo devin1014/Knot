@@ -8,5 +8,7 @@
     <color name="module_status_good">#009c42</color>
     <color name="module_status_warn">#ffb528</color>
     <color name="module_status_error">#ff2626</color>
+    <color name="indicator">#bfdcc6</color>
+    <color name="indicator_select">#009c41</color>
 
 </resources>

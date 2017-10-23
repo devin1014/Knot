@@ -36,8 +36,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableEnd="@drawable/ic_navigate_next"
-            android:drawableRight="@drawable/ic_navigate_next"
+            android:drawableEnd="@drawable/settings_item_next"
+            android:drawableRight="@drawable/settings_item_next"
             android:gravity="center_vertical"
             android:paddingLeft="37dp"
             android:paddingRight="0dp"
