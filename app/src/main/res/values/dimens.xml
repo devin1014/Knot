@@ -8,5 +8,6 @@
     <dimen name="app_content_margin">12dp</dimen>
 
     <dimen name="content_bg_corner">5dp</dimen>
+    <dimen name="status_circle_size">20dp</dimen>
 
 </resources>

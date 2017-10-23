@@ -3,8 +3,8 @@
        android:shape="oval">
 
     <size
-        android:width="40dp"
-        android:height="40dp" />
+        android:width="@dimen/status_circle_size"
+        android:height="@dimen/status_circle_size" />
 
     <stroke
         android:width="3dp"

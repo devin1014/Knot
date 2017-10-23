@@ -23,6 +23,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{(view)->handler.onItemClick(view,data)}"
         android:orientation="vertical"
+        app:cardBackgroundColor="#a6ffffff"
         app:cardCornerRadius="5dp"
         app:cardPreventCornerOverlap="false"
         tools:ignore="SpUsage">
@@ -91,7 +92,6 @@
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_gravity="bottom"
-            android:background="#a6ffffff"
             android:paddingLeft="14dp"
             android:paddingRight="14dp">
 
@@ -106,8 +106,8 @@
                 tools:ignore="RelativeOverlap" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/status_circle_size"
+                android:layout_height="@dimen/status_circle_size"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
