@@ -26,10 +26,7 @@ import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.HomeAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.android.smartlink.util.FileUtil;
 
 import butterknife.BindView;
 
@@ -123,16 +120,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         //FIXME,can not get feed from server ,read local file
         {
-            Modules modules = null;
-
-            try
-            {
-                modules = new Gson().fromJson(new InputStreamReader(getActivity().getAssets().open("main.json")), Modules.class);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            Modules modules = FileUtil.openAssets(getActivity(), "main.json", Modules.class);
 
             if (modules != null)
             {

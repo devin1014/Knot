@@ -2,21 +2,24 @@ package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.devin.core.ui.widget.IndicatorView;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
+import com.android.smartlink.assist.PowerConsumeRequestProvider;
+import com.android.smartlink.assist.RequestCallback;
+import com.android.smartlink.bean.PowerConsume;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
+import com.android.smartlink.util.FileUtil;
 
 import butterknife.BindView;
 
@@ -25,7 +28,7 @@ import butterknife.BindView;
  * Date: 2017-10-23
  * Time: 11:27
  */
-public class DetailFragment extends BaseSmartlinkFragment
+public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<PowerConsume>
 {
     public static DetailFragment newInstance(UIModule module)
     {
@@ -45,6 +48,8 @@ public class DetailFragment extends BaseSmartlinkFragment
 
     @BindView(R.id.detail_indicator)
     IndicatorView mIndicatorView;
+
+    private PowerConsumeRequestProvider mConsumeRequestProvider;
 
     @Nullable
     @Override
@@ -67,9 +72,41 @@ public class DetailFragment extends BaseSmartlinkFragment
 
         DataBindingAdapterUtil.binding(view, new int[]{BR.data, BR.handler}, new Object[]{uiModule, mOnItemClickListener});
 
-        mViewPager.setAdapter(new StringPageAdapter());
+        mViewPager.setAdapter(new SuggestPagerAdapter(getActivity()));
 
         mIndicatorView.setViewPager(mViewPager);
+
+        mConsumeRequestProvider = new PowerConsumeRequestProvider(this);
+
+        mConsumeRequestProvider.request("http://localhost:8080/examples/smartlink/consume.json");
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        mConsumeRequestProvider.destroy();
+
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResponse(PowerConsume powerConsume)
+    {
+        //// TODO: 2017/10/23
+        // show chat
+    }
+
+    @Override
+    public void onError(Throwable throwable)
+    {
+        //FIXME,can not get feed from server ,read local file
+        {
+            PowerConsume consume = FileUtil.openAssets(getActivity(), "consume.json", PowerConsume.class);
+
+            if (consume != null)
+            {
+            }
+        }
     }
 
     private DataBindingHandler<UIModule> mOnItemClickListener = new DataBindingHandler<UIModule>()
@@ -81,50 +118,4 @@ public class DetailFragment extends BaseSmartlinkFragment
         }
     };
 
-    private class StringPageAdapter extends PagerAdapter
-    {
-        private String[] mDataArray;
-
-        private LayoutInflater mInflater;
-
-        StringPageAdapter()
-        {
-            mInflater = LayoutInflater.from(getActivity());
-
-            mDataArray = getResources().getStringArray(R.array.energy_suggest_freezer);
-        }
-
-        @Override
-        public int getCount()
-        {
-            return mDataArray.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object)
-        {
-            return view.equals(object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position)
-        {
-            TextView textView = (TextView) mInflater.inflate(R.layout.list_item_engener_suggest, container, false);
-
-            textView.setText(mDataArray[position]);
-
-            container.addView(textView);
-
-            return textView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object)
-        {
-            if (object != null)
-            {
-                container.removeView((View) object);
-            }
-        }
-    }
 }

@@ -19,10 +19,7 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.android.smartlink.util.FileUtil;
 
 import butterknife.BindView;
 
@@ -118,16 +115,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         //FIXME,can not get feed from server ,read local file
         {
-            Events events = null;
-
-            try
-            {
-                events = new Gson().fromJson(new InputStreamReader(getActivity().getAssets().open("events.json")), Events.class);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            Events events = FileUtil.openAssets(getActivity(), "events.json", Events.class);
 
             if (events != null)
             {

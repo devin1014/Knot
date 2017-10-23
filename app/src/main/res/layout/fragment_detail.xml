@@ -146,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:gravity="center_vertical"
+                    android:text="@{data.power}"
                     android:textColor="#818486"
                     android:textSize="14dp" />
 

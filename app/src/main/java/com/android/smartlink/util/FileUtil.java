@@ -1,13 +1,16 @@
 package com.android.smartlink.util;
 
+import android.app.Activity;
 import android.os.Environment;
 
 import com.android.smartlink.bean.Weather;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -99,5 +102,19 @@ public class FileUtil
         }
 
         return null;
+    }
+
+    public static <T> T openAssets(Activity activity, String name, Class<T> cls)
+    {
+        try
+        {
+            return new Gson().fromJson(new InputStreamReader(activity.getAssets().open(name)), cls);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+
+            return null;
+        }
     }
 }

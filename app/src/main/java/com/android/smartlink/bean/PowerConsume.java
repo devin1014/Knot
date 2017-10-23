@@ -7,16 +7,9 @@ package com.android.smartlink.bean;
  */
 public class PowerConsume
 {
-    private String month;
+    private float[] data; // 过去30天，每天用电量
 
-    private int[] data;
-
-    public String getMonth()
-    {
-        return month;
-    }
-
-    public int[] getData()
+    public float[] getData()
     {
         return data;
     }
