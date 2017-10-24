@@ -11,6 +11,7 @@ import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.util.ViewUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -77,6 +78,31 @@ public class AppManager
     public List<Module> getModules()
     {
         return mModules;
+    }
+
+    public List<Module> getModules(int... ids)
+    {
+        if (ids == null || ids.length == 0)
+        {
+            return mModules;
+        }
+
+        List<Module> list = new ArrayList<>(1);
+
+        for (Module module : mModules)
+        {
+            for (int id : ids)
+            {
+                if (module.getId() == id)
+                {
+                    list.add(module);
+
+                    break;
+                }
+            }
+        }
+
+        return list;
     }
 
     // ---- Equipment ----------------

@@ -93,7 +93,7 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
             case POS_EVENTS:
 
-                mNavigationComposite.showPrimaryFragment(new EventsFragment(), R.string.menu_events);
+                mNavigationComposite.showPrimaryFragment(EventsFragment.newInstance(), R.string.menu_events);
 
                 break;
 

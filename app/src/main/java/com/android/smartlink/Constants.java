@@ -37,4 +37,6 @@ public class Constants
     private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra";
 
     public static final String KEY_EXTRA_UI_MODULE = KEY_EXTRA_BASE + "uiModule";
+
+    public static final String KEY_EXTRA_IDS = KEY_EXTRA_BASE + "ids";
 }

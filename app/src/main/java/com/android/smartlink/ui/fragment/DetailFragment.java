@@ -114,7 +114,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         @Override
         public void onItemClick(View view, UIModule module)
         {
-            //// TODO: 2017/10/23
+            showDetailFragment(EventsFragment.newInstance(module.getSource().getId()), getString(R.string.events), Constants.MODE_NORMAL);
         }
     };
 

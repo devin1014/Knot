@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EventsRequestProvider;
@@ -36,6 +37,19 @@ import butterknife.BindView;
  */
 public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnRefreshListener, OnCheckChangedListener
 {
+    public static EventsFragment newInstance(int... ids)
+    {
+        EventsFragment fragment = new EventsFragment();
+
+        Bundle arguments = new Bundle();
+
+        arguments.putIntArray(Constants.KEY_EXTRA_IDS, ids);
+
+        fragment.setArguments(arguments);
+
+        return fragment;
+    }
+
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -73,11 +87,15 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
     private void initComponent()
     {
+        int[] ids = getArguments().getIntArray(Constants.KEY_EXTRA_IDS);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.events_list_divider)));
 
         mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), null));
+
+        mEventsAdapter.setFilter(mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getModules(ids)));
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -86,10 +104,6 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider.request("http://localhost:8080/examples/smartlink/events.json");
 
         mLoadingLayout.showLoading();
-
-        mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getModules());
-
-        mEventsAdapter.setFilter(mFilters);
     }
 
     @Override
