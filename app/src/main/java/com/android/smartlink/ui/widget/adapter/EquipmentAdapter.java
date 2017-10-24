@@ -83,7 +83,7 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
             editText = findViewById(R.id.edit_text);
         }
 
-        public String getEditText()
+        String getEditText()
         {
             return editText.getText().toString();
         }

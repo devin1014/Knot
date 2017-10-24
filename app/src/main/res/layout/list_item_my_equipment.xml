@@ -55,6 +55,7 @@
             android:background="@drawable/edit_frame"
             android:gravity="center_vertical"
             android:hint="@{data.name}"
+            android:maxLength="16"
             android:minWidth="64dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
