@@ -13,6 +13,7 @@ import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
+import com.android.smartlink.ui.activity.EquipmentActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
@@ -70,7 +71,8 @@ public class SettingsFragment extends BaseSmartlinkFragment
             {
                 case Constants.POS_SETTINGS_MY_EQUIPMENT:
 
-                    showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
+                    //showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
+                    EquipmentActivity.startActivity(getActivity(), setting.getName());
 
                     break;
 

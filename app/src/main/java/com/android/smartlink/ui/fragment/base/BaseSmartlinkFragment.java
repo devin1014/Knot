@@ -64,16 +64,16 @@ public class BaseSmartlinkFragment extends Fragment
     {
     }
 
-    protected void showDetailFragment(Fragment fragment, String title, int mode)
+    protected void showDetailFragment(Fragment fragment, String title)
     {
         if (mCallback != null)
         {
-            mCallback.showDetailFragment(fragment, title, mode);
+            mCallback.showDetailFragment(fragment, title);
         }
     }
 
     public interface OnFragmentCallback
     {
-        void showDetailFragment(Fragment fragment, String title, int mode);
+        void showDetailFragment(Fragment fragment, String title);
     }
 }

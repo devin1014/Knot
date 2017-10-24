@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
-import com.android.smartlink.ui.fragment.EventsFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 
 import butterknife.BindView;
@@ -27,10 +25,10 @@ import butterknife.Unbinder;
 public abstract class BaseSmartlinkActivity extends AppCompatActivity implements FragmentNavigationCompositeCallback
 {
     @BindView(R.id.toolbar_nav_back)
-    ImageView mNavigationIcon;
+    ImageView mNavigationButton;
 
     @BindView(R.id.toolbar_nav_edit)
-    ImageView mEditIcon;
+    ImageView mEditButton;
 
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
@@ -90,11 +88,6 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
     public void onFragmentsChanged()
     {
         mToolbarTitle.setText(mNavigationComposite.getTitle());
-
-        if (mNavigationComposite.isPrimaryMode())
-        {
-            setEditMode((mNavigationComposite.getCurrentFragment() instanceof EventsFragment) ? Constants.MODE_FILTER : Constants.MODE_NORMAL);
-        }
     }
 
     @OnClick(R.id.toolbar_nav_back)
@@ -106,24 +99,14 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
     @OnClick(R.id.toolbar_nav_edit)
     public void onNavEditClick()
     {
-        mEditIcon.setSelected(!mEditIcon.isSelected());
+        mEditButton.setSelected(!mEditButton.isSelected());
 
-        ((BaseSmartlinkFragment) mNavigationComposite.getCurrentFragment()).onEditClick(mEditIcon.isSelected());
+        ((BaseSmartlinkFragment) mNavigationComposite.getCurrentFragment()).onEditClick(mEditButton.isSelected());
     }
 
-    protected void setEditMode(int mode)
+    protected void setEditButtonVisibility(boolean show)
     {
-        mEditIcon.setImageLevel(mode);
-
-        if (mode == Constants.MODE_NORMAL)
-        {
-            mEditIcon.setSelected(false);
-
-            mEditIcon.setVisibility(View.GONE);
-        }
-        else
-        {
-            mEditIcon.setVisibility(View.VISIBLE);
-        }
+        mEditButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
 }

@@ -27,12 +27,6 @@ public class Constants
 
     public static final int POS_SETTINGS_ABOUT = 4;
 
-    public static final int MODE_NORMAL = 0;
-
-    public static final int MODE_FILTER = 1;
-
-    public static final int MODE_EDIT = 2;
-
     // ---- Key Extras ----------------
     private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra";
 

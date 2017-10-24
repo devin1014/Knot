@@ -29,12 +29,21 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.activity.DetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".ui.activity.EquipmentActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 

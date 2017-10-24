@@ -5,19 +5,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
-import android.support.v4.app.Fragment;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.EventsFragment;
 import com.android.smartlink.ui.fragment.HomeFragment;
 import com.android.smartlink.ui.fragment.SettingsFragment;
-import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment.OnFragmentCallback;
 import com.android.smartlink.util.ViewUtil;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseSmartlinkActivity implements OnTabSelectedListener, OnFragmentCallback
+public class MainActivity extends BaseSmartlinkActivity implements OnTabSelectedListener
 {
     private static final int POS_MAIN = 0;
 
@@ -61,14 +59,6 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
     }
 
     @Override
-    public void showDetailFragment(Fragment fragment, String title, int mode)
-    {
-        mNavigationComposite.showSecondaryFragment(fragment, title);
-
-        setEditMode(mode);
-    }
-
-    @Override
     public void onTabSelected(Tab tab)
     {
         switch (tab.getPosition())
@@ -77,17 +67,23 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
                 mNavigationComposite.showPrimaryFragment(new HomeFragment(), R.string.menu_main);
 
+                setEditButtonVisibility(false);
+
                 break;
 
             case POS_EVENTS:
 
                 mNavigationComposite.showPrimaryFragment(EventsFragment.newInstance(), R.string.menu_events);
 
+                setEditButtonVisibility(true);
+
                 break;
 
             case POS_SETTINGS:
 
                 mNavigationComposite.showPrimaryFragment(new SettingsFragment(), R.string.menu_settings);
+
+                setEditButtonVisibility(false);
 
                 break;
         }

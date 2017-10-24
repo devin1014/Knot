@@ -34,6 +34,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/nav_back_selector"
@@ -52,13 +53,15 @@
             <ImageView
                 android:id="@+id/toolbar_nav_edit"
                 android:layout_width="48dp"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
+                android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
-                android:src="@drawable/nav_edit_level" />
+                android:src="@drawable/nav_filter_selector"
+                android:visibility="gone" />
 
         </FrameLayout>
 
