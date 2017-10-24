@@ -48,6 +48,15 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         return fragment;
     }
 
+    public static DetailFragment newInstance(Bundle arguments)
+    {
+        DetailFragment fragment = new DetailFragment();
+
+        fragment.setArguments(arguments);
+
+        return fragment;
+    }
+
     @BindView(R.id.detail_suggest)
     ViewPager mViewPager;
 

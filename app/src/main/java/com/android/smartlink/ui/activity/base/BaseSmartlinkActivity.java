@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
@@ -30,6 +31,9 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
 
     @BindView(R.id.toolbar_nav_edit)
     ImageView mEditIcon;
+
+    @BindView(R.id.toolbar_title)
+    TextView mToolbarTitle;
 
     private Unbinder mButterKnife;
 
@@ -85,7 +89,7 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
     @Override
     public void onFragmentsChanged()
     {
-        mNavigationIcon.setVisibility(mNavigationComposite.isPrimaryMode() ? View.GONE : View.VISIBLE);
+        mToolbarTitle.setText(mNavigationComposite.getTitle());
 
         if (mNavigationComposite.isPrimaryMode())
         {

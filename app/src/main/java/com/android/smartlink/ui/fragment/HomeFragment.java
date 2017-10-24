@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
-import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
@@ -21,6 +20,7 @@ import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherRequestProvider;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -166,7 +166,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
             // not status item
             if (position > 0)
             {
-                showDetailFragment(DetailFragment.newInstance(uiModule), uiModule.getName(), Constants.MODE_NORMAL);
+                DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
             }
         }
     };

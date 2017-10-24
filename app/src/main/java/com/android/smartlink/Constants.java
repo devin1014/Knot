@@ -39,4 +39,6 @@ public class Constants
     public static final String KEY_EXTRA_UI_MODULE = KEY_EXTRA_BASE + "uiModule";
 
     public static final String KEY_EXTRA_IDS = KEY_EXTRA_BASE + "ids";
+
+    public static final String KEY_EXTRA_TITLE = KEY_EXTRA_BASE + "title";
 }

@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
-import android.widget.TextView;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
@@ -28,9 +27,6 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
 
     @Override
     protected int getLayoutId()
@@ -62,14 +58,6 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
             mTabLayout.addTab(tab, i == 0);
         }
-    }
-
-    @Override
-    public void onFragmentsChanged()
-    {
-        super.onFragmentsChanged();
-
-        mToolbarTitle.setText(mNavigationComposite.getTitle());
     }
 
     @Override
