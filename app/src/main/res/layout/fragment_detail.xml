@@ -155,7 +155,7 @@
             <!--history data-->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="@dimen/app_content_margin"
                 android:background="@drawable/common_item_bg"
                 android:paddingBottom="16dp"
@@ -174,11 +174,19 @@
                     android:textColor="#585b5d"
                     android:textSize="14dp" />
 
-                <View
+                <com.android.smartlink.ui.widget.LoadingLayout
+                    android:id="@+id/loading_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="40dp"
-                    android:background="#aa888888" />
+                    app:loading_layout="@layout/comp_loading_layout">
+
+                    <FrameLayout
+                        android:id="@+id/chart_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.android.smartlink.ui.widget.LoadingLayout>
 
             </FrameLayout>
 

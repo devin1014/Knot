@@ -41,7 +41,7 @@
     </array>
 
     <!--请示失败-->
-    <string name="request_data_error">数据请求失败了，请稍微再试</string>
+    <string name="request_data_error">暂时无法获取数据，请稍微再试</string>
 
     <!--数组-->
     <string-array name="month_array">

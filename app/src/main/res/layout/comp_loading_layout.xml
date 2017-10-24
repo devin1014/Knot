@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:padding="20dp"
     android:visibility="gone">
 
@@ -15,7 +15,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        android:color="@color/colorAccent"
+        android:color="@color/colorPrimary"
         android:indeterminate="true"
         android:indeterminateDrawable="@null"
         android:indeterminateOnly="true"
@@ -27,8 +27,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="16dp"
+        android:textColor="#585858"
+        android:textSize="14dp"
         android:visibility="gone"
         tools:ignore="SpUsage" />
 

@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.android.devin.core.ui.widget.IndicatorView;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
@@ -17,9 +18,13 @@ import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.PowerConsume;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.widget.LoadingLayout;
+import com.android.smartlink.ui.widget.MultiplePowerChart;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.FileUtil;
+
+import org.achartengine.GraphicalView;
 
 import butterknife.BindView;
 
@@ -48,6 +53,12 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
     @BindView(R.id.detail_indicator)
     IndicatorView mIndicatorView;
+
+    @BindView(R.id.loading_layout)
+    LoadingLayout mLoadingLayout;
+
+    @BindView(R.id.chart_container)
+    FrameLayout mChartContainer;
 
     private PowerConsumeRequestProvider mConsumeRequestProvider;
 
@@ -79,6 +90,8 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         mConsumeRequestProvider = new PowerConsumeRequestProvider(this);
 
         mConsumeRequestProvider.request("http://localhost:8080/examples/smartlink/consume.json");
+
+        mLoadingLayout.showLoading();
     }
 
     @Override
@@ -92,19 +105,29 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     @Override
     public void onResponse(PowerConsume powerConsume)
     {
-        //// TODO: 2017/10/23
-        // show chat
+        mLoadingLayout.showContent();
+
+        mChartContainer.removeAllViews();
+
+        mChartContainer.addView(new GraphicalView(getActivity(), new MultiplePowerChart().getChart(powerConsume.getData())));
     }
 
     @Override
     public void onError(Throwable throwable)
     {
+        mLoadingLayout.showMessage(getString(R.string.request_data_error));
+
         //FIXME,can not get feed from server ,read local file
         {
             PowerConsume consume = FileUtil.openAssets(getActivity(), "consume.json", PowerConsume.class);
 
             if (consume != null)
             {
+                mLoadingLayout.showContent();
+
+                mChartContainer.removeAllViews();
+
+                mChartContainer.addView(new GraphicalView(getActivity(), new MultiplePowerChart().getChart(consume.getData())));
             }
         }
     }
