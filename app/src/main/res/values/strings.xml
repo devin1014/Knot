@@ -11,6 +11,9 @@
     <string name="power_consume_total">当月累计电能</string>
     <string name="power_history_data">用电趋势图</string>
     <string name="power_suggest">节能建议</string>
+    <string name="weather_aqi">空气污染指数:</string>
+    <string name="weather_max_tmp">最高:</string>
+    <string name="weather_min_tmp">最低:</string>
 
     <!--菜单-->
     <string name="menu_main">智能配电箱</string>
@@ -57,6 +60,16 @@
         <item>十月</item>
         <item>十一月</item>
         <item>十二月</item>
+    </string-array>
+
+    <string-array name="week_array">
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
     </string-array>
 
     <string-array name="module_status_array">

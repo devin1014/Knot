@@ -67,7 +67,9 @@ public class ConvertUtil
 
         if (addStatus)
         {
-            result.add(new UIModule(new Module(), UIModule.TYPE_STATUS));
+            result.add(UIModule.newWeatherInstance());
+
+            result.add(UIModule.newStatusInstance());
         }
 
         for (Module item : list)

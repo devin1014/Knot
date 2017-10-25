@@ -15,6 +15,12 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
         super(callback);
     }
 
+    @Override
+    Class<Modules> getConvertObjectClass()
+    {
+        return Modules.class;
+    }
+
     public void request(String url)
     {
         OkGo.getInstance().cancelTag(this);
@@ -23,14 +29,7 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
 
                 .tag(this)
 
-                .execute(new ResponseCallback()
-                {
-                    @Override
-                    Class<Modules> getConvertObjectClass()
-                    {
-                        return Modules.class;
-                    }
-                });
+                .execute(new ResponseCallback());
     }
 
     @Override

@@ -11,13 +11,13 @@ import java.io.InputStreamReader;
  * Date: 2017-10-17
  * Time: 09:55
  */
-public abstract class BaseRequestProvider<T>
+abstract class BaseRequestProvider<T>
 {
-    protected RequestCallback<T> mCallback;
+    private RequestCallback<T> mCallback;
 
     private boolean mDestroy;
 
-    public BaseRequestProvider(RequestCallback<T> callback)
+    BaseRequestProvider(RequestCallback<T> callback)
     {
         mCallback = callback;
     }
@@ -55,13 +55,25 @@ public abstract class BaseRequestProvider<T>
         }
     }
 
-    abstract class ResponseCallback extends AbsCallback<T>
-    {
-        abstract Class<T> getConvertObjectClass();
+    abstract Class<T> getConvertObjectClass();
 
+    protected T convertResponse(okhttp3.Response response) throws Throwable
+    {
+        if (response.code() == 200 && response.body() != null)
+        {
+            return new Gson().fromJson(new InputStreamReader(response.body().byteStream()), getConvertObjectClass());
+        }
+
+        return null;
+    }
+
+    // ---- Callback ----------------
+    class ResponseCallback extends AbsCallback<T>
+    {
         @Override
         public void onSuccess(Response<T> response)
         {
+            //// TODO: 2017/10/25
             if (response.body() != null)
             {
                 notifyResponse(response.body());
@@ -83,12 +95,7 @@ public abstract class BaseRequestProvider<T>
         @Override
         public T convertResponse(okhttp3.Response response) throws Throwable
         {
-            if (response.code() == 200 && response.body() != null)
-            {
-                return new Gson().fromJson(new InputStreamReader(response.body().byteStream()), getConvertObjectClass());
-            }
-
-            return null;
+            return BaseRequestProvider.this.convertResponse(response);
         }
     }
 }

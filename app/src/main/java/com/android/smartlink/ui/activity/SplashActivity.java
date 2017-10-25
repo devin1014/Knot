@@ -30,9 +30,7 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
 
         TestUtil.test(this, "onCreate");
 
-        mInitializeTask = new InitializeTask(this, this);
-
-        mInitializeTask.execute();
+        (mInitializeTask = new InitializeTask(this, this)).execute();
     }
 
     @Override

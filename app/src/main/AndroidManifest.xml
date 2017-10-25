@@ -47,6 +47,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <meta-data
+            android:name="weatherKey"
+            android:value="7f70fe2b7604408bafba86681d9ddcd4" />
+
     </application>
 
 </manifest>

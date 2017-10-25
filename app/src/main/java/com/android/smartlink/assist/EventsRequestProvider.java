@@ -16,6 +16,12 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
     }
 
     @Override
+    Class<Events> getConvertObjectClass()
+    {
+        return Events.class;
+    }
+
+    @Override
     public void request(String url)
     {
         OkGo.getInstance().cancelTag(this);
@@ -24,14 +30,7 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
 
                 .tag(this)
 
-                .execute(new ResponseCallback()
-                {
-                    @Override
-                    Class<Events> getConvertObjectClass()
-                    {
-                        return Events.class;
-                    }
-                });
+                .execute(new ResponseCallback());
     }
 
     @Override

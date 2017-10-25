@@ -9,6 +9,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.Weather;
 import com.android.smartlink.util.ViewUtil;
 
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class AppManager
     private List<Module> mModules;
 
     private List<Equipment> mEquipments;
+
+    private Weather mWeather;
 
     private AppManager(Application application)
     {
@@ -103,6 +106,16 @@ public class AppManager
         }
 
         return list;
+    }
+
+    public Weather getWeather()
+    {
+        return mWeather;
+    }
+
+    public void setWeather(Weather weather)
+    {
+        mWeather = weather;
     }
 
     // ---- Equipment ----------------
@@ -167,5 +180,10 @@ public class AppManager
     public String getString(int resId)
     {
         return mApplication.getResources().getString(resId);
+    }
+
+    public String[] getStringArray(int resId)
+    {
+        return mApplication.getResources().getStringArray(resId);
     }
 }

@@ -3,10 +3,11 @@ package com.android.smartlink.assist;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments;
+import com.android.smartlink.bean.Weather;
+import com.android.smartlink.util.HttpUrl;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
@@ -16,19 +17,31 @@ import java.io.InputStreamReader;
  * Date: 2017-10-16
  * Time: 14:39
  */
-public class InitializeTask extends AsyncTask<Void, Void, Boolean>
+public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements RequestCallback<Weather>
 {
-    private static final long MIN_DURATION = 1500;
-
     private AssetManager mAssetManager;
 
+    private WeatherRequestProvider mWeatherRequestProvider;
+
     private InitializeTaskCallback mTaskCallback;
+
+    private String mUrl;
 
     public InitializeTask(Context context, InitializeTaskCallback callback)
     {
         mAssetManager = context.getAssets();
 
         mTaskCallback = callback;
+
+        mUrl = HttpUrl.getWeatherUrl(context, "上海");
+
+        mWeatherRequestProvider = new WeatherRequestProvider(this);
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+        mWeatherRequestProvider.request(mUrl);
     }
 
     @Override
@@ -39,8 +52,6 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
             return false;
         }
 
-        final long timeStamp = SystemClock.uptimeMillis();
-
         Gson gson = new Gson();
 
         try
@@ -49,21 +60,22 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
             AppManager.getInstance().setEquipments(equipments);
 
-            long duration = SystemClock.uptimeMillis() - timeStamp;
-
-            if (duration >= 0 && duration < MIN_DURATION)
+            if (!mWeatherResponse)
             {
-                Thread.sleep(Math.abs(MIN_DURATION - duration));
+                synchronized (this)
+                {
+                    wait(30 * 1000); // max 30s.
+                }
             }
-
-            return true;
         }
         catch (Exception e)
         {
             e.printStackTrace();
+
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -82,6 +94,44 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
         mAssetManager = null;
 
         cancel(true);
+    }
+
+    private boolean mWeatherResponse = false;
+
+    @Override
+    public void onResponse(Weather weather)
+    {
+        AppManager.getInstance().setWeather(weather);
+
+        mWeatherResponse = true;
+
+        try
+        {
+            synchronized (this)
+            {
+                notify();
+            }
+        }
+        catch (Exception ignored)
+        {
+        }
+    }
+
+    @Override
+    public void onError(Throwable throwable)
+    {
+        mWeatherResponse = true;
+
+        try
+        {
+            synchronized (this)
+            {
+                notify();
+            }
+        }
+        catch (Exception ignored)
+        {
+        }
     }
 
     public interface InitializeTaskCallback

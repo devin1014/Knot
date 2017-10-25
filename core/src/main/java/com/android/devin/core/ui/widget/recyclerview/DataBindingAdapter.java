@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -84,10 +83,12 @@ public abstract class DataBindingAdapter<T> extends Adapter<DataBindingHolder<T>
         notifyDataSetChanged();
     }
 
-    public void setData(T[] array)
+    public void appendData(T t, int pos)
     {
-        // clear list data first!
-        mDataList = Arrays.asList(array);
+        if (mDataList != null)
+        {
+            mDataList.add(pos, t);
+        }
 
         notifyDataSetChanged();
     }

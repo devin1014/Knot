@@ -17,9 +17,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
-import com.android.smartlink.assist.WeatherRequestProvider;
 import com.android.smartlink.bean.Modules;
-import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
@@ -27,6 +25,7 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.HomeAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
+import com.android.smartlink.util.HttpUrl;
 
 import butterknife.BindView;
 
@@ -47,8 +46,6 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     RecyclerView mRecyclerView;
 
     private MainRequestProvider mRequestProvider;
-
-    private WeatherRequestProvider mWeatherRequestProvider;
 
     private HomeAdapter mHomeAdapter;
 
@@ -79,22 +76,15 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mRequestProvider = new MainRequestProvider(this);
 
-        mRequestProvider.request("http://localhost:8080/examples/smartlink/main.json");
+        mRequestProvider.request(HttpUrl.getHomeUrl());
 
         mLoadingLayout.showLoading();
-
-        mWeatherRequestProvider = new WeatherRequestProvider(mWeatherRequestCallback);
-
-        //mWeatherRequestProvider.request("http://www.sojson.com/open/api/weather/json.shtml?city=上海");
-        mWeatherRequestProvider.request("http://localhost:8080/examples/smartlink/weather.json");
     }
 
     @Override
     public void onDestroyView()
     {
         mRequestProvider.destroy();
-
-        mWeatherRequestProvider.destroy();
 
         super.onDestroyView();
     }
@@ -139,24 +129,11 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     public void onRefresh()
     {
         // call request
-        mRequestProvider.request("http://localhost:8080/examples/smartlink/main.json");
+        mRequestProvider.request(HttpUrl.getHomeUrl());
 
         // hide loading and show blank loading view
         mLoadingLayout.showBlankView();
     }
-
-    private RequestCallback<Weather> mWeatherRequestCallback = new RequestCallback<Weather>()
-    {
-        @Override
-        public void onResponse(Weather weather)
-        {
-        }
-
-        @Override
-        public void onError(Throwable throwable)
-        {
-        }
-    };
 
     private OnItemClickListener<UIModule> mOnHeaderClickListener = new OnItemClickListener<UIModule>()
     {
@@ -164,7 +141,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         public void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
         {
             // not status item
-            if (position > 0)
+            if (uiModule.getType() == UIModule.TYPE_NORMAL)
             {
                 DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
             }

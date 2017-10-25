@@ -13,7 +13,9 @@ import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.BR;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 
 /**
@@ -23,15 +25,23 @@ import com.android.smartlink.util.DataBindingAdapterUtil;
  */
 public class HomeAdapter extends BaseAdapter<UIModule>
 {
+    private Weather mWeather;
+
     public HomeAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModule> listener)
     {
         super(layoutInflater, listener);
+
+        mWeather = AppManager.getInstance().getWeather();
     }
 
     @Override
     public DataBindingHolder<UIModule> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        if (viewType == UIModule.TYPE_STATUS)
+        if (viewType == UIModule.TYPE_WEATHER)
+        {
+            return new WeatherHolder(inflater, parent, R.layout.list_item_home_weather, this);
+        }
+        else if (viewType == UIModule.TYPE_STATUS)
         {
             return new HeaderHolder(inflater, parent, R.layout.list_item_home_status, this);
         }
@@ -121,6 +131,30 @@ public class HomeAdapter extends BaseAdapter<UIModule>
             arrowImg.setSelected(!arrowImg.isSelected());
 
             statusGroup.setVisibility(arrowImg.isSelected() ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    class WeatherHolder extends DataBindingHolder<UIModule>
+    {
+        ImageView imageView;
+
+        WeatherHolder(LayoutInflater inflater, ViewGroup parent, int layoutId, DataBindingHandler<UIModule> handler)
+        {
+            super(inflater, parent, layoutId, handler);
+
+            imageView = (ImageView) itemView.findViewById(R.id.image);
+        }
+
+        @Override
+        public void onViewDataBinding(int[] variableId, UIModule module)
+        {
+            itemView.setTag(module);
+
+            getViewDataBinding().setVariable(variableId[0], new UIWeather(mWeather));
+
+            getViewDataBinding().setVariable(variableId[1], this);
+
+            getViewDataBinding().executePendingBindings();
         }
     }
 }

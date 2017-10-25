@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UIWeather" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/weather_root"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        tools:ignore="SpUsage">
+
+        <View
+            android:id="@+id/anchor_center"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/weather_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:imageRes="@{data.image}" />
+
+        <TextView
+            android:id="@+id/weather_aqi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weather_image"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:text="@{data.aqi}"
+            android:textColor="#bbffffff"
+            android:textSize="10dp" />
+
+        <!--tmp-->
+        <TextView
+            android:id="@+id/weather_tem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/weather_image"
+            android:layout_toRightOf="@id/weather_image"
+            android:minWidth="48dp"
+            android:padding="@dimen/app_content_margin"
+            android:paddingBottom="12dp"
+            android:text="@{data.tmp}"
+            android:textColor="#ffffff"
+            android:textSize="44dp" />
+
+        <!--max&min-->
+        <TextView
+            android:id="@+id/weather_max_tmp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/anchor_center"
+            android:layout_toEndOf="@id/weather_tem"
+            android:layout_toRightOf="@id/weather_tem"
+            android:text="@{data.maxTmp}"
+            android:textColor="#ffffff"
+            android:textSize="11dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anchor_center"
+            android:layout_toEndOf="@id/weather_tem"
+            android:layout_toRightOf="@id/weather_tem"
+            android:text="@{data.minTemp}"
+            android:textColor="#ffffff"
+            android:textSize="11dp" />
+
+        <!--next 2days-->
+        <LinearLayout
+            android:id="@+id/weather_tomorrow_after"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.tomorrowName}"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                app:imageRes="@{data.tomorrowImage}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.tomorrowTmp}"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weather_tomorrow"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/weather_tomorrow_after"
+            android:layout_toStartOf="@id/weather_tomorrow_after"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.dayAfterTomorrowName}"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                app:imageRes="@{data.dayAfterTomorrowImage}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.dayAfterTomorrowTmp}"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

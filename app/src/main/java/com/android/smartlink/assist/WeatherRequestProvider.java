@@ -1,13 +1,13 @@
 package com.android.smartlink.assist;
 
-import android.os.AsyncTask;
-
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
-import com.android.smartlink.util.FileUtil;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
-import java.util.Calendar;
-import java.util.TimeZone;
+import org.json.JSONObject;
+
+import okhttp3.Response;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -21,6 +21,12 @@ public class WeatherRequestProvider extends BaseRequestProvider<Weather>
         super(callback);
     }
 
+    @Override
+    Class<Weather> getConvertObjectClass()
+    {
+        return Weather.class;
+    }
+
     private String mUrl;
 
     @Override
@@ -28,27 +34,26 @@ public class WeatherRequestProvider extends BaseRequestProvider<Weather>
     {
         mUrl = url;
 
-        if (FileUtil.hasWeatherCache())
+        //// TODO: 2017/10/25
+        if (AppManager.getInstance().getWeather() != null)
         {
-            new ReadFileTask().execute();
+            super.notifyResponse(AppManager.getInstance().getWeather());
         }
         else
         {
-            OkGo.getInstance().cancelTag(this);
-
-            OkGo.<Weather>get(url)
-
-                    .tag(this)
-
-                    .execute(new ResponseCallback()
-                    {
-                        @Override
-                        Class<Weather> getConvertObjectClass()
-                        {
-                            return Weather.class;
-                        }
-                    });
+            requestInternet();
         }
+    }
+
+    private void requestInternet()
+    {
+        OkGo.getInstance().cancelTag(this);
+
+        OkGo.<Weather>get(mUrl)
+
+                .tag(this)
+
+                .execute(new ResponseCallback());
     }
 
     @Override
@@ -62,57 +67,23 @@ public class WeatherRequestProvider extends BaseRequestProvider<Weather>
     @Override
     protected void notifyResponse(Weather weather)
     {
+        AppManager.getInstance().setWeather(weather);
+
         super.notifyResponse(weather);
-
-        new WriteFileTask(weather).execute();
     }
 
-    private String getTodayKey()
+    @Override
+    protected Weather convertResponse(Response response) throws Throwable
     {
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-
-        return String.valueOf(calendar.get(Calendar.YEAR)) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.DAY_OF_MONTH);
-    }
-
-    private class WriteFileTask extends AsyncTask<Void, Void, Boolean>
-    {
-        private Weather mWeather;
-
-        WriteFileTask(Weather weather)
+        if (response.code() == 200 && response.body() != null)
         {
-            mWeather = weather;
+            JSONObject jsonObject = new JSONObject(response.body().string());
+
+            JSONObject weather = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
+
+            return new Gson().fromJson(weather.toString(), getConvertObjectClass());
         }
 
-        @Override
-        protected Boolean doInBackground(Void... params)
-        {
-            return FileUtil.writeWeatherFile(mWeather);
-        }
-    }
-
-    private class ReadFileTask extends AsyncTask<Void, Void, Weather>
-    {
-        @Override
-        protected Weather doInBackground(Void... params)
-        {
-            return FileUtil.readWeatherFile();
-        }
-
-        @Override
-        protected void onPostExecute(Weather weather)
-        {
-            if (weather != null)
-            {
-                notifyResponse(weather);
-
-                if (!weather.getDate().equals(getTodayKey()))
-                {
-                    if (!isDestroy())
-                    {
-                        request(mUrl);
-                    }
-                }
-            }
-        }
+        return null;
     }
 }

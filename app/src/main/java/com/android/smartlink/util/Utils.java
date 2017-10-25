@@ -2,9 +2,13 @@ package com.android.smartlink.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 
 import java.util.Calendar;
-import java.util.Collections;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -27,6 +31,22 @@ public class Utils
         }
     }
 
+    public static String getApplicationMetaData(Context context, String key)
+    {
+        try
+        {
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+
+            return applicationInfo.metaData.getString(key);
+        }
+        catch (NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static float[] getPast30Days()
     {
         float[] days = new float[30];
@@ -42,4 +62,16 @@ public class Utils
 
         return days;
     }
+
+    public static void setSpannable(SpannableStringBuilder spannableString, int start, int end, Object... objects)
+    {
+        if (objects != null)
+        {
+            for (Object obj : objects)
+            {
+                spannableString.setSpan(obj, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+        }
+    }
+
 }

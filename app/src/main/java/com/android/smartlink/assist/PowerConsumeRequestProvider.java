@@ -16,6 +16,12 @@ public class PowerConsumeRequestProvider extends BaseRequestProvider<PowerConsum
     }
 
     @Override
+    Class<PowerConsume> getConvertObjectClass()
+    {
+        return PowerConsume.class;
+    }
+
+    @Override
     public void request(String url)
     {
         OkGo.getInstance().cancelTag(this);
@@ -24,14 +30,7 @@ public class PowerConsumeRequestProvider extends BaseRequestProvider<PowerConsum
 
                 .tag(this)
 
-                .execute(new ResponseCallback()
-                {
-                    @Override
-                    Class<PowerConsume> getConvertObjectClass()
-                    {
-                        return PowerConsume.class;
-                    }
-                });
+                .execute(new ResponseCallback());
     }
 
     @Override

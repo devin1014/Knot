@@ -19,9 +19,21 @@ public class UIModule implements Serializable
 {
     private static final long serialVersionUID = 179763754284831614L;
 
+    public static UIModule newWeatherInstance()
+    {
+        return new UIModule(new Module(), UIModule.TYPE_WEATHER);
+    }
+
+    public static UIModule newStatusInstance()
+    {
+        return new UIModule(new Module(), UIModule.TYPE_STATUS);
+    }
+
     public static final int TYPE_NORMAL = 1;
 
     public static final int TYPE_STATUS = 2;
+
+    public static final int TYPE_WEATHER = 3;
 
     private static final String EMPTY = "";
 
