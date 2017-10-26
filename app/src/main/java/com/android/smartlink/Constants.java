@@ -30,9 +30,14 @@ public class Constants
     // ---- Key Extras ----------------
     private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra";
 
+    private static final String KEY_PREFERENCE_BASE = "com.android.smartlink.key.share";
+
     public static final String KEY_EXTRA_UI_MODULE = KEY_EXTRA_BASE + "uiModule";
 
     public static final String KEY_EXTRA_IDS = KEY_EXTRA_BASE + "ids";
 
     public static final String KEY_EXTRA_TITLE = KEY_EXTRA_BASE + "title";
+
+    // ---- Share ----------------
+    public static final String KEY_SHARE_PREFERENCE_SUGGEST = KEY_PREFERENCE_BASE + "suggest";
 }

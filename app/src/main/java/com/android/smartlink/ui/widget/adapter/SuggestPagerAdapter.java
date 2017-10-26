@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -16,6 +17,9 @@ import com.android.smartlink.R;
  */
 public class SuggestPagerAdapter extends PagerAdapter
 {
+    public static final int[] SUGGESTIONS = new int[]{R.array.energy_suggest_1, R.array.energy_suggest_2, R.array.energy_suggest_3,
+            R.array.energy_suggest_4, R.array.energy_suggest_5, R.array.energy_suggest_6};
+
     private String[] mDataArray;
 
     private LayoutInflater mInflater;
@@ -24,8 +28,7 @@ public class SuggestPagerAdapter extends PagerAdapter
     {
         mInflater = LayoutInflater.from(activity);
 
-        //// TODO: 2017/10/23 ,now just get freezer suggest!
-        mDataArray = activity.getResources().getStringArray(R.array.energy_suggest_freezer);
+        mDataArray = activity.getResources().getStringArray(SUGGESTIONS[AppManager.getInstance().getEnergySuggestIndex()]);
     }
 
     @Override

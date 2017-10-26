@@ -5,11 +5,13 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.ViewUtil;
 
 import java.util.ArrayList;
@@ -185,5 +187,21 @@ public class AppManager
     public String[] getStringArray(int resId)
     {
         return mApplication.getResources().getStringArray(resId);
+    }
+
+    public int getEnergySuggestIndex()
+    {
+        final int index = mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, 0);
+
+        int nextIndex = index + 1;
+
+        if (nextIndex >= SuggestPagerAdapter.SUGGESTIONS.length)
+        {
+            nextIndex = 0;
+        }
+
+        mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, nextIndex).apply();
+
+        return index;
     }
 }
