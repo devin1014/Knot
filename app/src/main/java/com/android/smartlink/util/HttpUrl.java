@@ -14,6 +14,16 @@ public class HttpUrl
         return "http://localhost:8080/examples/smartlink/main.json";
     }
 
+    public static String getEventsUrl()
+    {
+        return "http://localhost:8080/examples/smartlink/events.json";
+    }
+
+    public static String getPowerConsumeUrl()
+    {
+        return "http://localhost:8080/examples/smartlink/consume.json";
+    }
+
     public static String getWeatherUrl(Context context, String city)
     {
         return "https://free-api.heweather.com/v5/weather?city=" + city + "&key=" + Utils.getApplicationMetaData(context, "weatherKey");
@@ -23,4 +33,5 @@ public class HttpUrl
     {
         return "https://free-api.heweather.com/v5/weather?city=" + locations[0] + "," + locations[1] + "&key=" + Utils.getApplicationMetaData(context, "weatherKey");
     }
+
 }

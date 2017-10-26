@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.widget;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +24,13 @@ import java.util.List;
  */
 public class FilterPopupWindow extends PopupWindow implements OnItemClickListener<UIFilter>
 {
-    private OnCheckChangedListener mOnCheckChangedListener;
+    private OnFilterChangedListener mOnFilterChangedListener;
 
     private FilterAdapter mFilterAdapter;
 
-    public FilterPopupWindow(Activity activity, OnCheckChangedListener listener)
+    public FilterPopupWindow(Activity activity, OnFilterChangedListener listener)
     {
-        mOnCheckChangedListener = listener;
+        mOnFilterChangedListener = listener;
 
         setWidth(LayoutParams.MATCH_PARENT);
 
@@ -39,6 +40,7 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
 
         setOutsideTouchable(true);
 
+        //noinspection deprecation
         setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.filter_window_bg));
 
         RecyclerView recyclerView = new RecyclerView(activity);
@@ -53,6 +55,7 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
 
         DividerItemDecoration decoration = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
 
+        //noinspection deprecation
         decoration.setDrawable(activity.getResources().getDrawable(R.drawable.filter_divider));
 
         recyclerView.addItemDecoration(decoration);
@@ -67,15 +70,17 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
     {
         view.setSelected(!view.isSelected());
 
-        if (mOnCheckChangedListener != null)
+        module.setChecked(view.isSelected());
+
+        if (mOnFilterChangedListener != null)
         {
-            mOnCheckChangedListener.onItemCheckChanged(module, view.isSelected());
+            mOnFilterChangedListener.onFilterChanged(mFilterAdapter.getDataList());
         }
     }
 
-    public interface OnCheckChangedListener
+    public interface OnFilterChangedListener
     {
-        void onItemCheckChanged(UIFilter module, boolean checked);
+        void onFilterChanged(@NonNull List<UIFilter> filters);
     }
 
     public void setFilterList(List<UIFilter> list)

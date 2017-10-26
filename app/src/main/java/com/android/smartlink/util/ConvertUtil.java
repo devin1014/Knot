@@ -1,5 +1,8 @@
 package com.android.smartlink.util;
 
+import com.android.smartlink.Constants;
+import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.ui.model.UIEvent;
@@ -80,7 +83,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIFilter> convertFilters(List<Module> list)
+    public static List<UIFilter> convertFilters(List<Module> list, boolean addOthers)
     {
         if (list == null || list.size() == 0)
         {
@@ -92,6 +95,11 @@ public class ConvertUtil
         for (Module item : list)
         {
             result.add(new UIFilter(item));
+        }
+
+        if (addOthers)
+        {
+            result.add(new UIFilter(Constants.ID_ALL, AppManager.getInstance().getString(R.string.events_filter_other)));
         }
 
         return result;

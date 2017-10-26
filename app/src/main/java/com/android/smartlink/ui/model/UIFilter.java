@@ -13,34 +13,45 @@ import com.android.smartlink.bean.Modules.Module;
  */
 public class UIFilter
 {
-    private Module mModule;
+    private int mId;
 
-    private boolean mChecked;
+    private String mName;
+
+    private boolean mChecked = true;
 
     public UIFilter(Module module)
     {
-        mModule = module;
+        mId = module.getId();
+
+        mName = AppManager.getInstance().getEquipmentName(String.valueOf(module.getId()), null);
+
+        if (TextUtils.isEmpty(mName))
+        {
+            Equipment equipment = AppManager.getInstance().getEquipment(module.getId());
+
+            mName = equipment != null ? equipment.getName() : null;
+        }
+
+        mChecked = true;
+    }
+
+    public UIFilter(int id, String name)
+    {
+        mId = id;
+
+        mName = name;
 
         mChecked = true;
     }
 
     public int getId()
     {
-        return mModule.getId();
+        return mId;
     }
 
     public String getName()
     {
-        String equipmentName = AppManager.getInstance().getEquipmentName(String.valueOf(mModule.getId()), null);
-
-        if (TextUtils.isEmpty(equipmentName))
-        {
-            Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
-
-            return equipment != null ? equipment.getName() : null;
-        }
-
-        return equipmentName;
+        return mName;
     }
 
     public boolean isChecked()

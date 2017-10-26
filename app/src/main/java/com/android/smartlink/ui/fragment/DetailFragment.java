@@ -15,6 +15,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.PowerConsumeRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
+import com.android.smartlink.assist.ScheduleHandler;
 import com.android.smartlink.bean.PowerConsume;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
@@ -23,6 +24,7 @@ import com.android.smartlink.ui.widget.MultiplePowerChart;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.FileUtil;
+import com.android.smartlink.util.HttpUrl;
 
 import org.achartengine.GraphicalView;
 
@@ -33,8 +35,9 @@ import butterknife.BindView;
  * Date: 2017-10-23
  * Time: 11:27
  */
-public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<PowerConsume>
+public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<PowerConsume>, ScheduleHandler.OnScheduleListener
 {
+    @SuppressWarnings("unused")
     public static DetailFragment newInstance(UIModule module)
     {
         DetailFragment fragment = new DetailFragment();
@@ -69,6 +72,8 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     @BindView(R.id.chart_container)
     FrameLayout mChartContainer;
 
+    private ScheduleHandler mScheduleHandler;
+
     private PowerConsumeRequestProvider mConsumeRequestProvider;
 
     @Nullable
@@ -98,15 +103,23 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mConsumeRequestProvider = new PowerConsumeRequestProvider(this);
 
-        mConsumeRequestProvider.request("http://localhost:8080/examples/smartlink/consume.json");
+        mConsumeRequestProvider.request(HttpUrl.getPowerConsumeUrl());
 
         mLoadingLayout.showLoading();
+
+        mScheduleHandler = new ScheduleHandler();
+
+        mScheduleHandler.setOnScheduleListener(this);
+
+        mScheduleHandler.schedule(30 * 1000);
     }
 
     @Override
     public void onDestroyView()
     {
         mConsumeRequestProvider.destroy();
+
+        mScheduleHandler.cancel();
 
         super.onDestroyView();
     }
@@ -132,13 +145,22 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
             if (consume != null)
             {
-                mLoadingLayout.showContent();
-
-                mChartContainer.removeAllViews();
-
-                mChartContainer.addView(new GraphicalView(getActivity(), new MultiplePowerChart().getChart(consume.getData())));
+                onResponse(consume);
             }
         }
+    }
+
+    @Override
+    public void onScheduled()
+    {
+        int nextPos = mViewPager.getCurrentItem() + 1;
+
+        if (nextPos >= mViewPager.getAdapter().getCount())
+        {
+            nextPos = 0;
+        }
+
+        mViewPager.setCurrentItem(nextPos, true);
     }
 
     private DataBindingHandler<UIModule> mOnItemClickListener = new DataBindingHandler<UIModule>()

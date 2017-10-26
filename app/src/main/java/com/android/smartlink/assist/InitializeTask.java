@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 
 import com.android.smartlink.application.manager.AppManager;
@@ -134,6 +135,8 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
             return false;
         }
 
+        final long timeStamp = SystemClock.uptimeMillis();
+
         Gson gson = new Gson();
 
         try
@@ -160,6 +163,11 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
                 {
                     wait(30 * 1000); // max 30s.
                 }
+            }
+
+            if (SystemClock.uptimeMillis() - timeStamp < 1500)
+            {
+                Thread.sleep(1000);
             }
         }
         catch (Exception e)

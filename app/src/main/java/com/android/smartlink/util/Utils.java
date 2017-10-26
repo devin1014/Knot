@@ -73,4 +73,8 @@ public class Utils
         }
     }
 
+    public static boolean isEmpty(int... params)
+    {
+        return params == null || params.length == 0;
+    }
 }

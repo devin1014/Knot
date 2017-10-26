@@ -6,6 +6,7 @@
 
     <string name="power_kwh">%s千瓦时</string>
     <string name="events">事件记录</string>
+    <string name="events_filter_other">其他</string>
     <string name="settings_signout">登出</string>
     <string name="power_load_percent">当前用电负荷%</string>
     <string name="power_load_status_ok">正常</string>
@@ -47,6 +48,7 @@
 
     <!--请示失败-->
     <string name="request_data_error">暂时无法获取数据，请稍微再试</string>
+    <string name="empty_events">没有事件记录</string>
 
     <!--数组-->
     <string-array name="month_array">

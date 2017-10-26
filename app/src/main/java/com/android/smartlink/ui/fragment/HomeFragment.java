@@ -108,19 +108,14 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setRefreshing(false);
 
+        // ---- test code ----------------
         //FIXME,can not get feed from server ,read local file
         {
             Modules modules = FileUtil.openAssets(getActivity(), "main.json", Modules.class);
 
             if (modules != null)
             {
-                mHomeAdapter.setData(ConvertUtil.convertModule(modules.getModules(), true));
-
-                AppManager.getInstance().setModules(modules.getModules());
-
-                mLoadingLayout.showContent();
-
-                mSwipeRefreshLayout.setRefreshing(false);
+                onResponse(modules);
             }
         }
     }

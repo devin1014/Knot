@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -18,14 +19,18 @@ import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.widget.FilterPopupWindow;
-import com.android.smartlink.ui.widget.FilterPopupWindow.OnCheckChangedListener;
+import com.android.smartlink.ui.widget.FilterPopupWindow.OnFilterChangedListener;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
+import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +40,7 @@ import butterknife.BindView;
  * Date: 2017-10-16
  * Time: 18:00
  */
-public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnRefreshListener, OnCheckChangedListener
+public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnRefreshListener, OnFilterChangedListener
 {
     public static EventsFragment newInstance(int... ids)
     {
@@ -70,6 +75,8 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
     private List<UIFilter> mFilters;
 
+    private List<UIEvent> mUIEvents;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -89,19 +96,19 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         int[] ids = getArguments().getIntArray(Constants.KEY_EXTRA_IDS);
 
+        mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getModules(ids), Utils.isEmpty(ids));
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.events_list_divider)));
 
         mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), null));
 
-        mEventsAdapter.setFilter(mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getModules(ids)));
-
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRequestProvider = new EventsRequestProvider(this);
 
-        mRequestProvider.request("http://localhost:8080/examples/smartlink/events.json");
+        mRequestProvider.request(HttpUrl.getEventsUrl());
 
         mLoadingLayout.showLoading();
     }
@@ -121,7 +128,9 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        mEventsAdapter.setData(ConvertUtil.convertEvents(events.getEvents()));
+        mUIEvents = ConvertUtil.convertEvents(events.getEvents());
+
+        setDataByFilters(mUIEvents, mFilters);
     }
 
     @Override
@@ -131,17 +140,14 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mSwipeRefreshLayout.setRefreshing(false);
 
+        // ---- test code ----------------
         //FIXME,can not get feed from server ,read local file
         {
             Events events = FileUtil.openAssets(getActivity(), "events.json", Events.class);
 
             if (events != null)
             {
-                mEventsAdapter.setData(ConvertUtil.convertEvents(events.getEvents()));
-
-                mLoadingLayout.showContent();
-
-                mSwipeRefreshLayout.setRefreshing(false);
+                onResponse(events);
             }
         }
     }
@@ -150,7 +156,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     public void onRefresh()
     {
         // call request
-        mRequestProvider.request("http://localhost:8080/examples/smartlink/events.json");
+        mRequestProvider.request(HttpUrl.getEventsUrl());
 
         // hide loading and show blank loading view
         mLoadingLayout.showBlankView();
@@ -170,18 +176,54 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     }
 
     @Override
-    public void onItemCheckChanged(UIFilter module, boolean checked)
+    public void onFilterChanged(@NonNull List<UIFilter> filters)
     {
-        for (UIFilter filter : mFilters)
-        {
-            if (filter.getId() == module.getId())
-            {
-                filter.setChecked(checked);
+        mFilters = filters;
 
-                break;
+        setDataByFilters(mUIEvents, mFilters);
+    }
+
+    private void setDataByFilters(List<UIEvent> list, List<UIFilter> filters)
+    {
+        if (list == null || list.size() == 0)
+        {
+            showEmptyData();
+
+            return;
+        }
+
+        List<UIEvent> result = new ArrayList<>(list.size());
+
+        for (UIEvent event : list)
+        {
+            for (UIFilter filter : filters)
+            {
+                if (event.getId() == filter.getId())
+                {
+                    if (filter.isChecked())
+                    {
+                        result.add(event);
+                    }
+
+                    break;
+                }
             }
         }
 
-        mEventsAdapter.setFilter(mFilters);
+        if (result.size() == 0)
+        {
+            showEmptyData();
+        }
+        else
+        {
+            mLoadingLayout.showContent();
+
+            mEventsAdapter.setData(result);
+        }
+    }
+
+    private void showEmptyData()
+    {
+        mLoadingLayout.showMessage(getString(R.string.empty_events));
     }
 }
