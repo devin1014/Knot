@@ -53,6 +53,10 @@
             android:name="weatherKey"
             android:value="7f70fe2b7604408bafba86681d9ddcd4" />
 
+        <meta-data
+            android:name="accuWeatherKey"
+            android:value="0460650BB2524F84BAECAA9381D79EFC" />
+
     </application>
 
 </manifest>

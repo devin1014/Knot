@@ -24,6 +24,11 @@ public class HttpUrl
         return "http://localhost:8080/examples/smartlink/consume.json";
     }
 
+    public static String getAccuWeatherUrl(Context context)
+    {
+        return "https://api.accuweather.com/localweather/v1/106577?apikey=" + Utils.getApplicationMetaData(context, "accuWeatherKey");
+    }
+
     public static String getWeatherUrl(Context context, String city)
     {
         return "https://free-api.heweather.com/v5/weather?city=" + city + "&key=" + Utils.getApplicationMetaData(context, "weatherKey");

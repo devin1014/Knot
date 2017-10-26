@@ -16,6 +16,7 @@ import com.android.smartlink.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,6 +109,29 @@ public class AppManager
         }
 
         return list;
+    }
+
+    public boolean checkWeather()
+    {
+        if (mWeather != null)
+        {
+            try
+            {
+                Date date = mWeather.getBasic().getUpdateTime();
+
+                long deltaTime = Math.abs(System.currentTimeMillis() - date.getTime());
+
+                if (deltaTime <= Constants.SIX_HOUR && deltaTime > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ignored)
+            {
+            }
+        }
+
+        return false;
     }
 
     public Weather getWeather()
@@ -203,5 +227,24 @@ public class AppManager
         mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, nextIndex).apply();
 
         return index;
+    }
+
+    public void setLocation(String location)
+    {
+        mSharedPreferences.edit().putString(Constants.KEY_SHARE_PREFERENCE_LOCATION, location).apply();
+
+        mSharedPreferences.edit().putLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, System.currentTimeMillis()).apply();
+    }
+
+    public String getLocation()
+    {
+        long time = mSharedPreferences.getLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, -1L);
+
+        if (time < 0 || (System.currentTimeMillis() - time) >= Constants.SIX_HOUR)
+        {
+            return null;
+        }
+
+        return mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_LOCATION, null);
     }
 }

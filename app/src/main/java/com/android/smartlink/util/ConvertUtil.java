@@ -70,7 +70,10 @@ public class ConvertUtil
 
         if (addStatus)
         {
-            result.add(UIModule.newWeatherInstance());
+            if (AppManager.getInstance().getWeather() != null)
+            {
+                result.add(UIModule.newWeatherInstance());
+            }
 
             result.add(UIModule.newStatusInstance());
         }

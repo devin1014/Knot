@@ -38,11 +38,11 @@ public class UIWeather
 
         mCalendar.add(Calendar.DAY_OF_WEEK, 1);
 
-        mTomorrow = weeks[mCalendar.get(Calendar.DAY_OF_WEEK)];
+        mTomorrow = weeks[mCalendar.get(Calendar.DAY_OF_WEEK) - 1];
 
         mCalendar.add(Calendar.DAY_OF_WEEK, 1);
 
-        mDayAfterTomorrow = weeks[mCalendar.get(Calendar.DAY_OF_WEEK)];
+        mDayAfterTomorrow = weeks[mCalendar.get(Calendar.DAY_OF_WEEK) - 1];
     }
 
     public String getImage()

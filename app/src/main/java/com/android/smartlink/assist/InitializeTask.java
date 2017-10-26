@@ -1,23 +1,23 @@
 package com.android.smartlink.assist;
 
-import android.Manifest.permission;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
+import com.android.smartlink.Constants;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.bean.WeatherLocation;
 import com.android.smartlink.util.HttpUrl;
-import com.android.smartlink.util.LogUtil;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.convert.Converter;
+import com.lzy.okgo.request.GetRequest;
+
+import org.json.JSONObject;
 
 import java.io.InputStreamReader;
 
@@ -26,106 +26,23 @@ import java.io.InputStreamReader;
  * Date: 2017-10-16
  * Time: 14:39
  */
-public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements RequestCallback<Weather>
+public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 {
     private AssetManager mAssetManager;
 
-    private WeatherRequestProvider mWeatherRequestProvider;
-
     private InitializeTaskCallback mTaskCallback;
 
-    private LocationManager mLocationManager;
-
-    private double[] mLocations;
+    public interface InitializeTaskCallback
+    {
+        void onInitialized(boolean success);
+    }
 
     public InitializeTask(Context context, InitializeTaskCallback callback)
     {
         mAssetManager = context.getAssets();
 
         mTaskCallback = callback;
-
-        mWeatherRequestProvider = new WeatherRequestProvider(this);
     }
-
-    @Override
-    protected void onPreExecute()
-    {
-        final double[] locations = new double[2];
-
-        Context context = AppManager.getInstance().getApplication();
-
-        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
-        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
-                ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
-            Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            if (location != null)
-            {
-                locations[0] = location.getLatitude();
-
-                locations[1] = location.getLongitude();
-
-                mLocations = locations;
-
-                notifyToNext();
-
-                return;
-            }
-        }
-
-        Location location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        if (location != null)
-        {
-            locations[0] = location.getLatitude(); //经度
-
-            locations[1] = location.getLongitude(); //纬度
-
-            mLocations = locations;
-
-            notifyToNext();
-        }
-        else
-        {
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, mLocationListener);
-        }
-    }
-
-    private LocationListener mLocationListener = new LocationListener()
-    {
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras)
-        {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider)
-        {
-        }
-
-        @Override
-        public void onProviderDisabled(String provider)
-        {
-        }
-
-        @Override
-        public void onLocationChanged(Location location)
-        {
-            final double[] locations = new double[2];
-
-            locations[0] = location.getLatitude(); //经度
-
-            locations[1] = location.getLongitude(); //纬度
-
-            mLocations = locations;
-
-            LogUtil.log(this, location.toString());
-
-            notifyToNext();
-        }
-    };
 
     @Override
     protected Boolean doInBackground(Void... voids)
@@ -145,24 +62,29 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
 
             AppManager.getInstance().setEquipments(equipments);
 
-            synchronized (this)
+            if (!AppManager.getInstance().checkWeather())
             {
-                if (mLocations == null)
+                String location = AppManager.getInstance().getLocation();
+
+                if (TextUtils.isEmpty(location))
                 {
-                    wait();
+                    WeatherLocation weatherLocation = getLocation();
+
+                    if (weatherLocation != null)
+                    {
+                        location = weatherLocation.getLocation();
+
+                        AppManager.getInstance().setLocation(location);
+                    }
+                    else
+                    {
+                        location = Constants.DEFAULT_LOCATION;
+                    }
                 }
-            }
 
-            mLocationManager.removeUpdates(mLocationListener);
+                Weather weather = getWeather(location);
 
-            mWeatherRequestProvider.request(HttpUrl.getWeatherUrl(AppManager.getInstance().getApplication(), mLocations));
-
-            synchronized (this)
-            {
-                if (!mWeatherResponse)
-                {
-                    wait(30 * 1000); // max 30s.
-                }
+                AppManager.getInstance().setWeather(weather);
             }
 
             if (SystemClock.uptimeMillis() - timeStamp < 1500)
@@ -178,6 +100,56 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
         }
 
         return true;
+    }
+
+    private WeatherLocation getLocation() throws Exception
+    {
+        GetRequest<WeatherLocation> request = OkGo.get(HttpUrl.getAccuWeatherUrl(AppManager.getInstance().getApplication()));
+
+        request.converter(new Converter<WeatherLocation>()
+        {
+            @Override
+            public WeatherLocation convertResponse(okhttp3.Response response) throws Throwable
+            {
+                if (response.code() == 200)
+                {
+                    //noinspection ConstantConditions
+                    String result = response.body().string();
+
+                    return new Gson().fromJson(result, WeatherLocation.class);
+                }
+
+                return null;
+            }
+        });
+
+        return request.adapt().execute().body();
+    }
+
+    private Weather getWeather(String city) throws Exception
+    {
+        GetRequest<Weather> request = OkGo.get(HttpUrl.getWeatherUrl(AppManager.getInstance().getApplication(), city));
+
+        request.converter(new Converter<Weather>()
+        {
+            @Override
+            public Weather convertResponse(okhttp3.Response response) throws Throwable
+            {
+                if (response.code() == 200 && response.body() != null)
+                {
+                    @SuppressWarnings("ConstantConditions")
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+
+                    JSONObject weather = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
+
+                    return new Gson().fromJson(weather.toString(), Weather.class);
+                }
+
+                return null;
+            }
+        });
+
+        return request.adapt().execute().body();
     }
 
     @Override
@@ -198,42 +170,4 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
         cancel(true);
     }
 
-    private boolean mWeatherResponse = false;
-
-    @Override
-    public void onResponse(Weather weather)
-    {
-        AppManager.getInstance().setWeather(weather);
-
-        mWeatherResponse = true;
-
-        notifyToNext();
-    }
-
-    @Override
-    public void onError(Throwable throwable)
-    {
-        mWeatherResponse = true;
-
-        notifyToNext();
-    }
-
-    private void notifyToNext()
-    {
-        try
-        {
-            synchronized (this)
-            {
-                notify();
-            }
-        }
-        catch (Exception ignored)
-        {
-        }
-    }
-
-    public interface InitializeTaskCallback
-    {
-        void onInitialized(boolean success);
-    }
 }

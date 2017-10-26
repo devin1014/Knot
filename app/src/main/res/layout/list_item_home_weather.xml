@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.tomorrowName}"
+                android:text="@{data.dayAfterTomorrowName}"
                 android:textColor="#ffffff"
                 android:textSize="10dp" />
 
@@ -112,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.tomorrowTmp}"
+                android:text="@{data.dayAfterTomorrowTmp}"
                 android:textColor="#ffffff"
                 android:textSize="10dp" />
 
@@ -131,7 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.dayAfterTomorrowName}"
+                android:text="@{data.tomorrowName}"
                 android:textColor="#ffffff"
                 android:textSize="10dp" />
 
@@ -145,7 +145,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.dayAfterTomorrowTmp}"
+                android:text="@{data.tomorrowTmp}"
                 android:textColor="#ffffff"
                 android:textSize="10dp" />
 
