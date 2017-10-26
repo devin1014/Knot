@@ -1,13 +1,21 @@
 package com.android.smartlink.assist;
 
+import android.Manifest.permission;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.LogUtil;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
@@ -25,7 +33,9 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
 
     private InitializeTaskCallback mTaskCallback;
 
-    private String mUrl;
+    private LocationManager mLocationManager;
+
+    private double[] mLocations;
 
     public InitializeTask(Context context, InitializeTaskCallback callback)
     {
@@ -33,16 +43,88 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
 
         mTaskCallback = callback;
 
-        mUrl = HttpUrl.getWeatherUrl(context, "上海");
-
         mWeatherRequestProvider = new WeatherRequestProvider(this);
     }
 
     @Override
     protected void onPreExecute()
     {
-        mWeatherRequestProvider.request(mUrl);
+        final double[] locations = new double[2];
+
+        Context context = AppManager.getInstance().getApplication();
+
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
+                ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (location != null)
+            {
+                locations[0] = location.getLatitude();
+
+                locations[1] = location.getLongitude();
+
+                mLocations = locations;
+
+                notifyToNext();
+
+                return;
+            }
+        }
+
+        Location location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        if (location != null)
+        {
+            locations[0] = location.getLatitude(); //经度
+
+            locations[1] = location.getLongitude(); //纬度
+
+            mLocations = locations;
+
+            notifyToNext();
+        }
+        else
+        {
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, mLocationListener);
+        }
     }
+
+    private LocationListener mLocationListener = new LocationListener()
+    {
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras)
+        {
+        }
+
+        @Override
+        public void onProviderEnabled(String provider)
+        {
+        }
+
+        @Override
+        public void onProviderDisabled(String provider)
+        {
+        }
+
+        @Override
+        public void onLocationChanged(Location location)
+        {
+            final double[] locations = new double[2];
+
+            locations[0] = location.getLatitude(); //经度
+
+            locations[1] = location.getLongitude(); //纬度
+
+            mLocations = locations;
+
+            LogUtil.log(this, location.toString());
+
+            notifyToNext();
+        }
+    };
 
     @Override
     protected Boolean doInBackground(Void... voids)
@@ -60,9 +142,21 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
 
             AppManager.getInstance().setEquipments(equipments);
 
-            if (!mWeatherResponse)
+            synchronized (this)
             {
-                synchronized (this)
+                if (mLocations == null)
+                {
+                    wait();
+                }
+            }
+
+            mLocationManager.removeUpdates(mLocationListener);
+
+            mWeatherRequestProvider.request(HttpUrl.getWeatherUrl(AppManager.getInstance().getApplication(), mLocations));
+
+            synchronized (this)
+            {
+                if (!mWeatherResponse)
                 {
                     wait(30 * 1000); // max 30s.
                 }
@@ -105,16 +199,7 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
 
         mWeatherResponse = true;
 
-        try
-        {
-            synchronized (this)
-            {
-                notify();
-            }
-        }
-        catch (Exception ignored)
-        {
-        }
+        notifyToNext();
     }
 
     @Override
@@ -122,6 +207,11 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean> implements Re
     {
         mWeatherResponse = true;
 
+        notifyToNext();
+    }
+
+    private void notifyToNext()
+    {
         try
         {
             synchronized (this)

@@ -18,4 +18,9 @@ public class HttpUrl
     {
         return "https://free-api.heweather.com/v5/weather?city=" + city + "&key=" + Utils.getApplicationMetaData(context, "weatherKey");
     }
+
+    public static String getWeatherUrl(Context context, double[] locations)
+    {
+        return "https://free-api.heweather.com/v5/weather?city=" + locations[0] + "," + locations[1] + "&key=" + Utils.getApplicationMetaData(context, "weatherKey");
+    }
 }

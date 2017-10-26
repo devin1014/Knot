@@ -1,8 +1,12 @@
 package com.android.smartlink.ui.activity;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.smartlink.R;
@@ -46,14 +50,28 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
     {
         if (success)
         {
+            finish();
+
             startActivity(new Intent(this, MainActivity.class));
         }
         else
         {
-            //FIXME
-            // show message here
-        }
+            AlertDialog.Builder builder = new Builder(this);
 
-        finish();
+            builder.setMessage(R.string.app_launch_failed);
+
+            builder.setPositiveButton(R.string.ui_ok, new OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.dismiss();
+
+                    finish();
+                }
+            });
+
+            builder.show();
+        }
     }
 }

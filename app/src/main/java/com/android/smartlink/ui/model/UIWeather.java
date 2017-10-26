@@ -50,8 +50,18 @@ public class UIWeather
         return "weather_" + mWeather.getNow().getCond().getCode();
     }
 
+    public boolean hasAqi()
+    {
+        return mWeather.getAqi() != null;
+    }
+
     public String getAqi()
     {
+        if (mWeather.getAqi() == null)
+        {
+            return null;
+        }
+
         return AppManager.getInstance().getString(R.string.weather_aqi) + mWeather.getAqi().getQlty();
     }
 

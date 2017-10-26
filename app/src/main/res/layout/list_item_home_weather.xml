@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="data"
             type="com.android.smartlink.ui.model.UIWeather" />
@@ -42,7 +44,8 @@
             android:layout_marginStart="20dp"
             android:text="@{data.aqi}"
             android:textColor="#bbffffff"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:visibility="@{data.hasAqi()?View.VISIBLE:View.GONE}" />
 
         <!--tmp-->
         <TextView
