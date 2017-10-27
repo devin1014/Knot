@@ -10,6 +10,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.EventsFragment;
 import com.android.smartlink.ui.fragment.HomeFragment;
+import com.android.smartlink.ui.fragment.NestScrollHomeFragment;
 import com.android.smartlink.ui.fragment.SettingsFragment;
 import com.android.smartlink.util.ViewUtil;
 
@@ -65,7 +66,7 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
         {
             case POS_MAIN:
 
-                mNavigationComposite.showPrimaryFragment(new HomeFragment(), R.string.menu_main);
+                mNavigationComposite.showPrimaryFragment(new NestScrollHomeFragment(), R.string.menu_main);
 
                 setEditButtonVisibility(false);
 

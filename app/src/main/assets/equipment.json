@@ -1,29 +1,22 @@
 {
-    "equipments": [
-        {
-            "id": 1,
-            "name": "总回路",
-            "icon": "ic_group_electrical_meter"
-        },
-        {
-            "id": 2,
-            "name": "冰箱回路",
-            "icon": "ic_group_house_freezer"
-        },
-        {
-            "id": 3,
-            "name": "门廊回路",
-            "icon": "ic_group_lighting"
-        },
-        {
-            "id": 4,
-            "name": "插座回路",
-            "icon": "ic_group_oven"
-        },
-        {
-            "id": 5,
-            "name": "餐厅回路",
-            "icon": "ic_group_air_conditioner"
-        }
-    ]
+  "equipments": [
+    {
+      "id": 1,
+      "name": "总回路",
+      "icon": "ic_group_electrical",
+      "light_icon": "ic_group_electrical_white"
+    },
+    {
+      "id": 2,
+      "name": "冰箱回路",
+      "icon": "ic_group_freezer",
+      "light_icon": "ic_group_freezer_white"
+    },
+    {
+      "id": 4,
+      "name": "插座回路",
+      "icon": "ic_group_oven",
+      "light_icon": "ic_group_oven_white"
+    }
+  ]
 }

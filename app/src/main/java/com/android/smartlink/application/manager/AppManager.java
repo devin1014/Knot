@@ -203,6 +203,18 @@ public class AppManager
         return R.mipmap.ic_launcher;
     }
 
+    public int getEquipmentWhiteImageRes(int id)
+    {
+        Equipment equipment = getEquipment(id);
+
+        if (equipment != null)
+        {
+            return ViewUtil.getDrawable(mApplication, equipment.getLightIcon());
+        }
+
+        return R.mipmap.ic_launcher;
+    }
+
     public String getString(int resId)
     {
         return mApplication.getResources().getString(resId);

@@ -86,6 +86,23 @@ public class ConvertUtil
         return result;
     }
 
+    public static UIModule[] convertModule(List<Module> list, int start, int end)
+    {
+        if (list == null || list.size() == 0)
+        {
+            return null;
+        }
+
+        List<UIModule> result = new ArrayList<>();
+
+        for (int i = start; i < list.size() && i < end; i++)
+        {
+            result.add(new UIModule(list.get(i)));
+        }
+
+        return result.toArray(new UIModule[result.size()]);
+    }
+
     public static List<UIFilter> convertFilters(List<Module> list, boolean addOthers)
     {
         if (list == null || list.size() == 0)

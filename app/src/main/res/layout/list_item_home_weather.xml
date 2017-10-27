@@ -87,7 +87,7 @@
         <!--next 2days-->
         <LinearLayout
             android:id="@+id/weather_tomorrow_after"
-            android:layout_width="48dp"
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -120,7 +120,7 @@
 
         <LinearLayout
             android:id="@+id/weather_tomorrow"
-            android:layout_width="48dp"
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/weather_tomorrow_after"

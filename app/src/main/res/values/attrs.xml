@@ -13,4 +13,11 @@
         <attr name="loading_background" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="CircleView">
+        <attr name="border_width" format="reference|dimension" />
+        <attr name="border_color" format="reference|color" />
+        <attr name="progressColor" format="reference|color" />
+        <attr name="progress" format="integer" />
+    </declare-styleable>
+
 </resources>

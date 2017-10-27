@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.model;
 
+import android.content.res.Resources;
 import android.text.TextUtils;
 
 import com.android.smartlink.Constants;
@@ -45,6 +46,8 @@ public class UIModule implements Serializable
 
     private boolean mEditMode = false;
 
+    private int[] mStatusColor;
+
     public UIModule(Module module)
     {
         this(module, TYPE_NORMAL);
@@ -57,6 +60,10 @@ public class UIModule implements Serializable
         mType = type;
 
         POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.power_kwh);
+
+        Resources resources = AppManager.getInstance().getApplication().getResources();
+
+        mStatusColor = new int[]{resources.getColor(R.color.module_status_good), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
     }
 
     public final Module getSource()
@@ -67,6 +74,11 @@ public class UIModule implements Serializable
     public int getImageRes()
     {
         return AppManager.getInstance().getEquipmentImageRes(mModule.getId());
+    }
+
+    public int getWhiteImageRes()
+    {
+        return AppManager.getInstance().getEquipmentWhiteImageRes(mModule.getId());
     }
 
     public String getName()
@@ -111,6 +123,11 @@ public class UIModule implements Serializable
     public String getStatus()
     {
         return AppManager.getInstance().getModuleStatus(mModule.getStatus());
+    }
+
+    public int getColor()
+    {
+        return mStatusColor[Math.max(0, Math.min(mModule.getStatus() - 1, mStatusColor.length))];
     }
 
     public int getHealth()
