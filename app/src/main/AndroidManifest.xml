@@ -14,10 +14,11 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name=".ui.activity.DispatchActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen">
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,30 +27,36 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.SplashActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+
+        <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.activity.DetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.activity.SingleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.activity.EquipmentActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 

@@ -61,6 +61,11 @@ public class AppManager
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
     }
 
+    public boolean isInitialized()
+    {
+        return mApplication != null && mEquipments != null && mEquipments.size() > 0;
+    }
+
     public Application getApplication()
     {
         return mApplication;
