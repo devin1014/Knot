@@ -47,9 +47,8 @@
                     android:drawableStart="@drawable/detail_state"
                     android:gravity="center_vertical"
                     android:text="@{data.status}"
-                    android:textColor="#585b5d"
-                    android:textSize="14dp"
-                    app:textStatusColor="@{data.health}" />
+                    android:textColor="@{data.color}"
+                    android:textSize="14dp" />
 
                 <ImageView
                     android:layout_width="20dp"
@@ -89,8 +88,8 @@
                     android:layout_gravity="center_vertical|end"
                     android:gravity="center_vertical"
                     android:text="@{data.powerLoadDescription}"
-                    android:textSize="14dp"
-                    app:textStatusColor="@{data.powerLoadStatus}" />
+                    android:textColor="@{data.powerLoadAlarm ? @color/module_status_warn : @color/module_status_good}"
+                    android:textSize="14dp" />
 
             </FrameLayout>
 
@@ -225,7 +224,10 @@
                     android:id="@+id/detail_suggest"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginTop="40dp" />
+                    android:layout_marginTop="40dp"
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0dp"
+                    android:overScrollMode="never" />
 
             </FrameLayout>
 

@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.smartlink.Constants;
-import com.android.smartlink.R;
-
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-22
@@ -80,31 +77,6 @@ public class DataBindingAdapterUtil
     public static void setBackgroundRes(View view, int color)
     {
         view.setBackgroundColor(color);
-    }
-
-    @BindingAdapter({"textStatusColor"})
-    public static void setTextStatusColor(TextView textView, int status)
-    {
-        switch (status)
-        {
-            case Constants.STATUS_GOOD:
-
-                textView.setTextColor(textView.getResources().getColor(R.color.module_status_good));
-
-                break;
-
-            case Constants.STATUS_WARNING:
-
-                textView.setTextColor(textView.getResources().getColor(R.color.module_status_warn));
-
-                break;
-
-            case Constants.STATUS_ERROR:
-
-                textView.setTextColor(textView.getResources().getColor(R.color.module_status_error));
-
-                break;
-        }
     }
 
     @BindingAdapter({"selected"})

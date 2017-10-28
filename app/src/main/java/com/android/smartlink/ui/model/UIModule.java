@@ -3,7 +3,6 @@ package com.android.smartlink.ui.model;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
-import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments.Equipment;
@@ -161,14 +160,9 @@ public class UIModule implements Serializable
         return mModule.getStatus();
     }
 
-    public int getPowerLoadStatus()
+    public boolean isPowerLoadAlarm()
     {
-        if (mModule.getPowerLoad() >= 85)
-        {
-            return Constants.STATUS_WARNING;
-        }
-
-        return Constants.STATUS_GOOD;
+        return mModule.getPowerLoad() >= 85;
     }
 
     public String getPowerLoadDescription()

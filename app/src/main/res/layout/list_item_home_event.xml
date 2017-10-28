@@ -101,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@{data.status}"
+                android:textColor="@{data.color}"
                 android:textSize="14dp"
-                app:textStatusColor="@{data.health}"
                 tools:ignore="RelativeOverlap" />
 
             <ImageView
