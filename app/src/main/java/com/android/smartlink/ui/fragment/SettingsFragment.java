@@ -1,5 +1,7 @@
 package com.android.smartlink.ui.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,6 +85,14 @@ public class SettingsFragment extends BaseSmartlinkFragment
 
                 case Constants.POS_SETTINGS_FEEDBACK:
 
+                    Uri uri = Uri.parse("mailto:yin.liu@schneider-electric.com");
+                    String[] email = {"yin.liu@schneider-electric.com"};
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                    intent.putExtra(Intent.EXTRA_EMAIL, email);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "App反馈"); // 主题
+                    intent.putExtra(Intent.EXTRA_TEXT, "感觉您的反馈意见"); // 正文
+                    startActivity(Intent.createChooser(intent, "请选择发送邮件方式"));
+
                     break;
 
                 case Constants.POS_SETTINGS_TERMS:
@@ -92,6 +102,8 @@ public class SettingsFragment extends BaseSmartlinkFragment
                     break;
 
                 case Constants.POS_SETTINGS_ABOUT:
+
+                    SingleActivity.startAboutActivity(getActivity(), setting.getName());
 
                     break;
             }
