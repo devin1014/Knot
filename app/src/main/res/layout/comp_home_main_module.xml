@@ -31,11 +31,12 @@
             android:layout_height="106dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
-            app:border_color="#d9d9d9"
-            app:border_width="5dp"
-            app:imageRes="@{data.whiteImageRes}"
-            app:progress="@{data.source.powerLoad}"
-            app:progressColor="@{data.color}" />
+            app:circleBackgroundColor="#33ffffff"
+            app:circleBorderColor="#d9d9d9"
+            app:circleBorderWidth="5dp"
+            app:circleProgress="@{data.source.powerLoad}"
+            app:circleProgressColor="@{data.color}"
+            app:imageRes="@{data.whiteImageRes}" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,12 +44,13 @@
             android:text="@{data.name}"
             android:textColor="#ffffff"
             android:textSize="16dp"
+            android:textStyle="bold"
             tools:ignore="SpUsage" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.power+data.month}"
+            android:text="@{data.powerAndMonth}"
             android:textColor="#bbffffff"
             android:textSize="14dp"
             tools:ignore="SpUsage" />

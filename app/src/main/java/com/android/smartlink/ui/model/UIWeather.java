@@ -72,12 +72,12 @@ public class UIWeather
 
     public String getMaxTmp()
     {
-        return AppManager.getInstance().getString(R.string.weather_max_tmp) + mWeather.getDaily_forecast().get(0).getMax();
+        return AppManager.getInstance().getString(R.string.weather_max_tmp) + " " + mWeather.getDaily_forecast().get(0).getMax();
     }
 
     public String getMinTemp()
     {
-        return AppManager.getInstance().getString(R.string.weather_min_tmp) + mWeather.getDaily_forecast().get(0).getMin();
+        return AppManager.getInstance().getString(R.string.weather_min_tmp) + " " + mWeather.getDaily_forecast().get(0).getMin();
     }
 
     public String getTomorrowName()

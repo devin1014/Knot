@@ -5,6 +5,7 @@
     <color name="colorAccent">#009530</color>
 
     <color name="white">#ffffff</color>
+    <color name="module_status_none">#ffffff</color>
     <color name="module_status_good">#009c42</color>
     <color name="module_status_warn">#ffb528</color>
     <color name="module_status_error">#ff2626</color>

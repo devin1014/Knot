@@ -14,10 +14,11 @@
     </declare-styleable>
 
     <declare-styleable name="CircleView">
-        <attr name="border_width" format="reference|dimension" />
-        <attr name="border_color" format="reference|color" />
-        <attr name="progressColor" format="reference|color" />
-        <attr name="progress" format="integer" />
+        <attr name="circleBorderColor" format="reference|color" />
+        <attr name="circleBorderWidth" format="reference|dimension" />
+        <attr name="circleProgress" format="reference|integer" />
+        <attr name="circleProgressColor" format="reference|color" />
+        <attr name="circleBackgroundColor" format="reference|color" />
     </declare-styleable>
 
 </resources>

@@ -48,6 +48,8 @@ public class UIModule implements Serializable
 
     private int[] mStatusColor;
 
+    private int[] mTextStatusColor;
+
     public UIModule(Module module)
     {
         this(module, TYPE_NORMAL);
@@ -63,7 +65,11 @@ public class UIModule implements Serializable
 
         Resources resources = AppManager.getInstance().getApplication().getResources();
 
-        mStatusColor = new int[]{resources.getColor(R.color.module_status_good), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+        mStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_good),
+                resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+
+        mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_none),
+                resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
     }
 
     public final Module getSource()
@@ -120,6 +126,11 @@ public class UIModule implements Serializable
         return AppManager.getInstance().getCurrentMonth();
     }
 
+    public String getPowerAndMonth()
+    {
+        return getPower() + " " + getMonth();
+    }
+
     public String getStatus()
     {
         return AppManager.getInstance().getModuleStatus(mModule.getStatus());
@@ -127,7 +138,22 @@ public class UIModule implements Serializable
 
     public int getColor()
     {
-        return mStatusColor[Math.max(0, Math.min(mModule.getStatus() - 1, mStatusColor.length))];
+        if (mModule.getStatus() > 3 || mModule.getStatus() < 0)
+        {
+            return mStatusColor[0];
+        }
+
+        return mStatusColor[mModule.getStatus()];
+    }
+
+    public int getTextColor()
+    {
+        if (mModule.getStatus() > 3 || mModule.getStatus() < 0)
+        {
+            return mTextStatusColor[0];
+        }
+
+        return mTextStatusColor[mModule.getStatus()];
     }
 
     public int getHealth()

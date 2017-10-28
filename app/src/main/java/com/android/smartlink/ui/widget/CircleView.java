@@ -18,9 +18,13 @@ import com.android.smartlink.R;
  */
 public class CircleView extends android.support.v7.widget.AppCompatImageView
 {
-    private Paint mBorderPaint = new Paint();
+    private Paint mPaint = new Paint();
 
-    private Paint mProgressPaint = new Paint();
+    private int mProgressColor;
+
+    private int mBorderColor;
+
+    private int mCircleBackgroundColor;
 
     private int mProgress;
 
@@ -47,51 +51,54 @@ public class CircleView extends android.support.v7.widget.AppCompatImageView
 
     private void initialize(Context context, @Nullable AttributeSet attrs)
     {
+        mPaint.setAntiAlias(true);
+
         if (attrs != null)
         {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleView);
 
-            setBorderColor(a.getColor(R.styleable.CircleView_border_color, 0x00000000));
+            setCircleBorderColor(a.getColor(R.styleable.CircleView_circleBorderColor, 0x00000000));
 
-            setBorderWidth(a.getDimensionPixelSize(R.styleable.CircleView_border_width, 5));
+            setCircleBorderWidth(a.getDimensionPixelSize(R.styleable.CircleView_circleBorderWidth, 5));
 
-            setProgressColor(a.getColor(R.styleable.CircleView_progressColor, 0x00000000));
+            setCircleProgressColor(a.getColor(R.styleable.CircleView_circleProgressColor, 0x00000000));
 
-            setProgress(a.getInteger(R.styleable.CircleView_progress, 0));
+            setCircleProgress(a.getInteger(R.styleable.CircleView_circleProgress, 0));
+
+            setCircleBackgroundColor(a.getColor(R.styleable.CircleView_circleBackgroundColor, 0x00000000));
 
             a.recycle();
         }
     }
 
-    public void setBorderColor(int color)
+    public void setCircleBorderColor(int color)
     {
-        mBorderPaint.setColor(color);
+        mBorderColor = color;
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
-    public void setBorderWidth(int width)
+    public void setCircleBorderWidth(int width)
     {
         setPadding(width, width, width, width);
 
-        mBorderPaint.setStrokeWidth(width);
-
-        mBorderPaint.setStyle(Style.STROKE);
-
-        mProgressPaint.setStrokeWidth(width);
-
-        mProgressPaint.setStyle(Style.STROKE);
+        mPaint.setStrokeWidth(width);
     }
 
-    public void setProgressColor(int color)
+    public void setCircleProgressColor(int color)
     {
-        mProgressPaint.setColor(color);
+        mProgressColor = color;
     }
 
-    public void setProgress(int progress)
+    public void setCircleProgress(int progress)
     {
         mProgress = Math.min(Math.max(progress, 0), 100);
 
         invalidate();
+    }
+
+    public void setCircleBackgroundColor(int color)
+    {
+        mCircleBackgroundColor = color;
     }
 
     private RectF mRectF;
@@ -105,7 +112,7 @@ public class CircleView extends android.support.v7.widget.AppCompatImageView
 
         int centerY = getHeight() / 2;
 
-        int radius = getWidth() / 2 - (int) mBorderPaint.getStrokeWidth();
+        int radius = getWidth() / 2 - (int) mPaint.getStrokeWidth();
 
         mRectF = new RectF(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
     }
@@ -119,10 +126,26 @@ public class CircleView extends android.support.v7.widget.AppCompatImageView
 
         int centerY = getHeight() / 2;
 
-        int radius = getWidth() / 2 - (int) mBorderPaint.getStrokeWidth();
+        int radius = getWidth() / 2 - (int) mPaint.getStrokeWidth();
 
-        canvas.drawCircle(centerX, centerY, radius, mBorderPaint);
+        // background
+        mPaint.setStyle(Style.FILL);
 
-        canvas.drawArc(mRectF, -90, mProgress / 100f * 360, false, mProgressPaint);
+        mPaint.setColor(mCircleBackgroundColor);
+
+        canvas.drawCircle(centerX, centerY, radius, mPaint);
+
+        // border
+        mPaint.setStyle(Style.STROKE);
+
+        mPaint.setColor(mBorderColor);
+
+        canvas.drawCircle(centerX, centerY, radius, mPaint);
+
+        // progress
+
+        mPaint.setColor(mProgressColor);
+
+        canvas.drawArc(mRectF, -90, mProgress / 100f * 360, false, mPaint);
     }
 }

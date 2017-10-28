@@ -33,6 +33,7 @@ import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.UICompat;
 
 import java.util.List;
 
@@ -213,6 +214,8 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
             statusImg.setImageLevel(status);
 
             statusName.setText(AppManager.getInstance().getModuleStatus(status));
+
+            statusName.setTextColor(UICompat.getStatusColor(status));
         }
 
         int index = 0;

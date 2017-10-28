@@ -39,11 +39,12 @@
                 android:layout_height="72dp"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
-                app:border_color="#d9d9d9"
-                app:border_width="5dp"
-                app:imageRes="@{data[0].whiteImageRes}"
-                app:progress="@{data[0].source.powerLoad}"
-                app:progressColor="@{data[0].color}" />
+                app:circleBackgroundColor="#33ffffff"
+                app:circleBorderColor="#d9d9d9"
+                app:circleBorderWidth="5dp"
+                app:circleProgress="@{data[0].source.powerLoad}"
+                app:circleProgressColor="@{data[0].color}"
+                app:imageRes="@{data[0].whiteImageRes}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,12 +52,13 @@
                 android:text="@{data[0].name}"
                 android:textColor="#ffffff"
                 android:textSize="16dp"
+                android:textStyle="bold"
                 tools:ignore="SpUsage" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data[0].power+data[0].month}"
+                android:text="@{data[0].powerAndMonth}"
                 android:textColor="#bbffffff"
                 android:textSize="14dp"
                 tools:ignore="SpUsage" />
@@ -77,11 +79,12 @@
                 android:layout_height="72dp"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
-                app:border_color="#d9d9d9"
-                app:border_width="5dp"
-                app:imageRes="@{data[1].whiteImageRes}"
-                app:progress="@{data[1].source.powerLoad}"
-                app:progressColor="@{data[1].color}" />
+                app:circleBackgroundColor="#33ffffff"
+                app:circleBorderColor="#d9d9d9"
+                app:circleBorderWidth="5dp"
+                app:circleProgress="@{data[1].source.powerLoad}"
+                app:circleProgressColor="@{data[1].color}"
+                app:imageRes="@{data[1].whiteImageRes}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,12 +92,13 @@
                 android:text="@{data[1].name}"
                 android:textColor="#ffffff"
                 android:textSize="16dp"
+                android:textStyle="bold"
                 tools:ignore="SpUsage" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data[1].power+data[1].month}"
+                android:text="@{data[1].powerAndMonth}"
                 android:textColor="#bbffffff"
                 android:textSize="14dp"
                 tools:ignore="SpUsage" />
@@ -115,11 +119,12 @@
                 android:layout_height="72dp"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
-                app:border_color="#d9d9d9"
-                app:border_width="5dp"
-                app:imageRes="@{data[2].whiteImageRes}"
-                app:progress="@{data[2].source.powerLoad}"
-                app:progressColor="@{data[2].color}" />
+                app:circleBackgroundColor="#33ffffff"
+                app:circleBorderColor="#d9d9d9"
+                app:circleBorderWidth="5dp"
+                app:circleProgress="@{data[2].source.powerLoad}"
+                app:circleProgressColor="@{data[2].color}"
+                app:imageRes="@{data[2].whiteImageRes}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -127,12 +132,13 @@
                 android:text="@{data[2].name}"
                 android:textColor="#ffffff"
                 android:textSize="16dp"
+                android:textStyle="bold"
                 tools:ignore="SpUsage" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data[2].power+data[2].month}"
+                android:text="@{data[2].powerAndMonth}"
                 android:textColor="#bbffffff"
                 android:textSize="14dp"
                 tools:ignore="SpUsage" />
