@@ -42,6 +42,8 @@ public class Constants
 
     public static final String KEY_EXTRA_TITLE = KEY_EXTRA_BASE + "title";
 
+    public static final String KEY_EXTRA_PAGE = KEY_EXTRA_BASE + "page";
+
     // ---- Share ----------------
     public static final String KEY_SHARE_PREFERENCE_SUGGEST = KEY_PREFERENCE_BASE + "suggest";
 

@@ -14,6 +14,7 @@ import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemCl
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.EquipmentActivity;
+import com.android.smartlink.ui.activity.SingleActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
@@ -69,6 +70,10 @@ public class SettingsFragment extends BaseSmartlinkFragment
         {
             switch (position)
             {
+                case Constants.POS_SETTINGS_ACCOUNT:
+
+                    break;
+
                 case Constants.POS_SETTINGS_MY_EQUIPMENT:
 
                     //showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
@@ -81,6 +86,8 @@ public class SettingsFragment extends BaseSmartlinkFragment
                     break;
 
                 case Constants.POS_SETTINGS_TERMS:
+
+                    SingleActivity.startTermsActivity(getActivity(), setting.getName());
 
                     break;
 

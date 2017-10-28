@@ -23,12 +23,6 @@
     <string name="menu_events">事件记录</string>
     <string name="menu_settings">设置</string>
 
-    <array name="menus_icon">
-        <item>menu_home_selector</item>
-        <item>menu_events_selector</item>
-        <item>menu_settings_selector</item>
-    </array>
-
     <!--设置-->
     <array name="settings">
         <item>我的账户</item>

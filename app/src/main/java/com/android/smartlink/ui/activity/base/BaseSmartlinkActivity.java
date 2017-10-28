@@ -104,6 +104,11 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
         ((BaseSmartlinkFragment) mNavigationComposite.getCurrentFragment()).onEditClick(mEditButton.isSelected());
     }
 
+    protected void setToolbarTitle(String title)
+    {
+        mToolbarTitle.setText(title);
+    }
+
     protected void setEditButtonVisibility(boolean show)
     {
         mEditButton.setVisibility(show ? View.VISIBLE : View.GONE);
