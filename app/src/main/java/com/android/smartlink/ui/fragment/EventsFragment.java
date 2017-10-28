@@ -102,7 +102,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.events_list_divider)));
 
-        mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater(), null));
+        mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater()));
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 

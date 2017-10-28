@@ -9,17 +9,17 @@
             name="data"
             type="com.android.smartlink.ui.model.UIEvent" />
 
-        <variable
-            name="handler"
-            type="com.android.devin.core.ui.widget.recyclerview.DataBindingHandler" />
+        <!--<variable-->
+        <!--name="handler"-->
+        <!--type="com.android.devin.core.ui.widget.recyclerview.DataBindingHandler" />-->
 
     </data>
 
+    <!--android:onClick="@{(view)-> handler.onItemClick(view,data)}"-->
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{(view)-> handler.onItemClick(view,data)}"
         android:orientation="horizontal"
         tools:ignore="SpUsage">
 

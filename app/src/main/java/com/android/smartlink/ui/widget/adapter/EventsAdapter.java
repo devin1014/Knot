@@ -14,9 +14,9 @@ import com.android.smartlink.ui.model.UIEvent;
  */
 public class EventsAdapter extends BaseAdapter<UIEvent>
 {
-    public EventsAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIEvent> listener)
+    public EventsAdapter(LayoutInflater layoutInflater)
     {
-        super(layoutInflater, listener);
+        super(layoutInflater, null);
     }
 
     @Override
