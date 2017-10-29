@@ -58,6 +58,8 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
         {
             AlertDialog.Builder builder = new Builder(this);
 
+            builder.setCancelable(false);
+
             builder.setMessage(R.string.app_launch_failed);
 
             builder.setPositiveButton(R.string.ui_ok, new OnClickListener()

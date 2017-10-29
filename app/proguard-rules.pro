@@ -31,3 +31,7 @@
 #okio
 -dontwarn okio.**
 -keep class okio.**{*;}
+
+#bean
+-keep class com.android.smartlink.bean.** { *; }
+-keep interface com.android.smartlink.bean.** { *; }
