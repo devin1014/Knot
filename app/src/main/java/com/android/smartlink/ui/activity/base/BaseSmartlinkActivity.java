@@ -11,6 +11,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +70,22 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
 
     protected void onActivityDestroy()
     {
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        MobclickAgent.onPause(this);
+
+        super.onPause();
     }
 
     @Override

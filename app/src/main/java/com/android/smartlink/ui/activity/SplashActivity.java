@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -13,6 +14,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.assist.InitializeTask;
 import com.android.smartlink.assist.InitializeTask.InitializeTaskCallback;
 import com.android.smartlink.util.TestUtil;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -21,6 +23,8 @@ import com.android.smartlink.util.TestUtil;
  */
 public class SplashActivity extends AppCompatActivity implements InitializeTaskCallback
 {
+    //private final int REQUEST_CODE_PERMISSION = 101;
+
     private InitializeTask mInitializeTask;
 
     @Override
@@ -34,15 +38,50 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
 
         TestUtil.test(this, "onCreate");
 
+        //ActivityCompat.requestPermissions(this, new String[]{permission.READ_PHONE_STATE}, REQUEST_CODE_PERMISSION);
+
         (mInitializeTask = new InitializeTask(this, this)).execute();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //        if (requestCode == REQUEST_CODE_PERMISSION)
+        //        {
+        //            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        //            {
+        //                //(mInitializeTask = new InitializeTask(this, this)).execute();
+        //            }
+        //        }
     }
 
     @Override
     protected void onDestroy()
     {
-        mInitializeTask.destroy();
+        if (mInitializeTask != null)
+        {
+            mInitializeTask.destroy();
+        }
 
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        MobclickAgent.onPause(this);
+
+        super.onPause();
     }
 
     @Override

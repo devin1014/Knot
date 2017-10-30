@@ -30,7 +30,7 @@ public class Utils
         }
     }
 
-    public static String getApplicationMetaData(Context context, String key)
+    static String getApplicationMetaData(Context context, String key)
     {
         try
         {

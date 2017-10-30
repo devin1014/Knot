@@ -32,6 +32,12 @@
 -dontwarn okio.**
 -keep class okio.**{*;}
 
+#umeng
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keep class com.umeng.commonsdk.** {*;}
+
 #bean
 -keep class com.android.smartlink.bean.** { *; }
 -keep interface com.android.smartlink.bean.** { *; }
