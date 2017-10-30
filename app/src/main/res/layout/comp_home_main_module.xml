@@ -31,7 +31,7 @@
             android:layout_height="106dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
-            app:circleBackgroundColor="#33ffffff"
+            app:circleBackgroundColor="#33000000"
             app:circleBorderColor="#d9d9d9"
             app:circleBorderWidth="5dp"
             app:circleProgress="@{data.source.powerLoad}"
