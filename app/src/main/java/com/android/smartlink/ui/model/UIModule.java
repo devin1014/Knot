@@ -125,11 +125,6 @@ public class UIModule implements Serializable
         return AppManager.getInstance().getCurrentMonth();
     }
 
-    public String getPowerAndMonth()
-    {
-        return getPower() + " " + getMonth();
-    }
-
     public String getStatus()
     {
         return AppManager.getInstance().getModuleStatus(mModule.getStatus());

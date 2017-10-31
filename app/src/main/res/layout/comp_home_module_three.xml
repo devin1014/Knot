@@ -58,9 +58,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data[0].powerAndMonth}"
+                android:text="@{data[0].power}"
                 android:textColor="#bbffffff"
                 android:textSize="14dp"
+                android:visibility="gone"
                 tools:ignore="SpUsage" />
 
         </LinearLayout>
@@ -98,9 +99,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data[1].powerAndMonth}"
+                android:text="@{data[1].power}"
                 android:textColor="#bbffffff"
                 android:textSize="14dp"
+                android:visibility="gone"
                 tools:ignore="SpUsage" />
 
         </LinearLayout>
@@ -138,9 +140,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data[2].powerAndMonth}"
+                android:text="@{data[2].power}"
                 android:textColor="#bbffffff"
                 android:textSize="14dp"
+                android:visibility="gone"
                 tools:ignore="SpUsage" />
 
         </LinearLayout>

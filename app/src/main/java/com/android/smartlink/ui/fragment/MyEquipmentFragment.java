@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
+import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
+import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.ui.activity.EquipmentActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.adapter.EquipmentAdapter;
 import com.android.smartlink.util.ConvertUtil;
 
@@ -22,7 +26,7 @@ import butterknife.BindView;
  * Date: 2017-10-22
  * Time: 13:42
  */
-public class MyEquipmentFragment extends BaseSmartlinkFragment
+public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIModule>
 {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -50,7 +54,7 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment
 
         mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.settings_margin)));
 
-        mAdapter = new EquipmentAdapter(getActivity().getLayoutInflater());
+        mAdapter = new EquipmentAdapter(getActivity().getLayoutInflater(), this);
 
         mAdapter.setData(ConvertUtil.convertModule(AppManager.getInstance().getModules(), false));
 
@@ -61,5 +65,11 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment
     public void onEditClick(boolean selected)
     {
         mAdapter.setEditMode(selected);
+    }
+
+    @Override
+    public void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
+    {
+        ((EquipmentActivity) getActivity()).toEditMode();
     }
 }

@@ -25,15 +25,15 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
 
     private Map<String, DataBindingHolder> mStringMap = new HashMap<>();
 
-    public EquipmentAdapter(LayoutInflater layoutInflater)
+    public EquipmentAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModule> listener)
     {
-        super(layoutInflater, null);
+        super(layoutInflater, listener);
     }
 
     @Override
     public DataBindingHolder<UIModule> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new Holder(inflater, parent, R.layout.list_item_my_equipment, null);
+        return new Holder(inflater, parent, R.layout.list_item_my_equipment, this);
     }
 
     @Override

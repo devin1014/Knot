@@ -37,4 +37,12 @@ public class EquipmentActivity extends BaseSmartlinkActivity
     {
         mNavigationComposite.showPrimaryFragment(new MyEquipmentFragment(), getIntent().getStringExtra(Constants.KEY_EXTRA_TITLE));
     }
+
+    public void toEditMode()
+    {
+        if (!getEditButton().isSelected())
+        {
+            onNavEditClick();
+        }
+    }
 }

@@ -134,4 +134,8 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
         mEditButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    protected ImageView getEditButton()
+    {
+        return mEditButton;
+    }
 }
