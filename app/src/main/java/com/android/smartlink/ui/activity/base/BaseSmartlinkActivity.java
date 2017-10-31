@@ -12,6 +12,7 @@ import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +47,8 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutId());
+
+        PushAgent.getInstance(this).onAppStart();
 
         mButterKnife = ButterKnife.bind(this);
 

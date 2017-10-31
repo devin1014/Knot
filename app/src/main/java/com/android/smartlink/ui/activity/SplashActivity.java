@@ -15,6 +15,7 @@ import com.android.smartlink.assist.InitializeTask;
 import com.android.smartlink.assist.InitializeTask.InitializeTaskCallback;
 import com.android.smartlink.util.TestUtil;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -31,6 +32,8 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        PushAgent.getInstance(this).onAppStart();
 
         TestUtil.set();
 
