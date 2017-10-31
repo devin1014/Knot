@@ -94,7 +94,7 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
         {
             finish();
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, WelcomeActivity.class));
         }
         else
         {

@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Smartlink</string>
+    <string name="app_name">China Knot</string>
     <string name="app_launch_failed">程序启动失败</string>
     <string name="ui_ok">确定</string>
 
@@ -17,9 +17,11 @@
     <string name="weather_aqi">空气污染指数:</string>
     <string name="weather_max_tmp">最高:</string>
     <string name="weather_min_tmp">最低:</string>
+    <string name="settings_signin">登入</string>
+    <string name="demo_mode">Demo mode</string>
 
     <!--菜单-->
-    <string name="menu_main">智能配电箱</string>
+    <string name="menu_main">China Knot</string>
     <string name="menu_events">事件记录</string>
     <string name="menu_settings">设置</string>
 

@@ -10,7 +10,6 @@ import com.lzy.okgo.OkGo;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.EScenarioType;
 import com.umeng.commonsdk.UMConfigure;
-import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 /**
@@ -46,28 +45,28 @@ public class SmartlinkApplication extends Application
 
             final PushAgent mPushAgent = PushAgent.getInstance(this);
             //注册推送服务，每次调用register方法都会回调该接口
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    mPushAgent.register(new IUmengRegisterCallback()
-                    {
-                        @Override
-                        public void onSuccess(String deviceToken)
-                        {
-                            //注册成功会返回device token
-                            LogUtil.log(SmartlinkApplication.this, "IUmengRegisterCallback deviceToken:" + deviceToken);
-                        }
-
-                        @Override
-                        public void onFailure(String s, String s1)
-                        {
-                            LogUtil.log(SmartlinkApplication.this, "IUmengRegisterCallback onFailure:" + s + "," + s1);
-                        }
-                    });
-                }
-            }).start();
+            //            new Thread(new Runnable()
+            //            {
+            //                @Override
+            //                public void run()
+            //                {
+            //                    mPushAgent.register(new IUmengRegisterCallback()
+            //                    {
+            //                        @Override
+            //                        public void onSuccess(String deviceToken)
+            //                        {
+            //                            //注册成功会返回device token
+            //                            LogUtil.log(SmartlinkApplication.this, "IUmengRegisterCallback deviceToken:" + deviceToken);
+            //                        }
+            //
+            //                        @Override
+            //                        public void onFailure(String s, String s1)
+            //                        {
+            //                            LogUtil.log(SmartlinkApplication.this, "IUmengRegisterCallback onFailure:" + s + "," + s1);
+            //                        }
+            //                    });
+            //                }
+            //            }).start();
         }
 
         // App

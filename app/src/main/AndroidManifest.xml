@@ -5,9 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
 
     <application
         android:name=".application.SmartlinkApplication"
@@ -17,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.activity.DispatchActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -30,34 +27,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
-
+        <activity
+            android:name=".ui.activity.WelcomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".ui.activity.DetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".ui.activity.SingleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".ui.activity.EquipmentActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -68,19 +65,15 @@
         <meta-data
             android:name="weatherKey"
             android:value="7f70fe2b7604408bafba86681d9ddcd4" />
-
         <meta-data
             android:name="accuWeatherKey"
             android:value="0460650BB2524F84BAECAA9381D79EFC" />
-
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="59f6c56caed1795e56000048" />
-
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="SmartlinkELEC" />
-
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="05b6bb6ba3903acccc77307280e3ba48" />

@@ -23,7 +23,7 @@ public class DispatchActivity extends AppCompatActivity
 
         if (AppManager.getInstance().isInitialized() && AppManager.getInstance().checkWeather())
         {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, WelcomeActivity.class));
         }
         else
         {

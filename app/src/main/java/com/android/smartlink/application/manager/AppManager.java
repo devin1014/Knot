@@ -264,4 +264,15 @@ public class AppManager
 
         return mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_LOCATION, null);
     }
+
+    // ---- Demo mode ----------------
+    public void setDemoMode(boolean demoMode)
+    {
+        mSharedPreferences.edit().putBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, demoMode).apply();
+    }
+
+    public boolean isDemoMode()
+    {
+        return mSharedPreferences.getBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, true);
+    }
 }

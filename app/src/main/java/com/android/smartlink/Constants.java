@@ -50,4 +50,6 @@ public class Constants
     public static final String KEY_SHARE_PREFERENCE_LOCATION = KEY_PREFERENCE_BASE + "location";
 
     public static final String KEY_SHARE_PREFERENCE_LOCATION_TIME = KEY_PREFERENCE_BASE + "location.time";
+
+    public static final String KEY_SHARE_PREFERENCE_DEMO_MODE = KEY_PREFERENCE_BASE + "demo";
 }
