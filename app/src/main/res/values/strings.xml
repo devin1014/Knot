@@ -20,7 +20,7 @@
     <string name="weather_max_tmp">最高:</string>
     <string name="weather_min_tmp">最低:</string>
     <string name="settings_signin">登入</string>
-    <string name="demo_mode">演示版本</string>
+    <string name="demo_mode"><u>演示版本</u></string>
     <string name="module_status">状态</string>
     <string name="module_status_normal">正常</string>
     <string name="module_status_alarm">预警</string>
