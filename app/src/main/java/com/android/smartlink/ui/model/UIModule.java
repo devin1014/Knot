@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class UIModule implements Serializable
+public class UIModule implements Serializable, UIAlarm
 {
     private static final long serialVersionUID = 179763754284831614L;
 
@@ -63,7 +63,7 @@ public class UIModule implements Serializable
 
     public String getName()
     {
-        String equipmentName = AppManager.getInstance().getEquipmentName(String.valueOf(mModule.getId()), null);
+        String equipmentName = AppManager.getInstance().getEquipmentName(mModule.getId());
 
         if (TextUtils.isEmpty(equipmentName))
         {

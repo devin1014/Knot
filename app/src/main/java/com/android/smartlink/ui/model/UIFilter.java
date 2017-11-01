@@ -1,9 +1,6 @@
 package com.android.smartlink.ui.model;
 
-import android.text.TextUtils;
-
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 
 /**
@@ -23,14 +20,7 @@ public class UIFilter
     {
         mId = module.getId();
 
-        mName = AppManager.getInstance().getEquipmentName(String.valueOf(module.getId()), null);
-
-        if (TextUtils.isEmpty(mName))
-        {
-            Equipment equipment = AppManager.getInstance().getEquipment(module.getId());
-
-            mName = equipment != null ? equipment.getName() : null;
-        }
+        mName = AppManager.getInstance().getEquipmentName(module.getId());
 
         mChecked = true;
     }

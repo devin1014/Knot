@@ -17,15 +17,20 @@ import android.widget.TextView;
 
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
+import com.android.smartlink.bean.Events;
+import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -57,7 +62,11 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     @BindView(R.id.weather_root)
     View mWeatherRoot;
 
+    private ViewDataBinding mAlarmViewDataBinding;
+
     private MainRequestProvider mRequestProvider;
+
+    private EventsRequestProvider mEventsRequestProvider;
 
     @Nullable
     @Override
@@ -77,6 +86,8 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     private void initComponent()
     {
         mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mEventsRequestProvider = new EventsRequestProvider(getActivity(), mEventsRequestCallback);
 
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
@@ -149,59 +160,8 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     {
         mContentContainer.removeAllViews();
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-
         // status
-        {
-            ViewGroup statusRootView = (ViewGroup) inflater.inflate(R.layout.list_item_home_status, mContentContainer, false);
-
-            LinearLayout.LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-            layoutParams.setMargins(0, getResources().getDimensionPixelSize(R.dimen.app_content_margin), 0, 0);
-
-            statusRootView.setLayoutParams(layoutParams);
-
-            mContentContainer.addView(statusRootView);
-
-            final TextView statusName = (TextView) statusRootView.findViewById(R.id.status_title);
-
-            final ImageView statusImg = (ImageView) statusRootView.findViewById(R.id.status_image);
-
-            final ImageView arrowImg = (ImageView) statusRootView.findViewById(R.id.arrow_image);
-
-            final ViewGroup statusGroup = (ViewGroup) statusRootView.findViewById(R.id.status_details);
-
-            statusRootView.setOnClickListener(new OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    arrowImg.setSelected(!arrowImg.isSelected());
-
-                    statusGroup.setVisibility(arrowImg.isSelected() ? View.VISIBLE : View.GONE);
-                }
-            });
-
-            int status = 0;
-
-            for (Module module : modules)
-            {
-                if (module.getStatus() > status)
-                {
-                    status = module.getStatus();
-                }
-
-                View inflaterView = inflater.inflate(R.layout.comp_home_status_detail, statusGroup, false);
-
-                statusGroup.addView(DataBindingAdapterUtil.binding(inflaterView, BR.data, new UIModule(module)));
-            }
-
-            statusImg.setImageLevel(status);
-
-            statusName.setText(AppManager.getInstance().getModuleStatus(status));
-
-            statusName.setTextColor(UICompat.getStatusColor(status));
-        }
+        addStatus(modules);
 
         int index = 0;
 
@@ -248,6 +208,89 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         }
     }
 
+    private void addStatus(List<Module> modules)
+    {
+        Module alarmModule = modules.get(0);
+
+        for (Module module : modules)
+        {
+            if (module.getStatus() > alarmModule.getStatus())
+            {
+                alarmModule = module;
+            }
+        }
+
+        boolean alarm = alarmModule.getStatus() != Constants.STATUS_NORMAL;
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        ViewGroup statusRootView = (ViewGroup) inflater.inflate(R.layout.list_item_home_status, mContentContainer, false);
+
+        LinearLayout.LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(0, getResources().getDimensionPixelSize(R.dimen.app_content_margin), 0, 0);
+
+        statusRootView.setLayoutParams(layoutParams);
+
+        mContentContainer.addView(statusRootView);
+
+        final TextView statusName = (TextView) statusRootView.findViewById(R.id.status_title);
+
+        final ImageView statusImg = (ImageView) statusRootView.findViewById(R.id.status_image);
+
+        final ImageView arrowImg = (ImageView) statusRootView.findViewById(R.id.arrow_image);
+
+        final ViewGroup statusGroup = (ViewGroup) statusRootView.findViewById(R.id.status_details);
+
+        arrowImg.setSelected(alarm); // alarm show status content
+
+        statusGroup.setVisibility(alarm ? View.VISIBLE : View.GONE);
+
+        if (!alarm)
+        {
+            statusRootView.setOnClickListener(new OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    arrowImg.setSelected(!arrowImg.isSelected());
+
+                    statusGroup.setVisibility(arrowImg.isSelected() ? View.VISIBLE : View.GONE);
+                }
+            });
+        }
+
+        statusImg.setImageLevel(alarmModule.getStatus());
+
+        statusName.setText(AppManager.getInstance().getModuleStatus(alarmModule.getStatus()));
+
+        statusName.setTextColor(UICompat.getStatusColor(alarmModule.getStatus()));
+
+        if (alarm)
+        {
+            // todo,call events feed!
+            if (mEventsRequestProvider != null)
+            {
+                mEventsRequestProvider.request(HttpUrl.getEventsUrl());
+            }
+
+            View inflaterView = inflater.inflate(R.layout.comp_home_status_alarm, statusGroup, false);
+
+            statusGroup.addView(inflaterView);
+
+            mAlarmViewDataBinding = DataBindingAdapterUtil.viewBinding(inflaterView, BR.data, new UIModule(alarmModule));
+        }
+        else
+        {
+            for (Module module : modules)
+            {
+                View inflaterView = inflater.inflate(R.layout.comp_home_status_detail, statusGroup, false);
+
+                statusGroup.addView(DataBindingAdapterUtil.binding(inflaterView, BR.data, new UIModule(module)));
+            }
+        }
+    }
+
     private void addModules(List<Module> modules, int start, int count)
     {
         int layoutId = R.layout.comp_home_module_one;
@@ -274,4 +317,27 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         viewDataBinding.executePendingBindings();
     }
 
+    private RequestCallback<Events> mEventsRequestCallback = new RequestCallback<Events>()
+    {
+        @Override
+        public void onResponse(Events events)
+        {
+            Event event = events.getEvents().get(0);
+
+            for (Event e : events.getEvents())
+            {
+                if (e.getStatus() > event.getStatus())
+                {
+                    event = e;
+                }
+            }
+
+            DataBindingAdapterUtil.binding(mAlarmViewDataBinding, BR.data, new UIEvent(event));
+        }
+
+        @Override
+        public void onError(Throwable throwable)
+        {
+        }
+    };
 }

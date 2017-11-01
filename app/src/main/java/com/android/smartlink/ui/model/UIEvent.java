@@ -18,7 +18,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent
+public class UIEvent implements UIAlarm
 {
     private Event mSource;
 

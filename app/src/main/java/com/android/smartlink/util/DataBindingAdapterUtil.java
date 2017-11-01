@@ -46,6 +46,24 @@ public class DataBindingAdapterUtil
         return view;
     }
 
+    public static void binding(ViewDataBinding viewDataBinding, int variableId, Object value)
+    {
+        viewDataBinding.setVariable(variableId, value);
+
+        viewDataBinding.executePendingBindings();
+    }
+
+    public static ViewDataBinding viewBinding(View view, int variableId, Object value)
+    {
+        ViewDataBinding viewDataBinding = DataBindingUtil.bind(view);
+
+        viewDataBinding.setVariable(variableId, value);
+
+        viewDataBinding.executePendingBindings();
+
+        return viewDataBinding;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // ImageView
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

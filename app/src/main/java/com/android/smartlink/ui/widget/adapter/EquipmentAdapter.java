@@ -2,6 +2,7 @@ package com.android.smartlink.ui.widget.adapter;
 
 import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,9 +11,6 @@ import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.UIModule;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -23,7 +21,7 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
 {
     private boolean mEditMode = false;
 
-    private Map<String, DataBindingHolder> mStringMap = new HashMap<>();
+    private SparseArray<DataBindingHolder<UIModule>> mSparseArray = new SparseArray<>();
 
     public EquipmentAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModule> listener)
     {
@@ -41,7 +39,7 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
     {
         super.onBindViewHolder(holder, position);
 
-        mStringMap.put(String.valueOf(getItem(position).getId()), holder);
+        mSparseArray.put(getItem(position).getId(), holder);
     }
 
     public void setEditMode(boolean editMode)
@@ -50,9 +48,11 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
         {
             if (mEditMode)
             {
-                for (String id : mStringMap.keySet())
+                for (int i = 0; i < mSparseArray.size(); i++)
                 {
-                    String name = ((Holder) mStringMap.get(id)).getEditText();
+                    int id = mSparseArray.keyAt(i);
+
+                    String name = ((Holder) mSparseArray.get(id)).getEditText();
 
                     if (!TextUtils.isEmpty(name))
                     {

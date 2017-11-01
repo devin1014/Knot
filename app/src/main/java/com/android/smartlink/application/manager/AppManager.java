@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
@@ -15,7 +16,6 @@ import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.ViewUtil;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -71,10 +71,10 @@ public class AppManager
         return mApplication;
     }
 
-    public String getCurrentMonth()
-    {
-        return mApplication.getResources().getStringArray(R.array.month_array)[Calendar.getInstance().get(Calendar.MONTH)];
-    }
+    //    public String getCurrentMonth()
+    //    {
+    //        return mApplication.getResources().getStringArray(R.array.month_array)[Calendar.getInstance().get(Calendar.MONTH)];
+    //    }
 
     public String getModuleStatus(int status)
     {
@@ -150,14 +150,23 @@ public class AppManager
     }
 
     // ---- Equipment ----------------
-    public void setEquipmentName(String id, String name)
+    public void setEquipmentName(int id, String name)
     {
         mSharedPreferences.edit().putString(KEY_EQUIPMENT_NAME + id, name).apply();
     }
 
-    public String getEquipmentName(String id, String defaultName)
+    public String getEquipmentName(int id)
     {
-        return mSharedPreferences.getString(KEY_EQUIPMENT_NAME + id, defaultName);
+        String equipmentName = mSharedPreferences.getString(KEY_EQUIPMENT_NAME + id, "");
+
+        if (TextUtils.isEmpty(equipmentName))
+        {
+            Equipment equipment = getEquipment(id);
+
+            return equipment != null ? equipment.getName() : String.valueOf(id);
+        }
+
+        return equipmentName;
     }
 
     public void setEquipments(Equipments equipments)
@@ -176,7 +185,7 @@ public class AppManager
 
         for (Equipment equipment : mEquipments)
         {
-            setEquipmentName(String.valueOf(equipment.getId()), getEquipmentName(String.valueOf(equipment.getId()), equipment.getName()));
+            setEquipmentName(equipment.getId(), getEquipmentName(equipment.getId()));
         }
     }
 
