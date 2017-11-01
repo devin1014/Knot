@@ -102,7 +102,8 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mConsumeRequestProvider = new PowerConsumeRequestProvider(getActivity(), this);
 
-        mConsumeRequestProvider.request(HttpUrl.getPowerConsumeUrl());
+        assert uiModule != null;
+        mConsumeRequestProvider.request(HttpUrl.getPowerConsumeUrl(uiModule.getId()));
 
         mLoadingLayout.showLoading();
 

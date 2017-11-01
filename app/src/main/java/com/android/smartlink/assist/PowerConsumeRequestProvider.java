@@ -1,6 +1,7 @@
 package com.android.smartlink.assist;
 
 import android.app.Activity;
+import android.net.Uri;
 
 import com.android.smartlink.bean.PowerConsume;
 import com.android.smartlink.util.FileUtil;
@@ -27,7 +28,11 @@ public class PowerConsumeRequestProvider extends BaseRequestProvider<PowerConsum
     @Override
     protected void requestLocal(String url)
     {
-        PowerConsume consume = FileUtil.openAssets(getActivity(), "consume.json", PowerConsume.class);
+        Uri uri = Uri.parse(url);
+
+        String id = uri.getQueryParameter("id");
+
+        PowerConsume consume = FileUtil.openAssets(getActivity(), "consume" + id + ".json", PowerConsume.class);
 
         if (consume != null)
         {
