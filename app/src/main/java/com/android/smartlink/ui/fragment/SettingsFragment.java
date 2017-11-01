@@ -115,4 +115,10 @@ public class SettingsFragment extends BaseSmartlinkFragment
     {
         //// TODO: 2017/10/22
     }
+
+    @OnClick(R.id.settings_demo)
+    public void setDemo()
+    {
+        SingleActivity.startDemoSettingActivity(getActivity(), getString(R.string.settings_demo));
+    }
 }

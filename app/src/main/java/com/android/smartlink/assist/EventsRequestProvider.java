@@ -2,6 +2,7 @@ package com.android.smartlink.assist;
 
 import android.app.Activity;
 
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
@@ -27,7 +28,9 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
     @Override
     protected void requestLocal(String url)
     {
-        Events events = FileUtil.openAssets(getActivity(), "events.json", Events.class);
+        int status = AppManager.getInstance().getDemoModeStatus();
+
+        Events events = FileUtil.openAssets(getActivity(), "events" + status + ".json", Events.class);
 
         if (events != null)
         {

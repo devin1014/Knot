@@ -275,4 +275,14 @@ public class AppManager
     {
         return mSharedPreferences.getBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, true);
     }
+
+    public void setDemoModeStatus(int status)
+    {
+        mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, status).apply();
+    }
+
+    public int getDemoModeStatus()
+    {
+        return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, Constants.STATUS_NORMAL);
+    }
 }

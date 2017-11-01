@@ -1,7 +1,5 @@
 package com.android.smartlink.ui.model;
 
-import android.provider.ContactsContract.CommonDataKinds.Im;
-
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-17

@@ -113,9 +113,9 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        resetModulesView(modules.getModules());
-
         AppManager.getInstance().setModules(modules.getModules());
+
+        resetModulesView(modules.getModules());
     }
 
     @Override
@@ -141,10 +141,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         @Override
         public void onItemClick(View view, UIModule uiModule)
         {
-            if (uiModule.getType() == UIModule.TYPE_NORMAL)
-            {
-                DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
-            }
+            DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
         }
     };
 

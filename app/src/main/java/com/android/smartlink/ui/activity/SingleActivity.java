@@ -9,6 +9,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.AboutFragment;
+import com.android.smartlink.ui.fragment.DemoSettingFragment;
 import com.android.smartlink.ui.fragment.TermsFragment;
 
 /**
@@ -21,6 +22,8 @@ public class SingleActivity extends BaseSmartlinkActivity
     private static final int PAGE_TERMS = 1;
 
     private static final int PAGE_ABOUT = 2;
+
+    private static final int PAGE_DEMO_SETTING = 3;
 
     public static void startTermsActivity(Activity activity, String title)
     {
@@ -38,6 +41,17 @@ public class SingleActivity extends BaseSmartlinkActivity
         Intent intent = new Intent(activity, SingleActivity.class);
 
         intent.putExtra(Constants.KEY_EXTRA_PAGE, PAGE_ABOUT);
+
+        intent.putExtra(Constants.KEY_EXTRA_TITLE, title);
+
+        activity.startActivity(intent);
+    }
+
+    public static void startDemoSettingActivity(Activity activity, String title)
+    {
+        Intent intent = new Intent(activity, SingleActivity.class);
+
+        intent.putExtra(Constants.KEY_EXTRA_PAGE, PAGE_DEMO_SETTING);
 
         intent.putExtra(Constants.KEY_EXTRA_TITLE, title);
 
@@ -64,6 +78,10 @@ public class SingleActivity extends BaseSmartlinkActivity
         else if (page == PAGE_ABOUT)
         {
             mNavigationComposite.showPrimaryFragment(new AboutFragment(), title);
+        }
+        else if (page == PAGE_DEMO_SETTING)
+        {
+            mNavigationComposite.showPrimaryFragment(new DemoSettingFragment(), title);
         }
     }
 }

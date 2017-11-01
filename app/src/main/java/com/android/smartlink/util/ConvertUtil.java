@@ -59,7 +59,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIModule> convertModule(List<Module> list, boolean addStatus)
+    public static List<UIModule> convertModule(List<Module> list)
     {
         if (list == null || list.size() == 0)
         {
@@ -67,16 +67,6 @@ public class ConvertUtil
         }
 
         List<UIModule> result = new ArrayList<>();
-
-        if (addStatus)
-        {
-            if (AppManager.getInstance().getWeather() != null)
-            {
-                result.add(UIModule.newWeatherInstance());
-            }
-
-            result.add(UIModule.newStatusInstance());
-        }
 
         for (Module item : list)
         {

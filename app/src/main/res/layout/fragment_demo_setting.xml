@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    android:id="@+id/demo_setting_radio_group"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/app_content_margin"
+    tools:ignore="SpUsage">
+
+    <RadioButton
+        android:id="@+id/demo_setting_status_normal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/module_status_normal"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+    <RadioButton
+        android:id="@+id/demo_setting_status_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/module_status_alarm"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+    <RadioButton
+        android:id="@+id/demo_setting_status_error"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/module_status_error"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+</RadioGroup>

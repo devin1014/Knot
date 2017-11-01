@@ -56,7 +56,7 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
 
         mAdapter = new EquipmentAdapter(getActivity().getLayoutInflater(), this);
 
-        mAdapter.setData(ConvertUtil.convertModule(AppManager.getInstance().getModules(), false));
+        mAdapter.setData(ConvertUtil.convertModule(AppManager.getInstance().getModules()));
 
         mRecyclerView.setAdapter(mAdapter);
     }

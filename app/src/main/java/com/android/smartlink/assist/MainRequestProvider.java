@@ -2,6 +2,7 @@ package com.android.smartlink.assist;
 
 import android.app.Activity;
 
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
@@ -27,7 +28,9 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     @Override
     protected void requestLocal(String url)
     {
-        Modules modules = FileUtil.openAssets(getActivity(), "main.json", Modules.class);
+        int status = AppManager.getInstance().getDemoModeStatus();
+
+        Modules modules = FileUtil.openAssets(getActivity(), "main" + status + ".json", Modules.class);
 
         if (modules != null)
         {

@@ -2,23 +2,18 @@
 <level-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@android:color/transparent"
+        android:drawable="@drawable/status_circle_green"
         android:maxLevel="0"
         android:minLevel="0" />
 
     <item
-        android:drawable="@drawable/status_circle_green"
+        android:drawable="@drawable/status_circle_yellow"
         android:maxLevel="1"
         android:minLevel="1" />
 
     <item
-        android:drawable="@drawable/status_circle_yellow"
+        android:drawable="@drawable/status_circle_red"
         android:maxLevel="2"
         android:minLevel="2" />
-
-    <item
-        android:drawable="@drawable/status_circle_red"
-        android:maxLevel="3"
-        android:minLevel="3" />
 
 </level-list>

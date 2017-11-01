@@ -26,7 +26,6 @@ import com.android.smartlink.ui.widget.FilterPopupWindow.OnFilterChangedListener
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.Utils;
 

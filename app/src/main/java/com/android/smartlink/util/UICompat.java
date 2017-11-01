@@ -19,7 +19,7 @@ public class UICompat
 
         switch (status)
         {
-            case Constants.STATUS_GOOD:
+            case Constants.STATUS_NORMAL:
 
                 return resources.getColor(R.color.module_status_good);
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 
@@ -21,7 +20,7 @@ public class FileUtil
         {
             return new Gson().fromJson(new InputStreamReader(activity.getAssets().open(name)), cls);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
 

@@ -19,29 +19,11 @@ public class UIModule implements Serializable
 {
     private static final long serialVersionUID = 179763754284831614L;
 
-    public static UIModule newWeatherInstance()
-    {
-        return new UIModule(new Module(), UIModule.TYPE_WEATHER);
-    }
-
-    public static UIModule newStatusInstance()
-    {
-        return new UIModule(new Module(), UIModule.TYPE_STATUS);
-    }
-
-    public static final int TYPE_NORMAL = 1;
-
-    public static final int TYPE_STATUS = 2;
-
-    public static final int TYPE_WEATHER = 3;
-
     private static final String EMPTY = "";
 
     private Module mModule;
 
     private final String POWER_KWH;
-
-    private int mType;
 
     private boolean mEditMode = false;
 
@@ -51,24 +33,16 @@ public class UIModule implements Serializable
 
     public UIModule(Module module)
     {
-        this(module, TYPE_NORMAL);
-    }
-
-    public UIModule(Module module, int type)
-    {
         mModule = module;
-
-        mType = type;
 
         POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.power_kwh);
 
         Resources resources = AppManager.getInstance().getApplication().getResources();
 
-        mStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_good),
-                resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+        mStatusColor = new int[]{resources.getColor(R.color.module_status_good), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
 
-        mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_none),
-                resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+        mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+
     }
 
     public final Module getSource()
@@ -132,7 +106,7 @@ public class UIModule implements Serializable
 
     public int getColor()
     {
-        if (mModule.getStatus() > 3 || mModule.getStatus() < 0)
+        if (mModule.getStatus() > mStatusColor.length || mModule.getStatus() < 0)
         {
             return mStatusColor[0];
         }
@@ -142,7 +116,7 @@ public class UIModule implements Serializable
 
     public int getTextColor()
     {
-        if (mModule.getStatus() > 3 || mModule.getStatus() < 0)
+        if (mModule.getStatus() > mStatusColor.length || mModule.getStatus() < 0)
         {
             return mTextStatusColor[0];
         }
@@ -163,26 +137,6 @@ public class UIModule implements Serializable
     public String getPowerLoadPercent()
     {
         return mModule.getPowerLoad() + "%";
-    }
-
-    public String getPowerLoadDescription()
-    {
-        if (mModule.getPowerLoad() >= 85)
-        {
-            return AppManager.getInstance().getString(R.string.power_load_status_alert);
-        }
-
-        return AppManager.getInstance().getString(R.string.power_load_status_ok);
-    }
-
-    public int getType()
-    {
-        return mType;
-    }
-
-    public boolean isItem()
-    {
-        return mType == TYPE_NORMAL;
     }
 
     public boolean isEditMode()

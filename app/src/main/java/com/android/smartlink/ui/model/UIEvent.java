@@ -20,8 +20,6 @@ public class UIEvent
 
     private String mStartTime;
 
-    private String mEndTime;
-
     private String mDate;
 
     private int mWeek;
@@ -32,7 +30,7 @@ public class UIEvent
 
         if (mSource.getStartTimeStamp() != 0)
         {
-            parseDate(mSource.getStartTimeStamp(), mSource.getEndTimeStamp());
+            parseDate(mSource.getStartTimeStamp());
         }
         else if (mSource.getStartTime() != null)
         {
@@ -42,9 +40,7 @@ public class UIEvent
             {
                 Date startTime = format.parse(mSource.getStartTime());
 
-                Date endTime = format.parse(mSource.getEndTime());
-
-                parseDate(startTime.getTime(), endTime.getTime());
+                parseDate(startTime.getTime());
             }
             catch (ParseException e)
             {
@@ -53,7 +49,7 @@ public class UIEvent
         }
     }
 
-    private void parseDate(long startTime, long endTime)
+    private void parseDate(long startTime)
     {
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日", Locale.US); // default locale
 
@@ -68,10 +64,6 @@ public class UIEvent
         mWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         mDate = format.format(calendar.getTime());
-
-        calendar.setTimeInMillis(endTime);
-
-        mEndTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }
 
     public int getId()
@@ -86,7 +78,7 @@ public class UIEvent
 
     public String getTime()
     {
-        return getDate() + " " + mStartTime + " - " + mEndTime;
+        return getDate() + " " + mStartTime;
     }
 
     public int getWeek()

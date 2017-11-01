@@ -17,6 +17,19 @@
         android:overScrollMode="never" />
 
     <Button
+        android:id="@+id/settings_demo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="62dp"
+        android:background="@drawable/settings_btn_signout_bg"
+        android:text="@string/settings_demo"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textStyle="normal"
+        tools:ignore="SpUsage" />
+
+    <Button
         android:id="@+id/settings_signout"
         android:layout_width="match_parent"
         android:layout_height="50dp"

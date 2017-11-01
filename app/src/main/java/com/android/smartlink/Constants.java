@@ -11,11 +11,11 @@ public class Constants
 
     public static final int ID_ALL = 0;
 
-    public static final int STATUS_GOOD = 1;
+    public static final int STATUS_NORMAL = 0;
 
-    public static final int STATUS_WARNING = 2;
+    public static final int STATUS_WARNING = 1;
 
-    public static final int STATUS_ERROR = 3;
+    public static final int STATUS_ERROR = 2;
 
     public static final int POS_SETTINGS_ACCOUNT = 0;
 
@@ -52,4 +52,6 @@ public class Constants
     public static final String KEY_SHARE_PREFERENCE_LOCATION_TIME = KEY_PREFERENCE_BASE + "location.time";
 
     public static final String KEY_SHARE_PREFERENCE_DEMO_MODE = KEY_PREFERENCE_BASE + "demo";
+
+    public static final String KEY_SHARE_PREFERENCE_DEMO_STATUS = KEY_PREFERENCE_BASE + "status";
 }
