@@ -46,8 +46,19 @@
                     android:drawablePadding="@dimen/app_content_margin"
                     android:drawableStart="@drawable/detail_state"
                     android:gravity="center_vertical"
+                    android:text="@string/module_status"
+                    android:textColor="#585b5d"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center_vertical"
                     android:text="@{data.status}"
-                    android:textColor="@{data.color}"
+                    android:textColor="#585b5d"
                     android:textSize="14dp" />
 
                 <ImageView
@@ -87,8 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:gravity="center_vertical"
-                    android:text="@{data.powerLoadDescription}"
-                    android:textColor="@{data.powerLoadAlarm ? @color/module_status_warn : @color/module_status_good}"
+                    android:text="@{data.powerLoadAlarm?data.powerLoadPercent:@string/module_status_normal}"
+                    android:textColor="#585b5d"
                     android:textSize="14dp" />
 
             </FrameLayout>

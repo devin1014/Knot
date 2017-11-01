@@ -7,8 +7,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
-import java.util.Calendar;
-
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-17
@@ -50,13 +48,17 @@ public class Utils
     {
         float[] days = new float[30];
 
-        Calendar calendar = Calendar.getInstance();
-
+        //        Calendar calendar = Calendar.getInstance();
+        //
+        //        for (int i = 0; i < 30; i++)
+        //        {
+        //            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        //
+        //            days[i] = calendar.get(Calendar.DAY_OF_MONTH);
+        //        }
         for (int i = 0; i < 30; i++)
         {
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
-
-            days[i] = calendar.get(Calendar.DAY_OF_MONTH);
+            days[i] = i;
         }
 
         return days;

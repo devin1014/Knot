@@ -160,6 +160,11 @@ public class UIModule implements Serializable
         return mModule.getPowerLoad() >= 85;
     }
 
+    public String getPowerLoadPercent()
+    {
+        return mModule.getPowerLoad() + "%";
+    }
+
     public String getPowerLoadDescription()
     {
         if (mModule.getPowerLoad() >= 85)

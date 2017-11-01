@@ -131,7 +131,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mChartContainer.removeAllViews();
 
-        mChartContainer.addView(new GraphicalView(getActivity(), new MultiplePowerChart().getChart(powerConsume.getData())));
+        mChartContainer.addView(new GraphicalView(getActivity(), new MultiplePowerChart().getChart(getActivity(), powerConsume.getData())));
     }
 
     @Override

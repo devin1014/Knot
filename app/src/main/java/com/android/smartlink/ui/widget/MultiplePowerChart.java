@@ -15,8 +15,10 @@
  */
 package com.android.smartlink.ui.widget;
 
+import android.content.Context;
 import android.graphics.Paint.Align;
 
+import com.android.smartlink.R;
 import com.android.smartlink.util.Utils;
 
 import org.achartengine.chart.AbstractChart;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class MultiplePowerChart extends AbstractBaseChart
 {
-    public AbstractChart getChart(float[] data)
+    public AbstractChart getChart(Context context, float[] data)
     {
         List<float[]> x = new ArrayList<>();
 
@@ -67,7 +69,7 @@ public class MultiplePowerChart extends AbstractBaseChart
         renderer.setYLabelsAlign(Align.RIGHT);
         renderer.setYLabelsColor(0, lineColors[0]);
 
-        return new CubicLineChart(buildDataSet(new String[]{"用电趋势"}, x, values), renderer, 0.3f);
+        return new CubicLineChart(buildDataSet(new String[]{context.getResources().getString(R.string.power_last_30_days)}, x, values), renderer, 0.3f);
     }
 
     private float getMin(float[] data)

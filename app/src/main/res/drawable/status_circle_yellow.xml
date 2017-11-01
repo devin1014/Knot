@@ -6,7 +6,7 @@
         android:width="@dimen/status_circle_size"
         android:height="@dimen/status_circle_size" />
 
-    <stroke
+    <solid
         android:width="3dp"
         android:color="@color/module_status_warn" />
 
