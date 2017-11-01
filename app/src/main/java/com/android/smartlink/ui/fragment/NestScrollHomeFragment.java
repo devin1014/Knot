@@ -31,7 +31,6 @@ import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.DataBindingAdapterUtil;
-import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.UICompat;
 
@@ -79,7 +78,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     {
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mRequestProvider = new MainRequestProvider(this);
+        mRequestProvider = new MainRequestProvider(getActivity(), this);
 
         mRequestProvider.request(HttpUrl.getHomeUrl());
 
@@ -125,17 +124,6 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
 
         mSwipeRefreshLayout.setRefreshing(false);
-
-        // ---- test code ----------------
-        //FIXME,can not get feed from server ,read local file
-        {
-            Modules modules = FileUtil.openAssets(getActivity(), "main.json", Modules.class);
-
-            if (modules != null)
-            {
-                onResponse(modules);
-            }
-        }
     }
 
     @Override

@@ -24,7 +24,6 @@ import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.HomeAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.HttpUrl;
 
 import butterknife.BindView;
@@ -74,7 +73,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mRecyclerView.setAdapter(mHomeAdapter = new HomeAdapter(getActivity().getLayoutInflater(), mOnHeaderClickListener));
 
-        mRequestProvider = new MainRequestProvider(this);
+        mRequestProvider = new MainRequestProvider(getActivity(), this);
 
         mRequestProvider.request(HttpUrl.getHomeUrl());
 
@@ -107,17 +106,6 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
 
         mSwipeRefreshLayout.setRefreshing(false);
-
-        // ---- test code ----------------
-        //FIXME,can not get feed from server ,read local file
-        {
-            Modules modules = FileUtil.openAssets(getActivity(), "main.json", Modules.class);
-
-            if (modules != null)
-            {
-                onResponse(modules);
-            }
-        }
     }
 
     @Override

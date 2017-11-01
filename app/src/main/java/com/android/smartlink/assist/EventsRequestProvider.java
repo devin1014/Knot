@@ -1,6 +1,9 @@
 package com.android.smartlink.assist;
 
+import android.app.Activity;
+
 import com.android.smartlink.bean.Events;
+import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
 
 /**
@@ -10,9 +13,9 @@ import com.lzy.okgo.OkGo;
  */
 public class EventsRequestProvider extends BaseRequestProvider<Events>
 {
-    public EventsRequestProvider(RequestCallback<Events> callback)
+    public EventsRequestProvider(Activity activity, RequestCallback<Events> callback)
     {
-        super(callback);
+        super(activity, callback);
     }
 
     @Override
@@ -22,7 +25,22 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
     }
 
     @Override
-    public void request(String url)
+    protected void requestLocal(String url)
+    {
+        Events events = FileUtil.openAssets(getActivity(), "events.json", Events.class);
+
+        if (events != null)
+        {
+            notifyResponse(events);
+        }
+        else
+        {
+            notifyResponse(new EmptyDataException());
+        }
+    }
+
+    @Override
+    protected void requestHttp(String url)
     {
         OkGo.getInstance().cancelTag(this);
 

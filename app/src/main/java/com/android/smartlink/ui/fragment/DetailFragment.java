@@ -23,7 +23,6 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.MultiplePowerChart;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
-import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.HttpUrl;
 
 import org.achartengine.GraphicalView;
@@ -101,7 +100,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mIndicatorView.setViewPager(mViewPager);
 
-        mConsumeRequestProvider = new PowerConsumeRequestProvider(this);
+        mConsumeRequestProvider = new PowerConsumeRequestProvider(getActivity(), this);
 
         mConsumeRequestProvider.request(HttpUrl.getPowerConsumeUrl());
 
@@ -138,16 +137,6 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     public void onError(Throwable throwable)
     {
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
-
-        //FIXME,can not get feed from server ,read local file
-        {
-            PowerConsume consume = FileUtil.openAssets(getActivity(), "consume.json", PowerConsume.class);
-
-            if (consume != null)
-            {
-                onResponse(consume);
-            }
-        }
     }
 
     @Override

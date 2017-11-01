@@ -1,10 +1,17 @@
 package com.android.smartlink.assist;
 
+import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
+
+import com.android.smartlink.application.manager.AppManager;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.model.Response;
 
 import java.io.InputStreamReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -13,25 +20,60 @@ import java.io.InputStreamReader;
  */
 abstract class BaseRequestProvider<T>
 {
+    private Activity mActivity;
+
     private RequestCallback<T> mCallback;
 
     private boolean mDestroy;
 
-    BaseRequestProvider(RequestCallback<T> callback)
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+
+    private static final ExecutorService sExecutor = Executors.newCachedThreadPool();
+
+    BaseRequestProvider(Activity activity, RequestCallback<T> callback)
     {
+        mActivity = activity;
+
         mCallback = callback;
     }
 
-    public void request(String url)
+    public final void request(final String url)
     {
         mDestroy = false;
+
+        if (AppManager.getInstance().isDemoMode())
+        {
+            sExecutor.execute(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    requestLocal(url);
+                }
+            });
+        }
+        else
+        {
+            requestHttp(url);
+        }
     }
+
+    protected abstract void requestLocal(String url);
+
+    protected abstract void requestHttp(String url);
 
     public void destroy()
     {
+        mActivity = null;
+
         mCallback = null;
 
         mDestroy = true;
+    }
+
+    protected Activity getActivity()
+    {
+        return mActivity;
     }
 
     protected boolean isDestroy()
@@ -39,24 +81,60 @@ abstract class BaseRequestProvider<T>
         return mDestroy;
     }
 
-    protected void notifyResponse(T t)
+    @SuppressWarnings("WeakerAccess")
+    protected void notifyResponse(final T t)
     {
         if (mCallback != null)
         {
-            mCallback.onResponse(t);
+            if (isUIThread())
+            {
+                mCallback.onResponse(t);
+            }
+            else if (mHandler != null)
+            {
+                mHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        notifyResponse(t);
+                    }
+                });
+            }
         }
     }
 
-    protected void notifyResponse(Throwable throwable)
+    @SuppressWarnings("WeakerAccess")
+    protected void notifyResponse(final Throwable throwable)
     {
         if (mCallback != null)
         {
-            mCallback.onError(throwable);
+            if (isUIThread())
+            {
+                mCallback.onError(throwable);
+            }
+            else if (mHandler != null)
+            {
+                mHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        notifyResponse(throwable);
+                    }
+                });
+            }
         }
+    }
+
+    private boolean isUIThread()
+    {
+        return Looper.myLooper() == Looper.getMainLooper();
     }
 
     abstract Class<T> getConvertObjectClass();
 
+    @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
     protected T convertResponse(okhttp3.Response response) throws Throwable
     {
         if (response.code() == 200 && response.body() != null)

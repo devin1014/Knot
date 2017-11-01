@@ -1,6 +1,9 @@
 package com.android.smartlink.assist;
 
+import android.app.Activity;
+
 import com.android.smartlink.bean.PowerConsume;
+import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
 
 /**
@@ -10,9 +13,9 @@ import com.lzy.okgo.OkGo;
  */
 public class PowerConsumeRequestProvider extends BaseRequestProvider<PowerConsume>
 {
-    public PowerConsumeRequestProvider(RequestCallback<PowerConsume> callback)
+    public PowerConsumeRequestProvider(Activity activity, RequestCallback<PowerConsume> callback)
     {
-        super(callback);
+        super(activity, callback);
     }
 
     @Override
@@ -22,7 +25,22 @@ public class PowerConsumeRequestProvider extends BaseRequestProvider<PowerConsum
     }
 
     @Override
-    public void request(String url)
+    protected void requestLocal(String url)
+    {
+        PowerConsume consume = FileUtil.openAssets(getActivity(), "consume.json", PowerConsume.class);
+
+        if (consume != null)
+        {
+            notifyResponse(consume);
+        }
+        else
+        {
+            notifyResponse(new EmptyDataException());
+        }
+    }
+
+    @Override
+    protected void requestHttp(String url)
     {
         OkGo.getInstance().cancelTag(this);
 

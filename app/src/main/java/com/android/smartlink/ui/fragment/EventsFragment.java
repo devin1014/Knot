@@ -106,7 +106,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mRequestProvider = new EventsRequestProvider(this);
+        mRequestProvider = new EventsRequestProvider(getActivity(), this);
 
         mRequestProvider.request(HttpUrl.getEventsUrl());
 
@@ -139,17 +139,6 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
 
         mSwipeRefreshLayout.setRefreshing(false);
-
-        // ---- test code ----------------
-        //FIXME,can not get feed from server ,read local file
-        {
-            Events events = FileUtil.openAssets(getActivity(), "events.json", Events.class);
-
-            if (events != null)
-            {
-                onResponse(events);
-            }
-        }
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.android.smartlink.assist;
 
+import android.app.Activity;
+
 import com.android.smartlink.bean.Modules;
+import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
 
 /**
@@ -10,9 +13,9 @@ import com.lzy.okgo.OkGo;
  */
 public class MainRequestProvider extends BaseRequestProvider<Modules>
 {
-    public MainRequestProvider(RequestCallback<Modules> callback)
+    public MainRequestProvider(Activity activity, RequestCallback<Modules> callback)
     {
-        super(callback);
+        super(activity, callback);
     }
 
     @Override
@@ -21,7 +24,23 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
         return Modules.class;
     }
 
-    public void request(String url)
+    @Override
+    protected void requestLocal(String url)
+    {
+        Modules modules = FileUtil.openAssets(getActivity(), "main.json", Modules.class);
+
+        if (modules != null)
+        {
+            notifyResponse(modules);
+        }
+        else
+        {
+            notifyResponse(new EmptyDataException());
+        }
+    }
+
+    @Override
+    protected void requestHttp(String url)
     {
         OkGo.getInstance().cancelTag(this);
 
