@@ -1,5 +1,9 @@
 package com.android.smartlink.ui.model;
 
+import android.content.res.Resources;
+
+import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
 
 import java.text.ParseException;
@@ -18,11 +22,11 @@ public class UIEvent
 {
     private Event mSource;
 
-    private String mStartTime;
-
     private String mDate;
 
-    private int mWeek;
+    private String mDateTime;
+
+    private int[] mTextStatusColor;
 
     public UIEvent(Event event)
     {
@@ -47,6 +51,11 @@ public class UIEvent
                 e.printStackTrace();
             }
         }
+
+        Resources resources = AppManager.getInstance().getApplication().getResources();
+
+        mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+
     }
 
     private void parseDate(long startTime)
@@ -55,15 +64,15 @@ public class UIEvent
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 
-        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setTimeInMillis(startTime);
+
+        mDate = format.format(calendar.getTime());
+
+        format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.US); // default locale
 
         calendar.setTimeInMillis(startTime);
 
-        mStartTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
-
-        mWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
-        mDate = format.format(calendar.getTime());
+        mDateTime = format.format(calendar.getTime());
     }
 
     public int getId()
@@ -78,12 +87,7 @@ public class UIEvent
 
     public String getTime()
     {
-        return getDate() + " " + mStartTime;
-    }
-
-    public int getWeek()
-    {
-        return mWeek;
+        return mDateTime;
     }
 
     public String getDate()
@@ -94,5 +98,15 @@ public class UIEvent
     public int getStatus()
     {
         return mSource.getStatus();
+    }
+
+    public int getTextColor()
+    {
+        if (mSource.getStatus() > mTextStatusColor.length || mSource.getStatus() < 0)
+        {
+            return mTextStatusColor[0];
+        }
+
+        return mTextStatusColor[mSource.getStatus()];
     }
 }

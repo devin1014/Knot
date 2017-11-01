@@ -99,7 +99,7 @@ public class UIModule implements Serializable
 
     public int getTextColor()
     {
-        if (mModule.getStatus() > mStatusColor.length || mModule.getStatus() < 0)
+        if (mModule.getStatus() > mTextStatusColor.length || mModule.getStatus() < 0)
         {
             return mTextStatusColor[0];
         }
