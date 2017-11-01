@@ -3,12 +3,14 @@ package com.android.smartlink.ui.model;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -19,8 +21,6 @@ public class UIModule implements Serializable
 {
     private static final long serialVersionUID = 179763754284831614L;
 
-    private static final String EMPTY = "";
-
     private Module mModule;
 
     private final String POWER_KWH;
@@ -30,6 +30,8 @@ public class UIModule implements Serializable
     private int[] mStatusColor;
 
     private int[] mTextStatusColor;
+
+    private DecimalFormat mNumberFormat = new DecimalFormat("0.0");
 
     public UIModule(Module module)
     {
@@ -42,12 +44,11 @@ public class UIModule implements Serializable
         mStatusColor = new int[]{resources.getColor(R.color.module_status_good), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
 
         mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
-
     }
 
-    public final Module getSource()
+    public int getId()
     {
-        return mModule;
+        return mModule.getId();
     }
 
     public int getImageRes()
@@ -74,32 +75,14 @@ public class UIModule implements Serializable
         return equipmentName;
     }
 
-    public String getNameAndStatus()
+    public String getEnergy()
     {
-        return getName() + getStatus();
+        //todo
+        //return String.format(POWER_KWH, mNumberFormat.format(mModule.getEnergy()));
+        return String.format(POWER_KWH, mNumberFormat.format(mModule.getDianliang()));
     }
 
-    public boolean consumePower()
-    {
-        return !TextUtils.isEmpty(mModule.getPower());
-    }
-
-    public String getPower()
-    {
-        if (TextUtils.isEmpty(mModule.getPower()))
-        {
-            return EMPTY;
-        }
-
-        return String.format(POWER_KWH, mModule.getPower());
-    }
-
-    public String getMonth()
-    {
-        return AppManager.getInstance().getCurrentMonth();
-    }
-
-    public String getStatus()
+    public String getStatusFormat()
     {
         return AppManager.getInstance().getModuleStatus(mModule.getStatus());
     }
@@ -124,19 +107,30 @@ public class UIModule implements Serializable
         return mTextStatusColor[mModule.getStatus()];
     }
 
-    public int getHealth()
+    public int getStatus()
     {
         return mModule.getStatus();
     }
 
+    public int getPowerLoad()
+    {
+        //todo
+        return (int) mModule.getFuzai();
+        //        float p = mModule.getCurrent() * mModule.getVoltage();
+        //
+        //        float p2 = mModule.getPower() / mModule.getPowerFactor() * 1000;
+        //
+        //        return (int) (p * 100 / p2);
+    }
+
     public boolean isPowerLoadAlarm()
     {
-        return mModule.getPowerLoad() >= 85;
+        return mModule.getStatus() != Constants.STATUS_NORMAL;
     }
 
     public String getPowerLoadPercent()
     {
-        return mModule.getPowerLoad() + "%";
+        return getPowerLoad() + "%";
     }
 
     public boolean isEditMode()

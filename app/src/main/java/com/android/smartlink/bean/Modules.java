@@ -1,5 +1,7 @@
 package com.android.smartlink.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  */
 public class Modules
 {
+    @SerializedName("data")
     private List<Module> modules;
 
     public List<Module> getModules()
@@ -21,20 +24,32 @@ public class Modules
     {
         private static final long serialVersionUID = -4975045285069888629L;
 
+        @SerializedName("slaveID")
         private int id;
 
-        private String power;
-
+        @SerializedName("alarm")
         private int status;
 
-        private int power_load;
+        private float power;
+
+        private float powerFactor;
+
+        private float current;
+
+        private float voltage;
+
+        private float energy;
+
+        private float dianliang;
+
+        private float fuzai;
 
         public int getId()
         {
             return id;
         }
 
-        public String getPower()
+        public float getPower()
         {
             return power;
         }
@@ -44,9 +59,34 @@ public class Modules
             return status;
         }
 
-        public int getPowerLoad()
+        public float getPowerFactor()
         {
-            return power_load;
+            return powerFactor;
+        }
+
+        public float getCurrent()
+        {
+            return current;
+        }
+
+        public float getVoltage()
+        {
+            return voltage;
+        }
+
+        public float getEnergy()
+        {
+            return energy;
+        }
+
+        public float getDianliang()
+        {
+            return dianliang;
+        }
+
+        public float getFuzai()
+        {
+            return fuzai;
         }
     }
 }

@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="data"
             type="com.android.smartlink.ui.model.UIModule[]" />
@@ -34,17 +36,34 @@
             android:onClick="@{(view)->handler.onItemClick(view,data[0])}"
             android:orientation="vertical">
 
-            <com.android.smartlink.ui.widget.CircleView
+            <FrameLayout
                 android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:contentDescription="@null"
-                android:scaleType="centerInside"
-                app:circleBackgroundColor="#33000000"
-                app:circleBorderColor="#d9d9d9"
-                app:circleBorderWidth="5dp"
-                app:circleProgress="@{data[0].source.powerLoad}"
-                app:circleProgressColor="@{data[0].color}"
-                app:imageRes="@{data[0].whiteImageRes}" />
+                android:layout_height="72dp">
+
+                <com.android.smartlink.ui.widget.CircleView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    app:circleBackgroundColor="#33000000"
+                    app:circleBorderColor="#d9d9d9"
+                    app:circleBorderWidth="5dp"
+                    app:circleProgress="@{data[0].powerLoad}"
+                    app:circleProgressColor="@{data[0].color}"
+                    app:imageRes="@{data[0].whiteImageRes}" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="4dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/module_status_selector"
+                    android:visibility="@{data[0].powerLoadAlarm?View.VISIBLE:View.GONE}"
+                    app:imageLevel="@{data[0].status}" />
+
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,15 +72,6 @@
                 android:textColor="#ffffff"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                tools:ignore="SpUsage" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data[0].power}"
-                android:textColor="#bbffffff"
-                android:textSize="14dp"
-                android:visibility="gone"
                 tools:ignore="SpUsage" />
 
         </LinearLayout>
@@ -75,17 +85,34 @@
             android:onClick="@{(view)->handler.onItemClick(view,data[1])}"
             android:orientation="vertical">
 
-            <com.android.smartlink.ui.widget.CircleView
+            <FrameLayout
                 android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:contentDescription="@null"
-                android:scaleType="centerInside"
-                app:circleBackgroundColor="#33000000"
-                app:circleBorderColor="#d9d9d9"
-                app:circleBorderWidth="5dp"
-                app:circleProgress="@{data[1].source.powerLoad}"
-                app:circleProgressColor="@{data[1].color}"
-                app:imageRes="@{data[1].whiteImageRes}" />
+                android:layout_height="72dp">
+
+                <com.android.smartlink.ui.widget.CircleView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    app:circleBackgroundColor="#33000000"
+                    app:circleBorderColor="#d9d9d9"
+                    app:circleBorderWidth="5dp"
+                    app:circleProgress="@{data[1].powerLoad}"
+                    app:circleProgressColor="@{data[1].color}"
+                    app:imageRes="@{data[1].whiteImageRes}" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="4dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/module_status_selector"
+                    android:visibility="@{data[1].powerLoadAlarm?View.VISIBLE:View.GONE}"
+                    app:imageLevel="@{data[1].status}" />
+
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,15 +121,6 @@
                 android:textColor="#ffffff"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                tools:ignore="SpUsage" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data[1].power}"
-                android:textColor="#bbffffff"
-                android:textSize="14dp"
-                android:visibility="gone"
                 tools:ignore="SpUsage" />
 
         </LinearLayout>
@@ -116,17 +134,34 @@
             android:onClick="@{(view)->handler.onItemClick(view,data[2])}"
             android:orientation="vertical">
 
-            <com.android.smartlink.ui.widget.CircleView
+            <FrameLayout
                 android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:contentDescription="@null"
-                android:scaleType="centerInside"
-                app:circleBackgroundColor="#33000000"
-                app:circleBorderColor="#d9d9d9"
-                app:circleBorderWidth="5dp"
-                app:circleProgress="@{data[2].source.powerLoad}"
-                app:circleProgressColor="@{data[2].color}"
-                app:imageRes="@{data[2].whiteImageRes}" />
+                android:layout_height="72dp">
+
+                <com.android.smartlink.ui.widget.CircleView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    app:circleBackgroundColor="#33000000"
+                    app:circleBorderColor="#d9d9d9"
+                    app:circleBorderWidth="5dp"
+                    app:circleProgress="@{data[2].powerLoad}"
+                    app:circleProgressColor="@{data[2].color}"
+                    app:imageRes="@{data[2].whiteImageRes}" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="4dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/module_status_selector"
+                    android:visibility="@{data[2].powerLoadAlarm?View.VISIBLE:View.GONE}"
+                    app:imageLevel="@{data[2].status}" />
+
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,15 +170,6 @@
                 android:textColor="#ffffff"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                tools:ignore="SpUsage" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data[2].power}"
-                android:textColor="#bbffffff"
-                android:textSize="14dp"
-                android:visibility="gone"
                 tools:ignore="SpUsage" />
 
         </LinearLayout>

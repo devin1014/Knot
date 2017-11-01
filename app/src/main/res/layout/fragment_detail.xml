@@ -57,7 +57,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
                     android:gravity="center_vertical"
-                    android:text="@{data.status}"
+                    android:text="@{data.statusFormat}"
                     android:textColor="#585b5d"
                     android:textSize="14dp" />
 
@@ -68,7 +68,7 @@
                     android:contentDescription="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/status_circle_selector"
-                    app:imageLevel="@{data.health}" />
+                    app:imageLevel="@{data.status}" />
 
             </FrameLayout>
 
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:gravity="center_vertical"
-                    android:text="@{data.power}"
+                    android:text="@{data.energy}"
                     android:textColor="#818486"
                     android:textSize="14dp" />
 

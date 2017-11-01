@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="data"
             type="com.android.smartlink.ui.model.UIModule" />
@@ -26,17 +28,34 @@
         android:paddingBottom="12dp"
         android:paddingTop="24dp">
 
-        <com.android.smartlink.ui.widget.CircleView
+        <FrameLayout
             android:layout_width="106dp"
-            android:layout_height="106dp"
-            android:contentDescription="@null"
-            android:scaleType="centerInside"
-            app:circleBackgroundColor="#33000000"
-            app:circleBorderColor="#d9d9d9"
-            app:circleBorderWidth="5dp"
-            app:circleProgress="@{data.source.powerLoad}"
-            app:circleProgressColor="@{data.color}"
-            app:imageRes="@{data.whiteImageRes}" />
+            android:layout_height="106dp">
+
+            <com.android.smartlink.ui.widget.CircleView
+                android:layout_width="106dp"
+                android:layout_height="106dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                app:circleBackgroundColor="#33000000"
+                app:circleBorderColor="#d9d9d9"
+                app:circleBorderWidth="5dp"
+                app:circleProgress="@{data.powerLoad}"
+                app:circleProgressColor="@{data.color}"
+                app:imageRes="@{data.whiteImageRes}" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="8dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/module_status_selector"
+                android:visibility="@{data.powerLoadAlarm?View.VISIBLE:View.GONE}"
+                app:imageLevel="@{data.status}" />
+
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.power}"
+            android:text="@{data.energy}"
             android:textColor="#bbffffff"
             android:textSize="14dp"
             tools:ignore="SpUsage" />

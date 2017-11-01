@@ -33,7 +33,7 @@
             android:contentDescription="@null"
             android:scaleType="centerInside"
             android:src="@drawable/module_status_s"
-            app:imageLevel="@{data.health}" />
+            app:imageLevel="@{data.status}" />
 
         <TextView
             android:id="@+id/title"
@@ -43,7 +43,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginStart="62dp"
             android:gravity="center_vertical"
-            android:text="@{data.nameAndStatus}"
+            android:text="@{data.name+data.statusFormat}"
             android:textColor="@{data.textColor}"
             android:textSize="14dp"
             tools:ignore="SpUsage" />

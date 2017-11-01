@@ -41,7 +41,7 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
     {
         super.onBindViewHolder(holder, position);
 
-        mStringMap.put(String.valueOf(getItem(position).getSource().getId()), holder);
+        mStringMap.put(String.valueOf(getItem(position).getId()), holder);
     }
 
     public void setEditMode(boolean editMode)
