@@ -1,10 +1,12 @@
 package com.android.smartlink.ui.activity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
+import android.widget.Toast;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
@@ -45,8 +47,7 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
     private void initComponent()
     {
         //init menus
-        //noinspection deprecation
-        mTabLayout.setOnTabSelectedListener(this);
+        mTabLayout.addOnTabSelectedListener(this);
 
         for (int i = 0; i < MENUS.length; i++)
         {
@@ -56,6 +57,38 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
             mTabLayout.addTab(tab, i == 0); // default select first one.
         }
+    }
+
+    private long mExitTimeStamp;
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mNavigationComposite.onBackPressed())
+        {
+            return;
+        }
+
+        final long duration = SystemClock.uptimeMillis() - mExitTimeStamp;
+
+        if (duration >= 2500)
+        {
+            mExitTimeStamp = SystemClock.uptimeMillis();
+
+            Toast.makeText(this, getString(R.string.confirm_exit_app), Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            finish();
+        }
+    }
+
+    @Override
+    public void onFragmentsChanged()
+    {
+        super.onFragmentsChanged();
+
+        mExitTimeStamp = 0L;
     }
 
     @Override

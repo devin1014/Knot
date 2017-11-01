@@ -99,9 +99,7 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
             return;
         }
 
-        //// TODO: 2017/10/16
         finish();
-        //super.onBackPressed();
     }
 
     @Override
