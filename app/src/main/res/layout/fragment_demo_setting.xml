@@ -13,27 +13,45 @@
         android:id="@+id/demo_setting_status_normal"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical|start"
         android:text="@string/module_status_normal"
         android:textColor="#ffffff"
         android:textSize="16dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/filter_divider" />
+
     <RadioButton
         android:id="@+id/demo_setting_status_alarm"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical|start"
         android:text="@string/module_status_alarm"
         android:textColor="#ffffff"
         android:textSize="16dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/filter_divider" />
+
     <RadioButton
         android:id="@+id/demo_setting_status_error"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical|start"
         android:text="@string/module_status_error"
         android:textColor="#ffffff"
         android:textSize="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/filter_divider" />
 
 </RadioGroup>

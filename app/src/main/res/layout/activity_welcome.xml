@@ -34,7 +34,7 @@
         android:layout_height="48dp"
         android:layout_below="@id/anchor_view"
         android:layout_margin="@dimen/app_content_margin"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_item_green_selector"
         android:gravity="center"
         android:text="@string/settings_signin"
         android:textColor="#ffffff"
