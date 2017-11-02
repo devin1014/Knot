@@ -37,7 +37,7 @@ public class UIModule implements Serializable, UIAlarm
     {
         mModule = module;
 
-        POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.power_kwh);
+        POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.format_power);
 
         Resources resources = AppManager.getInstance().getApplication().getResources();
 

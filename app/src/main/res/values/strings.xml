@@ -2,9 +2,15 @@
 
     <string name="app_name">China Knot</string>
     <string name="app_launch_failed">程序启动失败</string>
-    <string name="ui_ok">确定</string>
 
-    <string name="power_kwh">%s千瓦时</string>
+    <string name="ui_ok">确定</string>
+    <string name="ui_cancel">取消</string>
+
+    <string name="format_power">%s千瓦时</string>
+    <string name="format_weather_today">今天 %1$d°/%2$d°</string>
+    <string name="format_weather_tmp">%d°</string>
+    <string name="format_weather_min_max">%1$d°/%2$d°</string>
+
     <string name="events">事件记录</string>
     <string name="events_filter_other">其他</string>
     <string name="settings_signout">登出</string>
@@ -16,9 +22,10 @@
     <string name="power_history_data">用电趋势图（当前回路）</string>
     <string name="power_last_30_days">最近30天用电趋势</string>
     <string name="power_suggest">节能建议</string>
-    <string name="weather_aqi">空气污染指数:</string>
-    <string name="weather_max_tmp">最高:</string>
-    <string name="weather_min_tmp">最低:</string>
+    <string name="weather_aqi">空气污染指数</string>
+    <string name="weather_aqi_none">无</string>
+    <string name="weather_tomorrow">明天</string>
+    <string name="weather_after_tomorrow">后天</string>
     <string name="settings_signin">登入</string>
     <string name="demo_mode"><u>演示版本</u></string>
     <string name="module_status">状态</string>
@@ -52,32 +59,6 @@
     <!--请示失败-->
     <string name="request_data_error">暂时无法获取数据，请稍微再试</string>
     <string name="empty_events">没有事件记录</string>
-
-    <!--数组-->
-    <string-array name="month_array">
-        <item>一月</item>
-        <item>二月</item>
-        <item>三月</item>
-        <item>四月</item>
-        <item>五月</item>
-        <item>六月</item>
-        <item>七月</item>
-        <item>八月</item>
-        <item>九月</item>
-        <item>十月</item>
-        <item>十一月</item>
-        <item>十二月</item>
-    </string-array>
-
-    <string-array name="week_array">
-        <item>星期日</item>
-        <item>星期一</item>
-        <item>星期二</item>
-        <item>星期三</item>
-        <item>星期四</item>
-        <item>星期五</item>
-        <item>星期六</item>
-    </string-array>
 
     <string-array name="module_status_array">
         <item>正常</item>

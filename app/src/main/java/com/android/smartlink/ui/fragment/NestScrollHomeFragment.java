@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
@@ -225,12 +224,6 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         ViewGroup statusRootView = (ViewGroup) inflater.inflate(R.layout.list_item_home_status, mContentContainer, false);
-
-        LinearLayout.LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-        layoutParams.setMargins(0, getResources().getDimensionPixelSize(R.dimen.app_content_margin), 0, 0);
-
-        statusRootView.setLayoutParams(layoutParams);
 
         mContentContainer.addView(statusRootView);
 

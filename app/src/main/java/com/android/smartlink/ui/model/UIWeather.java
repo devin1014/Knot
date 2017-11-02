@@ -1,17 +1,12 @@
 package com.android.smartlink.ui.model;
 
-import android.os.Parcel;
-import android.text.SpannableStringBuilder;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.SuperscriptSpan;
-
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
-import com.android.smartlink.util.Utils;
+import com.android.smartlink.bean.Weather.WeatherCond;
+import com.android.smartlink.bean.Weather.WeatherDailyForecast;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -22,110 +17,85 @@ public class UIWeather
 {
     private Weather mWeather;
 
-    private String mTomorrow;
+    private WeatherDailyForecast mTomorrowForecast;
 
-    private String mDayAfterTomorrow;
+    private WeatherDailyForecast mAfterTomorrowForecast;
 
     public UIWeather(Weather weather)
     {
         mWeather = weather;
 
-        Calendar mCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+        mTomorrowForecast = weather.getDaily_forecast().get(1);
 
-        mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-
-        String[] weeks = AppManager.getInstance().getStringArray(R.array.week_array);
-
-        mCalendar.add(Calendar.DAY_OF_WEEK, 1);
-
-        mTomorrow = weeks[mCalendar.get(Calendar.DAY_OF_WEEK) - 1];
-
-        mCalendar.add(Calendar.DAY_OF_WEEK, 1);
-
-        mDayAfterTomorrow = weeks[mCalendar.get(Calendar.DAY_OF_WEEK) - 1];
-    }
-
-    public String getImage()
-    {
-        return "weather_" + mWeather.getNow().getCond().getCode();
-    }
-
-    public boolean hasAqi()
-    {
-        return mWeather.getAqi() != null;
+        mAfterTomorrowForecast = weather.getDaily_forecast().get(2);
     }
 
     public String getAqi()
     {
         if (mWeather.getAqi() == null)
         {
-            return null;
+            return AppManager.getInstance().getString(R.string.weather_aqi_none);
         }
 
-        return AppManager.getInstance().getString(R.string.weather_aqi) + mWeather.getAqi().getQlty();
+        return mWeather.getAqi().getAqi() + "/" + mWeather.getAqi().getQlty();
     }
 
-    public CharSequence getTmp()
+    public String getTmp()
     {
-        return getTmp(mWeather.getNow().getTmp(), 1.2f, 0.5f);
+        return String.format(AppManager.getInstance().getString(R.string.format_weather_tmp), mWeather.getNow().getTmp());
     }
 
-    public String getMaxTmp()
+    public String getTodayMinMax()
     {
-        return AppManager.getInstance().getString(R.string.weather_max_tmp) + " " + mWeather.getDaily_forecast().get(0).getMax();
+        WeatherDailyForecast dailyForecast = mWeather.getDaily_forecast().get(0);
+
+        return String.format(AppManager.getInstance().getString(R.string.format_weather_today), dailyForecast.getMin(), dailyForecast.getMax());
     }
 
-    public String getMinTemp()
+    public String getTomorrowMinMax()
     {
-        return AppManager.getInstance().getString(R.string.weather_min_tmp) + " " + mWeather.getDaily_forecast().get(0).getMin();
+        return String.format(AppManager.getInstance().getString(R.string.format_weather_min_max), mTomorrowForecast.getMin(), mTomorrowForecast.getMax());
+
     }
 
-    public String getTomorrowName()
+    public String getAfterTomorrowMinMax()
     {
-        return mTomorrow;
+        return String.format(AppManager.getInstance().getString(R.string.format_weather_min_max), mAfterTomorrowForecast.getMin(), mAfterTomorrowForecast.getMax());
     }
 
-    public CharSequence getTomorrowTmp()
+    public String getImage()
     {
-        return getTmp(mWeather.getDaily_forecast().get(1).getMax(), 1f, 0.8f);
+        return getImage(mWeather.getNow().getCond());
     }
 
     public String getTomorrowImage()
     {
-        return "weather_" + mWeather.getDaily_forecast().get(1).getCond().getCode_d();
-    }
-
-    public String getDayAfterTomorrowName()
-    {
-        return mDayAfterTomorrow;
-    }
-
-    public CharSequence getDayAfterTomorrowTmp()
-    {
-        return getTmp(mWeather.getDaily_forecast().get(2).getMax(), 1f, 0.8f);
+        return getImage(mWeather.getDaily_forecast().get(1).getCond());
     }
 
     public String getDayAfterTomorrowImage()
     {
-        return "weather_" + mWeather.getDaily_forecast().get(2).getCond().getCode_d();
+        return getImage(mWeather.getDaily_forecast().get(2).getCond());
     }
 
-    private CharSequence getTmp(int tmp, float scale, float scale2)
+    private String getImage(WeatherCond cond)
     {
-        String string = tmp + "o";
+        int code = cond.getCode();
 
-        Parcel parcel = Parcel.obtain();
+        if (code == 0)
+        {
+            int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
-        parcel.writeString("o");
+            if (hour >= 18)
+            {
+                code = cond.getCode_n();
+            }
+            else
+            {
+                code = cond.getCode_d();
+            }
+        }
 
-        SpannableStringBuilder builder = new SpannableStringBuilder(string);
-
-        Utils.setSpannable(builder, string.indexOf("o"), string.indexOf("o") + 1, new SuperscriptSpan(parcel), new RelativeSizeSpan(scale2));
-
-        Utils.setSpannable(builder, 0, string.indexOf("o"), new RelativeSizeSpan(scale));
-
-        parcel.recycle();
-
-        return builder;
+        return "weather_" + code;
     }
 }

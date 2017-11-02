@@ -17,137 +17,166 @@
         android:id="@+id/weather_root"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="106dp"
+        android:layout_height="124dp"
+        android:baselineAligned="false"
+        android:paddingBottom="14dp"
+        android:paddingTop="2dp"
         tools:ignore="SpUsage">
 
-        <View
-            android:id="@+id/anchor_center"
-            android:layout_width="1px"
-            android:layout_height="1px"
-            android:layout_centerInParent="true" />
-
-        <ImageView
-            android:id="@+id/weather_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            app:imageRes="@{data.image}" />
-
-        <TextView
-            android:id="@+id/weather_aqi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/weather_image"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:text="@{data.aqi}"
-            android:textColor="#bbffffff"
-            android:textSize="10dp"
-            android:visibility="@{data.hasAqi()?View.VISIBLE:View.GONE}" />
-
-        <!--tmp-->
-        <TextView
-            android:id="@+id/weather_tem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/weather_image"
-            android:layout_toRightOf="@id/weather_image"
-            android:minWidth="48dp"
-            android:padding="@dimen/app_content_margin"
-            android:paddingBottom="12dp"
-            android:text="@{data.tmp}"
-            android:textColor="#ffffff"
-            android:textSize="44dp" />
-
-        <!--max&min-->
-        <TextView
-            android:id="@+id/weather_max_tmp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/anchor_center"
-            android:layout_toEndOf="@id/weather_tem"
-            android:layout_toRightOf="@id/weather_tem"
-            android:text="@{data.maxTmp}"
-            android:textColor="#ffffff"
-            android:textSize="11dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/anchor_center"
-            android:layout_toEndOf="@id/weather_tem"
-            android:layout_toRightOf="@id/weather_tem"
-            android:text="@{data.minTemp}"
-            android:textColor="#ffffff"
-            android:textSize="11dp" />
-
-        <!--next 2days-->
+        <!--aqi-->
         <LinearLayout
-            android:id="@+id/weather_tomorrow_after"
-            android:layout_width="56dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:id="@+id/api_group"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/air_aqi" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.dayAfterTomorrowName}"
+                android:padding="5dp"
+                android:text="@string/weather_aqi"
                 android:textColor="#ffffff"
                 android:textSize="10dp" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@null"
-                android:scaleType="centerInside"
-                app:imageRes="@{data.tomorrowImage}" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.dayAfterTomorrowTmp}"
+                android:text="@{data.aqi}"
                 android:textColor="#ffffff"
                 android:textSize="10dp" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/weather_tomorrow"
-            android:layout_width="56dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/weather_tomorrow_after"
-            android:layout_toStartOf="@id/weather_tomorrow_after"
+        <!-- tomorrow weather-->
+        <RelativeLayout
+            android:id="@+id/tomorrow_group"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/home_status_detail_bg"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/anchor_view_2"
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="#33ffffff" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/anchor_view_2"
+                android:layout_toStartOf="@id/anchor_view_2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather_tomorrow"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    app:imageRes="@{data.tomorrowImage}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.tomorrowMinMax}"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/anchor_view_2"
+                android:layout_toRightOf="@id/anchor_view_2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather_after_tomorrow"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    app:imageRes="@{data.dayAfterTomorrowImage}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.afterTomorrowMinMax}"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- today weather-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tomorrow_group"
+            android:layout_toRightOf="@id/api_group"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="RtlHardcoded">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/weather_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    app:imageRes="@{data.image}" />
+
+                <TextView
+                    android:id="@+id/weather_tmp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.tmp}"
+                    android:textColor="#ffffff"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.tomorrowName}"
+                android:text="@{data.todayMinMax}"
                 android:textColor="#ffffff"
-                android:textSize="10dp" />
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@null"
-                android:scaleType="centerInside"
-                app:imageRes="@{data.dayAfterTomorrowImage}" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data.tomorrowTmp}"
-                android:textColor="#ffffff"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
