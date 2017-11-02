@@ -42,8 +42,6 @@ public class AppManager
         }
     }
 
-    private final String KEY_EQUIPMENT_NAME = getClass().getSimpleName() + "_equipment";
-
     private final Application mApplication;
 
     private SharedPreferences mSharedPreferences;
@@ -54,13 +52,19 @@ public class AppManager
 
     private Weather mWeather;
 
+    private final String[] STATUS_ARRAY;
+
     private AppManager(Application application)
     {
         mApplication = application;
 
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
+
+        STATUS_ARRAY = mApplication.getResources().getStringArray(R.array.module_status_array);
     }
 
+    // -----------------------------------
+    // ------------ 初始化 ----------------
     public boolean isInitialized()
     {
         return mApplication != null && mEquipments != null && mEquipments.size() > 0;
@@ -71,14 +75,21 @@ public class AppManager
         return mApplication;
     }
 
-    //    public String getCurrentMonth()
-    //    {
-    //        return mApplication.getResources().getStringArray(R.array.month_array)[Calendar.getInstance().get(Calendar.MONTH)];
-    //    }
+    public String getString(int resId)
+    {
+        return mApplication.getResources().getString(resId);
+    }
 
+    // -----------------------------------
+    // ------------ Module ---------------
     public String getModuleStatus(int status)
     {
-        return mApplication.getResources().getStringArray(R.array.module_status_array)[status];
+        if (status < 0 || status >= STATUS_ARRAY.length)
+        {
+            return STATUS_ARRAY[0];
+        }
+
+        return STATUS_ARRAY[status];
     }
 
     public void setModules(List<Module> modules)
@@ -98,7 +109,7 @@ public class AppManager
             return mModules;
         }
 
-        List<Module> list = new ArrayList<>(1);
+        List<Module> list = new ArrayList<>(ids.length);
 
         for (Module module : mModules)
         {
@@ -116,6 +127,8 @@ public class AppManager
         return list;
     }
 
+    // -----------------------------------
+    // ------------ Weather&Location -----
     public boolean checkWeather()
     {
         if (mWeather != null)
@@ -149,15 +162,35 @@ public class AppManager
         mWeather = weather;
     }
 
-    // ---- Equipment ----------------
+    public void setLocation(String location)
+    {
+        mSharedPreferences.edit().putString(Constants.KEY_SHARE_PREFERENCE_LOCATION, location).apply();
+
+        mSharedPreferences.edit().putLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, System.currentTimeMillis()).apply();
+    }
+
+    public String getLocation()
+    {
+        long time = mSharedPreferences.getLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, -1L);
+
+        if (time < 0 || (System.currentTimeMillis() - time) >= Constants.SIX_HOUR)
+        {
+            return null;
+        }
+
+        return mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_LOCATION, null);
+    }
+
+    // -----------------------------------
+    // ------------ Equipment ------------
     public void setEquipmentName(int id, String name)
     {
-        mSharedPreferences.edit().putString(KEY_EQUIPMENT_NAME + id, name).apply();
+        mSharedPreferences.edit().putString(Constants.KEY_SHARE_PREFERENCE_EQUIPMENT_NAME + id, name).apply();
     }
 
     public String getEquipmentName(int id)
     {
-        String equipmentName = mSharedPreferences.getString(KEY_EQUIPMENT_NAME + id, "");
+        String equipmentName = mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_EQUIPMENT_NAME + id, "");
 
         if (TextUtils.isEmpty(equipmentName))
         {
@@ -229,52 +262,8 @@ public class AppManager
         return R.mipmap.ic_launcher;
     }
 
-    public String getString(int resId)
-    {
-        return mApplication.getResources().getString(resId);
-    }
-
-    public String[] getStringArray(int resId)
-    {
-        return mApplication.getResources().getStringArray(resId);
-    }
-
-    public int getEnergySuggestIndex()
-    {
-        final int index = mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, 0);
-
-        int nextIndex = index + 1;
-
-        if (nextIndex >= SuggestPagerAdapter.SUGGESTIONS.length)
-        {
-            nextIndex = 0;
-        }
-
-        mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, nextIndex).apply();
-
-        return index;
-    }
-
-    public void setLocation(String location)
-    {
-        mSharedPreferences.edit().putString(Constants.KEY_SHARE_PREFERENCE_LOCATION, location).apply();
-
-        mSharedPreferences.edit().putLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, System.currentTimeMillis()).apply();
-    }
-
-    public String getLocation()
-    {
-        long time = mSharedPreferences.getLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, -1L);
-
-        if (time < 0 || (System.currentTimeMillis() - time) >= Constants.SIX_HOUR)
-        {
-            return null;
-        }
-
-        return mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_LOCATION, null);
-    }
-
-    // ---- Demo mode ----------------
+    // -----------------------------------
+    // ------------ Demo status ----------
     public void setDemoMode(boolean demoMode)
     {
         mSharedPreferences.edit().putBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, demoMode).apply();
@@ -293,5 +282,23 @@ public class AppManager
     public int getDemoModeStatus()
     {
         return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, Constants.STATUS_NORMAL);
+    }
+
+    // -----------------------------------
+    // ------------ Suggest --------------
+    public int getEnergySuggestIndex()
+    {
+        final int index = mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, 0);
+
+        int nextIndex = index + 1;
+
+        if (nextIndex >= SuggestPagerAdapter.SUGGESTIONS.length)
+        {
+            nextIndex = 0;
+        }
+
+        mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, nextIndex).apply();
+
+        return index;
     }
 }

@@ -34,9 +34,9 @@ public class Constants
     public static final long SIX_HOUR = 6 * 60 * 60 * 1000;
 
     // ---- Key Extras ----------------
-    private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra";
+    private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra.";
 
-    private static final String KEY_PREFERENCE_BASE = "com.android.smartlink.key.share";
+    private static final String KEY_PREFERENCE_BASE = "com.android.smartlink.key.share.";
 
     public static final String KEY_EXTRA_UI_MODULE = KEY_EXTRA_BASE + "uiModule";
 
@@ -56,4 +56,6 @@ public class Constants
     public static final String KEY_SHARE_PREFERENCE_DEMO_MODE = KEY_PREFERENCE_BASE + "demo";
 
     public static final String KEY_SHARE_PREFERENCE_DEMO_STATUS = KEY_PREFERENCE_BASE + "status";
+
+    public static final String KEY_SHARE_PREFERENCE_EQUIPMENT_NAME = KEY_PREFERENCE_BASE + "equipment.name";
 }

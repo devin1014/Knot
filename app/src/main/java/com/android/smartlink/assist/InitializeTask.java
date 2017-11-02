@@ -6,13 +6,13 @@ import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.text.TextUtils;
 
+import com.android.devin.core.util.IOUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.WeatherLocation;
 import com.android.smartlink.util.HttpUrl;
-import com.android.smartlink.util.Utils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.convert.Converter;
@@ -96,7 +96,7 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
                 if (weather == null)
                 {
-                    String resultString = Utils.parseStream(mAssetManager.open("weather.json"));
+                    String resultString = IOUtils.parseStream(mAssetManager.open("weather.json"));
 
                     JSONObject jsonObject = new JSONObject(resultString);
 

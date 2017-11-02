@@ -32,17 +32,23 @@ import java.util.List;
 /**
  * Multiple temperature demo chart.
  */
-public class MultiplePowerChart extends AbstractBaseChart
+public class Last30DaysPowerChart extends AbstractBaseChart
 {
     public AbstractChart getChart(Context context, float[] data)
     {
-        List<float[]> x = new ArrayList<>();
+        float[] newData = new float[data.length + 1];
 
-        x.add(Utils.getPast30Days());
+        newData[0] = data[0] / 2f;
 
-        List<float[]> values = new ArrayList<>();
+        System.arraycopy(data, 0, newData, 1, data.length);
 
-        values.add(data);
+        List<float[]> xData = new ArrayList<>();
+
+        xData.add(Utils.getPast30Days());
+
+        List<float[]> yData = new ArrayList<>();
+
+        yData.add(newData);
 
         int[] lineColors = new int[]{0xFF019944};
 
@@ -69,7 +75,7 @@ public class MultiplePowerChart extends AbstractBaseChart
         renderer.setYLabelsAlign(Align.RIGHT);
         renderer.setYLabelsColor(0, lineColors[0]);
 
-        return new CubicLineChart(buildDataSet(new String[]{context.getResources().getString(R.string.power_last_30_days)}, x, values), renderer, 0.3f);
+        return new CubicLineChart(buildDataSet(new String[]{context.getResources().getString(R.string.power_last_30_days)}, xData, yData), renderer, 0.3f);
     }
 
     private float getMin(float[] data)

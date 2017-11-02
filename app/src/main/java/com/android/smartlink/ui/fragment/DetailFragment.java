@@ -20,7 +20,7 @@ import com.android.smartlink.bean.PowerConsume;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.MultiplePowerChart;
+import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.HttpUrl;
@@ -131,7 +131,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mChartContainer.removeAllViews();
 
-        mChartContainer.addView(new GraphicalView(getActivity(), new MultiplePowerChart().getChart(getActivity(), powerConsume.getData())));
+        mChartContainer.addView(new GraphicalView(getActivity(), new Last30DaysPowerChart().getChart(getActivity(), powerConsume.getData())));
     }
 
     @Override
