@@ -12,6 +12,7 @@ import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.WeatherLocation;
 import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.Utils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.convert.Converter;
@@ -61,7 +62,16 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
             Equipments equipments = gson.fromJson(new InputStreamReader(mAssetManager.open("equipment.json")), Equipments.class);
 
             AppManager.getInstance().setEquipments(equipments);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
 
+            return false;
+        }
+
+        try
+        {
             if (!AppManager.getInstance().checkWeather())
             {
                 String location = AppManager.getInstance().getLocation();
@@ -84,6 +94,17 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
                 Weather weather = getWeather(location);
 
+                if (weather == null)
+                {
+                    String resultString = Utils.parseStream(mAssetManager.open("weather.json"));
+
+                    JSONObject jsonObject = new JSONObject(resultString);
+
+                    JSONObject weatherObj = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
+
+                    weather = new Gson().fromJson(weatherObj.toString(), Weather.class);
+                }
+
                 AppManager.getInstance().setWeather(weather);
             }
 
@@ -95,8 +116,6 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
         catch (Exception e)
         {
             e.printStackTrace();
-
-            return false;
         }
 
         return true;
@@ -111,15 +130,8 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
             @Override
             public WeatherLocation convertResponse(okhttp3.Response response) throws Throwable
             {
-                if (response.code() == 200)
-                {
-                    //noinspection ConstantConditions
-                    String result = response.body().string();
-
-                    return new Gson().fromJson(result, WeatherLocation.class);
-                }
-
-                return null;
+                //noinspection ConstantConditions
+                return new Gson().fromJson(response.body().string(), WeatherLocation.class);
             }
         });
 

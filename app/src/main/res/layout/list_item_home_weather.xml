@@ -44,14 +44,14 @@
                 android:padding="5dp"
                 android:text="@string/weather_aqi"
                 android:textColor="#ffffff"
-                android:textSize="10dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{data.aqi}"
                 android:textColor="#ffffff"
-                android:textSize="10dp" />
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -167,7 +167,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{data.tmp}"
                     android:textColor="#ffffff"
-                    android:textSize="25dp" />
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -176,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.todayMinMax}"
                 android:textColor="#ffffff"
-                android:textSize="15dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 

@@ -24,8 +24,6 @@ import com.umeng.message.PushAgent;
  */
 public class SplashActivity extends AppCompatActivity implements InitializeTaskCallback
 {
-    //private final int REQUEST_CODE_PERMISSION = 101;
-
     private InitializeTask mInitializeTask;
 
     @Override
@@ -41,8 +39,6 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
 
         TestUtil.test(this, "onCreate");
 
-        //ActivityCompat.requestPermissions(this, new String[]{permission.READ_PHONE_STATE}, REQUEST_CODE_PERMISSION);
-
         (mInitializeTask = new InitializeTask(this, this)).execute();
     }
 
@@ -50,14 +46,6 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        //        if (requestCode == REQUEST_CODE_PERMISSION)
-        //        {
-        //            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-        //            {
-        //                //(mInitializeTask = new InitializeTask(this, this)).execute();
-        //            }
-        //        }
     }
 
     @Override

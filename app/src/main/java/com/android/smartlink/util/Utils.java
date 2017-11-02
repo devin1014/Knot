@@ -7,6 +7,11 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-17
@@ -48,14 +53,6 @@ public class Utils
     {
         float[] days = new float[30];
 
-        //        Calendar calendar = Calendar.getInstance();
-        //
-        //        for (int i = 0; i < 30; i++)
-        //        {
-        //            calendar.add(Calendar.DAY_OF_MONTH, -1);
-        //
-        //            days[i] = calendar.get(Calendar.DAY_OF_MONTH);
-        //        }
         for (int i = 0; i < 30; i++)
         {
             days[i] = i;
@@ -78,5 +75,23 @@ public class Utils
     public static boolean isEmpty(int... params)
     {
         return params == null || params.length == 0;
+    }
+
+    public static String parseStream(InputStream inputStream) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+        String s;
+
+        StringBuilder builder = new StringBuilder();
+
+        while ((s = reader.readLine()) != null)
+        {
+            builder.append(s);
+        }
+
+        reader.close();
+
+        return builder.toString();
     }
 }
