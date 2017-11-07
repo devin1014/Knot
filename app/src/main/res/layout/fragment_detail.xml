@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:gravity="center_vertical"
-                    android:text="@{data.powerLoadAlarm?data.powerLoadPercent:@string/module_status_normal}"
+                    android:text="@{(data.alarm||data.error)?data.powerLoadPercent:@string/module_status_normal}"
                     android:textColor="#585b5d"
                     android:textSize="14dp" />
 

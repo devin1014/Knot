@@ -7,12 +7,12 @@
         android:minLevel="0" />
 
     <item
-        android:drawable="@drawable/notify_status_warn"
+        android:drawable="@drawable/notify_status_error"
         android:maxLevel="1"
         android:minLevel="1" />
 
     <item
-        android:drawable="@drawable/notify_status_error"
+        android:drawable="@drawable/notify_status_warn"
         android:maxLevel="2"
         android:minLevel="2" />
 

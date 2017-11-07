@@ -5,15 +5,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Toast;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.util.LogUtil;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -22,8 +25,14 @@ import butterknife.BindView;
  */
 public class DemoSettingFragment extends BaseSmartlinkFragment
 {
-    @BindView(R.id.demo_setting_radio_group)
-    RadioGroup mRadioGroup;
+    @BindView(R.id.setting_module_151)
+    RadioGroup mMainModule;
+
+    @BindView(R.id.setting_module_150)
+    RadioGroup mFreezerModule;
+
+    @BindView(R.id.setting_module_152)
+    RadioGroup mOvenModule;
 
     @Nullable
     @Override
@@ -42,52 +51,72 @@ public class DemoSettingFragment extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        mRadioGroup.check(getCheckId());
+        int status = AppManager.getInstance().getDemoModeStatus();
 
-        mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                switch (checkedId)
-                {
-                    case R.id.demo_setting_status_alarm:
+        int mainStatus = status / 100;
 
-                        AppManager.getInstance().setDemoModeStatus(Constants.STATUS_WARNING);
+        setModule(mMainModule, mainStatus);
 
-                        break;
+        int freezerStatus = (status / 10) % 10;
 
-                    case R.id.demo_setting_status_error:
+        setModule(mFreezerModule, freezerStatus);
 
-                        AppManager.getInstance().setDemoModeStatus(Constants.STATUS_ERROR);
+        int ovenStatus = status % 10;
 
-                        break;
-
-                    default:
-
-                        AppManager.getInstance().setDemoModeStatus(Constants.STATUS_NORMAL);
-
-                        break;
-                }
-            }
-        });
+        setModule(mOvenModule, ovenStatus);
     }
 
-    private int getCheckId()
+    private void setModule(RadioGroup group, int status)
     {
-        switch (AppManager.getInstance().getDemoModeStatus())
+        if (status == Constants.STATUS_NORMAL)
         {
-            case Constants.STATUS_WARNING:
+            ((RadioButton) group.getChildAt(0)).setChecked(true);
+        }
+        else if (status == Constants.STATUS_WARNING)
+        {
+            ((RadioButton) group.getChildAt(1)).setChecked(true);
+        }
+        else if (status == Constants.STATUS_ERROR)
+        {
+            ((RadioButton) group.getChildAt(2)).setChecked(true);
+        }
+    }
 
-                return R.id.demo_setting_status_alarm;
+    @OnClick(R.id.settings_ok)
+    public void setDemoStatus()
+    {
+        int mainStatus = getFlag(mMainModule) * 100;
 
-            case Constants.STATUS_ERROR:
+        int freezerStatus = getFlag(mFreezerModule) * 10;
 
-                return R.id.demo_setting_status_error;
+        int ovenStatus = getFlag(mOvenModule);
 
-            default:
+        int status = mainStatus + freezerStatus + ovenStatus;
 
-                return R.id.demo_setting_status_normal;
+        AppManager.getInstance().setDemoModeStatus(status);
+
+        LogUtil.log(this, "status:" + status);
+
+        Toast.makeText(getActivity(), getString(R.string.demo_setting_success), Toast.LENGTH_SHORT).show();
+
+        getActivity().finish();
+    }
+
+    private int getFlag(RadioGroup radioGroup)
+    {
+        int index = radioGroup.indexOfChild(radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()));
+
+        if (index == 1)
+        {
+            return Constants.STATUS_WARNING;
+        }
+        else if (index == 2)
+        {
+            return Constants.STATUS_ERROR;
+        }
+        else
+        {
+            return Constants.STATUS_NORMAL;
         }
     }
 }

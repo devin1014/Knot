@@ -30,24 +30,19 @@ public class Modules
         @SerializedName("alarm")
         private int status;
 
-        private float power;
+        //private float power;
 
-        private float powerFactor;
+        //private float powerFactor;
 
-        private float current;
+        private String current;
 
-        private float voltage;
+        //private float voltage;
 
-        private float energy;
+        private String energy;
 
         public int getId()
         {
             return id;
-        }
-
-        public float getPower()
-        {
-            return power;
         }
 
         public int getStatus()
@@ -55,22 +50,12 @@ public class Modules
             return status;
         }
 
-        public float getPowerFactor()
-        {
-            return powerFactor;
-        }
-
-        public float getCurrent()
+        public String getCurrent()
         {
             return current;
         }
 
-        public float getVoltage()
-        {
-            return voltage;
-        }
-
-        public float getEnergy()
+        public String getEnergy()
         {
             return energy;
         }

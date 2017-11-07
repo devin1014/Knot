@@ -7,12 +7,12 @@
         android:minLevel="0" />
 
     <item
-        android:drawable="@drawable/status_circle_yellow"
+        android:drawable="@drawable/status_circle_red"
         android:maxLevel="1"
         android:minLevel="1" />
 
     <item
-        android:drawable="@drawable/status_circle_red"
+        android:drawable="@drawable/status_circle_yellow"
         android:maxLevel="2"
         android:minLevel="2" />
 

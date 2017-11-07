@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
+import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.ModbusHelp;
 import com.google.gson.Gson;
@@ -32,7 +33,7 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     {
         int status = AppManager.getInstance().getDemoModeStatus();
 
-        Modules modules = FileUtil.openAssets(getActivity(), "main" + status + ".json", Modules.class);
+        Modules modules = FileUtil.openAssets(getActivity(), "main_" + ConvertUtil.convertStatus(status) + ".json", Modules.class);
 
         if (modules != null)
         {
@@ -93,34 +94,4 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
         super.destroy();
     }
 
-    //    @SuppressLint("StaticFieldLeak")
-    //    private class RequestTask extends AsyncTask<Void, Void, Modules>
-    //    {
-    //        @Override
-    //        protected Modules doInBackground(Void... voids)
-    //        {
-    //            String serverAddress = "192.168.1.101";
-    //
-    //            final int port = 502;
-    //
-    //            int[] idArr = new int[]{151, 150, 152};
-    //
-    //            String tStr = ModbusHelp.modbusRTCP(serverAddress, 502, idArr);
-    //
-    //            return new Gson().fromJson(tStr, Modules.class);
-    //        }
-    //
-    //        @Override
-    //        protected void onPostExecute(Modules result)
-    //        {
-    //            if (result == null || result.getModules() == null)
-    //            {
-    //                notifyResponse(new EmptyDataException());
-    //            }
-    //            else
-    //            {
-    //                notifyResponse(result);
-    //            }
-    //        }
-    //    }
 }

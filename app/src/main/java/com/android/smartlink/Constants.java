@@ -13,9 +13,9 @@ public class Constants
 
     public static final int STATUS_NORMAL = 0;
 
-    public static final int STATUS_WARNING = 1;
+    public static final int STATUS_WARNING = 2;
 
-    public static final int STATUS_ERROR = 2;
+    public static final int STATUS_ERROR = 1;
 
     public static final int POS_SETTINGS_ACCOUNT = 0;
 

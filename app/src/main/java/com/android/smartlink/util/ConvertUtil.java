@@ -114,4 +114,15 @@ public class ConvertUtil
 
         return result;
     }
+
+    public static String convertStatus(int status)
+    {
+        int mainStatus = status / 100;
+
+        int freezerStatus = (status / 10) % 10;
+
+        int ovenStatus = status % 10;
+
+        return mainStatus + "_" + freezerStatus + "_" + ovenStatus;
+    }
 }

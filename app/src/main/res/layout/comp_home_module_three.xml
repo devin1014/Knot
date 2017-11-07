@@ -60,7 +60,7 @@
                     android:contentDescription="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/module_status_selector"
-                    android:visibility="@{data[0].powerLoadAlarm?View.VISIBLE:View.GONE}"
+                    android:visibility="@{data[0].normal?View.GONE:View.VISIBLE}"
                     app:imageLevel="@{data[0].status}" />
 
             </FrameLayout>
@@ -109,7 +109,7 @@
                     android:contentDescription="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/module_status_selector"
-                    android:visibility="@{data[1].powerLoadAlarm?View.VISIBLE:View.GONE}"
+                    android:visibility="@{data[1].normal?View.GONE:View.VISIBLE}"
                     app:imageLevel="@{data[1].status}" />
 
             </FrameLayout>
@@ -158,7 +158,7 @@
                     android:contentDescription="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/module_status_selector"
-                    android:visibility="@{data[2].powerLoadAlarm?View.VISIBLE:View.GONE}"
+                    android:visibility="@{data[2].normal?View.GONE:View.VISIBLE}"
                     app:imageLevel="@{data[2].status}" />
 
             </FrameLayout>

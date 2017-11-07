@@ -213,13 +213,20 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
         for (Module module : modules)
         {
-            if (module.getStatus() > alarmModule.getStatus())
+            if (module.getStatus() == Constants.STATUS_ERROR)
+            {
+                alarmModule = module;
+
+                break;
+            }
+
+            if (UIModule.getStatus(module) > UIModule.getStatus(alarmModule))
             {
                 alarmModule = module;
             }
         }
 
-        boolean alarm = alarmModule.getStatus() != Constants.STATUS_NORMAL;
+        boolean alarm = UIModule.getStatus(alarmModule) != Constants.STATUS_NORMAL;
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -253,11 +260,13 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
             });
         }
 
-        statusImg.setImageLevel(alarmModule.getStatus());
+        int status = UIModule.getStatus(alarmModule);
 
-        statusName.setText(AppManager.getInstance().getModuleStatus(alarmModule.getStatus()));
+        statusImg.setImageLevel(status);
 
-        statusName.setTextColor(UICompat.getStatusColor(alarmModule.getStatus()));
+        statusName.setText(AppManager.getInstance().getModuleStatus(status));
+
+        statusName.setTextColor(UICompat.getStatusColor(status));
 
         if (alarm)
         {

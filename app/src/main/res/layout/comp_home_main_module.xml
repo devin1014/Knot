@@ -52,7 +52,7 @@
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/module_status_selector"
-                android:visibility="@{data.powerLoadAlarm?View.VISIBLE:View.GONE}"
+                android:visibility="@{data.normal ? View.GONE : View.VISIBLE}"
                 app:imageLevel="@{data.status}" />
 
         </FrameLayout>

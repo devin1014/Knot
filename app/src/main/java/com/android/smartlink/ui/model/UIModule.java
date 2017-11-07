@@ -31,6 +31,8 @@ public class UIModule implements Serializable, UIAlarm
 
     private int[] mTextStatusColor;
 
+    private int mPowerLoad = 0;
+
     private DecimalFormat mNumberFormat = new DecimalFormat("0.0");
 
     public UIModule(Module module)
@@ -41,9 +43,22 @@ public class UIModule implements Serializable, UIAlarm
 
         Resources resources = AppManager.getInstance().getApplication().getResources();
 
-        mStatusColor = new int[]{resources.getColor(R.color.module_status_good), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+        int green = resources.getColor(R.color.module_status_good);
 
-        mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
+        int red = resources.getColor(R.color.module_status_error);
+
+        int yellow = resources.getColor(R.color.module_status_warn);
+
+        int white = resources.getColor(R.color.module_status_none);
+
+        mStatusColor = new int[]{green, red, yellow};
+
+        mTextStatusColor = new int[]{white, red, yellow};
+
+        if (!TextUtils.isEmpty(mModule.getCurrent()))
+        {
+            mPowerLoad = Math.min((int) (Float.valueOf(mModule.getCurrent()) / 5f * 100), 100);
+        }
     }
 
     public int getId()
@@ -77,47 +92,57 @@ public class UIModule implements Serializable, UIAlarm
 
     public String getEnergy()
     {
-        return String.format(POWER_KWH, mNumberFormat.format(mModule.getEnergy()));
+        if (TextUtils.isEmpty(mModule.getEnergy()))
+        {
+            return "";
+        }
+
+        return String.format(POWER_KWH, mNumberFormat.format(Float.valueOf(mModule.getEnergy())));
     }
 
     public String getStatusFormat()
     {
-        return AppManager.getInstance().getModuleStatus(mModule.getStatus());
+        return AppManager.getInstance().getModuleStatus(adjustStatus());
     }
 
     public int getColor()
     {
-        if (mModule.getStatus() > mStatusColor.length || mModule.getStatus() < 0)
-        {
-            return mStatusColor[0];
-        }
-
-        return mStatusColor[mModule.getStatus()];
+        return mStatusColor[adjustStatus()];
     }
 
     public int getTextColor()
     {
-        if (mModule.getStatus() > mTextStatusColor.length || mModule.getStatus() < 0)
-        {
-            return mTextStatusColor[0];
-        }
-
-        return mTextStatusColor[mModule.getStatus()];
+        return mTextStatusColor[adjustStatus()];
     }
 
     public int getStatus()
     {
-        return mModule.getStatus();
+        return adjustStatus();
     }
 
     public int getPowerLoad()
     {
-        return (int) (mModule.getCurrent() / 5f * 100);
+        return mPowerLoad;
     }
 
-    public boolean isPowerLoadAlarm()
+    public boolean isNormal()
     {
-        return mModule.getStatus() != Constants.STATUS_NORMAL;
+        return !isAlarm() && (mModule.getStatus() == Constants.STATUS_NORMAL);
+    }
+
+    public boolean isAlarm()
+    {
+        int status = mModule.getStatus();
+
+        return status == Constants.STATUS_NORMAL && getPowerLoad() >= Constants.POWER_LOAD_ALARM;
+    }
+
+    public boolean isError()
+    {
+        int status = mModule.getStatus();
+
+        return status == Constants.STATUS_ERROR;
+
     }
 
     public String getPowerLoadPercent()
@@ -133,5 +158,34 @@ public class UIModule implements Serializable, UIAlarm
     public void setEditMode(boolean editMode)
     {
         mEditMode = editMode;
+    }
+
+    private int adjustStatus()
+    {
+        if (isAlarm())
+        {
+            return Constants.STATUS_WARNING;
+        }
+
+        return mModule.getStatus();
+    }
+
+    public static int getStatus(Module module)
+    {
+        int status = module.getStatus();
+
+        int powerLoad = 0;
+
+        if (!TextUtils.isEmpty(module.getCurrent()))
+        {
+            powerLoad = Math.min((int) (Float.valueOf(module.getCurrent()) / 5f * 100), 100);
+        }
+
+        if (status == Constants.STATUS_NORMAL && powerLoad >= Constants.POWER_LOAD_ALARM)
+        {
+            return Constants.STATUS_WARNING;
+        }
+
+        return module.getStatus();
     }
 }

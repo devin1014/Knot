@@ -1,57 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RadioGroup
-    android:id="@+id/demo_setting_radio_group"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/app_content_margin"
     tools:ignore="SpUsage">
 
-    <RadioButton
-        android:id="@+id/demo_setting_status_normal"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical|start"
-        android:text="@string/module_status_normal"
+    <!--总回路-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_main_module"
         android:textColor="#ffffff"
         android:textSize="16dp" />
+
+    <RadioGroup
+        android:id="@+id/setting_module_151"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/setting_module_151_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_normal"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/setting_module_151_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_alarm"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/setting_module_151_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_error"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+    </RadioGroup>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/filter_divider" />
 
-    <RadioButton
-        android:id="@+id/demo_setting_status_alarm"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical|start"
-        android:text="@string/module_status_alarm"
+    <!--冰箱回路-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_content_margin"
+        android:text="@string/demo_freezer_module"
         android:textColor="#ffffff"
         android:textSize="16dp" />
+
+    <RadioGroup
+        android:id="@+id/setting_module_150"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/setting_module_150_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_normal"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/setting_module_150_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_alarm"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/setting_module_150_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_error"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+    </RadioGroup>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/filter_divider" />
 
-    <RadioButton
-        android:id="@+id/demo_setting_status_error"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical|start"
-        android:text="@string/module_status_error"
+    <!--插座回路-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_content_margin"
+        android:text="@string/demo_oven_module"
         android:textColor="#ffffff"
         android:textSize="16dp" />
 
-    <View
+    <RadioGroup
+        android:id="@+id/setting_module_152"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/filter_divider" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</RadioGroup>
+        <RadioButton
+            android:id="@+id/setting_module_152_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_normal"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/setting_module_152_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_alarm"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/setting_module_152_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:padding="6dp"
+            android:text="@string/module_status_error"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/settings_ok"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_item_green_selector"
+        android:text="@string/ui_ok"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textStyle="normal"
+        tools:ignore="SpUsage" />
+
+</LinearLayout>
