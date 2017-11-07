@@ -1,10 +1,14 @@
 package com.android.smartlink.assist;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.AsyncTask;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.util.FileUtil;
+import com.android.smartlink.util.ModbusHelp;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
 /**
@@ -14,6 +18,8 @@ import com.lzy.okgo.OkGo;
  */
 public class MainRequestProvider extends BaseRequestProvider<Modules>
 {
+    private RequestTask mRequestTask;
+
     public MainRequestProvider(Activity activity, RequestCallback<Modules> callback)
     {
         super(activity, callback);
@@ -45,13 +51,19 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     @Override
     protected void requestHttp(String url)
     {
-        OkGo.getInstance().cancelTag(this);
+        if (mRequestTask != null)
+        {
+            mRequestTask.cancel(true);
+        }
 
-        OkGo.<Modules>get(url)
-
-                .tag(this)
-
-                .execute(new ResponseCallback());
+        (mRequestTask = new RequestTask()).execute();
+        //        OkGo.getInstance().cancelTag(this);
+        //
+        //        OkGo.<Modules>get(url)
+        //
+        //                .tag(this)
+        //
+        //                .execute(new ResponseCallback());
     }
 
     @Override
@@ -59,6 +71,42 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     {
         OkGo.getInstance().cancelTag(this);
 
+        if (mRequestTask != null)
+        {
+            mRequestTask.cancel(true);
+        }
+
         super.destroy();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class RequestTask extends AsyncTask<Void, Void, Modules>
+    {
+        @Override
+        protected Modules doInBackground(Void... voids)
+        {
+            String serverAddress = "192.168.1.101";
+
+            final int port = 502;
+
+            int[] idArr = new int[]{151, 150, 152};
+
+            String tStr = ModbusHelp.modbusRTCP(serverAddress, 502, idArr);
+
+            return new Gson().fromJson(tStr, Modules.class);
+        }
+
+        @Override
+        protected void onPostExecute(Modules result)
+        {
+            if (result == null || result.getModules() == null)
+            {
+                notifyResponse(new EmptyDataException());
+            }
+            else
+            {
+                notifyResponse(result);
+            }
+        }
     }
 }

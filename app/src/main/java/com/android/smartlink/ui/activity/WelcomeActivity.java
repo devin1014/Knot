@@ -19,23 +19,31 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
 
         setContentView(R.layout.activity_welcome);
 
+        findViewById(R.id.sign_in).setOnClickListener(this);
+
         findViewById(R.id.demo_mode).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v)
     {
-        finish();
-
         switch (v.getId())
         {
+            case R.id.sign_in:
+
+                AppManager.getInstance().setDemoMode(false);
+
+                break;
+
             case R.id.demo_mode:
 
                 AppManager.getInstance().setDemoMode(true);
 
-                startActivity(new Intent(this, MainActivity.class));
-
                 break;
         }
+
+        finish();
+
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

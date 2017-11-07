@@ -77,9 +77,7 @@ public class UIModule implements Serializable, UIAlarm
 
     public String getEnergy()
     {
-        //todo
-        //return String.format(POWER_KWH, mNumberFormat.format(mModule.getEnergy()));
-        return String.format(POWER_KWH, mNumberFormat.format(mModule.getDianliang()));
+        return String.format(POWER_KWH, mNumberFormat.format(mModule.getEnergy()));
     }
 
     public String getStatusFormat()
@@ -114,13 +112,7 @@ public class UIModule implements Serializable, UIAlarm
 
     public int getPowerLoad()
     {
-        //todo
-        return (int) mModule.getFuzai();
-        //        float p = mModule.getCurrent() * mModule.getVoltage();
-        //
-        //        float p2 = mModule.getPower() / mModule.getPowerFactor() * 1000;
-        //
-        //        return (int) (p * 100 / p2);
+        return (int) (mModule.getCurrent() / 5f * 100);
     }
 
     public boolean isPowerLoadAlarm()

@@ -40,10 +40,6 @@ public class Modules
 
         private float energy;
 
-        private float dianliang;
-
-        private float fuzai;
-
         public int getId()
         {
             return id;
@@ -77,16 +73,6 @@ public class Modules
         public float getEnergy()
         {
             return energy;
-        }
-
-        public float getDianliang()
-        {
-            return dianliang;
-        }
-
-        public float getFuzai()
-        {
-            return fuzai;
         }
     }
 }
