@@ -1,8 +1,6 @@
 package com.android.smartlink.assist;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.os.AsyncTask;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
@@ -18,8 +16,6 @@ import com.lzy.okgo.OkGo;
  */
 public class MainRequestProvider extends BaseRequestProvider<Modules>
 {
-    private RequestTask mRequestTask;
-
     public MainRequestProvider(Activity activity, RequestCallback<Modules> callback)
     {
         super(activity, callback);
@@ -32,7 +28,7 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     }
 
     @Override
-    protected void requestLocal(String url)
+    protected void getFromLocal(String url)
     {
         int status = AppManager.getInstance().getDemoModeStatus();
 
@@ -49,21 +45,44 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     }
 
     @Override
-    protected void requestHttp(String url)
+    protected void getFromRemote(String url)
     {
-        if (mRequestTask != null)
-        {
-            mRequestTask.cancel(true);
-        }
+        String serverAddress = "192.168.1.101";
 
-        (mRequestTask = new RequestTask()).execute();
-        //        OkGo.getInstance().cancelTag(this);
-        //
-        //        OkGo.<Modules>get(url)
-        //
-        //                .tag(this)
-        //
-        //                .execute(new ResponseCallback());
+        final int port = 502;
+
+        int[] idArr = new int[]{151, 150, 152};
+
+        String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
+
+        Modules modules = new Gson().fromJson(tStr, Modules.class);
+
+        if (modules != null)
+        {
+            notifyResponse(modules);
+        }
+        else
+        {
+            notifyResponse(new EmptyDataException());
+        }
+    }
+
+    @Override
+    protected void getFromOkHttp(String url)
+    {
+        OkGo.getInstance().cancelTag(this);
+
+        OkGo.<Modules>get(url)
+
+                .tag(this)
+
+                .execute(new ResponseCallback());
+    }
+
+    @Override
+    protected boolean getFromOkHttp()
+    {
+        return false;
     }
 
     @Override
@@ -71,42 +90,37 @@ public class MainRequestProvider extends BaseRequestProvider<Modules>
     {
         OkGo.getInstance().cancelTag(this);
 
-        if (mRequestTask != null)
-        {
-            mRequestTask.cancel(true);
-        }
-
         super.destroy();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class RequestTask extends AsyncTask<Void, Void, Modules>
-    {
-        @Override
-        protected Modules doInBackground(Void... voids)
-        {
-            String serverAddress = "192.168.1.101";
-
-            final int port = 502;
-
-            int[] idArr = new int[]{151, 150, 152};
-
-            String tStr = ModbusHelp.modbusRTCP(serverAddress, 502, idArr);
-
-            return new Gson().fromJson(tStr, Modules.class);
-        }
-
-        @Override
-        protected void onPostExecute(Modules result)
-        {
-            if (result == null || result.getModules() == null)
-            {
-                notifyResponse(new EmptyDataException());
-            }
-            else
-            {
-                notifyResponse(result);
-            }
-        }
-    }
+    //    @SuppressLint("StaticFieldLeak")
+    //    private class RequestTask extends AsyncTask<Void, Void, Modules>
+    //    {
+    //        @Override
+    //        protected Modules doInBackground(Void... voids)
+    //        {
+    //            String serverAddress = "192.168.1.101";
+    //
+    //            final int port = 502;
+    //
+    //            int[] idArr = new int[]{151, 150, 152};
+    //
+    //            String tStr = ModbusHelp.modbusRTCP(serverAddress, 502, idArr);
+    //
+    //            return new Gson().fromJson(tStr, Modules.class);
+    //        }
+    //
+    //        @Override
+    //        protected void onPostExecute(Modules result)
+    //        {
+    //            if (result == null || result.getModules() == null)
+    //            {
+    //                notifyResponse(new EmptyDataException());
+    //            }
+    //            else
+    //            {
+    //                notifyResponse(result);
+    //            }
+    //        }
+    //    }
 }

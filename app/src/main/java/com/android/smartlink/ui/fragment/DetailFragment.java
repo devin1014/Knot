@@ -7,25 +7,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.android.devin.core.ui.widget.IndicatorView;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.assist.PowerConsumeRequestProvider;
+import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.ScheduleHandler;
-import com.android.smartlink.bean.PowerConsume;
+import com.android.smartlink.bean.Energy;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
-import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.Last30DaysPowerChart;
+import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.HttpUrl;
 
 import org.achartengine.GraphicalView;
+
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 
@@ -34,7 +38,7 @@ import butterknife.BindView;
  * Date: 2017-10-23
  * Time: 11:27
  */
-public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<PowerConsume>, ScheduleHandler.OnScheduleListener
+public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<Energy>, ScheduleHandler.OnScheduleListener
 {
     @SuppressWarnings("unused")
     public static DetailFragment newInstance(UIModule module)
@@ -71,9 +75,12 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     @BindView(R.id.chart_container)
     FrameLayout mChartContainer;
 
+    @BindView(R.id.detail_power_consume_total)
+    TextView mTotalPower;
+
     private ScheduleHandler mScheduleHandler;
 
-    private PowerConsumeRequestProvider mConsumeRequestProvider;
+    private EnergyRequestProvider mRequestProvider;
 
     @Nullable
     @Override
@@ -100,10 +107,10 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mIndicatorView.setViewPager(mViewPager);
 
-        mConsumeRequestProvider = new PowerConsumeRequestProvider(getActivity(), this);
+        mRequestProvider = new EnergyRequestProvider(getActivity(), this);
 
         assert uiModule != null;
-        mConsumeRequestProvider.request(HttpUrl.getPowerConsumeUrl(uiModule.getId()));
+        mRequestProvider.request(HttpUrl.getPowerConsumeUrl(uiModule.getId()));
 
         mLoadingLayout.showLoading();
 
@@ -117,7 +124,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     @Override
     public void onDestroyView()
     {
-        mConsumeRequestProvider.destroy();
+        mRequestProvider.destroy();
 
         mScheduleHandler.cancel();
 
@@ -125,13 +132,17 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     }
 
     @Override
-    public void onResponse(PowerConsume powerConsume)
+    public void onResponse(Energy energy)
     {
         mLoadingLayout.showContent();
 
         mChartContainer.removeAllViews();
 
-        mChartContainer.addView(new GraphicalView(getActivity(), new Last30DaysPowerChart().getChart(getActivity(), powerConsume.getData())));
+        mChartContainer.addView(new GraphicalView(getActivity(), new Last30DaysPowerChart().getChart(getActivity(), energy.getData())));
+
+        String powerFormat = AppManager.getInstance().getString(R.string.format_power);
+
+        mTotalPower.setText(String.format(powerFormat, new DecimalFormat("0.0").format(energy.getTotal())));
     }
 
     @Override

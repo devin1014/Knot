@@ -1,28 +1,28 @@
 package com.android.smartlink.assist;
 
 import android.app.Activity;
+import android.net.Uri;
 
-import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Events;
+import com.android.smartlink.bean.Energy;
 import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-10-17
- * Time: 11:04
+ * Date: 2017-10-19
+ * Time: 11:17
  */
-public class EventsRequestProvider extends BaseRequestProvider<Events>
+public class EnergyRequestProvider extends BaseRequestProvider<Energy>
 {
-    public EventsRequestProvider(Activity activity, RequestCallback<Events> callback)
+    public EnergyRequestProvider(Activity activity, RequestCallback<Energy> callback)
     {
         super(activity, callback);
     }
 
     @Override
-    Class<Events> getConvertObjectClass()
+    Class<Energy> getConvertObjectClass()
     {
-        return Events.class;
+        return Energy.class;
     }
 
     @Override
@@ -34,13 +34,15 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
     @Override
     protected void getFromLocal(String url)
     {
-        int status = AppManager.getInstance().getDemoModeStatus();
+        Uri uri = Uri.parse(url);
 
-        Events events = FileUtil.openAssets(getActivity(), "events" + status + ".json", Events.class);
+        String id = uri.getQueryParameter("id");
 
-        if (events != null)
+        Energy energy = FileUtil.openAssets(getActivity(), "30DayEnergy_" + id + ".json", Energy.class);
+
+        if (energy != null)
         {
-            notifyResponse(events);
+            notifyResponse(energy);
         }
         else
         {

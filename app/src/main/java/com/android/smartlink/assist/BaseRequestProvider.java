@@ -41,26 +41,52 @@ abstract class BaseRequestProvider<T>
     {
         mDestroy = false;
 
-        if (AppManager.getInstance().isDemoMode())
+        if (AppManager.getInstance().isDemoMode() || getFromLocal())
         {
             sExecutor.execute(new Runnable()
             {
                 @Override
                 public void run()
                 {
-                    requestLocal(url);
+                    getFromLocal(url);
                 }
             });
         }
         else
         {
-            requestHttp(url);
+            if (!getFromOkHttp())
+            {
+                sExecutor.execute(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        getFromRemote(url);
+                    }
+                });
+            }
+            else
+            {
+                getFromOkHttp(url);
+            }
         }
     }
 
-    protected abstract void requestLocal(String url);
+    protected boolean getFromOkHttp()
+    {
+        return true;
+    }
 
-    protected abstract void requestHttp(String url);
+    protected boolean getFromLocal()
+    {
+        return false;
+    }
+
+    protected abstract void getFromLocal(String url);
+
+    protected abstract void getFromOkHttp(String url);
+
+    protected abstract void getFromRemote(String url);
 
     public void destroy()
     {
