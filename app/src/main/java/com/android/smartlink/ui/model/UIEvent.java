@@ -6,7 +6,6 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,48 +31,33 @@ public class UIEvent implements UIAlarm
     {
         mSource = event;
 
-        if (mSource.getStartTimeStamp() != 0)
-        {
-            parseDate(mSource.getStartTimeStamp());
-        }
-        else if (mSource.getStartTime() != null)
-        {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd't'HH:mm:ss", Locale.US);
-
-            try
-            {
-                Date startTime = format.parse(mSource.getStartTime());
-
-                parseDate(startTime.getTime());
-            }
-            catch (ParseException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        Resources resources = AppManager.getInstance().getApplication().getResources();
-
-        mTextStatusColor = new int[]{resources.getColor(R.color.module_status_none), resources.getColor(R.color.module_status_warn), resources.getColor(R.color.module_status_error)};
-
-    }
-
-    private void parseDate(long startTime)
-    {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日", Locale.US); // default locale
+        long time = mSource.getTime();
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 
-        calendar.setTimeInMillis(startTime);
+        calendar.setTimeInMillis(time);
 
-        mDate = format.format(calendar.getTime());
+        Date date = calendar.getTime();
 
-        format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.US); // default locale
+        SimpleDateFormat ymdFormat = new SimpleDateFormat("yyyy年MM月dd日", Locale.US); // default locale
 
-        calendar.setTimeInMillis(startTime);
+        mDate = ymdFormat.format(date);
 
-        mDateTime = format.format(calendar.getTime());
+        SimpleDateFormat ymdHMFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.US); // default locale
+
+        mDateTime = ymdHMFormat.format(date);
+
+        Resources resources = AppManager.getInstance().getApplication().getResources();
+
+        int normalColor = resources.getColor(R.color.module_status_none);
+
+        int errorColor = resources.getColor(R.color.module_status_error);
+
+        int warningColor = resources.getColor(R.color.module_status_warn);
+
+        mTextStatusColor = new int[]{normalColor, errorColor, warningColor};
     }
+
 
     public int getId()
     {

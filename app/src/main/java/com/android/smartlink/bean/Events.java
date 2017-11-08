@@ -24,13 +24,7 @@ public class Events
 
         private String description;
 
-        private String startTime;
-
-        private long startTimeStamp;
-
-        private String endTime;
-
-        private long endTimeStamp;
+        private long time;
 
         public int getId()
         {
@@ -47,24 +41,9 @@ public class Events
             return description;
         }
 
-        public String getStartTime()
+        public long getTime()
         {
-            return startTime;
-        }
-
-        public long getStartTimeStamp()
-        {
-            return startTimeStamp;
-        }
-
-        public String getEndTime()
-        {
-            return endTime;
-        }
-
-        public long getEndTimeStamp()
-        {
-            return endTimeStamp;
+            return time;
         }
     }
 }

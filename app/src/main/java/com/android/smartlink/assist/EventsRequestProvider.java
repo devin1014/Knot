@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events;
+import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
-import com.lzy.okgo.OkGo;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -36,7 +36,7 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
     {
         int status = AppManager.getInstance().getDemoModeStatus();
 
-        Events events = FileUtil.openAssets(getActivity(), "events" + status + ".json", Events.class);
+        Events events = FileUtil.openAssets(getActivity(), "events_" + ConvertUtil.convertStatus(status) + ".json", Events.class);
 
         if (events != null)
         {
@@ -63,8 +63,6 @@ public class EventsRequestProvider extends BaseRequestProvider<Events>
     @Override
     public void destroy()
     {
-        OkGo.getInstance().cancelTag(this);
-
         super.destroy();
     }
 }
