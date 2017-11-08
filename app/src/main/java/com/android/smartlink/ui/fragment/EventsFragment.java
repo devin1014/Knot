@@ -107,7 +107,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mRequestProvider = new EventsRequestProvider(getActivity(), this);
 
-        mRequestProvider.request(HttpUrl.getEventsUrl());
+        mRequestProvider.schedule(HttpUrl.getEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mLoadingLayout.showLoading();
     }

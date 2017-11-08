@@ -12,7 +12,7 @@ import com.android.smartlink.util.FileUtil;
  * Date: 2017-10-17
  * Time: 11:04
  */
-public class EventsRequestProvider extends BaseRequestProvider<Events>
+public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
 {
     public EventsRequestProvider(Activity activity, RequestCallback<Events> callback)
     {

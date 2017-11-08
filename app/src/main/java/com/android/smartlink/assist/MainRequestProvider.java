@@ -15,7 +15,7 @@ import com.lzy.okgo.OkGo;
  * Date: 2017-10-16
  * Time: 18:46
  */
-public class MainRequestProvider extends BaseRequestProvider<Modules>
+public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
 {
     public MainRequestProvider(Activity activity, RequestCallback<Modules> callback)
     {

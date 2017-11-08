@@ -33,6 +33,8 @@ public class Constants
 
     public static final long SIX_HOUR = 6 * 60 * 60 * 1000;
 
+    public static final long REQUEST_SCHEDULE_INTERVAL = 30 * 1000;
+
     // ---- Key Extras ----------------
     private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra.";
 

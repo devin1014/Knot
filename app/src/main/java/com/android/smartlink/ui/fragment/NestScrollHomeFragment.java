@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
@@ -78,7 +79,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
-        mRequestProvider.request(HttpUrl.getHomeUrl());
+        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mLoadingLayout.showLoading();
 
