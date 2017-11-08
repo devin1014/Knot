@@ -1,5 +1,7 @@
 package com.android.smartlink.bean;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ public class Events
         return events;
     }
 
-    public static class Event
+    public static class Event implements Comparable<Event>
     {
         private int id;
 
@@ -44,6 +46,27 @@ public class Events
         public long getTime()
         {
             return time;
+        }
+
+        @Override
+        public int compareTo(@NonNull Event event)
+        {
+            if (status == event.getStatus())
+            {
+                return 0;
+            }
+
+            if (status == 1)
+            {
+                return -1;
+            }
+
+            if (event.getStatus() == 1)
+            {
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

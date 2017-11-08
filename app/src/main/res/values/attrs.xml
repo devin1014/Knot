@@ -21,4 +21,10 @@
         <attr name="circleBackgroundColor" format="reference|color" />
     </declare-styleable>
 
+    <declare-styleable name="LinearLayoutWithLine">
+        <attr name="lineColor" format="reference|color" />
+        <attr name="lineWidth" format="reference|dimension" />
+        <attr name="lineOffsetX" format="reference|dimension" />
+    </declare-styleable>
+
 </resources>

@@ -10,4 +10,6 @@ public interface UIAlarm
     String getName();
 
     int getTextColor();
+
+    int getStatus();
 }

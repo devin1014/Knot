@@ -24,6 +24,7 @@
     <string name="power_suggest">节能建议</string>
     <string name="weather_aqi">空气污染指数</string>
     <string name="weather_aqi_none">无</string>
+    <string name="weather_today">今天</string>
     <string name="weather_tomorrow">明天</string>
     <string name="weather_after_tomorrow">后天</string>
     <string name="settings_signin">登入</string>

@@ -8,35 +8,26 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
-import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
-import com.android.smartlink.bean.Events;
-import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
+import com.android.smartlink.ui.widget.ModuleStatusView;
 import com.android.smartlink.util.ConvertUtil;
-import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.HttpUrl;
-import com.android.smartlink.util.UICompat;
 
 import java.util.List;
 
@@ -61,11 +52,10 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     @BindView(R.id.weather_root)
     View mWeatherRoot;
 
-    private ViewDataBinding mAlarmViewDataBinding;
+    @BindView(R.id.module_status_view)
+    ModuleStatusView mModuleStatusView;
 
     private MainRequestProvider mRequestProvider;
-
-    private EventsRequestProvider mEventsRequestProvider;
 
     @Nullable
     @Override
@@ -85,8 +75,6 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     private void initComponent()
     {
         mSwipeRefreshLayout.setOnRefreshListener(this);
-
-        mEventsRequestProvider = new EventsRequestProvider(getActivity(), mEventsRequestCallback);
 
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
@@ -160,7 +148,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         mContentContainer.removeAllViews();
 
         // status
-        addStatus(modules);
+        mModuleStatusView.setModules(modules);
 
         int index = 0;
 
@@ -207,92 +195,6 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         }
     }
 
-    private void addStatus(List<Module> modules)
-    {
-        Module alarmModule = modules.get(0);
-
-        for (Module module : modules)
-        {
-            if (module.getStatus() == Constants.STATUS_ERROR)
-            {
-                alarmModule = module;
-
-                break;
-            }
-
-            if (UIModule.getStatus(module) > UIModule.getStatus(alarmModule))
-            {
-                alarmModule = module;
-            }
-        }
-
-        boolean alarm = UIModule.getStatus(alarmModule) != Constants.STATUS_NORMAL;
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-
-        ViewGroup statusRootView = (ViewGroup) inflater.inflate(R.layout.list_item_home_status, mContentContainer, false);
-
-        mContentContainer.addView(statusRootView);
-
-        final TextView statusName = (TextView) statusRootView.findViewById(R.id.status_title);
-
-        final ImageView statusImg = (ImageView) statusRootView.findViewById(R.id.status_image);
-
-        final ImageView arrowImg = (ImageView) statusRootView.findViewById(R.id.arrow_image);
-
-        final ViewGroup statusGroup = (ViewGroup) statusRootView.findViewById(R.id.status_details);
-
-        arrowImg.setSelected(alarm); // alarm show status content
-
-        statusGroup.setVisibility(alarm ? View.VISIBLE : View.GONE);
-
-        if (!alarm)
-        {
-            statusRootView.setOnClickListener(new OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    arrowImg.setSelected(!arrowImg.isSelected());
-
-                    statusGroup.setVisibility(arrowImg.isSelected() ? View.VISIBLE : View.GONE);
-                }
-            });
-        }
-
-        int status = UIModule.getStatus(alarmModule);
-
-        statusImg.setImageLevel(status);
-
-        statusName.setText(AppManager.getInstance().getModuleStatus(status));
-
-        statusName.setTextColor(UICompat.getStatusColor(status));
-
-        if (alarm)
-        {
-            // todo,call events feed!
-            if (mEventsRequestProvider != null)
-            {
-                mEventsRequestProvider.request(HttpUrl.getEventsUrl());
-            }
-
-            View inflaterView = inflater.inflate(R.layout.comp_home_status_alarm, statusGroup, false);
-
-            statusGroup.addView(inflaterView);
-
-            mAlarmViewDataBinding = DataBindingAdapterUtil.viewBinding(inflaterView, BR.data, new UIModule(alarmModule));
-        }
-        else
-        {
-            for (Module module : modules)
-            {
-                View inflaterView = inflater.inflate(R.layout.comp_home_status_detail, statusGroup, false);
-
-                statusGroup.addView(DataBindingAdapterUtil.binding(inflaterView, BR.data, new UIModule(module)));
-            }
-        }
-    }
-
     private void addModules(List<Module> modules, int start, int count)
     {
         int layoutId = R.layout.comp_home_module_one;
@@ -319,27 +221,4 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         viewDataBinding.executePendingBindings();
     }
 
-    private RequestCallback<Events> mEventsRequestCallback = new RequestCallback<Events>()
-    {
-        @Override
-        public void onResponse(Events events)
-        {
-            Event event = events.getEvents().get(0);
-
-            for (Event e : events.getEvents())
-            {
-                if (e.getStatus() > event.getStatus())
-                {
-                    event = e;
-                }
-            }
-
-            DataBindingAdapterUtil.binding(mAlarmViewDataBinding, BR.data, new UIEvent(event));
-        }
-
-        @Override
-        public void onError(Throwable throwable)
-        {
-        }
-    };
 }
