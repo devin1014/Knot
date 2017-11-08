@@ -147,7 +147,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider.request(HttpUrl.getEventsUrl());
 
         // hide loading and show blank loading view
-        mLoadingLayout.showBlankView();
+        mLoadingLayout.showContent();
     }
 
     @Override
@@ -173,7 +173,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
     private void setDataByFilters(List<UIEvent> list, List<UIFilter> filters)
     {
-        if (list == null || list.size() == 0)
+        if (list == null || list.size() == 0 || filters == null || filters.size() == 0)
         {
             showEmptyData();
 

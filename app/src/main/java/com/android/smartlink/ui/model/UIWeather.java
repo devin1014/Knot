@@ -40,6 +40,16 @@ public class UIWeather
         return mWeather.getAqi().getAqi() + "/" + mWeather.getAqi().getQlty();
     }
 
+    public int getAqiValue()
+    {
+        if (mWeather.getAqi() == null)
+        {
+            return 0;
+        }
+
+        return mWeather.getAqi().getAqi();
+    }
+
     public String getTmp()
     {
         return String.format(AppManager.getInstance().getString(R.string.format_weather_tmp), mWeather.getNow().getTmp());

@@ -131,7 +131,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         mRequestProvider.request(HttpUrl.getHomeUrl());
 
         // hide loading and show blank loading view
-        mLoadingLayout.showBlankView();
+        mLoadingLayout.showContent();
     }
 
     private DataBindingHandler<UIModule> mDataBindingHandler = new DataBindingHandler<UIModule>()
