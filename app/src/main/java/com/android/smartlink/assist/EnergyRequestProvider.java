@@ -2,6 +2,7 @@ package com.android.smartlink.assist;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.android.smartlink.bean.Energy;
 import com.android.smartlink.util.FileUtil;
@@ -34,11 +35,22 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
     @Override
     protected void getFromLocal(String url)
     {
+        String name;
+
         Uri uri = Uri.parse(url);
 
         String id = uri.getQueryParameter("id");
 
-        Energy energy = FileUtil.openAssets(getActivity(), "30DayEnergy_" + id + ".json", Energy.class);
+        if (TextUtils.isEmpty(id))
+        {
+            name = uri.getPath().substring(uri.getPath().lastIndexOf("/") + 1);
+        }
+        else
+        {
+            name = "30DayEnergy_" + id + ".json";
+        }
+
+        Energy energy = FileUtil.openAssets(getActivity(), name, Energy.class);
 
         if (energy != null)
         {
