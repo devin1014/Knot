@@ -63,7 +63,10 @@
    public static final int *;
 }
 
-
 #bean
 -keep class com.android.smartlink.bean.** { *; }
 -keep interface com.android.smartlink.bean.** { *; }
+-keep class com.serotonin.** { *; }
+-keep interface com.serotonin.** { *; }
+-keep class com.serotonin.modbus4j.** { *; }
+-keep interface com.serotonin.modbus4j.** { *; }

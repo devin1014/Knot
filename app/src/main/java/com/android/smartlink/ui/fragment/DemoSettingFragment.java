@@ -13,7 +13,6 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -94,8 +93,6 @@ public class DemoSettingFragment extends BaseSmartlinkFragment
         int status = mainStatus + freezerStatus + ovenStatus;
 
         AppManager.getInstance().setDemoModeStatus(status);
-
-        LogUtil.log(this, "status:" + status);
 
         Toast.makeText(getActivity(), getString(R.string.demo_setting_success), Toast.LENGTH_SHORT).show();
 
