@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
@@ -48,6 +47,8 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
     private EventsRequestProvider mEventsRequestProvider;
 
     private LayoutInflater mInflater;
+
+    private String[] mStatusArray;
 
     public ModuleStatusView(Context context)
     {
@@ -83,6 +84,8 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
         mEventsRequestProvider = new EventsRequestProvider((Activity) getContext(), mEventsRequestCallback);
 
         mInflater = LayoutInflater.from(getContext());
+
+        mStatusArray = getResources().getStringArray(R.array.module_status_array);
     }
 
     @Override
@@ -124,7 +127,7 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
 
         mImage.setImageLevel(status);
 
-        mStatus.setText(AppManager.getInstance().getModuleStatus(status));
+        mStatus.setText(mStatusArray[status]);
 
         mStatus.setTextColor(UICompat.getStatusColor(status));
 

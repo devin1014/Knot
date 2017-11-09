@@ -10,32 +10,32 @@ import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.UIEquipment;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-22
  * Time: 13:51
  */
-public class EquipmentAdapter extends BaseAdapter<UIModule>
+public class EquipmentAdapter extends BaseAdapter<UIEquipment>
 {
     private boolean mEditMode = false;
 
-    private SparseArray<DataBindingHolder<UIModule>> mSparseArray = new SparseArray<>();
+    private SparseArray<DataBindingHolder<UIEquipment>> mSparseArray = new SparseArray<>();
 
-    public EquipmentAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModule> listener)
+    public EquipmentAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIEquipment> listener)
     {
         super(layoutInflater, listener);
     }
 
     @Override
-    public DataBindingHolder<UIModule> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
+    public DataBindingHolder<UIEquipment> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
         return new Holder(inflater, parent, R.layout.list_item_my_equipment, this);
     }
 
     @Override
-    public void onBindViewHolder(DataBindingHolder<UIModule> holder, int position)
+    public void onBindViewHolder(DataBindingHolder<UIEquipment> holder, int position)
     {
         super.onBindViewHolder(holder, position);
 
@@ -61,7 +61,7 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
                 }
             }
 
-            for (UIModule module : getDataList())
+            for (UIEquipment module : getDataList())
             {
                 module.setEditMode(editMode);
             }
@@ -72,11 +72,11 @@ public class EquipmentAdapter extends BaseAdapter<UIModule>
         }
     }
 
-    private class Holder extends DataBindingHolder<UIModule>
+    private class Holder extends DataBindingHolder<UIEquipment>
     {
         TextInputEditText editText;
 
-        Holder(LayoutInflater inflater, ViewGroup parent, int layoutId, DataBindingHandler<UIModule> handler)
+        Holder(LayoutInflater inflater, ViewGroup parent, int layoutId, DataBindingHandler<UIEquipment> handler)
         {
             super(inflater, parent, layoutId, handler);
 

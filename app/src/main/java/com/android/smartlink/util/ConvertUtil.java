@@ -3,8 +3,10 @@ package com.android.smartlink.util;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.ui.model.UIEquipment;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.model.UIModule;
@@ -59,18 +61,18 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIModule> convertModule(List<Module> list)
+    public static List<UIEquipment> convertEquipment(List<Equipment> list)
     {
         if (list == null || list.size() == 0)
         {
             return null;
         }
 
-        List<UIModule> result = new ArrayList<>();
+        List<UIEquipment> result = new ArrayList<>();
 
-        for (Module item : list)
+        for (Equipment item : list)
         {
-            result.add(new UIModule(item));
+            result.add(new UIEquipment(item));
         }
 
         return result;
@@ -93,7 +95,7 @@ public class ConvertUtil
         return result.toArray(new UIModule[result.size()]);
     }
 
-    public static List<UIFilter> convertFilters(List<Module> list, boolean addOthers)
+    public static List<UIFilter> convertFilters(List<Equipment> list, boolean addOthers)
     {
         if (list == null || list.size() == 0)
         {
@@ -102,9 +104,9 @@ public class ConvertUtil
 
         List<UIFilter> result = new ArrayList<>();
 
-        for (Module item : list)
+        for (Equipment item : list)
         {
-            result.add(new UIFilter(item));
+            result.add(new UIFilter(item.getId(), item.getName()));
         }
 
         if (addOthers)

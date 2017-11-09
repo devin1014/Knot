@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 
 import java.io.Serializable;
@@ -17,7 +16,7 @@ import java.text.DecimalFormat;
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class UIModule implements Serializable, UIAlarm
+public class UIModule implements Serializable
 {
     private static final long serialVersionUID = 179763754284831614L;
 
@@ -25,13 +24,13 @@ public class UIModule implements Serializable, UIAlarm
 
     private final String POWER_KWH;
 
-    private boolean mEditMode = false;
-
     private int[] mStatusColor;
 
     private int[] mTextStatusColor;
 
     private int mPowerLoad = 0;
+
+    private String[] mStatusArray;
 
     private DecimalFormat mNumberFormat = new DecimalFormat("0.0");
 
@@ -54,6 +53,8 @@ public class UIModule implements Serializable, UIAlarm
         mStatusColor = new int[]{green, red, yellow};
 
         mTextStatusColor = new int[]{white, red, yellow};
+
+        mStatusArray = AppManager.getInstance().getStringArray(R.array.module_status_array);
 
         if (!TextUtils.isEmpty(mModule.getCurrent()))
         {
@@ -78,16 +79,7 @@ public class UIModule implements Serializable, UIAlarm
 
     public String getName()
     {
-        String equipmentName = AppManager.getInstance().getEquipmentName(mModule.getId());
-
-        if (TextUtils.isEmpty(equipmentName))
-        {
-            Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
-
-            return equipment != null ? equipment.getName() : null;
-        }
-
-        return equipmentName;
+        return AppManager.getInstance().getEquipmentName(mModule.getId());
     }
 
     public String getEnergy()
@@ -102,7 +94,7 @@ public class UIModule implements Serializable, UIAlarm
 
     public String getStatusFormat()
     {
-        return AppManager.getInstance().getModuleStatus(adjustStatus());
+        return mStatusArray[adjustStatus()];
     }
 
     public int getColor()
@@ -148,16 +140,6 @@ public class UIModule implements Serializable, UIAlarm
     public String getPowerLoadPercent()
     {
         return getPowerLoad() + "%";
-    }
-
-    public boolean isEditMode()
-    {
-        return mEditMode;
-    }
-
-    public void setEditMode(boolean editMode)
-    {
-        mEditMode = editMode;
     }
 
     private int adjustStatus()

@@ -24,7 +24,7 @@ public class Equipments
 
         private String icon;
 
-        private String light_icon;
+        private String icon_light;
 
         public int getId()
         {
@@ -43,7 +43,7 @@ public class Equipments
 
         public String getLightIcon()
         {
-            return light_icon;
+            return icon_light;
         }
     }
 }

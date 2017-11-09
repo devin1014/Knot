@@ -10,7 +10,6 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Equipments.Equipment;
-import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.ViewUtil;
@@ -46,21 +45,15 @@ public class AppManager
 
     private SharedPreferences mSharedPreferences;
 
-    private List<Module> mModules;
-
     private List<Equipment> mEquipments;
 
     private Weather mWeather;
-
-    private final String[] STATUS_ARRAY;
 
     private AppManager(Application application)
     {
         mApplication = application;
 
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
-
-        STATUS_ARRAY = mApplication.getResources().getStringArray(R.array.module_status_array);
     }
 
     // -----------------------------------
@@ -80,51 +73,9 @@ public class AppManager
         return mApplication.getResources().getString(resId);
     }
 
-    // -----------------------------------
-    // ------------ Module ---------------
-    public String getModuleStatus(int status)
+    public String[] getStringArray(int resId)
     {
-        if (status < 0 || status >= STATUS_ARRAY.length)
-        {
-            return STATUS_ARRAY[0];
-        }
-
-        return STATUS_ARRAY[status];
-    }
-
-    public void setModules(List<Module> modules)
-    {
-        mModules = modules;
-    }
-
-    public List<Module> getModules()
-    {
-        return mModules;
-    }
-
-    public List<Module> getModules(int... ids)
-    {
-        if (ids == null || ids.length == 0)
-        {
-            return mModules;
-        }
-
-        List<Module> list = new ArrayList<>(ids.length);
-
-        for (Module module : mModules)
-        {
-            for (int id : ids)
-            {
-                if (module.getId() == id)
-                {
-                    list.add(module);
-
-                    break;
-                }
-            }
-        }
-
-        return list;
+        return mApplication.getResources().getStringArray(resId);
     }
 
     // -----------------------------------
@@ -222,20 +173,49 @@ public class AppManager
         }
     }
 
-    public Equipment getEquipment(int id)
+    private Equipment getEquipment(int id)
     {
-        if (mEquipments != null)
+        for (Equipment e : mEquipments)
         {
-            for (Equipment e : mEquipments)
+            if (e.getId() == id)
             {
-                if (e.getId() == id)
-                {
-                    return e;
-                }
+                return e;
             }
         }
 
         return null;
+    }
+
+    public List<Equipment> getEquipments(int... ids)
+    {
+        List<Equipment> result = new ArrayList<>();
+
+        for (Equipment e : mEquipments)
+        {
+            if (ids == null || ids.length == 0)
+            {
+                result.add(e);
+            }
+            else
+            {
+                for (int id : ids)
+                {
+                    if (e.getId() == id)
+                    {
+                        result.add(e);
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public List<Equipment> getEquipments()
+    {
+        return mEquipments;
     }
 
     public int getEquipmentImageRes(int id)

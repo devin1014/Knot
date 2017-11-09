@@ -15,7 +15,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.activity.EquipmentActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.UIEquipment;
 import com.android.smartlink.ui.widget.adapter.EquipmentAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -27,7 +27,7 @@ import butterknife.BindView;
  * Date: 2017-10-22
  * Time: 13:42
  */
-public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIModule>
+public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIEquipment>
 {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -57,7 +57,7 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
 
         mAdapter = new EquipmentAdapter(getActivity().getLayoutInflater(), this);
 
-        mAdapter.setData(ConvertUtil.convertModule(AppManager.getInstance().getModules()));
+        mAdapter.setData(ConvertUtil.convertEquipment(AppManager.getInstance().getEquipments()));
 
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -85,7 +85,7 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
     }
 
     @Override
-    public void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
+    public void onItemClick(DataBindingAdapter<UIEquipment> adapter, View view, UIEquipment item, int position)
     {
         ((EquipmentActivity) getActivity()).toEditMode();
     }
