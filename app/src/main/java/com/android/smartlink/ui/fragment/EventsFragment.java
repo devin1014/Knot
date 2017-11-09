@@ -28,6 +28,7 @@ import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,22 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider.schedule(HttpUrl.getEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mLoadingLayout.showLoading();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onPageStart("Events");
+    }
+
+    @Override
+    public void onPause()
+    {
+        MobclickAgent.onPageEnd("Events");
+
+        super.onPause();
     }
 
     @Override

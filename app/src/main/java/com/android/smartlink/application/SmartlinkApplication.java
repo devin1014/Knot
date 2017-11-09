@@ -66,6 +66,8 @@ public class SmartlinkApplication extends Application
             MobclickAgent.setDebugMode(debugMode);
 
             MobclickAgent.setScenarioType(this, EScenarioType.E_UM_NORMAL);
+
+            MobclickAgent.openActivityDurationTrack(false);
         }
 
         // App

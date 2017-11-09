@@ -18,6 +18,7 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.widget.adapter.EquipmentAdapter;
 import com.android.smartlink.util.ConvertUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -59,6 +60,22 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
         mAdapter.setData(ConvertUtil.convertModule(AppManager.getInstance().getModules()));
 
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onPageStart("Equipment");
+    }
+
+    @Override
+    public void onPause()
+    {
+        MobclickAgent.onPageEnd("Equipment");
+
+        super.onPause();
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.umeng.analytics.MobclickAgent;
 
 public class WelcomeActivity extends AppCompatActivity implements OnClickListener
 {
@@ -22,6 +23,26 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         findViewById(R.id.sign_in).setOnClickListener(this);
 
         findViewById(R.id.demo_mode).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onResume(this);
+
+        MobclickAgent.onPageStart(getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause()
+    {
+        MobclickAgent.onPause(this);
+
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
+
+        super.onPause();
     }
 
     @Override

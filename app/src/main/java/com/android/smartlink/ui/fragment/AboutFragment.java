@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -59,5 +60,21 @@ public class AboutFragment extends BaseSmartlinkFragment
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onPageStart("About");
+    }
+
+    @Override
+    public void onPause()
+    {
+        MobclickAgent.onPageEnd("About");
+
+        super.onPause();
     }
 }

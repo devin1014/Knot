@@ -26,6 +26,7 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.HttpUrl;
+import com.umeng.analytics.MobclickAgent;
 
 import org.achartengine.GraphicalView;
 
@@ -119,6 +120,22 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         mScheduleHandler.setOnScheduleListener(this);
 
         mScheduleHandler.schedule(30 * 1000);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onPageStart("Detail");
+    }
+
+    @Override
+    public void onPause()
+    {
+        MobclickAgent.onPageEnd("Detail");
+
+        super.onPause();
     }
 
     @Override

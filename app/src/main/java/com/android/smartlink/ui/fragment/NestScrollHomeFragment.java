@@ -29,6 +29,7 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.ModuleStatusView;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -95,6 +96,22 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
             viewDataBinding.executePendingBindings();
         }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onPageStart("Home");
+    }
+
+    @Override
+    public void onPause()
+    {
+        MobclickAgent.onPageEnd("Home");
+
+        super.onPause();
     }
 
     @Override

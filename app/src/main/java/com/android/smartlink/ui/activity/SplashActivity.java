@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.InitializeTask;
 import com.android.smartlink.assist.InitializeTask.InitializeTaskCallback;
-import com.android.smartlink.util.TestUtil;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -30,11 +29,7 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
     {
         super.onCreate(savedInstanceState);
 
-        TestUtil.set();
-
         setContentView(R.layout.activity_splash);
-
-        TestUtil.test(this, "onCreate");
 
         (mInitializeTask = new InitializeTask(this, this)).execute();
     }
@@ -62,12 +57,16 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
         super.onResume();
 
         MobclickAgent.onResume(this);
+
+        MobclickAgent.onPageStart(getClass().getSimpleName());
     }
 
     @Override
     protected void onPause()
     {
         MobclickAgent.onPause(this);
+
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
 
         super.onPause();
     }
