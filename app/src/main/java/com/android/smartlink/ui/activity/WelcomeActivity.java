@@ -54,11 +54,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
 
                 AppManager.getInstance().setDemoMode(false);
 
+                MobclickAgent.onEvent(this, "click_product_signin");
+
                 break;
 
             case R.id.demo_mode:
 
                 AppManager.getInstance().setDemoMode(true);
+
+                MobclickAgent.onEvent(this, "click_test_signin");
 
                 break;
         }
