@@ -34,8 +34,6 @@ public abstract class BaseScheduleRequestProvider<T> extends BaseRequestProvider
                 }
             }
         }, delay, interval);
-
-        request(url);
     }
 
     @Override

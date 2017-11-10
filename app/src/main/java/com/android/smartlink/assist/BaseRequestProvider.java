@@ -172,7 +172,6 @@ abstract class BaseRequestProvider<T>
         @Override
         public void onSuccess(Response<T> response)
         {
-            //// TODO: 2017/10/25
             if (response.body() != null)
             {
                 notifyResponse(response.body());

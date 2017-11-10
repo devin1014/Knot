@@ -48,24 +48,27 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
     @Override
     protected void getFromRemote(String url)
     {
-        String serverAddress = "192.168.1.101";
+        //        String serverAddress = "192.168.1.101";
+        //
+        //        final int port = 502;
+        //
+        //        int[] idArr = new int[]{151, 150, 152};
+        //
+        //        String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
+        //
+        //        Modules modules = new Gson().fromJson(tStr, Modules.class);
+        //
+        //        if (modules != null)
+        //        {
+        //            notifyResponse(modules);
+        //        }
+        //        else
+        //        {
+        //            notifyResponse(new EmptyDataException());
+        //        }
 
-        final int port = 502;
-
-        int[] idArr = new int[]{151, 150, 152};
-
-        String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
-
-        Modules modules = new Gson().fromJson(tStr, Modules.class);
-
-        if (modules != null)
-        {
-            notifyResponse(modules);
-        }
-        else
-        {
-            notifyResponse(new EmptyDataException());
-        }
+        //todo,test code
+        getFromOkHttp(url);
     }
 
     @Override
