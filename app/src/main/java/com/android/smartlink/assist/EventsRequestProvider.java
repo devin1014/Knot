@@ -33,7 +33,7 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
 
         Events events = FileUtil.openAssets(getActivity(), "events_" + ConvertUtil.convertStatus(status) + ".json", Events.class);
 
-        if (events != null)
+        if (events != null && events.getEvents() != null)
         {
             notifyResponse(events);
         }

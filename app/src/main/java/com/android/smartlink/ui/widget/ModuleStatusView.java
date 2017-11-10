@@ -125,6 +125,8 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
 
         mDetailGroup.setVisibility(alarm ? View.VISIBLE : View.GONE);
 
+        mDetailGroup.removeAllViews();
+
         mImage.setImageLevel(status);
 
         mStatus.setText(mStatusArray[status]);
@@ -133,8 +135,6 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
 
         if (!alarm)
         {
-            mDetailGroup.removeAllViews();
-
             for (Module module : modules)
             {
                 View inflaterView = mInflater.inflate(R.layout.comp_home_status_detail, mDetailGroup, false);
@@ -192,8 +192,6 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
         @Override
         public void onResponse(Events events)
         {
-            mDetailGroup.removeAllViews();
-
             Collections.sort(events.getEvents());
 
             for (Event e : events.getEvents())
