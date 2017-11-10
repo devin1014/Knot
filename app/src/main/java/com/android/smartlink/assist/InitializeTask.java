@@ -72,27 +72,20 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
         try
         {
-            if (!AppManager.getInstance().checkWeather())
+            Weather weather = AppManager.getInstance().getWeather();
+
+            if (weather == null)
             {
                 String location = AppManager.getInstance().getLocation();
 
                 if (TextUtils.isEmpty(location))
                 {
-                    WeatherLocation weatherLocation = getLocation();
+                    location = getLocation();
 
-                    if (weatherLocation != null)
-                    {
-                        location = weatherLocation.getLocation();
-
-                        AppManager.getInstance().setLocation(location);
-                    }
-                    else
-                    {
-                        location = Constants.DEFAULT_LOCATION;
-                    }
+                    AppManager.getInstance().setLocation(location);
                 }
 
-                Weather weather = getWeather(location);
+                weather = getWeather(location);
 
                 if (weather == null)
                 {
@@ -121,7 +114,7 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
         return true;
     }
 
-    private WeatherLocation getLocation() throws Exception
+    private String getLocation() throws Exception
     {
         GetRequest<WeatherLocation> request = OkGo.get(HttpUrl.getAccuWeatherUrl(AppManager.getInstance().getApplication()));
 
@@ -135,7 +128,9 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
             }
         });
 
-        return request.adapt().execute().body();
+        WeatherLocation location = request.adapt().execute().body();
+
+        return location != null ? location.getLocation() : Constants.DEFAULT_LOCATION;
     }
 
     private Weather getWeather(String city) throws Exception

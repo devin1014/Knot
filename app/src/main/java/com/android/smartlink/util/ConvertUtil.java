@@ -95,7 +95,7 @@ public class ConvertUtil
         return result.toArray(new UIModule[result.size()]);
     }
 
-    public static List<UIFilter> convertFilters(List<Equipment> list, boolean addOthers)
+    public static List<UIFilter> convertFilters(List<Equipment> list, int[] ids, boolean addOthers)
     {
         if (list == null || list.size() == 0)
         {
@@ -106,7 +106,22 @@ public class ConvertUtil
 
         for (Equipment item : list)
         {
-            result.add(new UIFilter(item.getId(), item.getName()));
+            if (ids == null || ids.length == 0)
+            {
+                result.add(new UIFilter(item.getId(), item.getName()));
+            }
+            else
+            {
+                for (int id : ids)
+                {
+                    if (item.getId() == id)
+                    {
+                        result.add(new UIFilter(item.getId(), item.getName()));
+
+                        break;
+                    }
+                }
+            }
         }
 
         if (addOthers)

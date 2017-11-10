@@ -2,6 +2,7 @@ package com.android.smartlink.ui.model;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments.Equipment;
+import com.android.smartlink.util.ViewUtil;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -40,7 +41,7 @@ public class UIEquipment implements IModule
     @Override
     public int getImageRes()
     {
-        return AppManager.getInstance().getEquipmentImageRes(mSource.getId());
+        return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), mSource.getIcon());
     }
 
     public boolean isEditMode()

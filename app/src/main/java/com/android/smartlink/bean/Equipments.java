@@ -9,7 +9,14 @@ import java.util.List;
  */
 public class Equipments
 {
+    private int version;
+
     private List<Equipment> equipments;
+
+    public int getVersion()
+    {
+        return version;
+    }
 
     public List<Equipment> getEquipments()
     {

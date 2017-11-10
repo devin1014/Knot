@@ -4,17 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.android.smartlink.Constants;
-import com.android.smartlink.R;
 import com.android.smartlink.bean.Equipments;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
-import com.android.smartlink.util.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +41,7 @@ public class AppManager
 
     private SharedPreferences mSharedPreferences;
 
-    private List<Equipment> mEquipments;
+    private EquipmentManager mEquipmentManager;
 
     private Weather mWeather;
 
@@ -54,13 +50,15 @@ public class AppManager
         mApplication = application;
 
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
+
+        mEquipmentManager = new EquipmentManager(application);
     }
 
     // -----------------------------------
     // ------------ 初始化 ----------------
     public boolean isInitialized()
     {
-        return mApplication != null && mEquipments != null && mEquipments.size() > 0;
+        return mApplication != null && mEquipmentManager.isInitialized();
     }
 
     public Application getApplication()
@@ -80,7 +78,7 @@ public class AppManager
 
     // -----------------------------------
     // ------------ Weather&Location -----
-    public boolean checkWeather()
+    public Weather getWeather()
     {
         if (mWeather != null)
         {
@@ -90,9 +88,9 @@ public class AppManager
 
                 long deltaTime = Math.abs(System.currentTimeMillis() - date.getTime());
 
-                if (deltaTime <= Constants.SIX_HOUR && deltaTime > 0)
+                if (deltaTime <= Constants.ONE_DAY && deltaTime > 0)
                 {
-                    return true;
+                    return mWeather;
                 }
             }
             catch (Exception ignored)
@@ -100,12 +98,7 @@ public class AppManager
             }
         }
 
-        return false;
-    }
-
-    public Weather getWeather()
-    {
-        return mWeather;
+        return null;
     }
 
     public void setWeather(Weather weather)
@@ -124,7 +117,7 @@ public class AppManager
     {
         long time = mSharedPreferences.getLong(Constants.KEY_SHARE_PREFERENCE_LOCATION_TIME, -1L);
 
-        if (time < 0 || (System.currentTimeMillis() - time) >= Constants.SIX_HOUR)
+        if (time < 0 || (System.currentTimeMillis() - time) >= Constants.ONE_DAY)
         {
             return null;
         }
@@ -136,110 +129,27 @@ public class AppManager
     // ------------ Equipment ------------
     public void setEquipmentName(int id, String name)
     {
-        mSharedPreferences.edit().putString(Constants.KEY_SHARE_PREFERENCE_EQUIPMENT_NAME + id, name).apply();
+        mEquipmentManager.update(id, name);
     }
 
     public String getEquipmentName(int id)
     {
-        String equipmentName = mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_EQUIPMENT_NAME + id, "");
-
-        if (TextUtils.isEmpty(equipmentName))
-        {
-            Equipment equipment = getEquipment(id);
-
-            return equipment != null ? equipment.getName() : String.valueOf(id);
-        }
-
-        return equipmentName;
+        return mEquipmentManager.getName(id);
     }
 
     public void setEquipments(Equipments equipments)
     {
-        if (equipments == null)
-        {
-            throw new IllegalArgumentException("can not parse equipment.json file");
-        }
-
-        if (equipments.getEquipments() == null || equipments.getEquipments().size() == 0)
-        {
-            throw new IllegalArgumentException("can not parse equipment.json file");
-        }
-
-        mEquipments = equipments.getEquipments();
-
-        for (Equipment equipment : mEquipments)
-        {
-            setEquipmentName(equipment.getId(), getEquipmentName(equipment.getId()));
-        }
+        mEquipmentManager.setEquipments(equipments);
     }
 
-    private Equipment getEquipment(int id)
+    public Equipment getEquipment(int id)
     {
-        for (Equipment e : mEquipments)
-        {
-            if (e.getId() == id)
-            {
-                return e;
-            }
-        }
-
-        return null;
-    }
-
-    public List<Equipment> getEquipments(int... ids)
-    {
-        List<Equipment> result = new ArrayList<>();
-
-        for (Equipment e : mEquipments)
-        {
-            if (ids == null || ids.length == 0)
-            {
-                result.add(e);
-            }
-            else
-            {
-                for (int id : ids)
-                {
-                    if (e.getId() == id)
-                    {
-                        result.add(e);
-
-                        break;
-                    }
-                }
-            }
-        }
-
-        return result;
+        return mEquipmentManager.getEquipment(id);
     }
 
     public List<Equipment> getEquipments()
     {
-        return mEquipments;
-    }
-
-    public int getEquipmentImageRes(int id)
-    {
-        Equipment equipment = getEquipment(id);
-
-        if (equipment != null)
-        {
-            return ViewUtil.getDrawable(mApplication, equipment.getIcon());
-        }
-
-        return R.mipmap.ic_launcher;
-    }
-
-    public int getEquipmentWhiteImageRes(int id)
-    {
-        Equipment equipment = getEquipment(id);
-
-        if (equipment != null)
-        {
-            return ViewUtil.getDrawable(mApplication, equipment.getLightIcon());
-        }
-
-        return R.mipmap.ic_launcher;
+        return mEquipmentManager.getEquipments();
     }
 
     // -----------------------------------
@@ -281,4 +191,5 @@ public class AppManager
 
         return index;
     }
+
 }

@@ -31,7 +31,7 @@ public class Constants
 
     public static final String DEFAULT_LOCATION = "shanghai";
 
-    public static final long SIX_HOUR = 6 * 60 * 60 * 1000;
+    public static final long ONE_DAY = 24 * 60 * 60 * 1000;
 
     public static final long REQUEST_SCHEDULE_INTERVAL = 30 * 1000;
 

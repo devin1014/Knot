@@ -6,7 +6,9 @@ import android.text.TextUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.util.ViewUtil;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -69,12 +71,30 @@ public class UIModule implements Serializable
 
     public int getImageRes()
     {
-        return AppManager.getInstance().getEquipmentImageRes(mModule.getId());
+        Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
+
+        if (equipment != null)
+        {
+            return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), equipment.getIcon());
+        }
+        else
+        {
+            return R.mipmap.ic_launcher;
+        }
     }
 
     public int getWhiteImageRes()
     {
-        return AppManager.getInstance().getEquipmentWhiteImageRes(mModule.getId());
+        Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
+
+        if (equipment != null)
+        {
+            return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), equipment.getLightIcon());
+        }
+        else
+        {
+            return R.mipmap.ic_launcher;
+        }
     }
 
     public String getName()
