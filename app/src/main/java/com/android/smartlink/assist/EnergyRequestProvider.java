@@ -27,12 +27,6 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
     }
 
     @Override
-    protected boolean getFromLocal()
-    {
-        return true;
-    }
-
-    @Override
     protected void getFromLocal(String url)
     {
         String name;
@@ -65,7 +59,13 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
     @Override
     protected void getFromOkHttp(String url)
     {
-        // ignore
+        OkGo.getInstance().cancelTag(this);
+
+        OkGo.<Energy>get(url)
+
+                .tag(this)
+
+                .execute(new ResponseCallback());
     }
 
     @Override
