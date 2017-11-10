@@ -6,6 +6,7 @@ import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
+import com.lzy.okgo.OkGo;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -23,12 +24,6 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
     Class<Events> getConvertObjectClass()
     {
         return Events.class;
-    }
-
-    @Override
-    protected boolean getFromLocal()
-    {
-        return true;
     }
 
     @Override
@@ -51,7 +46,13 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
     @Override
     protected void getFromOkHttp(String url)
     {
-        // ignore
+        OkGo.getInstance().cancelTag(this);
+
+        OkGo.<Events>get(url)
+
+                .tag(this)
+
+                .execute(new ResponseCallback());
     }
 
     @Override
@@ -63,6 +64,8 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
     @Override
     public void destroy()
     {
+        OkGo.getInstance().cancelTag(this);
+
         super.destroy();
     }
 }

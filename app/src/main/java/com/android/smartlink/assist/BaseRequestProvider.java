@@ -41,7 +41,7 @@ abstract class BaseRequestProvider<T>
     {
         mDestroy = false;
 
-        if (AppManager.getInstance().isDemoMode() || getFromLocal())
+        if (AppManager.getInstance().isDemoMode())
         {
             sExecutor.execute(new Runnable()
             {
@@ -75,11 +75,6 @@ abstract class BaseRequestProvider<T>
     protected boolean getFromOkHttp()
     {
         return true;
-    }
-
-    protected boolean getFromLocal()
-    {
-        return false;
     }
 
     protected abstract void getFromLocal(String url);
