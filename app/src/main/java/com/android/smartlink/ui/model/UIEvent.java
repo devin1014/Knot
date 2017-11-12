@@ -2,6 +2,7 @@ package com.android.smartlink.ui.model;
 
 import android.content.res.Resources;
 
+import com.android.devin.core.ui.widget.recyclerview.IDiffCompare;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
@@ -17,7 +18,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent
+public class UIEvent implements IDiffCompare<UIEvent>
 {
     private Event mSource;
 
@@ -58,7 +59,6 @@ public class UIEvent
         mTextStatusColor = new int[]{normalColor, errorColor, warningColor};
     }
 
-
     public int getId()
     {
         return mSource.getId();
@@ -92,5 +92,24 @@ public class UIEvent
         }
 
         return mTextStatusColor[mSource.getStatus()];
+    }
+
+    @Override
+    public boolean compareObject(UIEvent uiEvent)
+    {
+        return getId() == uiEvent.getId();
+    }
+
+    @Override
+    public boolean compareContent(UIEvent uiEvent)
+    {
+        return getName().equals(uiEvent.getName()) && getTime().equals(uiEvent.getTime()) &&
+                getDate().equals(uiEvent.getDate());
+    }
+
+    @Override
+    public Object getChangePayload()
+    {
+        return null;
     }
 }

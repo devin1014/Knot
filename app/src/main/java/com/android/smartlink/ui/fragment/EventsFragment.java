@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.util.DiffUtil;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
+import com.android.devin.core.ui.widget.recyclerview.IDiffCompare;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
@@ -27,6 +30,7 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.LogUtil;
 import com.android.smartlink.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -164,7 +168,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider.request(HttpUrl.getEventsUrl());
 
         // hide loading and show blank loading view
-        //mLoadingLayout.showContent();
+        mLoadingLayout.showContent();
     }
 
     @Override
@@ -223,12 +227,102 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         {
             mLoadingLayout.showContent();
 
-            mEventsAdapter.setData(result);
+            //todo
+            if (mEventsAdapter.getItemCount() == 0)
+            {
+                mEventsAdapter.setData(result);
+
+                return;
+            }
+
+            mDiffCallback.setData(result);
+
+            DiffUtil.calculateDiff(mDiffCallback).dispatchUpdatesTo(new ListUpdateCallback()
+            {
+                @Override
+                public void onInserted(int position, int count)
+                {
+                    LogUtil.log(this, "onInserted:" + position + "," + count);
+
+                    mEventsAdapter.notifyItemRangeInserted(position, count);
+                }
+
+                @Override
+                public void onRemoved(int position, int count)
+                {
+                    LogUtil.log(this, "onRemoved:" + position + "," + count);
+
+                    mEventsAdapter.notifyItemRangeRemoved(position, count);
+                }
+
+                @Override
+                public void onMoved(int fromPosition, int toPosition)
+                {
+                    LogUtil.log(this, "onMoved:" + fromPosition + "," + toPosition);
+
+                    mEventsAdapter.notifyItemMoved(fromPosition, toPosition);
+                }
+
+                @Override
+                public void onChanged(int position, int count, Object payload)
+                {
+                    LogUtil.log(this, "onChanged:" + position + "," + count + "," + payload);
+
+                    mEventsAdapter.notifyItemRangeChanged(position, count, payload);
+                }
+            });
         }
     }
 
     private void showEmptyData()
     {
         mLoadingLayout.showMessage(getString(R.string.empty_events));
+    }
+
+    private DiffCallback<UIEvent> mDiffCallback = new DiffCallback<>();
+
+    private class DiffCallback<T extends IDiffCompare<T>> extends DiffUtil.Callback
+    {
+        private List<T> mOldData;
+
+        private List<T> mNewData;
+
+        public void setData(List<T> newList)
+        {
+            mOldData = mNewData;
+
+            mNewData = newList;
+        }
+
+        @Override
+        public int getOldListSize()
+        {
+            return mOldData != null ? mOldData.size() : 0;
+        }
+
+        @Override
+        public int getNewListSize()
+        {
+            return mNewData != null ? mNewData.size() : 0;
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
+        {
+            return mOldData.get(oldItemPosition).compareObject(mNewData.get(newItemPosition));
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition)
+        {
+            return mOldData.get(oldItemPosition).compareContent(mNewData.get(newItemPosition));
+        }
+
+        @Nullable
+        @Override
+        public Object getChangePayload(int oldItemPosition, int newItemPosition)
+        {
+            return mNewData.get(newItemPosition).getChangePayload();
+        }
     }
 }
