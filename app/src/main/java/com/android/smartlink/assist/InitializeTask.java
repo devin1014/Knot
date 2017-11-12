@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.SystemClock;
-import android.text.TextUtils;
 
-import com.android.devin.core.util.IOUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments;
@@ -72,34 +70,34 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
         try
         {
-            Weather weather = AppManager.getInstance().getWeather();
-
-            if (weather == null)
-            {
-                String location = AppManager.getInstance().getLocation();
-
-                if (TextUtils.isEmpty(location))
-                {
-                    location = getLocation();
-
-                    AppManager.getInstance().setLocation(location);
-                }
-
-                weather = getWeather(location);
-
-                if (weather == null)
-                {
-                    String resultString = IOUtils.parseStream(mAssetManager.open("weather.json"));
-
-                    JSONObject jsonObject = new JSONObject(resultString);
-
-                    JSONObject weatherObj = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
-
-                    weather = new Gson().fromJson(weatherObj.toString(), Weather.class);
-                }
-
-                AppManager.getInstance().setWeather(weather);
-            }
+            //            Weather weather = AppManager.getInstance().getWeather();
+            //
+            //            if (weather == null)
+            //            {
+            //                String location = AppManager.getInstance().getLocation();
+            //
+            //                if (TextUtils.isEmpty(location))
+            //                {
+            //                    location = getLocation();
+            //
+            //                    AppManager.getInstance().setLocation(location);
+            //                }
+            //
+            //                weather = getWeather(location);
+            //
+            //                if (weather == null)
+            //                {
+            //                    String resultString = IOUtils.parseStream(mAssetManager.open("weather.json"));
+            //
+            //                    JSONObject jsonObject = new JSONObject(resultString);
+            //
+            //                    JSONObject weatherObj = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
+            //
+            //                    weather = new Gson().fromJson(weatherObj.toString(), Weather.class);
+            //                }
+            //
+            //                AppManager.getInstance().setWeather(weather);
+            //            }
 
             if (SystemClock.uptimeMillis() - timeStamp < 1500)
             {

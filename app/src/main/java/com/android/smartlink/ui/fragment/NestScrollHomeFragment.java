@@ -15,9 +15,9 @@ import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
+import com.android.smartlink.assist.WeatherProvider;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Weather;
@@ -59,6 +59,10 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
     private MainRequestProvider mRequestProvider;
 
+    private WeatherProvider mWeatherProvider;
+
+    private ViewDataBinding mWeatherBinding;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -82,20 +86,12 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
+        mWeatherProvider = new WeatherProvider(getActivity(), mWeatherRequestCallback);
+
+        //fixme,location = shanghai
+        mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));
+
         mLoadingLayout.showLoading();
-
-        Weather weather = AppManager.getInstance().getWeather();
-
-        mWeatherRoot.setVisibility(weather != null ? View.VISIBLE : View.GONE);
-
-        if (weather != null)
-        {
-            ViewDataBinding viewDataBinding = DataBindingUtil.bind(mWeatherRoot);
-
-            viewDataBinding.setVariable(BR.data, new UIWeather(weather));
-
-            viewDataBinding.executePendingBindings();
-        }
     }
 
     @Override
@@ -118,6 +114,8 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     public void onDestroyView()
     {
         mRequestProvider.destroy();
+
+        mWeatherProvider.destroy();
 
         super.onDestroyView();
     }
@@ -146,8 +144,11 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         // call request
         mRequestProvider.request(HttpUrl.getHomeUrl());
 
+        //fixme,location=shanghai
+        mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));
+
         // hide loading and show blank loading view
-        mLoadingLayout.showContent();
+        //mLoadingLayout.showContent();
     }
 
     private DataBindingHandler<UIModule> mDataBindingHandler = new DataBindingHandler<UIModule>()
@@ -236,5 +237,26 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
         viewDataBinding.executePendingBindings();
     }
+
+    private RequestCallback<Weather> mWeatherRequestCallback = new RequestCallback<Weather>()
+    {
+        @Override
+        public void onResponse(Weather weather)
+        {
+            if (mWeatherBinding == null)
+            {
+                mWeatherBinding = DataBindingUtil.bind(mWeatherRoot);
+            }
+
+            mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
+
+            mWeatherBinding.executePendingBindings();
+        }
+
+        @Override
+        public void onError(Throwable throwable)
+        {
+        }
+    };
 
 }

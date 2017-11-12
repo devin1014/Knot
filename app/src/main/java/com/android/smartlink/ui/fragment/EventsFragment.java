@@ -164,7 +164,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider.request(HttpUrl.getEventsUrl());
 
         // hide loading and show blank loading view
-        mLoadingLayout.showContent();
+        //mLoadingLayout.showContent();
     }
 
     @Override
