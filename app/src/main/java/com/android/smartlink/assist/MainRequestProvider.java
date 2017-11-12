@@ -83,7 +83,6 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
     @Override
     protected boolean getFromOkHttp()
     {
-        //FIXME!
         return false;
         //return Utils.isDevDebugMode(getActivity());
     }
