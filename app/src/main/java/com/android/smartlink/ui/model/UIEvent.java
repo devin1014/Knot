@@ -2,7 +2,8 @@ package com.android.smartlink.ui.model;
 
 import android.content.res.Resources;
 
-import com.android.devin.core.ui.widget.recyclerview.IDiffCompare;
+import com.android.devin.core.ui.widget.recyclerview.DiffContentAnnotation;
+import com.android.devin.core.ui.widget.recyclerview.DiffItemAnnotation;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
@@ -18,7 +19,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent implements IDiffCompare<UIEvent>
+public class UIEvent extends UICompareObject<UIEvent>
 {
     private Event mSource;
 
@@ -59,26 +60,31 @@ public class UIEvent implements IDiffCompare<UIEvent>
         mTextStatusColor = new int[]{normalColor, errorColor, warningColor};
     }
 
+    @DiffItemAnnotation
     public int getId()
     {
         return mSource.getId();
     }
 
+    @DiffContentAnnotation
     public String getName()
     {
         return mSource.getDescription();
     }
 
+    @DiffContentAnnotation
     public String getTime()
     {
         return mDateTime;
     }
 
+    @DiffContentAnnotation
     public String getDate()
     {
         return mDate;
     }
 
+    @DiffContentAnnotation
     public int getStatus()
     {
         return mSource.getStatus();
@@ -94,22 +100,4 @@ public class UIEvent implements IDiffCompare<UIEvent>
         return mTextStatusColor[mSource.getStatus()];
     }
 
-    @Override
-    public boolean compareObject(UIEvent uiEvent)
-    {
-        return getId() == uiEvent.getId();
-    }
-
-    @Override
-    public boolean compareContent(UIEvent uiEvent)
-    {
-        return getName().equals(uiEvent.getName()) && getTime().equals(uiEvent.getTime()) &&
-                getDate().equals(uiEvent.getDate()) && getStatus() == uiEvent.getStatus();
-    }
-
-    @Override
-    public Object getChangePayload()
-    {
-        return null;
-    }
 }

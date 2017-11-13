@@ -142,24 +142,36 @@ public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends 
         @Override
         public int getOldListSize()
         {
-            return mOldData != null ? mOldData.size() : 0;
+            int size = mOldData != null ? mOldData.size() : 0;
+
+            LogUtil.info(this, "getOldListSize:" + size);
+
+            return size;
         }
 
         @Override
         public int getNewListSize()
         {
-            return mNewData != null ? mNewData.size() : 0;
+            int size = mNewData != null ? mNewData.size() : 0;
+
+            LogUtil.info(this, "getNewListSize:" + size);
+
+            return size;
         }
 
         @Override
         public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
         {
+            LogUtil.info(this, "areItemsTheSame:[oldItemPosition=" + oldItemPosition + ",newItemPosition=" + newItemPosition + "]");
+
             return mOldData.get(oldItemPosition).compareObject(mNewData.get(newItemPosition));
         }
 
         @Override
         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition)
         {
+            LogUtil.info(this, "areContentsTheSame:[oldItemPosition=" + oldItemPosition + ",newItemPosition=" + newItemPosition + "]");
+
             return mOldData.get(oldItemPosition).compareContent(mNewData.get(newItemPosition));
         }
 
@@ -167,7 +179,16 @@ public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends 
         @Override
         public Object getChangePayload(int oldItemPosition, int newItemPosition)
         {
-            return mNewData.get(newItemPosition).getChangePayload();
+            LogUtil.info(this, "getChangePayload:[oldItemPosition=" + oldItemPosition + ",newItemPosition=" + newItemPosition + "]");
+
+            Object object = mOldData.get(oldItemPosition).getChangePayload();
+
+            if (object == null)
+            {
+                object = mNewData.get(newItemPosition).getChangePayload();
+            }
+
+            return object;
         }
     }
 
