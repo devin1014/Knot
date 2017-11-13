@@ -3,6 +3,7 @@ package com.android.smartlink.assist;
 import android.app.Activity;
 
 import com.android.devin.core.util.IOUtils;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -54,6 +55,13 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     @Override
     protected void getFromOkHttp(String url)
     {
+        if (AppManager.getInstance().getWeather() != null)
+        {
+            notifyResponse(AppManager.getInstance().getWeather());
+
+            return;
+        }
+
         // call local first
         getFromLocal(url);
 
@@ -70,6 +78,14 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     protected void getFromRemote(String url)
     {
         // ignore
+    }
+
+    @Override
+    protected void notifyResponse(Weather weather)
+    {
+        super.notifyResponse(weather);
+
+        AppManager.getInstance().setWeather(weather);
     }
 
     @Override
