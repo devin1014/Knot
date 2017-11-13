@@ -104,7 +104,7 @@ public class UIEvent implements IDiffCompare<UIEvent>
     public boolean compareContent(UIEvent uiEvent)
     {
         return getName().equals(uiEvent.getName()) && getTime().equals(uiEvent.getTime()) &&
-                getDate().equals(uiEvent.getDate());
+                getDate().equals(uiEvent.getDate()) && getStatus() == uiEvent.getStatus();
     }
 
     @Override

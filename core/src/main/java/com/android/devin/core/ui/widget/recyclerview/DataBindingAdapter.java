@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public abstract class DataBindingAdapter<T> extends Adapter<DataBindingHolder<T>
 
     private OnItemClickListener<T> mOnItemClickListener;
 
-    private List<T> mDataList;
+    protected List<T> mDataList;
 
     public DataBindingAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
     {
@@ -75,12 +76,16 @@ public abstract class DataBindingAdapter<T> extends Adapter<DataBindingHolder<T>
     // --------------------------------------------------------------------------------------
     // data
     // --------------------------------------------------------------------------------------
-
     public void setData(List<T> list)
     {
         mDataList = list;
 
         notifyDataSetChanged();
+    }
+
+    protected final void updateData(List<T> list)
+    {
+        mDataList = list;
     }
 
     public void appendData(T t, int pos)
@@ -89,11 +94,16 @@ public abstract class DataBindingAdapter<T> extends Adapter<DataBindingHolder<T>
         {
             mDataList.add(pos, t);
         }
+        else
+        {
+            mDataList = new ArrayList<>();
+
+            mDataList.add(t);
+        }
 
         notifyDataSetChanged();
     }
 
-    @SuppressWarnings("unused")
     public void appendData(List<T> list)
     {
         if (mDataList != null)

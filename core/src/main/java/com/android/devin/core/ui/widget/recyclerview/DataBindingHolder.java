@@ -3,6 +3,7 @@ package com.android.devin.core.ui.widget.recyclerview;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ public class DataBindingHolder<T> extends ViewHolder implements DataBindingHandl
 
     private DataBindingHandler<T> mDataBindingHandler;
 
+    private SparseArray<View> mViewSparseArray;
+
     public DataBindingHolder(View itemView, DataBindingHandler<T> handler)
     {
         super(itemView);
@@ -25,6 +28,8 @@ public class DataBindingHolder<T> extends ViewHolder implements DataBindingHandl
         mDataBindingHandler = handler;
 
         mViewDataBinding = DataBindingUtil.bind(itemView);
+
+        mViewSparseArray = new SparseArray<>();
     }
 
     public DataBindingHolder(LayoutInflater inflater, ViewGroup parent, int layoutId, DataBindingHandler<T> handler)
@@ -61,14 +66,18 @@ public class DataBindingHolder<T> extends ViewHolder implements DataBindingHandl
     @SuppressWarnings({"unchecked", "unused"})
     protected final <V extends View> V findViewById(int id)
     {
-        View view = itemView.findViewById(id);
+        View cacheView = mViewSparseArray.get(id);
 
-        if (view != null)
+        if (cacheView == null)
         {
-            return (V) view;
+            View view = itemView.findViewById(id);
+
+            mViewSparseArray.put(id, view);
+
+            cacheView = view;
         }
 
-        return null;
+        return (V) cacheView;
     }
 
 }

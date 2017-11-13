@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.model;
 
+import com.android.devin.core.ui.widget.recyclerview.IDiffCompare;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.util.ViewUtil;
@@ -9,7 +10,7 @@ import com.android.smartlink.util.ViewUtil;
  * Date: 2017-11-09
  * Time: 11:46
  */
-public class UIEquipment implements IModule
+public class UIEquipment implements IModule, IDiffCompare<UIEquipment>
 {
     private Equipment mSource;
 
@@ -33,12 +34,6 @@ public class UIEquipment implements IModule
     }
 
     @Override
-    public String getImageName()
-    {
-        return null;
-    }
-
-    @Override
     public int getImageRes()
     {
         return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), mSource.getIcon());
@@ -54,4 +49,21 @@ public class UIEquipment implements IModule
         mEditMode = editMode;
     }
 
+    @Override
+    public boolean compareObject(UIEquipment obj)
+    {
+        return getId() == obj.getId();
+    }
+
+    @Override
+    public boolean compareContent(UIEquipment obj)
+    {
+        return getName().equals(obj.getName());
+    }
+
+    @Override
+    public Object getChangePayload()
+    {
+        return null;
+    }
 }

@@ -2,9 +2,9 @@ package com.android.smartlink.application;
 
 import android.app.Application;
 
+import com.android.devin.core.util.Debug;
+import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.util.LogUtil;
-import com.android.smartlink.util.TestUtil;
 import com.android.smartlink.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
@@ -30,9 +30,16 @@ public class SmartlinkApplication extends Application
     {
         super.onCreate();
 
-        TestUtil.set();
-
         final boolean debugMode = Utils.isDevDebugMode(this);
+
+        Debug.init(debugMode); // 初始化Log,debug模式才输出
+
+        LogUtil.set();
+
+        // App
+        {
+            AppManager.initialize(this);
+        }
 
         // OkGo初始化
         {
@@ -70,13 +77,6 @@ public class SmartlinkApplication extends Application
             MobclickAgent.openActivityDurationTrack(false);
         }
 
-        // App
-        {
-            LogUtil.init(this); // 初始化Log,debug模式才输出
-
-            AppManager.initialize(this);
-        }
-
-        TestUtil.test(this, "onCreate");
+        LogUtil.test(this, "Application onCreate");
     }
 }

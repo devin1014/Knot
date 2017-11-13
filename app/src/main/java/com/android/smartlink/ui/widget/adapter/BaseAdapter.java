@@ -2,7 +2,8 @@ package com.android.smartlink.ui.widget.adapter;
 
 import android.view.LayoutInflater;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
+import com.android.devin.core.ui.widget.recyclerview.DiffDataBindingAdapter;
+import com.android.devin.core.ui.widget.recyclerview.IDiffCompare;
 import com.android.smartlink.BR;
 
 /**
@@ -10,7 +11,7 @@ import com.android.smartlink.BR;
  * Date: 2017-10-17
  * Time: 16:24
  */
-abstract class BaseAdapter<T> extends DataBindingAdapter<T>
+abstract class BaseAdapter<T extends IDiffCompare<T>> extends DiffDataBindingAdapter<T>
 {
     BaseAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
     {

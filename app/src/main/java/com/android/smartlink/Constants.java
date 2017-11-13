@@ -33,7 +33,7 @@ public class Constants
 
     public static final long ONE_DAY = 24 * 60 * 60 * 1000;
 
-    public static final long REQUEST_SCHEDULE_INTERVAL = 30 * 1000;
+    public static final long REQUEST_SCHEDULE_INTERVAL = 30 * 1000 * 10;//FIXME,test code!!!
 
     // ---- Key Extras ----------------
     private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra.";

@@ -11,7 +11,5 @@ public interface IModule
 
     String getName();
 
-    String getImageName();
-
     int getImageRes();
 }
