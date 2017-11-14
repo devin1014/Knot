@@ -9,7 +9,7 @@ public interface IModule
 {
     int getId();
 
-    String getName();
-
     int getImageRes();
+
+    String getName();
 }

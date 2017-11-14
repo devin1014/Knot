@@ -1,11 +1,10 @@
-package com.android.smartlink.ui.model;
+package com.android.devin.core.bean;
 
 import com.android.devin.core.ui.widget.recyclerview.DiffContentAnnotation;
 import com.android.devin.core.ui.widget.recyclerview.DiffItemAnnotation;
 import com.android.devin.core.ui.widget.recyclerview.IDiffCompare;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,20 +24,15 @@ public abstract class UICompareObject<T extends UICompareObject> implements IDif
         {
             for (Method method : methods)
             {
-                if (!Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
+                if (method.getAnnotation(DiffItemAnnotation.class) != null)
                 {
-                    DiffItemAnnotation annotation = method.getAnnotation(DiffItemAnnotation.class);
+                    Object oldResult = method.invoke(this);
 
-                    if (annotation != null)
+                    Object newResult = method.invoke(newObj);
+
+                    if (!oldResult.equals(newResult))
                     {
-                        Object oldResult = method.invoke(this);
-
-                        Object newResult = method.invoke(newObj);
-
-                        if (!oldResult.equals(newResult))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
             }
@@ -53,7 +47,7 @@ public abstract class UICompareObject<T extends UICompareObject> implements IDif
         return true;
     }
 
-    private Map<String, Object> mBundle = new HashMap<>();
+    private Map<String, Object> mDiffMap = new HashMap<>();
 
     @Override
     public boolean compareContent(UICompareObject newObj)
@@ -66,25 +60,20 @@ public abstract class UICompareObject<T extends UICompareObject> implements IDif
         {
             for (Method method : methods)
             {
-                if (!Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
+                if (method.getAnnotation(DiffContentAnnotation.class) != null)
                 {
-                    DiffContentAnnotation annotation = method.getAnnotation(DiffContentAnnotation.class);
+                    Object oldResult = method.invoke(this);
 
-                    if (annotation != null)
+                    Object newResult = method.invoke(newObj);
+
+                    boolean compare = oldResult.equals(newResult);
+
+                    if (!compare)
                     {
-                        Object oldResult = method.invoke(this);
-
-                        Object newResult = method.invoke(newObj);
-
-                        boolean compare = oldResult.equals(newResult);
-
-                        if (!compare)
-                        {
-                            mBundle.put(method.getName(), newResult);
-                        }
-
-                        compareContent &= compare;
+                        mDiffMap.put(method.getName(), newResult);
                     }
+
+                    compareContent &= compare;
                 }
             }
         }
@@ -101,6 +90,7 @@ public abstract class UICompareObject<T extends UICompareObject> implements IDif
     @Override
     public Object getChangePayload()
     {
-        return mBundle;
+        return mDiffMap;
     }
+
 }

@@ -2,6 +2,7 @@ package com.android.smartlink.ui.model;
 
 import android.content.res.Resources;
 
+import com.android.devin.core.bean.UICompareObject;
 import com.android.devin.core.ui.widget.recyclerview.DiffContentAnnotation;
 import com.android.devin.core.ui.widget.recyclerview.DiffItemAnnotation;
 import com.android.smartlink.R;
