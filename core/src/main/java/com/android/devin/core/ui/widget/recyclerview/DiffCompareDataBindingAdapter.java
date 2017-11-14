@@ -15,11 +15,11 @@ import java.util.List;
  * Date: 2017-11-13
  * Time: 10:16
  */
-public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends DataBindingAdapter<T> implements ListUpdateCallback
+public abstract class DiffCompareDataBindingAdapter<T extends IDiffCompare<T>> extends DataBindingAdapter<T>
 {
     private DiffCompare<T> mDiffCompare;
 
-    public DiffDataBindingAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
+    public DiffCompareDataBindingAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
     {
         super(layoutInflater, listener);
 
@@ -61,7 +61,7 @@ public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends 
         {
             mDataList.add(pos, t);
 
-            onInserted(pos, 1);
+            mListUpdateCallbackWrapper.onInserted(pos, 1);
         }
         else
         {
@@ -76,7 +76,7 @@ public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends 
         {
             mDataList.addAll(list);
 
-            onInserted(mDataList.size(), list.size());
+            mListUpdateCallbackWrapper.onInserted(mDataList.size(), list.size());
         }
         else
         {
@@ -90,38 +90,6 @@ public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends 
         LogUtil.info(this, "onBindViewHolder:" + holder + "," + position + "," + payloads);
 
         super.onBindViewHolder(holder, position, payloads);
-    }
-
-    @Override
-    public void onInserted(int position, int count)
-    {
-        LogUtil.log(this, "onInserted:" + position + "," + count);
-
-        notifyItemRangeInserted(position, count);
-    }
-
-    @Override
-    public void onRemoved(int position, int count)
-    {
-        LogUtil.log(this, "onRemoved:" + position + "," + count);
-
-        notifyItemRangeRemoved(position, count);
-    }
-
-    @Override
-    public void onMoved(int fromPosition, int toPosition)
-    {
-        LogUtil.log(this, "onMoved:" + fromPosition + "," + toPosition);
-
-        notifyItemMoved(fromPosition, toPosition);
-    }
-
-    @Override
-    public void onChanged(int position, int count, Object payload)
-    {
-        LogUtil.log(this, "onChanged:" + position + "," + count + "," + payload);
-
-        notifyItemRangeChanged(position, count, payload);
     }
 
     private class DiffCompare<V extends IDiffCompare<V>> extends DiffUtil.Callback
@@ -199,25 +167,33 @@ public abstract class DiffDataBindingAdapter<T extends IDiffCompare<T>> extends 
         @Override
         public void onInserted(int position, int count)
         {
-            DiffDataBindingAdapter.this.onInserted(position, count);
+            LogUtil.log(this, "onInserted:" + position + "," + count);
+
+            notifyItemRangeInserted(position, count);
         }
 
         @Override
         public void onRemoved(int position, int count)
         {
-            DiffDataBindingAdapter.this.onRemoved(position, count);
+            LogUtil.log(this, "onRemoved:" + position + "," + count);
+
+            notifyItemRangeRemoved(position, count);
         }
 
         @Override
         public void onMoved(int fromPosition, int toPosition)
         {
-            DiffDataBindingAdapter.this.onMoved(fromPosition, toPosition);
+            LogUtil.log(this, "onMoved:" + fromPosition + "," + toPosition);
+
+            notifyItemMoved(fromPosition, toPosition);
         }
 
         @Override
         public void onChanged(int position, int count, Object payload)
         {
-            DiffDataBindingAdapter.this.onChanged(position, count, payload);
+            LogUtil.log(this, "onChanged:" + position + "," + count + "," + payload);
+
+            notifyItemRangeChanged(position, count, payload);
         }
     }
 }

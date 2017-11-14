@@ -13,10 +13,10 @@ import java.util.Map;
  * Date: 2017-11-13
  * Time: 15:40
  */
-public abstract class UICompareObject<T extends UICompareObject> implements IDiffCompare<T>
+public abstract class UIDiffCompareObj<T extends UIDiffCompareObj> implements IDiffCompare<T>
 {
     @Override
-    public boolean compareObject(UICompareObject newObj)
+    public boolean compareObject(UIDiffCompareObj newObj)
     {
         Method[] methods = getClass().getDeclaredMethods();
 
@@ -50,7 +50,7 @@ public abstract class UICompareObject<T extends UICompareObject> implements IDif
     private Map<String, Object> mDiffMap = new HashMap<>();
 
     @Override
-    public boolean compareContent(UICompareObject newObj)
+    public boolean compareContent(UIDiffCompareObj newObj)
     {
         boolean compareContent = true;
 

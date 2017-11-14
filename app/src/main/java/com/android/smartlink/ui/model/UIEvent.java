@@ -2,7 +2,7 @@ package com.android.smartlink.ui.model;
 
 import android.content.res.Resources;
 
-import com.android.devin.core.bean.UICompareObject;
+import com.android.devin.core.bean.UIDiffCompareObj;
 import com.android.devin.core.ui.widget.recyclerview.DiffContentAnnotation;
 import com.android.devin.core.ui.widget.recyclerview.DiffItemAnnotation;
 import com.android.smartlink.R;
@@ -20,7 +20,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent extends UICompareObject<UIEvent>
+public class UIEvent extends UIDiffCompareObj<UIEvent>
 {
     private Event mSource;
 
