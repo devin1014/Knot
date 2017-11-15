@@ -7,8 +7,6 @@ package com.android.smartlink;
  */
 public class Constants
 {
-    public static final boolean DEBUG = true;
-
     public static final int ID_ALL = 0;
 
     public static final int STATUS_NORMAL = 0;
@@ -33,7 +31,7 @@ public class Constants
 
     public static final long ONE_DAY = 24 * 60 * 60 * 1000;
 
-    public static final long REQUEST_SCHEDULE_INTERVAL = 30 * 1000 * 10;//FIXME,test code!!!
+    public static final long REQUEST_SCHEDULE_INTERVAL = 30 * 1000;
 
     // ---- Key Extras ----------------
     private static final String KEY_EXTRA_BASE = "com.android.smartlink.key.extra.";
@@ -58,6 +56,4 @@ public class Constants
     public static final String KEY_SHARE_PREFERENCE_DEMO_MODE = KEY_PREFERENCE_BASE + "demo";
 
     public static final String KEY_SHARE_PREFERENCE_DEMO_STATUS = KEY_PREFERENCE_BASE + "status";
-
-    public static final String KEY_SHARE_PREFERENCE_EQUIPMENT_NAME = KEY_PREFERENCE_BASE + "equipment.name";
 }
