@@ -135,6 +135,8 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         mRequestProvider.destroy();
 
+        mSwipeRefreshLayout.setRefreshing(false);
+
         super.onDestroyView();
     }
 
@@ -161,11 +163,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     @Override
     public void onRefresh()
     {
-        // call request
         mRequestProvider.request(HttpUrl.getEventsUrl());
-
-        // hide loading and show blank loading view
-        mLoadingLayout.showContent();
     }
 
     @Override

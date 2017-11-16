@@ -117,6 +117,8 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
         mWeatherProvider.destroy();
 
+        mSwipeRefreshLayout.setRefreshing(false);
+
         super.onDestroyView();
     }
 
@@ -141,14 +143,10 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     @Override
     public void onRefresh()
     {
-        // call request
         mRequestProvider.request(HttpUrl.getHomeUrl());
 
         //fixme,location=shanghai
         mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));
-
-        // hide loading and show blank loading view
-        //mLoadingLayout.showContent();
     }
 
     private DataBindingHandler<UIModule> mDataBindingHandler = new DataBindingHandler<UIModule>()

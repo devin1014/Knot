@@ -39,8 +39,8 @@ public abstract class BaseScheduleRequestProvider<T> extends BaseRequestProvider
     @Override
     public void destroy()
     {
-        super.destroy();
-
         mTimer.cancel();
+
+        super.destroy();
     }
 }
