@@ -93,15 +93,15 @@ public class ModuleStatusView extends LinearLayout implements OnClickListener
     {
         super.onFinishInflate();
 
-        findViewById(R.id.status_top).setOnClickListener(this);
-
-        mStatus = (TextView) findViewById(R.id.status_title);
-
-        mImage = (ImageView) findViewById(R.id.status_image);
-
-        mArrow = (ImageView) findViewById(R.id.arrow_image);
-
-        mDetailGroup = (ViewGroup) findViewById(R.id.status_details);
+        //        findViewById(R.id.status_top).setOnClickListener(this);
+        //
+        //        mStatus = findViewById(R.id.status_title);
+        //
+        //        mImage = findViewById(R.id.status_image);
+        //
+        //        mArrow = findViewById(R.id.arrow_image);
+        //
+        //        mDetailGroup = findViewById(R.id.status_details);
     }
 
     @Override

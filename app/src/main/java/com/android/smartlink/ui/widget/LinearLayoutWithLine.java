@@ -61,7 +61,7 @@ public class LinearLayoutWithLine extends LinearLayout
 
             mPaint.setStrokeWidth(a.getDimensionPixelSize(R.styleable.LinearLayoutWithLine_lineWidth, 2));
 
-            mOffsetX = a.getDimensionPixelOffset(R.styleable.LinearLayoutWithLine_lineOffsetX, 0);
+            mOffsetX = a.getDimensionPixelSize(R.styleable.LinearLayoutWithLine_lineOffsetX, 0);
 
             a.recycle();
         }

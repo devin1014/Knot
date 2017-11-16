@@ -26,7 +26,7 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.ModuleStatusView;
+import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
 import com.umeng.analytics.MobclickAgent;
@@ -54,14 +54,16 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     @BindView(R.id.weather_root)
     View mWeatherRoot;
 
-    @BindView(R.id.module_status_view)
-    ModuleStatusView mModuleStatusView;
+    @BindView(R.id.module_status)
+    ViewGroup mModuleStatus;
 
     private MainRequestProvider mRequestProvider;
 
     private WeatherProvider mWeatherProvider;
 
     private ViewDataBinding mWeatherBinding;
+
+    private ModuleStatusLayout mModuleStatusLayout;
 
     @Nullable
     @Override
@@ -80,6 +82,8 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
 
     private void initComponent()
     {
+        mModuleStatusLayout = new ModuleStatusLayout(mModuleStatus);
+
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRequestProvider = new MainRequestProvider(getActivity(), this);
@@ -163,7 +167,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
         mContentContainer.removeAllViews();
 
         // status
-        mModuleStatusView.setModules(modules);
+        mModuleStatusLayout.setModules(modules);
 
         int index = 0;
 
