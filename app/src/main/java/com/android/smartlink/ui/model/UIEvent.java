@@ -1,10 +1,12 @@
 package com.android.smartlink.ui.model;
 
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 
 import com.android.devin.core.bean.UIDiffCompareObj;
 import com.android.devin.core.ui.widget.recyclerview.DiffContentAnnotation;
 import com.android.devin.core.ui.widget.recyclerview.DiffItemAnnotation;
+import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
@@ -20,7 +22,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent extends UIDiffCompareObj<UIEvent>
+public class UIEvent extends UIDiffCompareObj<UIEvent> implements Comparable<UIEvent>
 {
     private Event mSource;
 
@@ -30,11 +32,15 @@ public class UIEvent extends UIDiffCompareObj<UIEvent>
 
     private int[] mTextStatusColor;
 
+    private long mTimeStamp;
+
     public UIEvent(Event event)
     {
         mSource = event;
 
         long time = mSource.getTime();
+
+        mTimeStamp = time;
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 
@@ -101,4 +107,39 @@ public class UIEvent extends UIDiffCompareObj<UIEvent>
         return mTextStatusColor[mSource.getStatus()];
     }
 
+    public long getTimeStamp()
+    {
+        return mTimeStamp;
+    }
+
+    @Override
+    public int compareTo(@NonNull UIEvent uiEvent)
+    {
+        if (getStatus() == uiEvent.getStatus())
+        {
+            return (int) (-mTimeStamp + uiEvent.getTimeStamp());
+        }
+
+        if (getStatus() == 1)
+        {
+            return -1;
+        }
+
+        if (uiEvent.getStatus() == 1)
+        {
+            return 1;
+        }
+
+        if (getStatus() == Constants.STATUS_WARNING)
+        {
+            return -1;
+        }
+
+        if (uiEvent.getStatus() == Constants.STATUS_WARNING)
+        {
+            return 1;
+        }
+
+        return 0;
+    }
 }

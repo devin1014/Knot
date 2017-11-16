@@ -31,6 +31,7 @@ import com.android.smartlink.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -222,6 +223,8 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         else
         {
             mLoadingLayout.showContent();
+
+            Collections.sort(result);
 
             mEventsAdapter.setData(result);
         }
