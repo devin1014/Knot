@@ -131,7 +131,11 @@ public class AlarmModuleStatusView extends LinearLayout
             @Override
             public boolean areContentsTheSame(int oldItemPosition, int newItemPosition)
             {
-                return oldList.get(oldItemPosition).getStatus() == newList.get(newItemPosition).getStatus();
+                Module oldItem = oldList.get(oldItemPosition);
+
+                Module newItem = newList.get(newItemPosition);
+
+                return oldItem.getStatus() == newItem.getStatus() && getPowerLoad(oldItem) == getPowerLoad(newItem);
             }
         });
 
@@ -149,6 +153,16 @@ public class AlarmModuleStatusView extends LinearLayout
 
             mEventsRequestProvider.request(HttpUrl.getEventsUrl());
         }
+    }
+
+    private int getPowerLoad(Module module)
+    {
+        if (!TextUtils.isEmpty(module.getCurrent()))
+        {
+            return Math.min((int) (Float.valueOf(module.getCurrent()) / 5f * 100), 100);
+        }
+
+        return 0;
     }
 
     private int getMaxStatus(List<Module> list)
