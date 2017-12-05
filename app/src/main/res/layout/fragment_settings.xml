@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/app_content_margin">
 
-    <android.support.v7.widget.RecyclerView
+    <com.neulion.core.widget.recyclerview.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +15,10 @@
         android:fadeScrollbars="false"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dp"
-        android:overScrollMode="never" />
+        android:overScrollMode="never"
+        app:dividerColor="#00000000"
+        app:dividerSize="@dimen/home_list_divider"
+        app:orientation="vertical" />
 
     <Button
         android:id="@+id/settings_demo"

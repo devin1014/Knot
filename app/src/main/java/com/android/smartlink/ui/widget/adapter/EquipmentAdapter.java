@@ -6,11 +6,11 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.UIEquipment;
+import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
+import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -32,6 +32,12 @@ public class EquipmentAdapter extends BaseAdapter<UIEquipment>
     public DataBindingHolder<UIEquipment> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
         return new Holder(inflater, parent, R.layout.list_item_my_equipment, this);
+    }
+
+    @Override
+    protected int getLayout(int i)
+    {
+        return R.layout.list_item_my_equipment;
     }
 
     @Override

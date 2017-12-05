@@ -3,13 +3,12 @@ package com.android.smartlink.ui.model;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
-import com.android.devin.core.bean.UIDiffCompareObj;
-import com.android.devin.core.ui.widget.recyclerview.DiffContentAnnotation;
-import com.android.devin.core.ui.widget.recyclerview.DiffItemAnnotation;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
+import com.neulion.recyclerdiff.annotation.DiffContent;
+import com.neulion.recyclerdiff.annotation.DiffItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,7 +21,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent extends UIDiffCompareObj<UIEvent> implements Comparable<UIEvent>
+public class UIEvent implements Comparable<UIEvent>
 {
     private Event mSource;
 
@@ -67,31 +66,31 @@ public class UIEvent extends UIDiffCompareObj<UIEvent> implements Comparable<UIE
         mTextStatusColor = new int[]{normalColor, errorColor, warningColor};
     }
 
-    @DiffItemAnnotation
+    @DiffItem
     public int getId()
     {
         return mSource.getId();
     }
 
-    @DiffContentAnnotation
+    @DiffContent
     public String getName()
     {
         return mSource.getDescription();
     }
 
-    @DiffContentAnnotation
+    @DiffContent
     public String getTime()
     {
         return mDateTime;
     }
 
-    @DiffContentAnnotation
+    @DiffContent
     public String getDate()
     {
         return mDate;
     }
 
-    @DiffContentAnnotation
+    @DiffContent
     public int getStatus()
     {
         return mSource.getStatus();

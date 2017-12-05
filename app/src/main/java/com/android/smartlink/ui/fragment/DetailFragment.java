@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.devin.core.ui.widget.IndicatorView;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
@@ -26,6 +25,7 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.DataBindingAdapterUtil;
 import com.android.smartlink.util.HttpUrl;
+import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
 import com.umeng.analytics.MobclickAgent;
 
 import org.achartengine.GraphicalView;

@@ -12,7 +12,7 @@
 
         <variable
             name="handler"
-            type="com.android.devin.core.ui.widget.recyclerview.DataBindingHandler" />
+            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
 
     </data>
 

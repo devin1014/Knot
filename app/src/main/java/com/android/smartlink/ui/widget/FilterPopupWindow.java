@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.PopupWindow;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.widget.adapter.FilterAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
 
 import java.util.List;
 

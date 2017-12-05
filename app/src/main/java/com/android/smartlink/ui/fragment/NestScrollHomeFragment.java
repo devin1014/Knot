@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHandler;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
@@ -29,6 +28,7 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
+import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;

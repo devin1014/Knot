@@ -1,9 +1,7 @@
 package com.android.smartlink.ui.widget.adapter;
 
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
-import com.android.devin.core.ui.widget.recyclerview.DataBindingHolder;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIEvent;
 
@@ -20,8 +18,8 @@ public class EventsAdapter extends BaseAdapter<UIEvent>
     }
 
     @Override
-    public DataBindingHolder<UIEvent> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
+    protected int getLayout(int i)
     {
-        return new DataBindingHolder<>(inflater.inflate(R.layout.list_item_events, parent, false), this);
+        return R.layout.list_item_events;
     }
 }

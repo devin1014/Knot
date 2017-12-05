@@ -4,15 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
@@ -23,6 +18,9 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
 import com.android.smartlink.util.ConvertUtil;
+import com.neulion.core.widget.recyclerview.RecyclerView;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
@@ -59,10 +57,6 @@ public class SettingsFragment extends BaseSmartlinkFragment
     private void initComponent()
     {
         SettingsAdapter adapter;
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.home_list_divider)));
 
         mRecyclerView.setAdapter(adapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
 

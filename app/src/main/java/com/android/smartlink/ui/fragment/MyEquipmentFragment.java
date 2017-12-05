@@ -2,15 +2,10 @@ package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.devin.core.ui.widget.recyclerview.CommonItemDecoration;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter;
-import com.android.devin.core.ui.widget.recyclerview.DataBindingAdapter.OnItemClickListener;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.activity.EquipmentActivity;
@@ -18,6 +13,9 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIEquipment;
 import com.android.smartlink.ui.widget.adapter.EquipmentAdapter;
 import com.android.smartlink.util.ConvertUtil;
+import com.neulion.core.widget.recyclerview.RecyclerView;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
@@ -51,10 +49,6 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
 
     private void initComponent()
     {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mRecyclerView.addItemDecoration(new CommonItemDecoration(0, getResources().getDimensionPixelSize(R.dimen.settings_margin)));
-
         mAdapter = new EquipmentAdapter(getActivity().getLayoutInflater(), this);
 
         mAdapter.setData(ConvertUtil.convertEquipment(AppManager.getInstance().getEquipments()));

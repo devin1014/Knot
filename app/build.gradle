@@ -10,6 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
     buildTypes {
         release {
@@ -32,6 +37,8 @@ dependencies {
 
     compile project(':core')
 
+    compile(name: 'support_recyclerview_v1.0', ext: 'aar')
+
     compile("com.android.support:appcompat-v7:${SUPPORTLIBVERSION}")
     compile("com.android.support:design:${SUPPORTLIBVERSION}")
     compile("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
@@ -41,7 +48,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
 
-    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.umeng.analytics:analytics:6.1.2'
 
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
@@ -50,4 +57,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }

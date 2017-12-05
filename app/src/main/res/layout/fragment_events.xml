@@ -58,13 +58,16 @@
                 android:layout_marginTop="36dp"
                 android:background="#ffffff" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.neulion.core.widget.recyclerview.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
                 android:fadingEdgeLength="0dp"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                app:dividerColor="#00000000"
+                app:dividerSize="@dimen/events_list_divider"
+                app:orientation="vertical" />
 
         </RelativeLayout>
 
