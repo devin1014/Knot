@@ -45,6 +45,8 @@ public class AppManager
 
     private Weather mWeather;
 
+    private boolean mPhoneType;
+
     private AppManager(Application application)
     {
         mApplication = application;
@@ -52,6 +54,8 @@ public class AppManager
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
 
         mEquipmentManager = new EquipmentManager(application);
+
+        mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 640;
     }
 
     // -----------------------------------
@@ -74,6 +78,11 @@ public class AppManager
     public String[] getStringArray(int resId)
     {
         return mApplication.getResources().getStringArray(resId);
+    }
+
+    public boolean isPhone()
+    {
+        return mPhoneType;
     }
 
     // -----------------------------------
@@ -161,7 +170,7 @@ public class AppManager
 
     public boolean isDemoMode()
     {
-        return mSharedPreferences.getBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, true);
+        return mSharedPreferences.getBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, isPhone());
     }
 
     public void setDemoModeStatus(int status)

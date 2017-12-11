@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UITime" />
+
+        <variable
+            name="handler"
+            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="186dp"
+            android:layout_height="186dp">
+
+            <com.android.smartlink.ui.widget.CircleView
+                android:layout_width="186dp"
+                android:layout_height="186dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                app:circleBackgroundColor="#33000000"
+                app:circleBorderColor="#d9d9d9"
+                app:circleBorderWidth="5dp"
+                app:circleProgress="100"
+                app:circleProgressColor="#1edbb1" />
+
+            <TextView
+                android:id="@+id/clock_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@{data.time}"
+                android:textColor="#ffffff"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/clock_time"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:text="@{data.AMOrPM}"
+                android:textColor="#ffffff"
+                android:textSize="14dp"
+                tools:ignore="SpUsage" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clock"
+            android:textColor="#ffffff"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#bbffffff"
+            android:textSize="14dp"
+            android:visibility="invisible"
+            tools:ignore="SpUsage" />
+
+    </LinearLayout>
+
+</layout>

@@ -10,7 +10,14 @@
 
     <style name="AppTheme" parent="BaseAppTheme" />
 
-    <style name="AppTheme.FullScreen" parent="BaseAppTheme">
+    <style name="AppTheme.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--<item name="statusBarColor">@android:color/transparent</item>-->
+        <item name="android:windowContentOverlay">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.FullScreen.NoNavigation">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <!--<item name="statusBarColor">@android:color/transparent</item>-->

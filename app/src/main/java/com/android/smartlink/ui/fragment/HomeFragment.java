@@ -40,7 +40,7 @@ import butterknife.BindView;
  * Date: 2017-10-27
  * Time: 10:18
  */
-public class NestScrollHomeFragment extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
+public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
 {
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -69,7 +69,7 @@ public class NestScrollHomeFragment extends BaseSmartlinkFragment implements Req
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_nestscroll_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override

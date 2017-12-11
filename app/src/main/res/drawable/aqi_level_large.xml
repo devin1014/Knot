@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/aqi_you_l"
+        android:maxLevel="50"
+        android:minLevel="0" />
+
+    <item
+        android:drawable="@drawable/aqi_liang_l"
+        android:maxLevel="100"
+        android:minLevel="51" />
+
+    <item
+        android:drawable="@drawable/aqi_zhong_l"
+        android:maxLevel="200"
+        android:minLevel="101" />
+
+    <item
+        android:drawable="@drawable/aqi_cha_l"
+        android:maxLevel="300"
+        android:minLevel="201" />
+
+    <item
+        android:drawable="@drawable/aqi_jicha_l"
+        android:maxLevel="99999"
+        android:minLevel="301" />
+
+</level-list>

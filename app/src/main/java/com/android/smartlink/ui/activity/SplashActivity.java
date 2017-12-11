@@ -3,6 +3,7 @@ package com.android.smartlink.ui.activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.InitializeTask;
 import com.android.smartlink.assist.InitializeTask.InitializeTaskCallback;
 import com.umeng.analytics.MobclickAgent;
@@ -28,6 +30,8 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        setRequestedOrientation(AppManager.getInstance().isPhone() ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         setContentView(R.layout.activity_splash);
 
@@ -78,7 +82,7 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
         {
             finish();
 
-            startActivity(new Intent(this, WelcomeActivity.class));
+            startActivity(new Intent(this, AppManager.getInstance().isPhone() ? WelcomeActivity.class : MainActivityTablet.class));
         }
         else
         {
