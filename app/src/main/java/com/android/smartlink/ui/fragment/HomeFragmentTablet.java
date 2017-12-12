@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AlertNotifyManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherProvider;
@@ -26,6 +27,7 @@ import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UITime;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,27 +118,23 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mClockHandler.removeMessage();
 
+        AlertNotifyManager.removeAllNotification(getActivity());
+
         super.onDestroyView();
     }
 
     @Override
     public void onResponse(Modules modules)
     {
-        UIModule mainModule = new UIModule(modules.getModules().get(0));
+        boolean alarm = false;
 
-        mMainModuleBinding.setVariable(BR.data, mainModule);
+        List<UIModule> moduleList = new ArrayList<>();
 
-        mMainModuleBinding.executePendingBindings();
-
-        boolean alarm = mainModule.isAlarm();
-
-        List<UIModule> list = new ArrayList<>();
-
-        for (int i = 1; i < modules.getModules().size(); i++)
+        for (int i = 0; i < modules.getModules().size(); i++)
         {
             UIModule m = new UIModule(modules.getModules().get(i));
 
-            list.add(m);
+            moduleList.add(m);
 
             if (!alarm)
             {
@@ -144,21 +142,29 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
             }
         }
 
+        mMainModuleBinding.setVariable(BR.data, moduleList.get(0));
+
+        mMainModuleBinding.executePendingBindings();
+
         if (mClockMode && !alarm)
         {
             resetClock();
         }
         else
         {
-            resetModules(list);
+            resetModules(moduleList, 1, moduleList.size());
 
             if (!alarm)
             {
                 mClockHandler.sendMessage(60 * 1000);
+
+                AlertNotifyManager.removeAllNotification(getActivity());
             }
             else
             {
                 mClockHandler.removeMessage();
+
+                AlertNotifyManager.showNotification(getActivity(), moduleList);
             }
         }
     }
@@ -186,6 +192,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     private void resetClock()
     {
+        ScreenUtil.showClock(getActivity());
+
         mClockBinding.setVariable(BR.data, new UITime());
 
         mClockBinding.executePendingBindings();
@@ -195,12 +203,17 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mModuleContainer.setVisibility(View.GONE);
     }
 
-    private void resetModules(List<UIModule> modules)
+    @SuppressWarnings("SameParameterValue")
+    private void resetModules(List<UIModule> modules, int start, int end)
     {
+        ScreenUtil.showModule(getActivity());
+
         mModuleContainer.removeAllViews();
 
-        for (UIModule m : modules)
+        for (int i = start; i < end; i++)
         {
+            UIModule m = modules.get(i);
+
             View inflate = getActivity().getLayoutInflater().inflate(R.layout.comp_module_item, mModuleContainer, false);
 
             mModuleContainer.addView(inflate);

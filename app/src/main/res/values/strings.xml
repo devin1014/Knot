@@ -38,6 +38,10 @@
     <string name="module_status_error">故障</string>
     <string name="confirm_exit_app">再按一次退出China Knot</string>
 
+    <string name="notify_alarm">%1$s回路负载过高</string>
+    <string name="notify_error">%1$s回路发生故障</string>
+    <string name="notify_description">请及时检查相关设备</string>
+
     <!--演示设置-->
     <string name="demo_main_module">总回路</string>
     <string name="demo_freezer_module">冰箱回路</string>
