@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
+import com.android.smartlink.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -28,6 +29,8 @@ public abstract class BaseSmartlinkActivityTablet extends AppCompatActivity impl
     protected final void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.resetOrientation(this);
 
         setContentView(getLayoutId());
 

@@ -61,7 +61,7 @@ public class AlertNotifyManager
 
         Notification.Builder builder = new Builder(context);
 
-        builder.setSmallIcon(R.drawable.logo_schneider)
+        builder.setSmallIcon(R.drawable.ic_logo)
 
                 .setWhen(SystemClock.currentThreadTimeMillis())
 
@@ -75,20 +75,13 @@ public class AlertNotifyManager
 
         //noinspection ConstantConditions
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(ID_NOTIFY, builder.getNotification());
-
-        //        Notification notification = new Notification(R.drawable.logo_schneider, stringBuilder.toString(), SystemClock.currentThreadTimeMillis());
-        //
-        //        notification.defaults = Notification.DEFAULT_SOUND;
-        //
-        //        NotificationManagerCompat.from(context).notify(ID_NOTIFY, notification);
     }
 
     public static void removeAllNotification(Context context)
     {
-        //        NotificationManagerCompat.from(context).cancel(ID_NOTIFY);
+        sNotifyIndex = 0;
+
         //noinspection ConstantConditions
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(ID_NOTIFY);
-
-        sNotifyIndex = 0;
     }
 }

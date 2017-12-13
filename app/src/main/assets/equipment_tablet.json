@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "equipments": [
+    {
+      "id": 151,
+      "name": "总回路",
+      "icon": "ic_group_electrical_large",
+      "icon_light": "ic_group_electrical_white_large"
+    },
+    {
+      "id": 150,
+      "name": "冰箱回路",
+      "icon": "ic_group_freezer_large",
+      "icon_light": "ic_group_freezer_white_large"
+    },
+    {
+      "id": 152,
+      "name": "插座回路",
+      "icon": "ic_group_oven_large",
+      "icon_light": "ic_group_oven_white_large"
+    }
+  ]
+}

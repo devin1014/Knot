@@ -53,11 +53,13 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
         final long timeStamp = SystemClock.uptimeMillis();
 
+        boolean isPhone = AppManager.getInstance().isPhone();
+
         Gson gson = new Gson();
 
         try
         {
-            Equipments equipments = gson.fromJson(new InputStreamReader(mAssetManager.open("equipment.json")), Equipments.class);
+            Equipments equipments = gson.fromJson(new InputStreamReader(mAssetManager.open(isPhone ? "equipment.json" : "equipment_tablet.json")), Equipments.class);
 
             AppManager.getInstance().setEquipments(equipments);
         }

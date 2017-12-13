@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.util.Utils;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -18,6 +19,8 @@ public class DispatchActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.resetOrientation(this);
 
         finish();
 

@@ -4,6 +4,8 @@
     <!-- ******************************************************************************************************************************* -->
     <!-- MaterialCircularProgressBar -->
     <!-- ******************************************************************************************************************************* -->
+    <attr name="circleBorderWidth" format="reference|dimension" />
+
     <declare-styleable name="MaterialCircularProgressBar">
         <attr name="android:color" />
     </declare-styleable>
@@ -15,10 +17,16 @@
 
     <declare-styleable name="CircleView">
         <attr name="circleBorderColor" format="reference|color" />
-        <attr name="circleBorderWidth" format="reference|dimension" />
+        <attr name="circleBorderWidth" />
         <attr name="circleProgress" format="reference|integer" />
         <attr name="circleProgressColor" format="reference|color" />
         <attr name="circleBackgroundColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleViewTablet">
+        <attr name="circleColor" format="reference|color" />
+        <attr name="circleBorderWidth" />
+        <attr name="circleGradientWidth" format="reference|dimension" />
     </declare-styleable>
 
     <declare-styleable name="LinearLayoutWithLine">

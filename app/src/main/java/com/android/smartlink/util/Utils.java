@@ -1,9 +1,13 @@
 package com.android.smartlink.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+
+import com.android.smartlink.application.manager.AppManager;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -40,6 +44,11 @@ public class Utils
         }
 
         return null;
+    }
+
+    public static void resetOrientation(Activity activity)
+    {
+        activity.setRequestedOrientation(AppManager.getInstance().isPhone() ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     public static float[] getPast30Days()

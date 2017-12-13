@@ -11,6 +11,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.assist.FragmentNavigationComposite;
 import com.android.smartlink.assist.FragmentNavigationComposite.FragmentNavigationCompositeCallback;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
@@ -44,6 +45,8 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
     protected final void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.resetOrientation(this);
 
         setContentView(getLayoutId());
 

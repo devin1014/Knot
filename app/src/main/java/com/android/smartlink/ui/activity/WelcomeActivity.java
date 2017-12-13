@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
 public class WelcomeActivity extends AppCompatActivity implements OnClickListener
@@ -17,6 +18,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.resetOrientation(this);
 
         setContentView(R.layout.activity_welcome);
 
