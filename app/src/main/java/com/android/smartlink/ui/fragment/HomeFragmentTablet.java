@@ -108,8 +108,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mLoadingLayout.showContent();
-
         mWeatherRoot.setKeepScreenOn(true);
 
         mWeatherProvider = new WeatherProvider(getActivity(), mWeatherRequestCallback);
@@ -122,6 +120,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+
+        mLoadingLayout.showLoading();
     }
 
     @Override
@@ -143,6 +143,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     @Override
     public void onResponse(Modules modules)
     {
+        mLoadingLayout.showContent();
+
         mSwipeRefreshLayout.setRefreshing(false);
 
         boolean alarm = false;
@@ -193,6 +195,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     @Override
     public void onError(Throwable throwable)
     {
+        mLoadingLayout.showMessage(getString(R.string.request_data_error));
+
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

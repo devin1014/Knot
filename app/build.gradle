@@ -36,7 +36,10 @@ android {
 
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    outputFileName = "chinaknot_" + productFlavors[0].name + "_v" + "${releaseTime()}.apk"
+
+                    def type = productFlavors[0].name.contains("app") ? "" : "_compat"
+
+                    outputFileName = "chinaknot" + type + "_v" + "${releaseTime()}.apk"
                 }
             }
         }
@@ -45,13 +48,13 @@ android {
     flavorDimensions("device")
 
     productFlavors {
-        phone {
+        app {
             applicationId "com.android.smartlink"
             dimension "device"
             resValue("string", "app_name", "China Knot")
         }
 
-        pad {
+        tabletCompat {
             applicationId "com.android.smartlink.pad"
             dimension "device"
             resValue("string", "app_name", "China Knot Display")
