@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 26
     buildToolsVersion '26.0.3'
+
     defaultConfig {
         applicationId "com.android.smartlink"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -16,10 +19,42 @@ android {
             }
         }
     }
+
+    signingConfigs {
+        release {
+            storeFile file(project.hasProperty("store_file") ? store_file : RELEASE_STORE_FILE)
+            storePassword(project.hasProperty('store_password') ? store_password : RELEASE_STORE_PASSWORD)
+            keyAlias(project.hasProperty('key_alias') ? key_alias : RELEASE_KEY_ALIAS)
+            keyPassword(project.hasProperty('key_password') ? key_password : RELEASE_KEY_PASSWORD)
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            android.applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    outputFileName = "chinaknot_" + productFlavors[0].name + "_v" + "${releaseTime()}.apk"
+                }
+            }
+        }
+    }
+
+    flavorDimensions("device")
+
+    productFlavors {
+        phone {
+            applicationId "com.android.smartlink"
+            dimension "device"
+            resValue("string", "app_name", "China Knot")
+        }
+
+        pad {
+            applicationId "com.android.smartlink.pad"
+            dimension "device"
+            resValue("string", "app_name", "China Knot Display")
         }
     }
 
@@ -28,8 +63,8 @@ android {
     }
 }
 
-ext {
-    SUPPORTLIBVERSION = '26.1.0'
+static def releaseTime() {
+    return new Date().format("MMdd", TimeZone.getTimeZone("GMT+8"))
 }
 
 dependencies {
