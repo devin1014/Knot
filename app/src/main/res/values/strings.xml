@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">China Knot</string>
+    <!--<string name="app_name">China Knot</string>-->
     <string name="app_name_uppercase">CHINA KNOT</string>
     <string name="app_launch_failed">程序启动失败</string>
     <string name="location">地址</string>
@@ -38,8 +38,8 @@
     <string name="module_status_error">故障</string>
     <string name="confirm_exit_app">再按一次退出China Knot</string>
 
-    <string name="notify_alarm">%1$s回路负载过高</string>
-    <string name="notify_error">%1$s回路发生故障</string>
+    <string name="notify_alarm">%1$s负载过高</string>
+    <string name="notify_error">%1$s发生故障</string>
     <string name="notify_description">请及时检查相关设备</string>
 
     <!--演示设置-->

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,12 @@ import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherProvider;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.ui.activity.MainActivityTablet;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UITime;
 import com.android.smartlink.ui.model.UIWeather;
+import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.ScreenUtil;
 
@@ -33,14 +37,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-12-05
  * Time: 18:05
  */
-public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<Modules>
+public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
 {
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @BindView(R.id.loading_layout)
+    LoadingLayout mLoadingLayout;
+
     @BindView(R.id.weather_root)
     View mWeatherRoot;
 
@@ -95,6 +106,10 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mClockBinding = DataBindingUtil.bind(mClockView);
 
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mLoadingLayout.showContent();
+
         mWeatherRoot.setKeepScreenOn(true);
 
         mWeatherProvider = new WeatherProvider(getActivity(), mWeatherRequestCallback);
@@ -118,6 +133,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mClockHandler.removeMessage();
 
+        mSwipeRefreshLayout.setRefreshing(false);
+
         AlertNotifyManager.removeAllNotification(getActivity());
 
         super.onDestroyView();
@@ -126,6 +143,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     @Override
     public void onResponse(Modules modules)
     {
+        mSwipeRefreshLayout.setRefreshing(false);
+
         boolean alarm = false;
 
         List<UIModule> moduleList = new ArrayList<>();
@@ -167,11 +186,35 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
                 AlertNotifyManager.showNotification(getActivity(), moduleList);
             }
         }
+
+        ((MainActivityTablet) getActivity()).hideNavigationBar();
     }
 
     @Override
     public void onError(Throwable throwable)
     {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh()
+    {
+        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+    }
+
+    @OnClick(R.id.home_main_container)
+    public void onMainContainerClick()
+    {
+        if (mClockMode)
+        {
+            mModuleContainer.setVisibility(View.VISIBLE);
+
+            mClockView.setVisibility(View.GONE);
+
+            mClockMode = false;
+
+            ScreenUtil.showModule(getActivity());
+        }
     }
 
     private RequestCallback<Weather> mWeatherRequestCallback = new RequestCallback<Weather>()
@@ -179,6 +222,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         @Override
         public void onResponse(Weather weather)
         {
+            mSwipeRefreshLayout.setRefreshing(false);
+
             mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
 
             mWeatherBinding.executePendingBindings();
@@ -187,6 +232,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         @Override
         public void onError(Throwable throwable)
         {
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     };
 

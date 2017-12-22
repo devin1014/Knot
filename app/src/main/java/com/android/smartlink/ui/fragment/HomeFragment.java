@@ -147,7 +147,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     @Override
     public void onRefresh()
     {
-        mRequestProvider.request(HttpUrl.getHomeUrl());
+        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         //fixme,location=shanghai
         mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));

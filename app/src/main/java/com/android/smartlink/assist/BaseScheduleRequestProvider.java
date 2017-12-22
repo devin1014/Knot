@@ -17,12 +17,17 @@ public abstract class BaseScheduleRequestProvider<T> extends BaseRequestProvider
     BaseScheduleRequestProvider(Activity activity, RequestCallback<T> callback)
     {
         super(activity, callback);
-
-        mTimer = new Timer();
     }
 
     public void schedule(final String url, long delay, long interval)
     {
+        if (mTimer != null)
+        {
+            mTimer.cancel();
+        }
+
+        mTimer = new Timer();
+
         mTimer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
@@ -39,7 +44,10 @@ public abstract class BaseScheduleRequestProvider<T> extends BaseRequestProvider
     @Override
     public void destroy()
     {
-        mTimer.cancel();
+        if (mTimer != null)
+        {
+            mTimer.cancel();
+        }
 
         super.destroy();
     }

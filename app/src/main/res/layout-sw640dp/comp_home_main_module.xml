@@ -22,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -31,6 +30,7 @@
             android:layout_height="186dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
+            android:src="@drawable/ic_group_electrical_white_large"
             app:circleBorderColor="#d9d9d9"
             app:circleBorderWidth="8dp"
             app:circleProgress="@{data.powerLoad}"
