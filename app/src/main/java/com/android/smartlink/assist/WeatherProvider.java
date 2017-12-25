@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.android.devin.core.util.IOUtils;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.bean.Weather.WeatherBasic;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
@@ -57,13 +58,13 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     {
         if (AppManager.getInstance().getWeather() != null)
         {
-            notifyResponse(AppManager.getInstance().getWeather());
+            if (!needUpdate(AppManager.getInstance().getWeather()))
+            {
+                notifyResponse(AppManager.getInstance().getWeather());
 
-            return;
+                return;
+            }
         }
-
-        // call local first
-        getFromLocal(url);
 
         OkGo.getInstance().cancelTag(this);
 
@@ -72,6 +73,15 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
                 .tag(this)
 
                 .execute(new ResponseCallback());
+    }
+
+    private boolean needUpdate(Weather weather)
+    {
+        WeatherBasic weatherBasic = weather.getBasic();
+
+        long duration = System.currentTimeMillis() - weatherBasic.getUpdateTime().getTime();
+
+        return duration < 0 || duration > 6 * 60 * 60 * 1000;
     }
 
     @Override
@@ -86,6 +96,15 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
         super.notifyResponse(weather);
 
         AppManager.getInstance().setWeather(weather);
+    }
+
+    @Override
+    protected void notifyResponse(Throwable throwable)
+    {
+        super.notifyResponse(throwable);
+
+        // call local first
+        getFromLocal("null");
     }
 
     @Override

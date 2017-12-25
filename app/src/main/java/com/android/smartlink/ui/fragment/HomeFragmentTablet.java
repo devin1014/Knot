@@ -12,8 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
@@ -21,7 +19,8 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AlertNotifyManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
-import com.android.smartlink.assist.WeatherProvider;
+import com.android.smartlink.assist.WeatherManager;
+import com.android.smartlink.assist.WeatherManager.WeatherCallback;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.MainActivityTablet;
@@ -30,8 +29,10 @@ import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UITime;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
+import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
 import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.ScreenUtil;
+import com.neulion.core.widget.recyclerview.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,21 +56,18 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     @BindView(R.id.weather_root)
     View mWeatherRoot;
 
-    @BindView(R.id.home_location)
-    TextView mLocation;
-
     @BindView(R.id.home_main_module)
     View mMainModuleView;
 
     @BindView(R.id.home_clock_panel)
     View mClockView;
 
-    @BindView(R.id.home_module_container)
-    LinearLayout mModuleContainer;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
 
     private MainRequestProvider mRequestProvider;
 
-    private WeatherProvider mWeatherProvider;
+    private WeatherManager mWeatherManager;
 
     private ViewDataBinding mWeatherBinding;
 
@@ -78,6 +76,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     private ViewDataBinding mClockBinding;
 
     private ClockHandler mClockHandler;
+
+    private ModuleAdapterTablet mModuleAdapter;
 
     private boolean mClockMode = false;
 
@@ -108,26 +108,25 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mWeatherRoot.setKeepScreenOn(true);
+        mMainModuleView.setKeepScreenOn(true);
 
-        mWeatherProvider = new WeatherProvider(getActivity(), mWeatherRequestCallback);
+        mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapterTablet(getLayoutInflater()));
 
-        //fixme,location = shanghai
-        mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));
+        mLoadingLayout.showLoading();
 
-        mLocation.setText("上海");
+        mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
+
+        mWeatherManager.requestWeather();
 
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
-
-        mLoadingLayout.showLoading();
     }
 
     @Override
     public void onDestroyView()
     {
-        mWeatherProvider.destroy();
+        mWeatherManager.destroy();
 
         mRequestProvider.destroy();
 
@@ -163,9 +162,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
             }
         }
 
-        mMainModuleBinding.setVariable(BR.data, moduleList.get(0));
-
-        mMainModuleBinding.executePendingBindings();
+        resetMainModule(moduleList.get(0));
 
         if (mClockMode && !alarm)
         {
@@ -204,14 +201,16 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     public void onRefresh()
     {
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+
+        mWeatherManager.requestWeather();
     }
 
-    @OnClick(R.id.home_main_container)
+    @OnClick(R.id.loading_layout)
     public void onMainContainerClick()
     {
         if (mClockMode)
         {
-            mModuleContainer.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
 
             mClockView.setVisibility(View.GONE);
 
@@ -221,22 +220,16 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         }
     }
 
-    private RequestCallback<Weather> mWeatherRequestCallback = new RequestCallback<Weather>()
+    private WeatherCallback mWeatherCallback = new WeatherCallback()
     {
         @Override
-        public void onResponse(Weather weather)
+        public void onWeatherResponse(Weather weather)
         {
             mSwipeRefreshLayout.setRefreshing(false);
 
             mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
 
             mWeatherBinding.executePendingBindings();
-        }
-
-        @Override
-        public void onError(Throwable throwable)
-        {
-            mSwipeRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -250,7 +243,14 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mClockView.setVisibility(View.VISIBLE);
 
-        mModuleContainer.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.GONE);
+    }
+
+    private void resetMainModule(UIModule module)
+    {
+        mMainModuleBinding.setVariable(BR.data, module);
+
+        mMainModuleBinding.executePendingBindings();
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -258,24 +258,9 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         ScreenUtil.showModule(getActivity());
 
-        mModuleContainer.removeAllViews();
+        mModuleAdapter.setData(modules.subList(start, end));
 
-        for (int i = start; i < end; i++)
-        {
-            UIModule m = modules.get(i);
-
-            View inflate = getActivity().getLayoutInflater().inflate(R.layout.comp_module_item, mModuleContainer, false);
-
-            mModuleContainer.addView(inflate);
-
-            ViewDataBinding viewDataBinding = DataBindingUtil.bind(inflate);
-
-            viewDataBinding.setVariable(BR.data, m);
-
-            viewDataBinding.executePendingBindings();
-        }
-
-        mModuleContainer.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
 
         mClockView.setVisibility(View.GONE);
 

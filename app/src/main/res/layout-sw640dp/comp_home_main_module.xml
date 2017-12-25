@@ -12,10 +12,6 @@
             name="data"
             type="com.android.smartlink.ui.model.UIModule" />
 
-        <variable
-            name="handler"
-            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
-
     </data>
 
     <LinearLayout

@@ -9,6 +9,8 @@ import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Equipments.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.util.ViewUtil;
+import com.neulion.recyclerdiff.annotation.DiffContent;
+import com.neulion.recyclerdiff.annotation.DiffItem;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -21,6 +23,15 @@ import java.text.DecimalFormat;
 public class UIModule implements Serializable
 {
     private static final long serialVersionUID = 179763754284831614L;
+
+    @DiffItem
+    int mId;
+
+    @DiffContent
+    int mStatus;
+
+    @DiffContent
+    String mEnergy;
 
     private Module mModule;
 
@@ -41,6 +52,12 @@ public class UIModule implements Serializable
         mModule = module;
 
         POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.format_power);
+
+        mId = module.getId();
+
+        mEnergy = module.getEnergy();
+
+        mStatus = module.getStatus();
 
         Resources resources = AppManager.getInstance().getApplication().getResources();
 
@@ -132,6 +149,7 @@ public class UIModule implements Serializable
         return adjustStatus();
     }
 
+    @DiffContent
     public int getPowerLoad()
     {
         return mPowerLoad;

@@ -22,10 +22,6 @@ android {
     }
 }
 
-ext {
-    SUPPORTLIBVERSION = '26.1.0'
-}
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 

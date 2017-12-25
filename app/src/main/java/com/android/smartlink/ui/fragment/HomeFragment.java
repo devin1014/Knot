@@ -9,29 +9,29 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
-import com.android.smartlink.assist.WeatherProvider;
+import com.android.smartlink.assist.WeatherManager;
 import com.android.smartlink.bean.Modules;
-import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
+import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
+import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
 import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
-import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
+import com.neulion.core.widget.recyclerview.RecyclerView;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
 import com.umeng.analytics.MobclickAgent;
-
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -48,8 +48,8 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
 
-    @BindView(R.id.content_container)
-    LinearLayout mContentContainer;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
 
     @BindView(R.id.weather_root)
     View mWeatherRoot;
@@ -59,11 +59,13 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
     private MainRequestProvider mRequestProvider;
 
-    private WeatherProvider mWeatherProvider;
-
     private ViewDataBinding mWeatherBinding;
 
     private ModuleStatusLayout mModuleStatusLayout;
+
+    private ModuleAdapter mModuleAdapter;
+
+    private WeatherManager mWeatherManager;
 
     @Nullable
     @Override
@@ -86,16 +88,19 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
+        mRecyclerView.setLayoutManager(new MyGridLayoutManager(getActivity()));
+
+        mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapter(getLayoutInflater(), mOnItemClickListener));
+
+        mLoadingLayout.showLoading();
+
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
-        mWeatherProvider = new WeatherProvider(getActivity(), mWeatherRequestCallback);
+        mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
 
-        //fixme,location = shanghai
-        mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));
-
-        mLoadingLayout.showLoading();
+        mWeatherManager.requestWeather();
     }
 
     @Override
@@ -119,7 +124,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         mRequestProvider.destroy();
 
-        mWeatherProvider.destroy();
+        mWeatherManager.destroy();
 
         mSwipeRefreshLayout.setRefreshing(false);
 
@@ -133,7 +138,9 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        resetModulesView(modules.getModules());
+        mModuleStatusLayout.setModules(modules.getModules());
+
+        mModuleAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
     }
 
     @Override
@@ -149,101 +156,22 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
-        //fixme,location=shanghai
-        mWeatherProvider.request(HttpUrl.getWeatherUrl(getActivity(), "shanghai"));
+        mWeatherManager.requestWeather();
     }
 
-    private DataBindingHandler<UIModule> mDataBindingHandler = new DataBindingHandler<UIModule>()
+    private OnItemClickListener<UIModule> mOnItemClickListener = new OnItemClickListener<UIModule>()
     {
         @Override
-        public void onItemClick(View view, UIModule uiModule)
+        public void onItemClick(DataBindingAdapter<UIModule> dataBindingAdapter, View view, UIModule uiModule, int i)
         {
             DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
         }
     };
 
-    private void resetModulesView(List<Module> modules)
-    {
-        mContentContainer.removeAllViews();
-
-        // status
-        mModuleStatusLayout.setModules(modules);
-
-        int index = 0;
-
-        // main module
-        {
-            View view = getActivity().getLayoutInflater().inflate(R.layout.comp_home_main_module, mContentContainer, false);
-
-            mContentContainer.addView(view);
-
-            ViewDataBinding mainViewDataBinding = DataBindingUtil.bind(view);
-
-            mainViewDataBinding.setVariable(BR.data, new UIModule(modules.get(index)));
-
-            mainViewDataBinding.setVariable(BR.handler, mDataBindingHandler);
-
-            mainViewDataBinding.executePendingBindings();
-
-            index++;
-        }
-
-        int size = modules.size() - 1;
-
-        while (size >= 6 || (size >= 3 && size % 3 != 1))
-        {
-            addModules(modules, index, 3);
-
-            index = index + 3;
-
-            size = size - 3;
-        }
-
-        while (size != 0 && size % 2 == 0)
-        {
-            addModules(modules, index, 2);
-
-            index = index + 2;
-
-            size = size - 2;
-        }
-
-        if (size == 1)
-        {
-            addModules(modules, index, 1);
-        }
-    }
-
-    private void addModules(List<Module> modules, int start, int count)
-    {
-        int layoutId = R.layout.comp_home_module_one;
-
-        if (count == 3)
-        {
-            layoutId = R.layout.comp_home_module_three;
-        }
-        else if (count == 2)
-        {
-            layoutId = R.layout.comp_home_module_two;
-        }
-
-        View inflate = getActivity().getLayoutInflater().inflate(layoutId, mContentContainer, false);
-
-        mContentContainer.addView(inflate);
-
-        ViewDataBinding viewDataBinding = DataBindingUtil.bind(inflate);
-
-        viewDataBinding.setVariable(BR.data, ConvertUtil.convertModule(modules, start, start + count));
-
-        viewDataBinding.setVariable(BR.handler, mDataBindingHandler);
-
-        viewDataBinding.executePendingBindings();
-    }
-
-    private RequestCallback<Weather> mWeatherRequestCallback = new RequestCallback<Weather>()
+    private WeatherManager.WeatherCallback mWeatherCallback = new WeatherManager.WeatherCallback()
     {
         @Override
-        public void onResponse(Weather weather)
+        public void onWeatherResponse(Weather weather)
         {
             if (mWeatherBinding == null)
             {
@@ -253,11 +181,6 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
             mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
 
             mWeatherBinding.executePendingBindings();
-        }
-
-        @Override
-        public void onError(Throwable throwable)
-        {
         }
     };
 

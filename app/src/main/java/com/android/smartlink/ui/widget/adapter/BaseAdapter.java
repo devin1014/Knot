@@ -3,14 +3,14 @@ package com.android.smartlink.ui.widget.adapter;
 import android.view.LayoutInflater;
 
 import com.android.smartlink.BR;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-10-17
  * Time: 16:24
  */
-abstract class BaseAdapter<T> extends DataBindingAdapter<T>
+abstract class BaseAdapter<T> extends DiffDataBindingAdapter<T>
 {
     BaseAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
     {

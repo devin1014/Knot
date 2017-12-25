@@ -130,7 +130,7 @@ public class Weather implements Serializable
             return city;
         }
 
-        public String getCnty()
+        public String getCountry()
         {
             return cnty;
         }

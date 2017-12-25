@@ -88,6 +88,11 @@ public class UIWeather
         return getImage(mWeather.getDaily_forecast().get(2).getCond());
     }
 
+    public String getLocation()
+    {
+        return mWeather.getBasic().getCity();
+    }
+
     private String getImage(WeatherCond cond)
     {
         int code = cond.getCode();

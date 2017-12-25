@@ -41,7 +41,7 @@
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/location_ic"
             android:gravity="bottom"
-            android:text="@string/location"
+            android:text="@{data.location}"
             android:textColor="#ffffff"
             android:textSize="18dp" />
 
@@ -50,10 +50,11 @@
             android:id="@+id/api_group"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="50dp"
             android:layout_marginStart="50dp"
-            android:layout_toEndOf="@id/home_location"
-            android:layout_toRightOf="@id/home_location"
+            android:layout_toEndOf="@+id/home_location"
+            android:layout_toRightOf="@+id/home_location"
             android:gravity="center"
             android:orientation="vertical">
 

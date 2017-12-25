@@ -5,6 +5,7 @@
     <string name="app_launch_failed">程序启动失败</string>
     <string name="location">地址</string>
     <string name="clock">时钟</string>
+    <string name="null_format">--</string>
 
     <string name="ui_ok">确定</string>
     <string name="ui_cancel">取消</string>

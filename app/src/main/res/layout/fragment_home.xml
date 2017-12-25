@@ -12,33 +12,25 @@
         android:layout_height="match_parent"
         app:loading_layout="@layout/comp_loading_layout">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/app_content_margin">
 
-            <LinearLayout
+            <include layout="@layout/list_item_home_weather" />
+
+            <FrameLayout
+                android:id="@+id/module_status"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/app_content_margin">
+                android:layout_height="wrap_content" />
 
-                <include layout="@layout/list_item_home_weather" />
+            <com.neulion.core.widget.recyclerview.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-                <FrameLayout
-                    android:id="@+id/module_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/content_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
 
     </com.android.smartlink.ui.widget.LoadingLayout>
 
