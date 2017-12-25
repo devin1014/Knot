@@ -54,7 +54,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     LoadingLayout mLoadingLayout;
 
     @BindView(R.id.weather_root)
-    View mWeatherRoot;
+    View mWeatherView;
 
     @BindView(R.id.home_main_module)
     View mMainModuleView;
@@ -100,7 +100,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mClockHandler = new ClockHandler();
 
-        mWeatherBinding = DataBindingUtil.bind(mWeatherRoot);
+        mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
         mMainModuleBinding = DataBindingUtil.bind(mMainModuleView);
 

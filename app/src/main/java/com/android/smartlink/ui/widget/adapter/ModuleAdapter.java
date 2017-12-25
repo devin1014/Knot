@@ -24,10 +24,10 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
     {
         if (type == 0) // first item always main module
         {
-            return R.layout.comp_home_main_module;
+            return R.layout.item_home_main_module;
         }
 
-        return R.layout.comp_home_module_one;
+        return R.layout.item_home_module;
     }
 
     @Override

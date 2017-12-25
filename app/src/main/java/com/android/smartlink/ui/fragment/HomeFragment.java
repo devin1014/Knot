@@ -52,7 +52,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     RecyclerView mRecyclerView;
 
     @BindView(R.id.weather_root)
-    View mWeatherRoot;
+    View mWeatherView;
 
     @BindView(R.id.module_status)
     ViewGroup mModuleStatus;
@@ -175,7 +175,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         {
             if (mWeatherBinding == null)
             {
-                mWeatherBinding = DataBindingUtil.bind(mWeatherRoot);
+                mWeatherBinding = DataBindingUtil.bind(mWeatherView);
             }
 
             mWeatherBinding.setVariable(BR.data, new UIWeather(weather));

@@ -22,7 +22,7 @@ public class ModuleAdapterTablet extends BaseAdapter<UIModule>
     @Override
     protected int getLayout(int type)
     {
-        return R.layout.comp_home_module_one_tablet;
+        return R.layout.item_home_module;
     }
 
     @Override
