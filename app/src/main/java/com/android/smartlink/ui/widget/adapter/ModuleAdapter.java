@@ -1,11 +1,9 @@
 package com.android.smartlink.ui.widget.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIModule;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -28,12 +26,6 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
         }
 
         return R.layout.item_home_module;
-    }
-
-    @Override
-    protected void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
-    {
-        super.onItemClick(adapter, view, uiModule, position);
     }
 
     @Override

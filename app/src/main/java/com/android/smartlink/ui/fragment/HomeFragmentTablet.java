@@ -79,6 +79,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     private ModuleAdapterTablet mModuleAdapter;
 
+    private AlertNotifyManager mAlertManager;
+
     private boolean mClockMode = false;
 
     @Nullable
@@ -99,6 +101,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     private void initComponent()
     {
         mClockHandler = new ClockHandler();
+
+        mAlertManager = new AlertNotifyManager(getActivity());
 
         mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
@@ -124,6 +128,14 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     }
 
     @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        mAlertManager.removeAllNotification(getActivity());
+    }
+
+    @Override
     public void onDestroyView()
     {
         mWeatherManager.destroy();
@@ -133,8 +145,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mClockHandler.removeMessage();
 
         mSwipeRefreshLayout.setRefreshing(false);
-
-        AlertNotifyManager.removeAllNotification(getActivity());
 
         super.onDestroyView();
     }
@@ -176,13 +186,13 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
             {
                 mClockHandler.sendMessage(60 * 1000);
 
-                AlertNotifyManager.removeAllNotification(getActivity());
+                mAlertManager.removeAllNotification(getActivity());
             }
             else
             {
                 mClockHandler.removeMessage();
 
-                AlertNotifyManager.showNotification(getActivity(), moduleList);
+                mAlertManager.showNotification(getActivity(), moduleList);
             }
         }
 

@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
@@ -164,7 +165,15 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         @Override
         public void onItemClick(DataBindingAdapter<UIModule> dataBindingAdapter, View view, UIModule uiModule, int i)
         {
-            DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
+            if (view.getId() == R.id.module_toggle)
+            {
+                //fixme,turn on/off toggle
+                Toast.makeText(getActivity(), "toggle", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
+            }
         }
     };
 

@@ -1,11 +1,11 @@
 package com.android.smartlink.ui.widget.adapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIModule;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -26,8 +26,24 @@ public class ModuleAdapterTablet extends BaseAdapter<UIModule>
     }
 
     @Override
-    protected void onItemClick(DataBindingAdapter<UIModule> adapter, View view, UIModule uiModule, int position)
+    public void onBindViewHolder(DataBindingHolder<UIModule> holder, int position)
     {
-        super.onItemClick(adapter, view, uiModule, position);
+        super.onBindViewHolder(holder, position);
+
+        if (getItem(position).isError())
+        {
+            //AnimationUtil.scaling(holder.itemView);
+        }
+        else
+        {
+            //AnimationUtil.stopAnimation(holder.itemView);
+        }
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView)
+    {
+        super.onDetachedFromRecyclerView(recyclerView);
+        // should stop all animation when destroy recycler view.
     }
 }

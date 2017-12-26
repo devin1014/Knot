@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.Notification.Builder;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.SystemClock;
 
 import com.android.smartlink.R;
@@ -20,22 +22,24 @@ public class AlertNotifyManager
 {
     private static final int ID_NOTIFY = 100;
 
-    private static int sNotifyIndex = 0;
+    private SoundPool mSoundPool;
 
-    public static void showNotification(Context context, List<UIModule> moduleList)
+    private int mAlarmId;
+
+    private int mErrorId;
+
+    public AlertNotifyManager(Context context)
     {
-        final int index = sNotifyIndex;
+        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
-        sNotifyIndex++;
+        mAlarmId = mSoundPool.load(context, R.raw.audio_alarm, 1);
 
-        if (index % 5 != 0)
-        {
-            return;
-        }
-        else
-        {
-            sNotifyIndex = 1;
-        }
+        mErrorId = mSoundPool.load(context, R.raw.audio_error, 1);
+    }
+
+    public void showNotification(Context context, List<UIModule> moduleList)
+    {
+        boolean error = false;
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -47,6 +51,8 @@ public class AlertNotifyManager
         {
             if (module.isError())
             {
+                error = true;
+
                 stringBuilder.append(String.format(errorFormat, module.getName())).append("\n");
             }
         }
@@ -69,19 +75,23 @@ public class AlertNotifyManager
 
                 .setContentText(context.getResources().getString(R.string.notify_description))
 
-                .setDefaults(Notification.DEFAULT_SOUND)
+                //.setDefaults(Notification.DEFAULT_SOUND)
 
                 .setAutoCancel(true);
 
         //noinspection ConstantConditions
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(ID_NOTIFY, builder.getNotification());
+
+        mSoundPool.play(error ? mErrorId : mAlarmId, 0.75f, 0.75f, 1, 1, 1f);
     }
 
-    public static void removeAllNotification(Context context)
+    public void removeAllNotification(Context context)
     {
-        sNotifyIndex = 0;
-
         //noinspection ConstantConditions
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(ID_NOTIFY);
+
+        mSoundPool.pause(mAlarmId);
+
+        mSoundPool.pause(mErrorId);
     }
 }
