@@ -33,7 +33,7 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     {
         try
         {
-            String resultString = IOUtils.parseStream(getActivity().getAssets().open("weather.json"));
+            String resultString = IOUtils.parseStream(getActivity().getAssets().open("data/weather.json"));
 
             JSONObject jsonObject = new JSONObject(resultString);
 

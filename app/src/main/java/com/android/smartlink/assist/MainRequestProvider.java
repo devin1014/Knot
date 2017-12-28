@@ -33,7 +33,7 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
     {
         int status = AppManager.getInstance().getDemoModeStatus();
 
-        Modules modules = FileUtil.openAssets(getActivity(), "main_" + ConvertUtil.convertStatus(status) + ".json", Modules.class);
+        Modules modules = FileUtil.openAssets(getActivity(), "data/main_" + ConvertUtil.convertStatus(status) + ".json", Modules.class);
 
         if (modules != null)
         {

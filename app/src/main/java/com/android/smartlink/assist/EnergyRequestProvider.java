@@ -37,11 +37,11 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
 
         if (TextUtils.isEmpty(id))
         {
-            name = uri.getPath().substring(uri.getPath().lastIndexOf("/") + 1);
+            name = "data/" + uri.getPath().substring(uri.getPath().lastIndexOf("/") + 1);
         }
         else
         {
-            name = "30DayEnergy_" + id + ".json";
+            name = "data/30DayEnergy_" + id + ".json";
         }
 
         Energy energy = FileUtil.openAssets(getActivity(), name, Energy.class);

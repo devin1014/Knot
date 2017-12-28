@@ -31,7 +31,7 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
     {
         int status = AppManager.getInstance().getDemoModeStatus();
 
-        Events events = FileUtil.openAssets(getActivity(), "events_" + ConvertUtil.convertStatus(status) + ".json", Events.class);
+        Events events = FileUtil.openAssets(getActivity(), "data/events_" + ConvertUtil.convertStatus(status) + ".json", Events.class);
 
         if (events != null && events.getEvents() != null)
         {
