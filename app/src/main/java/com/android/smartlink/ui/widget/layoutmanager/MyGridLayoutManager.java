@@ -19,7 +19,7 @@ public class MyGridLayoutManager extends GridLayoutManager
             @Override
             public int getSpanSize(int position)
             {
-                if (position == 0)
+                if (position <= 1)
                 {
                     return 2;
                 }

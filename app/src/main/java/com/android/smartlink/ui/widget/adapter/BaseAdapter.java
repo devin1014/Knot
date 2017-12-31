@@ -1,9 +1,11 @@
 package com.android.smartlink.ui.widget.adapter;
 
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import com.android.smartlink.BR;
 import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
+import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -15,6 +17,12 @@ abstract class BaseAdapter<T> extends DiffDataBindingAdapter<T>
     BaseAdapter(LayoutInflater layoutInflater, OnItemClickListener<T> listener)
     {
         super(layoutInflater, listener);
+    }
+
+    @Override
+    public DataBindingHolder<T> onCreateHeadHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i)
+    {
+        return null;
     }
 
     @Override

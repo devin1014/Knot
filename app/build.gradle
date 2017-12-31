@@ -75,7 +75,7 @@ dependencies {
 
     compile project(':core')
 
-    compile(name: 'support_recyclerview_v1.0', ext: 'aar')
+    compile(name: 'support_recyclerview_v1.1', ext: 'aar')
 
     compile("com.android.support:appcompat-v7:${SUPPORTLIBVERSION}")
     compile("com.android.support:design:${SUPPORTLIBVERSION}")

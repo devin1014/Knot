@@ -1,9 +1,17 @@
 package com.android.smartlink.ui.widget.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.smartlink.R;
+import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
+import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
+import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
+
+import java.util.List;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -18,9 +26,21 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
     }
 
     @Override
+    public DataBindingHolder<UIModule> onCreateHeadHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i)
+    {
+        return new HeadHolder(layoutInflater.inflate(R.layout.comp_home_module_status, viewGroup, false), null);
+    }
+
+    @Override
+    protected void onBindHeadHolder(DataBindingHolder<UIModule> holder, int position, List<Object> payloads)
+    {
+        super.onBindHeadHolder(holder, position, payloads);
+    }
+
+    @Override
     protected int getLayout(int type)
     {
-        if (type == 0) // first item always main module
+        if (type == 1) // first item always main module
         {
             return R.layout.item_home_main_module;
         }
@@ -29,9 +49,27 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
     }
 
     @Override
-    public int getItemViewType(int position)
+    public int getViewType(int position)
     {
         return position;
     }
 
+    private class HeadHolder extends DataBindingHolder<UIModule>
+    {
+        private ModuleStatusLayout mModuleStatusLayout;
+
+        HeadHolder(View itemView, DataBindingHandler<UIModule> handler)
+        {
+            super(itemView, handler);
+
+            mModuleStatusLayout = (ModuleStatusLayout) itemView;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onBindViewHolder(Object object)
+        {
+            mModuleStatusLayout.setModules((List<Module>) object);
+        }
+    }
 }

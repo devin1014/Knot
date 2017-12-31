@@ -1,7 +1,11 @@
 package com.android.smartlink.ui.widget.modulestatus;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
@@ -15,24 +19,41 @@ import java.util.List;
  * Date: 2017-11-16
  * Time: 14:47
  */
-public class ModuleStatusLayout
+public class ModuleStatusLayout extends FrameLayout
 {
     private LayoutInflater mLayoutInflater;
-
-    private ViewGroup mViewGroup;
 
     private NormalModuleStatusView mNormalModuleStatusView;
 
     private AlarmModuleStatusView mAlarmModuleStatusView;
 
-    public ModuleStatusLayout(ViewGroup rootView)
-    {
-        mViewGroup = rootView;
+    private List<Module> mModules;
 
-        mLayoutInflater = LayoutInflater.from(rootView.getContext());
+    public ModuleStatusLayout(@NonNull Context context)
+    {
+        super(context);
+
+        initialize(context);
     }
 
-    private List<Module> mModules;
+    public ModuleStatusLayout(@NonNull Context context, @Nullable AttributeSet attrs)
+    {
+        super(context, attrs);
+
+        initialize(context);
+    }
+
+    public ModuleStatusLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+    {
+        super(context, attrs, defStyleAttr);
+
+        initialize(context);
+    }
+
+    private void initialize(Context context)
+    {
+        mLayoutInflater = LayoutInflater.from(context);
+    }
 
     public final void setModules(List<Module> modules)
     {
@@ -46,38 +67,38 @@ public class ModuleStatusLayout
             {
                 if (mNormalModuleStatusView == null)
                 {
-                    mNormalModuleStatusView = (NormalModuleStatusView) mLayoutInflater.inflate(R.layout.comp_module_status_normal, mViewGroup, false);
+                    mNormalModuleStatusView = (NormalModuleStatusView) mLayoutInflater.inflate(R.layout.comp_module_status_normal, this, false);
                 }
 
                 mNormalModuleStatusView.onModuleChanged(modules, mOldList);
 
                 if (mNormalModuleStatusView.getParent() == null)
                 {
-                    mViewGroup.addView(mNormalModuleStatusView);
+                    addView(mNormalModuleStatusView);
                 }
 
                 if (mAlarmModuleStatusView != null)
                 {
-                    mViewGroup.removeView(mAlarmModuleStatusView);
+                    removeView(mAlarmModuleStatusView);
                 }
             }
             else
             {
                 if (mAlarmModuleStatusView == null)
                 {
-                    mAlarmModuleStatusView = (AlarmModuleStatusView) mLayoutInflater.inflate(R.layout.comp_module_status_alarm, mViewGroup, false);
+                    mAlarmModuleStatusView = (AlarmModuleStatusView) mLayoutInflater.inflate(R.layout.comp_module_status_alarm, this, false);
                 }
 
                 mAlarmModuleStatusView.onModuleChanged(modules, mOldList);
 
                 if (mAlarmModuleStatusView.getParent() == null)
                 {
-                    mViewGroup.addView(mAlarmModuleStatusView);
+                    addView(mAlarmModuleStatusView);
                 }
 
                 if (mNormalModuleStatusView != null)
                 {
-                    mViewGroup.removeView(mNormalModuleStatusView);
+                    removeView(mNormalModuleStatusView);
                 }
             }
         }

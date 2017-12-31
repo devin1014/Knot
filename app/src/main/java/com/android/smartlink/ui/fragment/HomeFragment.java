@@ -26,7 +26,6 @@ import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
 import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
-import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
 import com.neulion.core.widget.recyclerview.RecyclerView;
@@ -55,14 +54,9 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     @BindView(R.id.weather_root)
     View mWeatherView;
 
-    @BindView(R.id.module_status)
-    ViewGroup mModuleStatus;
-
     private MainRequestProvider mRequestProvider;
 
     private ViewDataBinding mWeatherBinding;
-
-    private ModuleStatusLayout mModuleStatusLayout;
 
     private ModuleAdapter mModuleAdapter;
 
@@ -85,8 +79,6 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
     private void initComponent()
     {
-        mModuleStatusLayout = new ModuleStatusLayout(mModuleStatus);
-
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRecyclerView.setLayoutManager(new MyGridLayoutManager(getActivity()));
@@ -139,7 +131,10 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        mModuleStatusLayout.setModules(modules.getModules());
+        if (mModuleAdapter.getHeadCount() == 0)
+        {
+            mModuleAdapter.addHeadObject(modules.getModules());
+        }
 
         mModuleAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
     }

@@ -48,7 +48,9 @@ public class Utils
 
     public static void resetOrientation(Activity activity)
     {
-        activity.setRequestedOrientation(AppManager.getInstance().isPhone() ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        activity.setRequestedOrientation(AppManager.getInstance().isPhone() ?
+
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
     }
 
     public static float[] getPast30Days()

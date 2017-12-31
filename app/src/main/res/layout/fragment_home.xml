@@ -20,11 +20,6 @@
 
             <include layout="@layout/list_item_home_weather" />
 
-            <FrameLayout
-                android:id="@+id/module_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <com.neulion.core.widget.recyclerview.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
