@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.os.SystemClock;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Equipments;
+import com.android.smartlink.bean.Modbus;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
@@ -50,9 +50,9 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
         try
         {
-            Equipments equipments = gson.fromJson(new InputStreamReader(mAssetManager.open(isPhone ? "equipment.json" : "equipment_tablet.json")), Equipments.class);
+            Modbus modbus = gson.fromJson(new InputStreamReader(mAssetManager.open(isPhone ? "equipment.json" : "equipment_tablet.json")), Modbus.class);
 
-            AppManager.getInstance().setEquipments(equipments);
+            AppManager.getInstance().setEquipments(modbus);
         }
         catch (Exception e)
         {

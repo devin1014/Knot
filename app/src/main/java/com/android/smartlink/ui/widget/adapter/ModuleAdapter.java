@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.R;
 import com.android.smartlink.bean.Modules.Module;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
@@ -18,23 +18,17 @@ import java.util.List;
  * Date: 2017-10-18
  * Time: 15:56
  */
-public class ModuleAdapter extends BaseAdapter<UIModule>
+public class ModuleAdapter extends BaseAdapter<IModule>
 {
-    public ModuleAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModule> listener)
+    public ModuleAdapter(LayoutInflater layoutInflater, OnItemClickListener<IModule> listener)
     {
         super(layoutInflater, listener);
     }
 
     @Override
-    public DataBindingHolder<UIModule> onCreateHeadHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i)
+    public DataBindingHolder<IModule> onCreateHeadHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i)
     {
         return new HeadHolder(layoutInflater.inflate(R.layout.comp_home_module_status, viewGroup, false), null);
-    }
-
-    @Override
-    protected void onBindHeadHolder(DataBindingHolder<UIModule> holder, int position, List<Object> payloads)
-    {
-        super.onBindHeadHolder(holder, position, payloads);
     }
 
     @Override
@@ -54,11 +48,14 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
         return position;
     }
 
-    private class HeadHolder extends DataBindingHolder<UIModule>
+    // ----------------------------------------------------------------
+    // HeadHolder
+    // ----------------------------------------------------------------
+    public static class HeadHolder extends DataBindingHolder<IModule>
     {
         private ModuleStatusLayout mModuleStatusLayout;
 
-        HeadHolder(View itemView, DataBindingHandler<UIModule> handler)
+        HeadHolder(View itemView, DataBindingHandler<IModule> handler)
         {
             super(itemView, handler);
 
@@ -70,6 +67,11 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
         public void onBindViewHolder(Object object)
         {
             mModuleStatusLayout.setModules((List<Module>) object);
+        }
+
+        public ModuleStatusLayout getModuleStatusLayout()
+        {
+            return mModuleStatusLayout;
         }
     }
 }

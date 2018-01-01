@@ -12,7 +12,7 @@ public class MyGridLayoutManager extends GridLayoutManager
 {
     public MyGridLayoutManager(Context context)
     {
-        super(context, 2);
+        super(context, 4);
 
         setSpanSizeLookup(new SpanSizeLookup()
         {
@@ -21,7 +21,7 @@ public class MyGridLayoutManager extends GridLayoutManager
             {
                 if (position <= 1)
                 {
-                    return 2;
+                    return 4;
                 }
 
                 return 1;

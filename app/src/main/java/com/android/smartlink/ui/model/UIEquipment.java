@@ -1,7 +1,7 @@
 package com.android.smartlink.ui.model;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Equipments.Equipment;
+import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.util.ViewUtil;
 
 /**
@@ -9,7 +9,7 @@ import com.android.smartlink.util.ViewUtil;
  * Date: 2017-11-09
  * Time: 11:46
  */
-public class UIEquipment implements IModule
+public class UIEquipment implements IEquipment
 {
     private Equipment mSource;
 

@@ -1,5 +1,22 @@
 {
   "version": 1,
+  "serverIP": "192.168.1.101",
+  "port": 502,
+  "modules": [
+    151,
+    150,
+    152
+  ],
+  "toggle": [
+    {
+      "channel": 6,
+      "id": 14401
+    },
+    {
+      "channel": 7,
+      "id": 14441
+    }
+  ],
   "equipments": [
     {
       "id": 151,

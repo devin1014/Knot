@@ -10,7 +10,7 @@
 
         <variable
             name="data"
-            type="com.android.smartlink.ui.model.UIModule" />
+            type="com.android.smartlink.ui.model.IModule" />
 
     </data>
 

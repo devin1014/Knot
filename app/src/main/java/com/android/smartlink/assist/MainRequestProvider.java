@@ -2,6 +2,7 @@ package com.android.smartlink.assist;
 
 import android.app.Activity;
 
+import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.util.ConvertUtil;
@@ -56,6 +57,8 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
 
         String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
 
+        LogUtil.log(this, tStr);
+
         Modules modules = new Gson().fromJson(tStr, Modules.class);
 
         if (modules != null)
@@ -85,7 +88,7 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
     {
         return false;
         //FIX_ME!!!
-        //return Utils.isDevDebugMode(getActivity());
+        //        return Utils.isDevDebugMode(getActivity());
     }
 
     @Override

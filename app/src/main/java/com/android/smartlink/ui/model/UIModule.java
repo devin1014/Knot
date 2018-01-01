@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Equipments.Equipment;
+import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.util.ViewUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class UIModule implements Serializable
+public class UIModule implements Serializable, IModule
 {
     private static final long serialVersionUID = 179763754284831614L;
 
@@ -153,6 +153,12 @@ public class UIModule implements Serializable
     public int getPowerLoad()
     {
         return mPowerLoad;
+    }
+
+    @Override
+    public boolean isToggle()
+    {
+        return false;
     }
 
     public boolean isNormal()

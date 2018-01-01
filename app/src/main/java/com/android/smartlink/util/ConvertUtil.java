@@ -3,14 +3,18 @@ package com.android.smartlink.util;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Equipments.Equipment;
+import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.bean.Events.Event;
+import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.model.UIEquipment;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UISetting;
+import com.android.smartlink.ui.model.UIToggle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,9 +97,11 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIModule> convertModule(List<Module> list)
+    public static List<IModule> convertModule(Modules modules)
     {
-        List<UIModule> result = new ArrayList<>();
+        List<IModule> result = new ArrayList<>();
+
+        List<Module> list = modules.getModules();
 
         if (list != null)
         {
@@ -105,6 +111,15 @@ public class ConvertUtil
             }
         }
 
+        List<Toggle> toggles = modules.getToggles();
+
+        if (toggles != null)
+        {
+            for (Toggle t : toggles)
+            {
+                result.add(new UIToggle(t));
+            }
+        }
 
         return result;
     }

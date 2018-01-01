@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.SparseArray;
 
-import com.android.smartlink.bean.Equipments;
-import com.android.smartlink.bean.Equipments.Equipment;
+import com.android.smartlink.bean.Modbus;
+import com.android.smartlink.bean.Modbus.Equipment;
 
 import java.util.List;
 
@@ -42,16 +42,16 @@ class EquipmentManager
         return mEquipments != null && mEquipments.size() > 0;
     }
 
-    void setEquipments(Equipments equipments)
+    void setEquipments(Modbus modbus)
     {
-        mEquipments = equipments.getEquipments();
+        mEquipments = modbus.getEquipments();
 
-        if (equipments.getVersion() > getVersion())
+        if (modbus.getVersion() > getVersion())
         {
-            updateDatabase(equipments.getVersion(), equipments.getEquipments());
+            updateDatabase(modbus.getVersion(), modbus.getEquipments());
         }
 
-        for (Equipment e : equipments.getEquipments())
+        for (Equipment e : modbus.getEquipments())
         {
             mSparseArray.put(e.getId(), e);
         }

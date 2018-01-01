@@ -9,10 +9,7 @@ import com.android.smartlink.bean.Weather.WeatherBasic;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 import okhttp3.Response;
 
@@ -26,6 +23,11 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     public WeatherProvider(Activity activity, RequestCallback<Weather> callback)
     {
         super(activity, callback);
+    }
+
+    public void requestByLocal()
+    {
+        getFromLocal("");
     }
 
     @Override
@@ -43,11 +45,7 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
 
             notifyResponse(weather);
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch (JSONException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -65,6 +63,8 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
                 return;
             }
         }
+
+        getFromLocal("null");
 
         OkGo.getInstance().cancelTag(this);
 
@@ -102,9 +102,6 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     protected void notifyResponse(Throwable throwable)
     {
         super.notifyResponse(throwable);
-
-        // call local first
-        getFromLocal("null");
     }
 
     @Override

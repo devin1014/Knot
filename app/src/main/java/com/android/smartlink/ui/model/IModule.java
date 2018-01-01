@@ -2,8 +2,8 @@ package com.android.smartlink.ui.model;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-09
- * Time: 11:44
+ * Date: 2017-12-31
+ * Time: 20:41
  */
 public interface IModule
 {
@@ -11,5 +11,19 @@ public interface IModule
 
     int getImageRes();
 
+    int getWhiteImageRes();
+
     String getName();
+
+    String getEnergy();
+
+    int getStatus();
+
+    int getPowerLoad();
+
+    int getColor();
+
+    boolean isNormal();
+
+    boolean isToggle();
 }

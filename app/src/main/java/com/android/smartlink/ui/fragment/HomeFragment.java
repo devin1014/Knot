@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
+import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.R;
+import com.android.smartlink.assist.BaseExecutorService;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
@@ -21,10 +23,12 @@ import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
+import com.android.smartlink.ui.widget.adapter.ModuleAdapter.HeadHolder;
 import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
@@ -61,6 +65,8 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     private ModuleAdapter mModuleAdapter;
 
     private WeatherManager mWeatherManager;
+
+    private BaseExecutorService mExecutorService = new BaseExecutorService();
 
     @Nullable
     @Override
@@ -135,8 +141,17 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         {
             mModuleAdapter.addHeadObject(modules.getModules());
         }
+        else
+        {
+            ViewHolder holder = mRecyclerView.findViewHolderForLayoutPosition(0);
 
-        mModuleAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
+            if (holder instanceof HeadHolder)
+            {
+                ((HeadHolder) holder).getModuleStatusLayout().setModules(modules.getModules());
+            }
+        }
+
+        mModuleAdapter.setData(ConvertUtil.convertModule(modules));
     }
 
     @Override
@@ -155,19 +170,24 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         mWeatherManager.requestWeather();
     }
 
-    private OnItemClickListener<UIModule> mOnItemClickListener = new OnItemClickListener<UIModule>()
+    private OnItemClickListener<IModule> mOnItemClickListener = new OnItemClickListener<IModule>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<UIModule> dataBindingAdapter, View view, UIModule uiModule, int i)
+        public void onItemClick(DataBindingAdapter<IModule> dataBindingAdapter, View view, IModule module, int i)
         {
-            if (view.getId() == R.id.module_toggle)
+            if (module.isToggle())
             {
-                //fixme,turn on/off toggle
-                Toast.makeText(getActivity(), "toggle", Toast.LENGTH_SHORT).show();
+                boolean isToggleOn = view.isSelected();
+
+                int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
+
+                mExecutorService.execute(module.getId(), value);
+
+                view.setSelected(!isToggleOn);
             }
             else
             {
-                DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
+                DetailActivity.startActivity(getActivity(), module.getName(), (UIModule) module);
             }
         }
     };

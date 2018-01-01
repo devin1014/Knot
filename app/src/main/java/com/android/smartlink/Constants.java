@@ -56,4 +56,30 @@ public class Constants
     public static final String KEY_SHARE_PREFERENCE_DEMO_MODE = KEY_PREFERENCE_BASE + "demo";
 
     public static final String KEY_SHARE_PREFERENCE_DEMO_STATUS = KEY_PREFERENCE_BASE + "status";
+
+    public enum MODULE_FLAG
+    {
+        CTRL_ON(2),
+
+        CTRL_OFF(1),
+
+        STATUS_ON(3),
+
+        STATUS_OFF(2);
+
+        public final int value;
+
+        MODULE_FLAG(int value)
+        {
+            this.value = value;
+        }
+    }
+
+    public static final int FLAG_CTRL_ON = 2;
+
+    public static final int FLAG_CTRL_OFF = 1;
+
+    public static final int FLAG_MODULE_STATUS_ON = 3;
+
+    public static final int FLAG_MODULE_STATUS_OFF = 2;
 }

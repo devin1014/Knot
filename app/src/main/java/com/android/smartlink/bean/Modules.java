@@ -15,9 +15,17 @@ public class Modules
     @SerializedName("data")
     private List<Module> modules;
 
+    @SerializedName("data2")
+    private List<Toggle> toggles;
+
     public List<Module> getModules()
     {
         return modules;
+    }
+
+    public List<Toggle> getToggles()
+    {
+        return toggles;
     }
 
     public static class Module implements Serializable
@@ -58,6 +66,32 @@ public class Modules
         public String getEnergy()
         {
             return energy;
+        }
+    }
+
+    public static class Toggle implements Serializable
+    {
+        private static final long serialVersionUID = -5677078707406604424L;
+
+        private String slaveID;
+
+        private int channel;
+
+        private int status;
+
+        public String getSlaveID()
+        {
+            return slaveID;
+        }
+
+        public int getChannel()
+        {
+            return channel;
+        }
+
+        public int getStatus()
+        {
+            return status;
         }
     }
 }

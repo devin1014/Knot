@@ -6,8 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.android.smartlink.Constants;
-import com.android.smartlink.bean.Equipments;
-import com.android.smartlink.bean.Equipments.Equipment;
+import com.android.smartlink.bean.Modbus;
+import com.android.smartlink.bean.Modbus.Equipment;
+import com.android.smartlink.bean.Modbus.EquipmentToggle;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 
@@ -42,6 +43,8 @@ public class AppManager
     private SharedPreferences mSharedPreferences;
 
     private EquipmentManager mEquipmentManager;
+
+    private List<EquipmentToggle> mToggles;
 
     private Weather mWeather;
 
@@ -146,9 +149,11 @@ public class AppManager
         return mEquipmentManager.getName(id);
     }
 
-    public void setEquipments(Equipments equipments)
+    public void setEquipments(Modbus modbus)
     {
-        mEquipmentManager.setEquipments(equipments);
+        mEquipmentManager.setEquipments(modbus);
+
+        mToggles = modbus.getToggles();
     }
 
     public Equipment getEquipment(int id)
@@ -159,6 +164,19 @@ public class AppManager
     public List<Equipment> getEquipments()
     {
         return mEquipmentManager.getEquipments();
+    }
+
+    public EquipmentToggle getToggle(int channelId)
+    {
+        for (EquipmentToggle t : mToggles)
+        {
+            if (t.getChannel() == channelId)
+            {
+                return t;
+            }
+        }
+
+        return null;
     }
 
     // -----------------------------------

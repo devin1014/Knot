@@ -42,6 +42,8 @@ public class WeatherManager
         if (TextUtils.isEmpty(location))
         {
             mLocationProvider.request(HttpUrl.getAccuWeatherUrl(mLocationProvider.getActivity()));
+
+            mWeatherProvider.requestByLocal();
         }
         else
         {
