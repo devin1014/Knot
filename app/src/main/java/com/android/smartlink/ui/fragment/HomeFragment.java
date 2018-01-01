@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
@@ -25,6 +24,7 @@ import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
+import com.android.smartlink.ui.widget.adapter.ModuleAdapter.HeadHolder;
 import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.HttpUrl;
@@ -135,6 +135,12 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         {
             mModuleAdapter.addHeadObject(modules.getModules());
         }
+        else
+        {
+            ((HeadHolder) mRecyclerView.findViewHolderForLayoutPosition(0)).getModuleStatusLayout()
+
+                    .setModules(modules.getModules());
+        }
 
         mModuleAdapter.setData(ConvertUtil.convertModule(modules.getModules()));
     }
@@ -160,15 +166,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         @Override
         public void onItemClick(DataBindingAdapter<UIModule> dataBindingAdapter, View view, UIModule uiModule, int i)
         {
-            if (view.getId() == R.id.module_toggle)
-            {
-                //fixme,turn on/off toggle
-                Toast.makeText(getActivity(), "toggle", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
-            }
+            DetailActivity.startActivity(getActivity(), uiModule.getName(), uiModule);
         }
     };
 

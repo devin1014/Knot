@@ -54,7 +54,7 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
         return position;
     }
 
-    private class HeadHolder extends DataBindingHolder<UIModule>
+    public class HeadHolder extends DataBindingHolder<UIModule>
     {
         private ModuleStatusLayout mModuleStatusLayout;
 
@@ -70,6 +70,11 @@ public class ModuleAdapter extends BaseAdapter<UIModule>
         public void onBindViewHolder(Object object)
         {
             mModuleStatusLayout.setModules((List<Module>) object);
+        }
+
+        public ModuleStatusLayout getModuleStatusLayout()
+        {
+            return mModuleStatusLayout;
         }
     }
 }

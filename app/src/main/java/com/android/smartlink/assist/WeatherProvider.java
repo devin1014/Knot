@@ -28,6 +28,11 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
         super(activity, callback);
     }
 
+    public void requestByLocal()
+    {
+        getFromLocal("");
+    }
+
     @Override
     protected void getFromLocal(String url)
     {
@@ -66,6 +71,8 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
             }
         }
 
+        getFromLocal("null");
+
         OkGo.getInstance().cancelTag(this);
 
         OkGo.<Weather>get(url)
@@ -102,9 +109,6 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     protected void notifyResponse(Throwable throwable)
     {
         super.notifyResponse(throwable);
-
-        // call local first
-        getFromLocal("null");
     }
 
     @Override
