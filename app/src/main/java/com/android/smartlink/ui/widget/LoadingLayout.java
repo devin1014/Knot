@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.R;
 import com.android.smartlink.util.ViewUtil;
 
@@ -63,7 +64,8 @@ public class LoadingLayout extends FrameLayout
 
         if (getChildCount() != 1)
         {
-            throw new IllegalArgumentException("LoadingLayout must has one child view! current count=" + getChildCount());
+            //throw new IllegalArgumentException("LoadingLayout must has one child view! current count=" + getChildCount());
+            LogUtil.error(this, "LoadingLayout find one more child!");
         }
 
         mContentView = getChildAt(0);
@@ -74,7 +76,7 @@ public class LoadingLayout extends FrameLayout
 
         mProgressBar = inflaterView.findViewById(R.id.loading_progressbar);
 
-        mMessageTextView = (TextView) inflaterView.findViewById(R.id.loading_message);
+        mMessageTextView = inflaterView.findViewById(R.id.loading_message);
 
         mLoadingView = inflaterView;
 
