@@ -56,6 +56,12 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/clock_toggle"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:layout_gravity="end|bottom" />
+
     </com.android.smartlink.ui.widget.LoadingLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

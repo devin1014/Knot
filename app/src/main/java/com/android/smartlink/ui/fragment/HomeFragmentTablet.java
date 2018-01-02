@@ -224,10 +224,18 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
             mClockView.setVisibility(View.GONE);
 
-            mClockMode = false;
-
             ScreenUtil.showModule(getActivity());
+
+            mClockMode = false;
         }
+    }
+
+    @OnClick(R.id.clock_toggle)
+    public void onClickClockToggle()
+    {
+        resetClock();
+
+        mAlertManager.removeAllNotification(getActivity());
     }
 
     private WeatherCallback mWeatherCallback = new WeatherCallback()
@@ -254,6 +262,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mClockView.setVisibility(View.VISIBLE);
 
         mRecyclerView.setVisibility(View.GONE);
+
+        mClockMode = true;
     }
 
     private void resetMainModule(UIModule module)
@@ -288,8 +298,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         public void handleMessage(Message msg)
         {
             resetClock();
-
-            mClockMode = true;
         }
 
         void sendMessage(long delay)
