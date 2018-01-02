@@ -6,7 +6,7 @@ android {
     buildToolsVersion '26.0.3'
 
     defaultConfig {
-        applicationId "com.android.smartlink"
+        applicationId "com.android.smartlink.powertag"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
@@ -39,7 +39,7 @@ android {
 
                     def type = productFlavors[0].name.contains("app") ? "" : "_compat"
 
-                    outputFileName = "chinaknot" + type + "_v" + "${releaseTime()}.apk"
+                    outputFileName = "PowerTag" + type + "_v" + "${releaseTime()}.apk"
                 }
             }
         }
@@ -49,15 +49,15 @@ android {
 
     productFlavors {
         app {
-            applicationId "com.android.smartlink"
+            applicationId "com.android.smartlink.powertag"
             dimension "device"
-            resValue("string", "app_name", "China Knot")
+            resValue("string", "app_name", "PowerTag智能终端配电")
         }
 
         tabletCompat {
-            applicationId "com.android.smartlink.pad"
+            applicationId "com.android.smartlink.powertag.pad"
             dimension "device"
-            resValue("string", "app_name", "China Knot Display")
+            resValue("string", "app_name", "PowerTag智能终端配电 HD")
         }
     }
 

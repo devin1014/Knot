@@ -9,7 +9,6 @@ import com.android.smartlink.bean.Modules;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.ModbusHelp;
-import com.android.smartlink.util.Utils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
@@ -88,9 +87,9 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
     @Override
     protected boolean getFromOkHttp()
     {
-        //        return false;
+        return false;
         //FIX_ME!!!
-        return Utils.isDevDebugMode(getActivity());
+        //return Utils.isDevDebugMode(getActivity());
     }
 
     @Override
