@@ -1,6 +1,7 @@
 package com.android.smartlink.assist;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.application.manager.AppManager;
@@ -57,7 +58,7 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
 
         String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
 
-        LogUtil.log(this, tStr);
+        LogUtil.log(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
 
         Modules modules = new Gson().fromJson(tStr, Modules.class);
 
