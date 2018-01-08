@@ -27,5 +27,17 @@
       "energy": "0.029",
       "alarm": "0"
     }
+  ],
+  "data2": [
+    {
+      "slaveID": "255",
+      "channel": "6",
+      "status": "3"
+    },
+    {
+      "slaveID": "255",
+      "channel": "7",
+      "status": "3"
+    }
   ]
 }
