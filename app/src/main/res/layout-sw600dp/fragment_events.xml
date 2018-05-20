@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.smartlink.ui.widget.LoadingLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loading_layout="@layout/comp_loading_layout">
+
+        <!--content-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="28dp"
+            android:paddingRight="28dp"
+            android:paddingTop="14dp">
+
+            <View
+                android:id="@+id/events_filter_anchor"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="-12dp" />
+
+            <ImageView
+                android:id="@+id/events_icon"
+                android:layout_width="32dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="126dp"
+                android:layout_marginStart="126dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/events_calendar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_toEndOf="@id/events_icon"
+                android:layout_toRightOf="@id/events_icon"
+                android:gravity="center_vertical"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:text="@string/events"
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="142dp"
+                android:layout_marginStart="142dp"
+                android:layout_marginTop="36dp"
+                android:background="#ffffff" />
+
+            <com.neulion.core.widget.recyclerview.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="76dp"
+                android:fadingEdgeLength="0dp"
+                android:overScrollMode="never"
+                app:dividerColor="#00000000"
+                app:dividerSize="@dimen/events_list_divider"
+                app:orientation="vertical" />
+
+        </RelativeLayout>
+
+    </com.android.smartlink.ui.widget.LoadingLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

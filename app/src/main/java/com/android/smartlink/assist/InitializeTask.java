@@ -44,13 +44,13 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
         final long timeStamp = SystemClock.uptimeMillis();
 
-        boolean isPhone = AppManager.getInstance().isPhone();
+        //boolean isPhone = AppManager.getInstance().isPhone();
 
         Gson gson = new Gson();
 
         try
         {
-            Modbus modbus = gson.fromJson(new InputStreamReader(mAssetManager.open(isPhone ? "equipment.json" : "equipment_tablet.json")), Modbus.class);
+            Modbus modbus = gson.fromJson(new InputStreamReader(mAssetManager.open("equipment.json")), Modbus.class);
 
             AppManager.getInstance().setEquipments(modbus);
         }

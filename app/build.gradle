@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def versionNamePrefix = '1.'
+
 android {
 
     compileSdkVersion 26
@@ -10,7 +12,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName getVersionName(versionNamePrefix)
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -37,9 +39,9 @@ android {
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
 
-                    def type = productFlavors[0].name.contains("app") ? "" : "_compat"
+                    def type = productFlavors[0].name.contains("app") ? "phone" : "tablet"
 
-                    outputFileName = "PowerTag" + type + "_v" + "${releaseTime()}.apk"
+                    outputFileName = "PowerTag_" + type + "_v" + "${getVersionName(versionNamePrefix)}.apk"
                 }
             }
         }
@@ -48,13 +50,19 @@ android {
     flavorDimensions("device")
 
     productFlavors {
+        dev {
+            applicationId "com.android.smartlink.powertag.debug"
+            dimension "device"
+            resValue("string", "app_name", "PowerTag智能终端配电 测试版")
+        }
+
         app {
             applicationId "com.android.smartlink.powertag"
             dimension "device"
             resValue("string", "app_name", "PowerTag智能终端配电")
         }
 
-        tabletCompat {
+        tablet {
             applicationId "com.android.smartlink.powertag.pad"
             dimension "device"
             resValue("string", "app_name", "PowerTag智能终端配电 HD")
@@ -66,8 +74,8 @@ android {
     }
 }
 
-static def releaseTime() {
-    return new Date().format("MMdd", TimeZone.getTimeZone("GMT+8"))
+static def getVersionName(String prefix) {
+    return prefix + new Date().format("MMdd", TimeZone.getTimeZone("GMT+8"))
 }
 
 dependencies {
@@ -81,12 +89,12 @@ dependencies {
     compile("com.android.support:design:${SUPPORTLIBVERSION}")
     compile("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
     compile("com.android.support:cardview-v7:${SUPPORTLIBVERSION}")
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0'
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
 
-    compile 'com.umeng.analytics:analytics:6.1.2'
+    compile 'com.umeng.analytics:analytics:6.1.3'
 
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

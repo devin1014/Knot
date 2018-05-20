@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UIToggle" />
+
+        <variable
+            name="handler"
+            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/toggle"
+            android:layout_width="150dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/state_toggle_background"
+            android:onClick="@{(view)->handler.onItemClick(view,data)}"
+            android:text="@{data.name}"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+    </FrameLayout>
+
+
+</layout>

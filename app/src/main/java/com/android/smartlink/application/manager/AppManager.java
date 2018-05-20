@@ -58,7 +58,7 @@ public class AppManager
 
         mEquipmentManager = new EquipmentManager(application);
 
-        mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 640;
+        mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 600;
     }
 
     // -----------------------------------

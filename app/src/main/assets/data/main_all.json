@@ -1,0 +1,108 @@
+{
+    "data": [
+        {
+            "slaveID": "151",
+            "current": "0.713",
+            "voltage": "225.4",
+            "power": "0.015",
+            "powerFactor": "0.52",
+            "energy": "0.089",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "150",
+            "current": "1.16",
+            "voltage": "223.2",
+            "power": "0.012",
+            "powerFactor": "0.42",
+            "energy": "0.043",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "152",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "153",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "154",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "155",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "156",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "157",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        }
+    ],
+    "data2": [
+        {
+            "slaveID": "255",
+            "channel": "6",
+            "status": "3"
+        },
+        {
+            "slaveID": "255",
+            "channel": "7",
+            "status": "3"
+        },
+        {
+            "slaveID": "255",
+            "channel": "8",
+            "status": "3"
+        },
+        {
+            "slaveID": "255",
+            "channel": "9",
+            "status": "3"
+        },
+        {
+            "slaveID": "255",
+            "channel": "10",
+            "status": "3"
+        },
+        {
+            "slaveID": "255",
+            "channel": "11",
+            "status": "3"
+        }
+    ]
+}

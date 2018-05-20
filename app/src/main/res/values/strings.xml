@@ -14,6 +14,11 @@
     <string name="format_weather_tmp">%d°</string>
     <string name="format_weather_min_max">%1$d°/%2$d°</string>
 
+    <string name="label_module_measure">测量回路</string>
+    <string name="label_module_control">控制回路</string>
+    <string name="label_module_monitor">监测回路</string>
+    <string name="label_monitor_status">状态监测</string>
+    <string name="label_monitor_error">故障监测</string>
     <string name="events">事件记录</string>
     <string name="events_filter_other">其他</string>
     <string name="settings_signout">登出</string>
@@ -49,7 +54,7 @@
     <string name="demo_setting_success">设置成功</string>
 
     <!--菜单-->
-    <string name="menu_main">PowerTag</string>
+    <string name="menu_main">施耐德电气终端配电智能化系统</string>
     <string name="menu_events">事件记录</string>
     <string name="menu_settings">设置</string>
 

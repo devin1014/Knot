@@ -3,8 +3,8 @@ package com.android.smartlink.util;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.bean.Events.Event;
+import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Modules.Toggle;
@@ -163,6 +163,11 @@ public class ConvertUtil
 
     public static String convertStatus(int status)
     {
+        if (status == -1)
+        {
+            return "all";
+        }
+
         int mainStatus = status / 100;
 
         int freezerStatus = (status / 10) % 10;

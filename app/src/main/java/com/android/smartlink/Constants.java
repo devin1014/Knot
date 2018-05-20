@@ -46,6 +46,10 @@ public class Constants
 
     public static final String KEY_EXTRA_PAGE = KEY_EXTRA_BASE + "page";
 
+    public static final String KEY_EXTRA_MODULES = KEY_EXTRA_BASE + "modules";
+
+    public static final String KEY_EXTRA_TOGGLE_INDEX = KEY_EXTRA_BASE + "page_index";
+
     // ---- Share ----------------
     public static final String KEY_SHARE_PREFERENCE_SUGGEST = KEY_PREFERENCE_BASE + "suggest";
 

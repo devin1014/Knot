@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UISetting" />
+
+        <variable
+            name="handler"
+            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/common_status_background_white"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{(view)->handler.onItemClick(view,data)}"
+        android:paddingEnd="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="0dp"
+        android:paddingStart="20dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            app:imageRes="@{data.image}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="37dp"
+            android:paddingRight="0dp"
+            android:text="@{data.name}"
+            android:textColor="#585b5d"
+            android:textSize="14dp"
+            tools:ignore="RtlHardcoded,SpUsage" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:background="#b5b5b5" />
+
+    </FrameLayout>
+
+</layout>

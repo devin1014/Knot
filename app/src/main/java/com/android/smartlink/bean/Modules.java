@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 2017-10-16
  * Time: 18:22
  */
-public class Modules
+public class Modules implements Serializable
 {
     @SerializedName("data")
     private List<Module> modules;

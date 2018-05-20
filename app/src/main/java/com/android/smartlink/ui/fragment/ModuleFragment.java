@@ -1,0 +1,106 @@
+package com.android.smartlink.ui.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.android.smartlink.Constants;
+import com.android.smartlink.R;
+import com.android.smartlink.bean.Modules;
+import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+
+import butterknife.BindView;
+
+/**
+ * User: liuwei(wei.liu@neulion.com.com)
+ * Date: 2018-05-20
+ * Time: 13:54
+ */
+public class ModuleFragment extends BaseSmartlinkFragment
+{
+    public static ModuleFragment newInstance(Modules modules)
+    {
+        ModuleFragment fragment = new ModuleFragment();
+        Bundle arguments = new Bundle();
+        arguments.putSerializable(Constants.KEY_EXTRA_MODULES, modules);
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
+    @BindView(R.id.model_pager)
+    ViewPager mViewPager;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        return inflater.inflate(R.layout.fragment_module, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
+        initComponent();
+    }
+
+    private void initComponent()
+    {
+        mViewPager.setAdapter(new ModuleAdapter(getChildFragmentManager()));
+    }
+
+    public void notifyModulesChanged(Modules modules)
+    {
+        // TODO: 2018/5/20  
+    }
+
+    private class ModuleAdapter extends FragmentPagerAdapter
+    {
+        private SparseArray<BaseModulesFragment> mFragments;
+
+        ModuleAdapter(FragmentManager fm)
+        {
+            super(fm);
+            mFragments = new SparseArray<>();
+        }
+
+        @Override
+        public Fragment getItem(int position)
+        {
+            BaseModulesFragment fragment = mFragments.get(position);
+
+            if (fragment != null)
+            {
+                return fragment;
+            }
+
+            if (position == 0)
+            {
+                fragment = ModuleStatusFragment.newInstance(getArguments());
+            }
+            else
+            {
+                fragment = new ModuleChartFragment();
+            }
+
+            mFragments.put(position, fragment);
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount()
+        {
+            return 2;
+        }
+    }
+}

@@ -22,13 +22,13 @@
         android:orientation="vertical">
 
         <com.android.smartlink.ui.widget.CircleView
-            android:layout_width="186dp"
-            android:layout_height="186dp"
+            android:layout_width="116dp"
+            android:layout_height="116dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_group_electrical_white_large"
+            android:src="@drawable/ic_group_electrical_white"
             app:circleBorderColor="#d9d9d9"
-            app:circleBorderWidth="8dp"
+            app:circleBorderWidth="4dp"
             app:circleProgress="@{data.powerLoad}"
             app:circleProgressColor="@{data.color}"
             app:imageRes="@{data.whiteImageRes}" />
@@ -36,21 +36,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="6dp"
             android:text="@{data.name}"
             android:textColor="#ffffff"
-            android:textSize="25dp"
+            android:textSize="16dp"
             android:textStyle="bold"
             tools:ignore="SpUsage" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@{data.energy}"
-            android:textColor="#bbffffff"
-            android:textSize="19dp"
-            tools:ignore="SpUsage" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="4dp"-->
+        <!--android:text="@{data.energy}"-->
+        <!--android:textColor="#bbffffff"-->
+        <!--android:textSize="19dp"-->
+        <!--android:visibility="gone"-->
+        <!--tools:ignore="SpUsage" />-->
 
     </LinearLayout>
 

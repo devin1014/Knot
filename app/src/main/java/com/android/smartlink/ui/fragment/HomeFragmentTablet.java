@@ -1,13 +1,10 @@
 package com.android.smartlink.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,29 +13,18 @@ import android.view.ViewGroup;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AlertNotifyManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
 import com.android.smartlink.assist.WeatherManager.WeatherCallback;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Weather;
-import com.android.smartlink.ui.activity.MainActivityTablet;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIModule;
-import com.android.smartlink.ui.model.UITime;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
 import com.android.smartlink.util.HttpUrl;
-import com.android.smartlink.util.ScreenUtil;
-import com.neulion.core.widget.recyclerview.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -47,23 +33,18 @@ import butterknife.OnClick;
  */
 public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
 {
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
+    //    @BindView(R.id.swipe_refresh_layout)
+    //    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
-
     @BindView(R.id.weather_root)
     View mWeatherView;
-
-    @BindView(R.id.home_main_module)
-    View mMainModuleView;
-
-    @BindView(R.id.home_clock_panel)
-    View mClockView;
-
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    //    @BindView(R.id.home_main_module)
+    //    View mMainModuleView;
+    //    @BindView(R.id.model_list)
+    //    RecyclerView mModelRecyclerView;
+    //    @BindView(R.id.toggle_list)
+    //    RecyclerView mToggleRecyclerView;
 
     private MainRequestProvider mRequestProvider;
 
@@ -71,17 +52,11 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     private ViewDataBinding mWeatherBinding;
 
-    private ViewDataBinding mMainModuleBinding;
-
-    private ViewDataBinding mClockBinding;
-
-    private ClockHandler mClockHandler;
-
-    private ModuleAdapterTablet mModuleAdapter;
-
-    private AlertNotifyManager mAlertManager;
-
-    private boolean mClockMode = false;
+    //    private ViewDataBinding mMainModuleBinding;
+    //
+    //    private ModuleAdapterTablet mModuleAdapter;
+    //
+    //    private ToggleAdapterTablet mToggleAdapter;
 
     @Nullable
     @Override
@@ -100,23 +75,13 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     private void initComponent()
     {
-        mClockHandler = new ClockHandler();
-
-        mAlertManager = new AlertNotifyManager(getActivity());
-
         mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
-        mMainModuleBinding = DataBindingUtil.bind(mMainModuleView);
+        //        mMainModuleBinding = DataBindingUtil.bind(mMainModuleView);
 
-        mClockBinding = DataBindingUtil.bind(mClockView);
+        //        mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-
-        mMainModuleView.setKeepScreenOn(true);
-
-        mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapterTablet(getLayoutInflater()));
-
-        mLoadingLayout.showLoading();
+        //mToggleRecyclerView.setAdapter(mToggleAdapter = new ToggleAdapterTablet(getLayoutInflater(), null));//todo
 
         mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
 
@@ -125,14 +90,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mRequestProvider = new MainRequestProvider(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
-    }
 
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-        mAlertManager.removeAllNotification(getActivity());
+        mLoadingLayout.showLoading();
     }
 
     @Override
@@ -142,9 +101,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mRequestProvider.destroy();
 
-        mClockHandler.removeMessage();
-
-        mSwipeRefreshLayout.setRefreshing(false);
+        //        mSwipeRefreshLayout.setRefreshing(false);
 
         super.onDestroyView();
     }
@@ -154,49 +111,29 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mLoadingLayout.showContent();
 
-        mSwipeRefreshLayout.setRefreshing(false);
+        //        mSwipeRefreshLayout.setRefreshing(false);
 
-        boolean alarm = false;
+        Fragment fragment = getChildFragmentManager().findFragmentById(R.id.module_panel);
 
-        List<UIModule> moduleList = new ArrayList<>();
-
-        for (int i = 0; i < modules.getModules().size(); i++)
+        if (fragment == null)
         {
-            UIModule m = new UIModule(modules.getModules().get(i));
-
-            moduleList.add(m);
-
-            if (!alarm)
-            {
-                alarm = m.isAlarm() || m.isError();
-            }
+            getChildFragmentManager().beginTransaction().replace(R.id.module_panel, ModuleFragment.newInstance(modules)).commit();
+        }
+        else if (fragment instanceof ModuleFragment)
+        {
+            ((ModuleFragment) fragment).notifyModulesChanged(modules);
         }
 
-        resetMainModule(moduleList.get(0));
+        Fragment toggleFragment = getChildFragmentManager().findFragmentById(R.id.toggle_panel);
 
-        if (mClockMode && !alarm)
+        if (toggleFragment == null)
         {
-            resetClock();
+            getChildFragmentManager().beginTransaction().replace(R.id.toggle_panel, ToggleFragment.newInstance(modules)).commit();
         }
-        else
+        else if (toggleFragment instanceof ToggleFragment)
         {
-            resetModules(moduleList, 1, moduleList.size());
-
-            if (!alarm)
-            {
-                mClockHandler.sendMessage(60 * 1000);
-
-                mAlertManager.removeAllNotification(getActivity());
-            }
-            else
-            {
-                mClockHandler.removeMessage();
-
-                mAlertManager.showNotification(getActivity(), moduleList);
-            }
+            ((ToggleFragment) toggleFragment).notifyModulesChanged(modules);
         }
-
-        ((MainActivityTablet) getActivity()).hideNavigationBar();
     }
 
     @Override
@@ -204,7 +141,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
 
-        mSwipeRefreshLayout.setRefreshing(false);
+        //        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -215,107 +152,16 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mWeatherManager.requestWeather();
     }
 
-    @OnClick(R.id.loading_layout)
-    public void onMainContainerClick()
-    {
-        if (mClockMode)
-        {
-            mRecyclerView.setVisibility(View.VISIBLE);
-
-            mClockView.setVisibility(View.GONE);
-
-            ScreenUtil.showModule(getActivity());
-
-            mClockMode = false;
-        }
-    }
-
-    @OnClick(R.id.clock_toggle)
-    public void onClickClockToggle()
-    {
-        resetClock();
-
-        mAlertManager.removeAllNotification(getActivity());
-    }
-
     private WeatherCallback mWeatherCallback = new WeatherCallback()
     {
         @Override
         public void onWeatherResponse(Weather weather)
         {
-            mSwipeRefreshLayout.setRefreshing(false);
+            //            mSwipeRefreshLayout.setRefreshing(false);
 
             mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
 
             mWeatherBinding.executePendingBindings();
         }
     };
-
-    private void resetClock()
-    {
-        ScreenUtil.showClock(getActivity());
-
-        mClockBinding.setVariable(BR.data, new UITime());
-
-        mClockBinding.executePendingBindings();
-
-        mClockView.setVisibility(View.VISIBLE);
-
-        mRecyclerView.setVisibility(View.GONE);
-
-        mClockMode = true;
-    }
-
-    private void resetMainModule(UIModule module)
-    {
-        mMainModuleBinding.setVariable(BR.data, module);
-
-        mMainModuleBinding.executePendingBindings();
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private void resetModules(List<UIModule> modules, int start, int end)
-    {
-        ScreenUtil.showModule(getActivity());
-
-        mModuleAdapter.setData(modules.subList(start, end));
-
-        mRecyclerView.setVisibility(View.VISIBLE);
-
-        mClockView.setVisibility(View.GONE);
-
-        mClockMode = false;
-    }
-
-    @SuppressLint("HandlerLeak")
-    private class ClockHandler extends Handler
-    {
-        private final int MSG_CLOCK = 1;
-
-        private boolean mSendMessage = false;
-
-        @Override
-        public void handleMessage(Message msg)
-        {
-            resetClock();
-        }
-
-        void sendMessage(long delay)
-        {
-            if (!mSendMessage)
-            {
-                mSendMessage = true;
-
-                sendEmptyMessageDelayed(MSG_CLOCK, delay);
-            }
-        }
-
-        void removeMessage()
-        {
-            mSendMessage = false;
-
-            removeMessages(MSG_CLOCK);
-        }
-    }
-
 }
