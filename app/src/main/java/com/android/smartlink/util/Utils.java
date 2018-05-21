@@ -53,6 +53,18 @@ public class Utils
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
     }
 
+    public static float[] getPast15Days()
+    {
+        float[] days = new float[16];
+
+        for (int i = 0; i <= 15; i++)
+        {
+            days[i] = i;
+        }
+
+        return days;
+    }
+
     public static float[] getPast30Days()
     {
         float[] days = new float[31];

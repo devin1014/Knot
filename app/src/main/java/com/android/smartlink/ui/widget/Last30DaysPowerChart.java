@@ -78,7 +78,7 @@ public class Last30DaysPowerChart extends AbstractBaseChart
         return new CubicLineChart(buildDataSet(new String[]{context.getResources().getString(R.string.power_last_30_days)}, xData, yData), renderer, 0.3f);
     }
 
-    private float getMin(float[] data)
+    protected float getMin(float[] data)
     {
         float min = Float.MAX_VALUE;
 
@@ -93,7 +93,7 @@ public class Last30DaysPowerChart extends AbstractBaseChart
         return Math.max(min - 0.5f, 0.1f);
     }
 
-    private float getMax(float[] data)
+    protected float getMax(float[] data)
     {
         float max = Float.MIN_VALUE;
 

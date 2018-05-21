@@ -47,6 +47,8 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
         //init menus
         mTabLayout.addOnTabSelectedListener(this);
 
+        mTabLayout.setKeepScreenOn(true);
+
         for (int i = 0; i < MENUS.length; i++)
         {
             Tab tab = mTabLayout.newTab();

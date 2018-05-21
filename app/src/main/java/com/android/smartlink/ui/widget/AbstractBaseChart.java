@@ -66,17 +66,27 @@ abstract class AbstractBaseChart
 
     void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles)
     {
-        renderer.setAxisTitleTextSize(20);
+        setRenderer(renderer, colors, styles, 20, 5f, new int[]{20, 30, 15, 20}, 4f);
+    }
 
-        renderer.setChartTitleTextSize(20);
+    void setRendererForTablet(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles)
+    {
+        setRenderer(renderer, colors, styles, 15, 3f, new int[]{20, 20, 0, 20}, 3f);
+    }
 
-        renderer.setLabelsTextSize(20);
+    void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles, int textSize, float pointSize, int[] margings, float lineWidth)
+    {
+        renderer.setAxisTitleTextSize(textSize);
 
-        renderer.setLegendTextSize(20);
+        renderer.setChartTitleTextSize(textSize);
 
-        renderer.setPointSize(5f);
+        renderer.setLabelsTextSize(textSize);
 
-        renderer.setMargins(new int[]{20, 30, 15, 20});
+        renderer.setLegendTextSize(textSize);
+
+        renderer.setPointSize(pointSize);
+
+        renderer.setMargins(margings);
 
         renderer.setMarginsColor(Color.argb(0x00, 0x01, 0x01, 0x01));
 
@@ -84,7 +94,7 @@ abstract class AbstractBaseChart
         {
             XYSeriesRenderer r = new XYSeriesRenderer();
 
-            r.setLineWidth(4f);
+            r.setLineWidth(lineWidth);
 
             r.setColor(colors[i]);
 
