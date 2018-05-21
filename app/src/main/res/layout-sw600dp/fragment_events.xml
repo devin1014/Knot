@@ -24,9 +24,11 @@
 
             <View
                 android:id="@+id/events_filter_anchor"
-                android:layout_width="match_parent"
+                android:layout_width="1px"
                 android:layout_height="1px"
-                android:layout_marginTop="-12dp" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="-14dp" />
 
             <ImageView
                 android:id="@+id/events_icon"

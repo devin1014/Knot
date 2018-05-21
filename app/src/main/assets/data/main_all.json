@@ -77,7 +77,7 @@
         {
             "slaveID": "255",
             "channel": "6",
-            "status": "3"
+            "status": "2"
         },
         {
             "slaveID": "255",
@@ -87,17 +87,17 @@
         {
             "slaveID": "255",
             "channel": "8",
-            "status": "3"
+            "status": "2"
         },
         {
             "slaveID": "255",
             "channel": "9",
-            "status": "3"
+            "status": "2"
         },
         {
             "slaveID": "255",
             "channel": "10",
-            "status": "3"
+            "status": "2"
         },
         {
             "slaveID": "255",

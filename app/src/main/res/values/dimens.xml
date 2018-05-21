@@ -10,4 +10,6 @@
     <dimen name="content_bg_corner">5dp</dimen>
     <dimen name="status_circle_size">20dp</dimen>
 
+    <dimen name="filter_window_width">360dp</dimen>
+
 </resources>

@@ -81,6 +81,9 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
     @Override
     public void onItemClick(DataBindingAdapter<UIEquipment> adapter, View view, UIEquipment item, int position)
     {
-        ((EquipmentActivity) getActivity()).toEditMode();
+        if (getActivity() instanceof EquipmentActivity)
+        {
+            ((EquipmentActivity) getActivity()).toEditMode();
+        }
     }
 }
