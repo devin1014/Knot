@@ -49,13 +49,16 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        SettingsAdapter adapter;
-
-        mRecyclerView.setAdapter(adapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
+        SettingsAdapter adapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener);
 
         adapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings),
 
                 getResources().getStringArray(R.array.settings_image)));
+
+        mRecyclerView.setAdapter(adapter);
+
+        // show default account
+        showFragment(R.id.settings_detail_container, new AccountFragment());
     }
 
     @Override
@@ -82,6 +85,8 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
             switch (position)
             {
                 case Constants.POS_SETTINGS_ACCOUNT:
+
+                    showFragment(R.id.settings_detail_container, new AccountFragment());
 
                     break;
 
@@ -127,6 +132,7 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
     //
     //        getActivity().startActivity(new Intent(getActivity(), WelcomeActivity.class));
     //    }
+
     private void showFragment(int containerId, Fragment fragment)
     {
         getChildFragmentManager().beginTransaction().replace(containerId, fragment).commit();

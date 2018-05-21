@@ -15,7 +15,7 @@ import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
  */
 public class SettingsAdapter extends BaseAdapter<UISetting>
 {
-    private int mSelectedPosition = -1;
+    private int mSelectedPosition = 0;
 
     public SettingsAdapter(LayoutInflater layoutInflater, OnItemClickListener<UISetting> listener)
     {
@@ -28,15 +28,17 @@ public class SettingsAdapter extends BaseAdapter<UISetting>
         return R.layout.list_item_settings;
     }
 
+    private static final int POS_FEEDBACK = 2; // not selected 'FeedBack' menu
+
     @Override
     protected void onItemClick(DataBindingAdapter<UISetting> adapter, View view, UISetting uiSetting, int position)
     {
         super.onItemClick(adapter, view, uiSetting, position);
 
-        view.setSelected(true);
-
-        if (mSelectedPosition != position)
+        if (position != POS_FEEDBACK && mSelectedPosition != position)
         {
+            view.setSelected(true);
+
             mSelectedPosition = position;
 
             notifyDataSetChanged();//FIXME,should refresh selected one not all views.
