@@ -7,13 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.smartlink.Constants;
+import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.R;
+import com.android.smartlink.assist.BaseExecutorService;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.model.UIToggle;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
 import com.android.smartlink.util.UIConverter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
+import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
 
 import java.util.List;
 
@@ -41,6 +45,8 @@ public class ToggleListFragment extends BaseModulesFragment
 
     private int mPageIndex = 0;
 
+    private BaseExecutorService mExecutorService = new BaseExecutorService();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -62,7 +68,7 @@ public class ToggleListFragment extends BaseModulesFragment
 
         Modules modules = (Modules) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
-        mAdapter = new ToggleAdapterTablet(getLayoutInflater(), null);
+        mAdapter = new ToggleAdapterTablet(getLayoutInflater(), mToggleOnItemClickListener);
 
         mAdapter.setData(parseList(modules));
 
@@ -84,4 +90,19 @@ public class ToggleListFragment extends BaseModulesFragment
 
         return UIConverter.convertToggle(modules.getToggles(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
     }
+
+    private OnItemClickListener<UIToggle> mToggleOnItemClickListener = new OnItemClickListener<UIToggle>()
+    {
+        @Override
+        public void onItemClick(DataBindingAdapter<UIToggle> dataBindingAdapter, View view, UIToggle uiToggle, int i)
+        {
+            boolean isToggleOn = view.isSelected();
+
+            int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
+
+            mExecutorService.execute(uiToggle.getId(), value);
+
+            view.setSelected(!isToggleOn);
+        }
+    };
 }

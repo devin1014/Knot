@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,10 @@ import com.android.smartlink.R;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.widget.ScaleCircleNavigator;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
 
 import butterknife.BindView;
 
@@ -37,6 +42,8 @@ public class ModuleFragment extends BaseSmartlinkFragment
 
     @BindView(R.id.model_pager)
     ViewPager mViewPager;
+    @BindView(R.id.magic_indicator)
+    MagicIndicator mMagicIndicator;
 
     @Nullable
     @Override
@@ -56,6 +63,15 @@ public class ModuleFragment extends BaseSmartlinkFragment
     private void initComponent()
     {
         mViewPager.setAdapter(new ModuleAdapter(getChildFragmentManager()));
+
+        ScaleCircleNavigator scaleCircleNavigator = new ScaleCircleNavigator(getActivity());
+        scaleCircleNavigator.setCircleCount(mViewPager.getAdapter().getCount());
+        scaleCircleNavigator.setNormalCircleColor(Color.parseColor("#aaffffff"));
+        scaleCircleNavigator.setSelectedCircleColor(Color.WHITE);
+        scaleCircleNavigator.setMaxRadius(3);
+        scaleCircleNavigator.setMinRadius(2);
+        mMagicIndicator.setNavigator(scaleCircleNavigator);
+        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
     public void notifyModulesChanged(Modules modules)

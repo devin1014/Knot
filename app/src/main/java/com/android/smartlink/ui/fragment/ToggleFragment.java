@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,10 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.widget.ScaleCircleNavigator;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
 
 import butterknife.BindView;
 
@@ -38,6 +43,8 @@ public class ToggleFragment extends BaseModulesFragment
 
     @BindView(R.id.toggle_pager)
     ViewPager mViewPager;
+    @BindView(R.id.magic_indicator)
+    MagicIndicator mMagicIndicator;
 
     private int mPageSize = 0;
 
@@ -71,12 +78,30 @@ public class ToggleFragment extends BaseModulesFragment
         }
 
         mViewPager.setAdapter(new ToggleAdapter(getChildFragmentManager()));
+
+
+        ScaleCircleNavigator scaleCircleNavigator = new ScaleCircleNavigator(getActivity());
+        scaleCircleNavigator.setCircleCount(mViewPager.getAdapter().getCount());
+        scaleCircleNavigator.setNormalCircleColor(Color.parseColor("#aaffffff"));
+        scaleCircleNavigator.setSelectedCircleColor(Color.WHITE);
+        mMagicIndicator.setNavigator(scaleCircleNavigator);
+        scaleCircleNavigator.setMaxRadius(3);
+        scaleCircleNavigator.setMinRadius(2);
+        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
     @Override
     public void notifyModulesChanged(Modules modules)
     {
-        //todo
+        if (mViewPager != null)
+        {
+            FragmentPagerAdapter adapter = (FragmentPagerAdapter) mViewPager.getAdapter();
+
+            for (int i = 0; i < adapter.getCount(); i++)
+            {
+                ((ToggleListFragment) adapter.getItem(i)).notifyModulesChanged(modules);
+            }
+        }
     }
 
     private class ToggleAdapter extends FragmentPagerAdapter

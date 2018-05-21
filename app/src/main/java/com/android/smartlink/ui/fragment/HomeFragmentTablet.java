@@ -33,30 +33,16 @@ import butterknife.BindView;
  */
 public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
 {
-    //    @BindView(R.id.swipe_refresh_layout)
-    //    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
     @BindView(R.id.weather_root)
     View mWeatherView;
-    //    @BindView(R.id.home_main_module)
-    //    View mMainModuleView;
-    //    @BindView(R.id.model_list)
-    //    RecyclerView mModelRecyclerView;
-    //    @BindView(R.id.toggle_list)
-    //    RecyclerView mToggleRecyclerView;
 
     private MainRequestProvider mRequestProvider;
 
     private WeatherManager mWeatherManager;
 
     private ViewDataBinding mWeatherBinding;
-
-    //    private ViewDataBinding mMainModuleBinding;
-    //
-    //    private ModuleAdapterTablet mModuleAdapter;
-    //
-    //    private ToggleAdapterTablet mToggleAdapter;
 
     @Nullable
     @Override
@@ -77,12 +63,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
-        //        mMainModuleBinding = DataBindingUtil.bind(mMainModuleView);
-
-        //        mSwipeRefreshLayout.setOnRefreshListener(this);
-
-        //mToggleRecyclerView.setAdapter(mToggleAdapter = new ToggleAdapterTablet(getLayoutInflater(), null));//todo
-
         mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
 
         mWeatherManager.requestWeather();
@@ -101,8 +81,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mRequestProvider.destroy();
 
-        //        mSwipeRefreshLayout.setRefreshing(false);
-
         super.onDestroyView();
     }
 
@@ -110,8 +88,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     public void onResponse(Modules modules)
     {
         mLoadingLayout.showContent();
-
-        //        mSwipeRefreshLayout.setRefreshing(false);
 
         Fragment fragment = getChildFragmentManager().findFragmentById(R.id.module_panel);
 
@@ -140,8 +116,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     public void onError(Throwable throwable)
     {
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
-
-        //        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -157,8 +131,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         @Override
         public void onWeatherResponse(Weather weather)
         {
-            //            mSwipeRefreshLayout.setRefreshing(false);
-
             mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
 
             mWeatherBinding.executePendingBindings();

@@ -72,32 +72,32 @@
         {
             "id": 153,
             "name": "照明回路",
-            "icon": "ic_group_oven",
-            "icon_light": "ic_group_oven_white"
+            "icon": "ic_group_light",
+            "icon_light": "ic_group_light_white"
         },
         {
             "id": 154,
             "name": "空调回路",
-            "icon": "ic_group_oven",
-            "icon_light": "ic_group_oven_white"
+            "icon": "ic_group_air_conditioner",
+            "icon_light": "ic_group_air_conditioner_white"
         },
         {
             "id": 155,
             "name": "水泵回路",
-            "icon": "ic_group_oven",
-            "icon_light": "ic_group_oven_white"
+            "icon": "ic_group_water_pump",
+            "icon_light": "ic_group_water_pump_white"
         },
         {
             "id": 156,
             "name": "主电梯回路",
-            "icon": "ic_group_oven",
-            "icon_light": "ic_group_oven_white"
+            "icon": "ic_group_elevator",
+            "icon_light": "ic_group_elevator_white"
         },
         {
             "id": 157,
             "name": "其他回路",
-            "icon": "ic_group_oven",
-            "icon_light": "ic_group_oven_white"
+            "icon": "ic_group_others",
+            "icon_light": "ic_group_others_white"
         }
     ]
 }

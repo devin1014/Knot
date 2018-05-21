@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,10 +25,12 @@
             android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/state_toggle_background"
+            android:foreground="?android:selectableItemBackground"
             android:onClick="@{(view)->handler.onItemClick(view,data)}"
             android:text="@{data.name}"
             android:textColor="#ffffff"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            tools:ignore="SpUsage" />
 
     </FrameLayout>
 

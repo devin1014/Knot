@@ -29,6 +29,7 @@ public class HttpUrl
         return "https://api.accuweather.com/localweather/v1/106577?apikey=" + Utils.getApplicationMetaData(context, "accuWeatherKey");
     }
 
+    //https://free-api.heweather.com/v5/weather?city=shanghai&key=7f70fe2b7604408bafba86681d9ddcd4
     public static String getWeatherUrl(Context context, String city)
     {
         return "https://free-api.heweather.com/v5/weather?city=" + city + "&key=" + Utils.getApplicationMetaData(context, "weatherKey");
