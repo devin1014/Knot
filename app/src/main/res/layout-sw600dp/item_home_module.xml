@@ -24,18 +24,35 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.android.smartlink.ui.widget.CircleView
+        <FrameLayout
             android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:contentDescription="@null"
-            android:scaleType="centerInside"
-            app:circleBackgroundColor="#33000000"
-            app:circleBorderColor="#d9d9d9"
-            app:circleBorderWidth="3dp"
-            app:circleProgress="@{data.powerLoad}"
-            app:circleProgressColor="@{data.color}"
-            app:imageRes="@{data.whiteImageRes}"
-            app:selected="@{ToggleHelper.isToggleOn(data.status)}" />
+            android:layout_height="68dp">
+
+            <com.android.smartlink.ui.widget.CircleView
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                app:circleBackgroundColor="#33000000"
+                app:circleBorderColor="#d9d9d9"
+                app:circleBorderWidth="3dp"
+                app:circleProgress="@{data.powerLoad}"
+                app:circleProgressColor="@{data.color}"
+                app:imageRes="@{data.whiteImageRes}"
+                app:selected="@{ToggleHelper.isToggleOn(data.status)}" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="4dp"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/module_status_selector"
+                android:visibility="@{data.normal?View.GONE:View.VISIBLE}"
+                app:imageLevel="@{data.status}" />
+
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
