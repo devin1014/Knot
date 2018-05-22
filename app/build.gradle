@@ -1,3 +1,5 @@
+import com.android.builder.model.ProductFlavor
+
 apply plugin: 'com.android.application'
 
 def versionNamePrefix = '1.'
@@ -24,23 +26,21 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(project.hasProperty("store_file") ? store_file : RELEASE_STORE_FILE)
-            storePassword(project.hasProperty('store_password') ? store_password : RELEASE_STORE_PASSWORD)
-            keyAlias(project.hasProperty('key_alias') ? key_alias : RELEASE_KEY_ALIAS)
-            keyPassword(project.hasProperty('key_password') ? key_password : RELEASE_KEY_PASSWORD)
+            storeFile file('/Users/liuwei/Code/android/Knot/android_liuwei.keystore')
+            keyAlias('knot')
+            keyPassword ""
+            storePassword ""
         }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-
                     def type = productFlavors[0].name.contains("app") ? "phone" : "tablet"
-
                     outputFileName = "PowerTag_" + type + "_v" + "${getVersionName(versionNamePrefix)}.apk"
                 }
             }
@@ -79,28 +79,22 @@ static def getVersionName(String prefix) {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':core')
-
     compile(name: 'support_recyclerview_v1.1', ext: 'aar')
-
-    compile("com.android.support:appcompat-v7:${SUPPORTLIBVERSION}")
-    compile("com.android.support:design:${SUPPORTLIBVERSION}")
-    compile("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
-    compile("com.android.support:cardview-v7:${SUPPORTLIBVERSION}")
+    compile "com.android.support:appcompat-v7:${SUPPORTLIBVERSION}"
+    compile "com.android.support:design:${SUPPORTLIBVERSION}"
+    compile "com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}"
+    compile "com.android.support:cardview-v7:${SUPPORTLIBVERSION}"
     compile 'com.android.support.constraint:constraint-layout:1.1.0'
-
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
-
     compile 'com.umeng.analytics:analytics:6.1.3'
-
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -110,5 +104,18 @@ dependencies {
 repositories {
     flatDir {
         dirs 'libs'
+    }
+}
+
+task('readPasswordFromInput') << {
+    def console = System.console()
+    ext.keystorePassword = console.readLine('\n\n\n> Enter keystore password: ')
+    android.signingConfigs.release.storePassword = ext.keystorePassword
+    android.signingConfigs.release.keyPassword = ext.keystorePassword
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.contains("Release")) {
+        task.dependsOn('readPasswordFromInput')
     }
 }

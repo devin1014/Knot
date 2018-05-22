@@ -15,6 +15,7 @@ import com.android.smartlink.bean.Modules;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.widget.Last15DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
+import com.android.smartlink.ui.widget.ModuleBarChart;
 import com.android.smartlink.util.HttpUrl;
 
 import org.achartengine.GraphicalView;
@@ -79,9 +80,13 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
     {
         mLoadingLayout.showContent();
 
+        ModuleBarChart barChart = new ModuleBarChart(getContext());
+
+        barChart.setData(12, energy.getData());
+
         mChartLayout1.removeAllViews();
 
-        mChartLayout1.addView(new GraphicalView(getActivity(), new Last15DaysPowerChart().getChart(getActivity(), energy.getData())));
+        mChartLayout1.addView(barChart);
 
         mChartLayout2.removeAllViews();
 
