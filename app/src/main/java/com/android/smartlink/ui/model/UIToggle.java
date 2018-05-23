@@ -3,6 +3,7 @@ package com.android.smartlink.ui.model;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modbus.EquipmentToggle;
 import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.util.Helper.ToggleHelper;
 import com.android.smartlink.util.ViewUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
@@ -23,6 +24,8 @@ public class UIToggle implements Serializable, IModule
     public UIToggle(Toggle toggle)
     {
         mToggle = toggle;
+
+        toggleOn = ToggleHelper.isToggleOn(toggle);
     }
 
     @DiffItem
@@ -89,5 +92,18 @@ public class UIToggle implements Serializable, IModule
     public boolean isToggle()
     {
         return true;
+    }
+
+    private boolean toggleOn;
+
+    public void setToggleOn(boolean on)
+    {
+        toggleOn = on;
+    }
+
+    @DiffContent
+    public boolean isToggleOn()
+    {
+        return toggleOn;
     }
 }

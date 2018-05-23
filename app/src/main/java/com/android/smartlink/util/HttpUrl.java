@@ -9,19 +9,21 @@ import android.content.Context;
  */
 public class HttpUrl
 {
+    private static final String TOMCAT_SRVER = "http://localhost:8080/examples/knot";
+
     public static String getHomeUrl()
     {
-        return "http://localhost:8080/examples/smartlink/main.json";
+        return TOMCAT_SRVER + "/main/main_all.json";
     }
 
     public static String getEventsUrl()
     {
-        return "http://localhost:8080/examples/smartlink/events.json";
+        return TOMCAT_SRVER + "/events/events_all.json";
     }
 
     public static String getPowerConsumeUrl(int id)
     {
-        return "http://localhost:8080/examples/smartlink/30DayEnergy_" + id + ".json";
+        return TOMCAT_SRVER + "/main/30DayEnergy_" + id + ".json";
     }
 
     public static String getAccuWeatherUrl(Context context)

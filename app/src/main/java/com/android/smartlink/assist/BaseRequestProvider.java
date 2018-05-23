@@ -35,46 +35,37 @@ abstract class BaseRequestProvider<T>
         mActivity = activity;
 
         mCallback = callback;
+
+        mDestroy = false;
     }
 
     public final void request(final String url)
     {
-        mDestroy = false;
-
-        if (AppManager.getInstance().isDemoMode())
+        if (AppManager.getInstance().isHttpMode())
         {
-            sExecutor.execute(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    getFromLocal(url);
-                }
-            });
+            getFromOkHttp(url);
         }
         else
         {
-            if (!getFromOkHttp())
+            if (!mDestroy)
             {
                 sExecutor.execute(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        getFromRemote(url);
+                        if (AppManager.getInstance().isLocalMode())
+                        {
+                            getFromLocal(url);
+                        }
+                        else if (AppManager.getInstance().isRemoteMode())
+                        {
+                            getFromRemote(url);
+                        }
                     }
                 });
             }
-            else
-            {
-                getFromOkHttp(url);
-            }
         }
-    }
-
-    protected boolean getFromOkHttp()
-    {
-        return true;
     }
 
     protected abstract void getFromLocal(String url);
@@ -105,7 +96,7 @@ abstract class BaseRequestProvider<T>
     @SuppressWarnings("WeakerAccess")
     protected void notifyResponse(final T t)
     {
-        if (mCallback != null)
+        if (mCallback != null && !mDestroy)
         {
             if (isUIThread())
             {
@@ -128,7 +119,7 @@ abstract class BaseRequestProvider<T>
     @SuppressWarnings("WeakerAccess")
     protected void notifyResponse(final Throwable throwable)
     {
-        if (mCallback != null)
+        if (mCallback != null && !mDestroy)
         {
             if (isUIThread())
             {

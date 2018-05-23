@@ -1,9 +1,9 @@
 package com.android.smartlink.assist;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.android.smartlink.util.ModbusHelp;
+import com.neulion.core.util.LogUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -46,7 +46,7 @@ public class BaseExecutorService
 
                 String modbusStatus = ModbusHelp.modbusWDefaultTCP(serverAddress, port, channelId, status);
 
-                Log.d(getClass().getSimpleName(), modbusStatus);
+                LogUtil.log(BaseExecutorService.this, modbusStatus);
             }
         });
     }

@@ -85,14 +85,6 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
     }
 
     @Override
-    protected boolean getFromOkHttp()
-    {
-        return false;
-        //FIX_ME!!!
-        //return Utils.isDevDebugMode(getActivity());
-    }
-
-    @Override
     public void destroy()
     {
         OkGo.getInstance().cancelTag(this);

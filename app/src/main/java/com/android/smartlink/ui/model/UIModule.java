@@ -136,7 +136,7 @@ public class UIModule implements Serializable, IModule
 
     public int getColor()
     {
-        return mStatusColor[adjustStatus()];
+        return mStatusColor[adjustStatus() % mStatusColor.length];
     }
 
     public int getTextColor()

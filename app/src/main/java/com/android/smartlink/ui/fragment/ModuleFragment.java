@@ -76,7 +76,15 @@ public class ModuleFragment extends BaseSmartlinkFragment
 
     public void notifyModulesChanged(Modules modules)
     {
-        // TODO: 2018/5/20  
+        if (mViewPager != null && mViewPager.getAdapter() != null)
+        {
+            Fragment fragment = ((ModuleAdapter) mViewPager.getAdapter()).getItem(0);
+
+            if (fragment instanceof ModuleStatusFragment)
+            {
+                ((ModuleStatusFragment) fragment).notifyModulesChanged(modules);
+            }
+        }
     }
 
     private class ModuleAdapter extends FragmentPagerAdapter

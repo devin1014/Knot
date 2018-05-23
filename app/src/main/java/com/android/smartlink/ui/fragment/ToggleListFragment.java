@@ -99,7 +99,9 @@ public class ToggleListFragment extends BaseModulesFragment
         @Override
         public void onItemClick(DataBindingAdapter<UIToggle> dataBindingAdapter, View view, UIToggle uiToggle, int i)
         {
-            boolean isToggleOn = view.isSelected();
+            boolean isToggleOn = uiToggle.isToggleOn();
+
+            uiToggle.setToggleOn(!isToggleOn);
 
             int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
 

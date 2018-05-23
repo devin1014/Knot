@@ -38,6 +38,11 @@ public class AppManager
         }
     }
 
+    public enum MODE
+    {
+        MODE_LOCAL, MODE_HTTP, MODE_REMOTE
+    }
+
     private final Application mApplication;
 
     private SharedPreferences mSharedPreferences;
@@ -49,6 +54,8 @@ public class AppManager
     private Weather mWeather;
 
     private boolean mPhoneType;
+
+    private MODE mRequestMode = MODE.MODE_REMOTE;
 
     private AppManager(Application application)
     {
@@ -199,6 +206,31 @@ public class AppManager
     public int getDemoModeStatus()
     {
         return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, Constants.STATUS_NORMAL);
+    }
+
+    public void setRequestMode(MODE mode)
+    {
+        mRequestMode = mode;
+    }
+
+    public MODE getRequestMode()
+    {
+        return mRequestMode;
+    }
+
+    public boolean isLocalMode()
+    {
+        return mRequestMode == MODE.MODE_LOCAL;
+    }
+
+    public boolean isHttpMode()
+    {
+        return mRequestMode == MODE.MODE_HTTP;
+    }
+
+    public boolean isRemoteMode()
+    {
+        return mRequestMode == MODE.MODE_REMOTE;
     }
 
     // -----------------------------------
