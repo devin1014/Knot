@@ -3,7 +3,6 @@ package com.android.smartlink.ui.widget;
 import android.content.Context;
 import android.graphics.Paint.Align;
 
-import com.android.smartlink.R;
 import com.android.smartlink.util.Utils;
 
 import org.achartengine.chart.AbstractChart;
@@ -62,6 +61,6 @@ public class Last15DaysPowerChart extends Last30DaysPowerChart
         renderer.setYLabelsAlign(Align.RIGHT);
         renderer.setYLabelsColor(0, labelColor);
 
-        return new CubicLineChart(buildDataSet(new String[]{context.getResources().getString(R.string.power_last_15_days)}, xData, yData), renderer, 0.3f);
+        return new CubicLineChart(buildDataSet(new String[]{""}, xData, yData), renderer, 0.3f);
     }
 }

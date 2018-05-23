@@ -103,6 +103,16 @@
             "slaveID": "255",
             "channel": "11",
             "status": "3"
+        },
+        {
+            "slaveID": "255",
+            "channel": "12",
+            "status": "2"
+        },
+        {
+            "slaveID": "255",
+            "channel": "13",
+            "status": "2"
         }
     ]
 }

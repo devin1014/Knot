@@ -47,7 +47,7 @@ public class UIConverter
     {
         List<UIToggle> moduleList = new ArrayList<>();
 
-        for (int i = startIndex; list != null && i < startIndex + count; i++)
+        for (int i = startIndex; list != null && i < startIndex + count && i < list.size(); i++)
         {
             UIToggle m = new UIToggle(list.get(i));
 

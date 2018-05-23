@@ -16,38 +16,42 @@
         {
             "channel": 6,
             "id": 14401,
-            "name": "会议室照明",
-            "icon": "toggle_light_selector"
+            "name": "会议室照明"
         },
         {
             "channel": 7,
             "id": 14441,
-            "name": "办公照明",
-            "icon": "toggle_oven_selector"
+            "name": "办公照明"
         },
         {
             "channel": 8,
             "id": 14402,
-            "name": "厂区照明",
-            "icon": "toggle_light_selector"
+            "name": "厂区照明"
         },
         {
             "channel": 9,
             "id": 14443,
-            "name": "公共照明",
-            "icon": "toggle_oven_selector"
+            "name": "公共照明"
         },
         {
             "channel": 10,
             "id": 14404,
-            "name": "自动分合闸1",
-            "icon": "toggle_light_selector"
+            "name": "自动分合闸1"
         },
         {
             "channel": 11,
             "id": 14445,
-            "name": "自动分合闸2",
-            "icon": "toggle_oven_selector"
+            "name": "自动分合闸2"
+        },
+        {
+            "channel": 12,
+            "id": 14406,
+            "name": "集成控制1"
+        },
+        {
+            "channel": 13,
+            "id": 14446,
+            "name": "集成控制2"
         }
     ],
     "equipments": [
@@ -95,7 +99,7 @@
         },
         {
             "id": 157,
-            "name": "其他回路",
+            "name": "备用回路",
             "icon": "ic_group_others",
             "icon_light": "ic_group_others_white"
         }

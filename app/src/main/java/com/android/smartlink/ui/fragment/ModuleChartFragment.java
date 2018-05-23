@@ -82,7 +82,7 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
 
         ModuleBarChart barChart = new ModuleBarChart(getContext());
 
-        barChart.setData(12, energy.getData());
+        barChart.setData(energy.getData());
 
         mChartLayout1.removeAllViews();
 

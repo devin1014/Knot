@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +94,16 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         if (fragment == null)
         {
-            getChildFragmentManager().beginTransaction().replace(R.id.module_panel, ModuleFragment.newInstance(modules)).commit();
+            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction().replace(R.id.module_panel, ModuleFragment.newInstance(modules));
+
+            if (isResumed())
+            {
+                fragmentTransaction.commit();
+            }
+            else
+            {
+                fragmentTransaction.commitAllowingStateLoss();
+            }
         }
         else if (fragment instanceof ModuleFragment)
         {
@@ -104,7 +114,16 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         if (toggleFragment == null)
         {
-            getChildFragmentManager().beginTransaction().replace(R.id.toggle_panel, ToggleFragment.newInstance(modules)).commit();
+            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction().replace(R.id.toggle_panel, ToggleFragment.newInstance(modules));
+
+            if (isResumed())
+            {
+                fragmentTransaction.commit();
+            }
+            else
+            {
+                fragmentTransaction.commitAllowingStateLoss();
+            }
         }
         else if (toggleFragment instanceof ToggleFragment)
         {

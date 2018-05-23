@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-import com.android.smartlink.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.Legend.LegendForm;
@@ -27,6 +26,8 @@ import java.util.ArrayList;
  */
 public class ModuleBarChart extends BarChart
 {
+    private int mXAxisMaxSize = 24;
+
     public ModuleBarChart(Context context)
     {
         super(context);
@@ -53,20 +54,22 @@ public class ModuleBarChart extends BarChart
         setDrawBarShadow(false);
         setDrawValueAboveBar(false);
         getDescription().setEnabled(false);
-        setMaxVisibleValueCount(15);
+        //setMaxVisibleValueCount(24);
         // scaling can now only be done on x- and y-axis separately
         setPinchZoom(false);
         setDoubleTapToZoomEnabled(false);
         setDrawGridBackground(false);
         // setDrawYLabels(false);
 
-        IAxisValueFormatter xAxisFormatter = new MonthAxisValueFormatter();
+        IAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter();
         XAxis xAxis = getXAxis();
+        xAxis.setValueFormatter(xAxisFormatter);
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // only intervals of 1 day
-        xAxis.setLabelCount(12);
-        xAxis.setValueFormatter(xAxisFormatter);
+        xAxis.setGranularity(2f); // only intervals of 1 day
+        xAxis.setLabelCount(mXAxisMaxSize);
+        xAxis.setAxisLineColor(Color.WHITE);
+        xAxis.setTextColor(Color.WHITE);
 
         IAxisValueFormatter custom = new MyAxisValueFormatter();
         YAxis leftAxis = getAxisLeft();
@@ -75,6 +78,8 @@ public class ModuleBarChart extends BarChart
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        leftAxis.setAxisLineColor(Color.WHITE);
+        leftAxis.setTextColor(Color.WHITE);
 
         YAxis rightAxis = getAxisRight();
         rightAxis.setDrawGridLines(false);
@@ -82,6 +87,8 @@ public class ModuleBarChart extends BarChart
         rightAxis.setValueFormatter(custom);
         rightAxis.setSpaceTop(15f);
         rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        rightAxis.setAxisLineColor(Color.WHITE);
+        rightAxis.setTextColor(Color.WHITE);
 
         Legend l = getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -98,36 +105,38 @@ public class ModuleBarChart extends BarChart
         setMarker(mv); // Set the marker to the chart
     }
 
-    public void setData(int count, float[] data)
+    public void setData(float[] data)
     {
-        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+        ArrayList<BarEntry> yValues = new ArrayList<>();
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < mXAxisMaxSize; i++)
         {
-            yVals1.add(new BarEntry(i, data[i]));
+            yValues.add(new BarEntry(i, data[i]));
         }
 
-        BarDataSet set1;
+        BarDataSet dataSet;
 
         if (getData() != null && getData().getDataSetCount() > 0)
         {
-            set1 = (BarDataSet) getData().getDataSetByIndex(0);
-            set1.setValues(yVals1);
+            dataSet = (BarDataSet) getData().getDataSetByIndex(0);
+            dataSet.setValues(yValues);
             getData().notifyDataChanged();
             notifyDataSetChanged();
         }
         else
         {
-            set1 = new BarDataSet(yVals1, getResources().getString(R.string.power_history_chart));
-            set1.setDrawIcons(false);
-            set1.setColors(Color.GREEN);
+            dataSet = new BarDataSet(yValues, null);
+            dataSet.setDrawIcons(false);
+            dataSet.setDrawValues(false);
+            dataSet.setColors(Color.GREEN);
 
-            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
+            ArrayList<IBarDataSet> list = new ArrayList<>();
+            list.add(dataSet);
 
-            BarData barData = new BarData(dataSets);
+            BarData barData = new BarData(list);
             barData.setValueTextSize(10f);
-            barData.setBarWidth(0.9f);
+            barData.setValueTextColor(Color.WHITE);
+            barData.setBarWidth(0.8f);
 
             setData(barData);
         }

@@ -78,7 +78,10 @@ public class ToggleListFragment extends BaseModulesFragment
     @Override
     public void notifyModulesChanged(Modules modules)
     {
-        mAdapter.setData(parseList(modules));
+        if (mAdapter != null)
+        {
+            mAdapter.setData(parseList(modules));
+        }
     }
 
     private List<UIToggle> parseList(@Nullable Modules modules)

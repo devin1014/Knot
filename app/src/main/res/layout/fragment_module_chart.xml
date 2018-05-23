@@ -8,30 +8,59 @@
     android:layout_height="match_parent"
     app:loading_layout="@layout/comp_loading_layout">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:paddingBottom="24dp">
+
+        <View
+            android:id="@+id/anchor_view_in_center"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:layout_centerInParent="true" />
 
         <FrameLayout
             android:id="@+id/chart_left_panel"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_weight="1"
+            android:layout_toLeftOf="@id/anchor_view_in_center"
+            android:layout_toStartOf="@id/anchor_view_in_center"
             android:background="@drawable/shape_common_item_bg_ff_20" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/anchor_view_in_center"
+            android:layout_toStartOf="@id/anchor_view_in_center"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/power_chart_hour"
+            android:textColor="#ffffff"
+            android:textSize="10dp" />
 
         <FrameLayout
             android:id="@+id/chart_right_panel"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_weight="1"
+            android:layout_toEndOf="@id/anchor_view_in_center"
+            android:layout_toRightOf="@id/anchor_view_in_center"
             android:background="@drawable/shape_common_item_bg_ff_20" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/anchor_view_in_center"
+            android:layout_toRightOf="@id/anchor_view_in_center"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/power_last_15_days"
+            android:textColor="#ffffff"
+            android:textSize="10dp" />
+
+    </RelativeLayout>
 
 </com.android.smartlink.ui.widget.LoadingLayout>
