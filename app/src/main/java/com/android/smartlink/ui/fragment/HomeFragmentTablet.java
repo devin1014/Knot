@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AlertNotifyManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
@@ -24,6 +25,7 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.util.HttpUrl;
+import com.android.smartlink.util.UIConverter;
 
 import butterknife.BindView;
 
@@ -45,6 +47,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     private ViewDataBinding mWeatherBinding;
 
+    private AlertNotifyManager mAlertManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -62,6 +66,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     private void initComponent()
     {
+        mAlertManager = new AlertNotifyManager(getActivity());
+
         mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
         mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
@@ -73,6 +79,14 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mLoadingLayout.showLoading();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        mAlertManager.stopWarning();
     }
 
     @Override
@@ -89,6 +103,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     public void onResponse(Modules modules)
     {
         mLoadingLayout.showContent();
+
+        mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getModules()));
 
         Fragment fragment = getChildFragmentManager().findFragmentById(R.id.module_panel);
 
