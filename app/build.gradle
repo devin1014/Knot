@@ -48,6 +48,12 @@ android {
     flavorDimensions("device")
 
     productFlavors {
+        dev {
+            applicationId "com.android.smartlink.debug"
+            dimension "device"
+            resValue("string", "app_name", "测试工具")
+        }
+
         app {
             applicationId "com.android.smartlink"
             dimension "device"

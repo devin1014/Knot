@@ -127,6 +127,12 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     @Override
     public void onResponse(Modules modules)
     {
+        //only show debug mode
+        //        if (getActivity() != null && modules != null && modules.getModules() != null)
+        //        {
+        //            Toast.makeText(getActivity(), ModuleUtil.getModuleString(modules), Toast.LENGTH_LONG).show();
+        //        }
+
         mLoadingLayout.showContent();
 
         mSwipeRefreshLayout.setRefreshing(false);

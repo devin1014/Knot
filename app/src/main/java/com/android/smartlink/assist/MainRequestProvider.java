@@ -54,11 +54,11 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
 
         final int port = 502;
 
-        int[] idArr = new int[]{151, 150, 152};
+        int[] idArr = new int[]{150, 151, 152};
 
         String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
 
-        LogUtil.log(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
+        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
 
         Modules modules = new Gson().fromJson(tStr, Modules.class);
 
