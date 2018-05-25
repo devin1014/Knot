@@ -21,5 +21,10 @@ public class Helper
         {
             return status == MODULE_FLAG.STATUS_ON.value;
         }
+
+        public static boolean isToggleEnabled(int status)
+        {
+            return status != MODULE_FLAG.STATUS_DISABLE.value;
+        }
     }
 }

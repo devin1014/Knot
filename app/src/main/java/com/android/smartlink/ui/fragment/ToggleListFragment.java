@@ -105,7 +105,7 @@ public class ToggleListFragment extends BaseModulesFragment
 
             int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
 
-            mExecutorService.execute(uiToggle.getId(), value);
+            mExecutorService.execute(uiToggle.getId(), uiToggle.getDeviceId(), value);
 
             view.setSelected(!isToggleOn);
         }

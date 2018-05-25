@@ -67,6 +67,8 @@ public class Constants
 
         CTRL_OFF(1),
 
+        STATUS_DISABLE(0),
+
         STATUS_ON(3),
 
         STATUS_OFF(2);

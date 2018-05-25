@@ -32,7 +32,8 @@ public class UIToggle implements Serializable, IModule
     @Override
     public int getId()
     {
-        return AppManager.getInstance().getToggle(mToggle.getChannel()).getId();
+        //return AppManager.getInstance().getToggle(mToggle.getChannel()).getId();
+        return mToggle.getChannel();
     }
 
     @Override
@@ -54,7 +55,7 @@ public class UIToggle implements Serializable, IModule
     {
         EquipmentToggle toggle = AppManager.getInstance().getToggle(mToggle.getChannel());
 
-        return toggle.getName();
+        return toggle != null ? toggle.getName() : null;
     }
 
     @Override
@@ -105,5 +106,10 @@ public class UIToggle implements Serializable, IModule
     public boolean isToggleOn()
     {
         return toggleOn;
+    }
+
+    public int getDeviceId()
+    {
+        return mToggle.getSlaveID();
     }
 }

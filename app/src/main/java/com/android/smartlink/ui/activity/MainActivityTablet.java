@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 
+import com.android.devin.core.util.Debug;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.application.manager.AppManager.MODE;
 import com.android.smartlink.util.Utils;
@@ -20,11 +21,15 @@ public class MainActivityTablet extends MainActivity implements OnTabSelectedLis
     {
         super.onActivityCreate(savedInstanceState);
 
-        AppManager.getInstance().setDemoMode(true);
+        final boolean debug = false;
+
+        Debug.init(debug);
+
+        AppManager.getInstance().setDemoMode(debug);
 
         AppManager.getInstance().setDemoModeStatus(-1);
 
-        AppManager.getInstance().setRequestMode(Utils.isDevDebugMode(this) ? MODE.MODE_HTTP : MODE.MODE_LOCAL);
+        AppManager.getInstance().setRequestMode(Utils.isDevDebugMode(this) ? MODE.MODE_HTTP : MODE.MODE_REMOTE);
     }
 
 }

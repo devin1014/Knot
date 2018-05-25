@@ -33,18 +33,19 @@ public class BaseExecutorService
 
     private static final ExecutorService sExecutor = Executors.newCachedThreadPool(sThreadFactory);
 
-    public final void execute(final int channelId, final int status)
+    public final void execute(final int channelId, final int deviceId, final int status)
     {
         sExecutor.execute(new Runnable()
         {
             @Override
             public void run()
             {
-                String serverAddress = "192.168.1.101";
+                String serverAddress = "192.168.1.100";
 
                 final int port = 502;
 
-                String modbusStatus = ModbusHelp.modbusWDefaultTCP(serverAddress, port, channelId, status);
+                // write data should +1
+                String modbusStatus = ModbusHelp.modbusWDefaultTCP(serverAddress, port, deviceId, channelId + 1, status);
 
                 LogUtil.log(BaseExecutorService.this, modbusStatus);
             }

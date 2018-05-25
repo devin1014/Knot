@@ -181,7 +181,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
                 int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
 
-                mExecutorService.execute(module.getId(), value);
+                mExecutorService.execute(module.getId(), 255, value);//FIXME,deviceId
 
                 view.setSelected(!isToggleOn);
             }

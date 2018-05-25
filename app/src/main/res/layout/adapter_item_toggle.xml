@@ -33,6 +33,7 @@
             android:text="@{data.name}"
             android:textColor="#ffffff"
             android:textSize="14dp"
+            app:ebabled="@{ToggleHelper.isToggleEnabled(data.status)}"
             app:selected="@{ToggleHelper.isToggleOn(data.status)}"
             tools:ignore="SpUsage" />
 

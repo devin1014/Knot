@@ -3,6 +3,7 @@ package com.android.smartlink.bean;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,8 +16,11 @@ public class Modules implements Serializable
     @SerializedName("data")
     private List<Module> modules;
 
-    @SerializedName("data2")
-    private List<Toggle> toggles;
+    @SerializedName("data255")
+    private List<Toggle> toggles255;
+
+    @SerializedName("data1")
+    private List<Toggle> toggles1;
 
     public List<Module> getModules()
     {
@@ -25,7 +29,10 @@ public class Modules implements Serializable
 
     public List<Toggle> getToggles()
     {
-        return toggles;
+        List<Toggle> list = new ArrayList<>();
+        list.addAll(toggles255);
+        list.addAll(toggles1);
+        return list;
     }
 
     public static class Module implements Serializable
@@ -73,13 +80,13 @@ public class Modules implements Serializable
     {
         private static final long serialVersionUID = -5677078707406604424L;
 
-        private String slaveID;
+        private int slaveID;
 
         private int channel;
 
         private int status;
 
-        public String getSlaveID()
+        public int getSlaveID()
         {
             return slaveID;
         }

@@ -54,13 +54,33 @@ public class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
 
         final int port = 502;
 
-        int[] idArr = new int[]{151, 150, 152};
+        int[] idArr = new int[]{150, 152, 155, 154, 153, 151, 156}; //157备用回路
 
         String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
+        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
 
-        LogUtil.log(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
+        int[] registerStart = new int[]{14200, 14240, 14280, 14320, 14360, 14440};
+        String myStr = ModbusHelp.modbusRDefaultTCP("192.168.1.100", port, 255, registerStart);
+        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : myStr);
+        tStr += myStr;
 
-        Modules modules = new Gson().fromJson(tStr, Modules.class);
+        //14360, 14400
+        registerStart = new int[]{14440, 14520};
+        myStr = ModbusHelp.modbusRDefaultTCP("192.168.1.100", port, 1, registerStart);
+        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : myStr);
+        tStr = tStr + "," + myStr + "}";
+
+        //        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
+
+        Modules modules = null;
+        try
+        {
+            modules = new Gson().fromJson(tStr, Modules.class);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         if (modules != null)
         {
