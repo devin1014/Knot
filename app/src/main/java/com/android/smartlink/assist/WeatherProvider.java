@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.android.devin.core.util.IOUtils;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.Weather.WeatherBasic;
 import com.google.gson.Gson;
@@ -88,6 +89,12 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
     protected void getFromRemote(String url)
     {
         // ignore
+    }
+
+    @Override
+    protected int shouldOverrideRequestMode()
+    {
+        return RequestMode.MODE_LOCAL;
     }
 
     @Override

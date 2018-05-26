@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.IntDef;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.bean.Modbus;
@@ -38,9 +39,12 @@ public class AppManager
         }
     }
 
-    public enum MODE
+    @IntDef({RequestMode.MODE_LOCAL, RequestMode.MODE_HTTP, RequestMode.MODE_REMOTE})
+    public @interface RequestMode
     {
-        MODE_LOCAL, MODE_HTTP, MODE_REMOTE
+        int MODE_LOCAL = 1;
+        int MODE_HTTP = 2;
+        int MODE_REMOTE = 3;
     }
 
     private final Application mApplication;
@@ -55,7 +59,8 @@ public class AppManager
 
     private boolean mPhoneType;
 
-    private MODE mRequestMode = MODE.MODE_REMOTE;
+    @RequestMode
+    private int mRequestMode = RequestMode.MODE_REMOTE;
 
     private AppManager(Application application)
     {
@@ -208,29 +213,29 @@ public class AppManager
         return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, Constants.STATUS_NORMAL);
     }
 
-    public void setRequestMode(MODE mode)
+    public void setRequestMode(@RequestMode int mode)
     {
         mRequestMode = mode;
     }
 
-    public MODE getRequestMode()
+    public int getRequestMode()
     {
         return mRequestMode;
     }
 
     public boolean isLocalMode()
     {
-        return mRequestMode == MODE.MODE_LOCAL;
+        return mRequestMode == RequestMode.MODE_LOCAL;
     }
 
     public boolean isHttpMode()
     {
-        return mRequestMode == MODE.MODE_HTTP;
+        return mRequestMode == RequestMode.MODE_HTTP;
     }
 
     public boolean isRemoteMode()
     {
-        return mRequestMode == MODE.MODE_REMOTE;
+        return mRequestMode == RequestMode.MODE_REMOTE;
     }
 
     // -----------------------------------

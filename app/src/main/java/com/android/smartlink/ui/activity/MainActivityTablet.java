@@ -6,7 +6,7 @@ import android.support.design.widget.TabLayout.OnTabSelectedListener;
 
 import com.android.devin.core.util.Debug;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.application.manager.AppManager.MODE;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.util.Utils;
 
 /**
@@ -21,7 +21,7 @@ public class MainActivityTablet extends MainActivity implements OnTabSelectedLis
     {
         super.onActivityCreate(savedInstanceState);
 
-        final boolean debug = false;
+        final boolean debug = Utils.isDevDebugMode(this);
 
         Debug.init(debug);
 
@@ -29,7 +29,7 @@ public class MainActivityTablet extends MainActivity implements OnTabSelectedLis
 
         AppManager.getInstance().setDemoModeStatus(-1);
 
-        AppManager.getInstance().setRequestMode(Utils.isDevDebugMode(this) ? MODE.MODE_HTTP : MODE.MODE_REMOTE);
+        AppManager.getInstance().setRequestMode(debug ? RequestMode.MODE_HTTP : RequestMode.MODE_REMOTE);
     }
 
 }

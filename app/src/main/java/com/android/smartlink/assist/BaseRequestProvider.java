@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.model.Response;
@@ -41,6 +42,47 @@ abstract class BaseRequestProvider<T>
 
     public final void request(final String url)
     {
+        switch (shouldOverrideRequestMode())
+        {
+            case RequestMode.MODE_HTTP:
+
+                getFromOkHttp(url);
+
+                return;
+
+            case RequestMode.MODE_LOCAL:
+
+                if (!mDestroy)
+                {
+                    sExecutor.execute(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            getFromLocal(url);
+                        }
+                    });
+                }
+
+                return;
+
+            case RequestMode.MODE_REMOTE:
+
+                if (!mDestroy)
+                {
+                    sExecutor.execute(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            getFromRemote(url);
+                        }
+                    });
+                }
+
+                return;
+        }
+
         if (AppManager.getInstance().isHttpMode())
         {
             getFromOkHttp(url);
@@ -66,6 +108,11 @@ abstract class BaseRequestProvider<T>
                 });
             }
         }
+    }
+
+    protected int shouldOverrideRequestMode()
+    {
+        return 0;
     }
 
     protected abstract void getFromLocal(String url);

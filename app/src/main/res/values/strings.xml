@@ -29,8 +29,8 @@
     <string name="power_consume_total">当月累计电能</string>
     <string name="power_history_data">用电趋势图（当前回路）</string>
     <string name="power_last_30_days">最近30天用电趋势</string>
-    <string name="power_last_15_days">最近15天用电趋势</string>
-    <string name="power_chart_hour">分时能耗图</string>
+    <string name="power_last_15_days">总回路最近15天用电趋势</string>
+    <string name="power_chart_hour">总回路分时能耗图</string>
     <string name="power_suggest">节能建议</string>
     <string name="weather_aqi">空气污染指数</string>
     <string name="weather_aqi_none">无</string>
