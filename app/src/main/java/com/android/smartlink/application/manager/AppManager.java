@@ -10,6 +10,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.bean.Modbus;
 import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.bean.Modbus.EquipmentToggle;
+import com.android.smartlink.bean.Modules.Toggle;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 
@@ -183,6 +184,19 @@ public class AppManager
         for (EquipmentToggle t : mToggles)
         {
             if (t.getChannel() == channelId)
+            {
+                return t;
+            }
+        }
+
+        return null;
+    }
+
+    public EquipmentToggle getToggle(Toggle toggle)
+    {
+        for (EquipmentToggle t : mToggles)
+        {
+            if (t.getChannel() == toggle.getChannel() && t.getSlaveID() == toggle.getSlaveID())
             {
                 return t;
             }

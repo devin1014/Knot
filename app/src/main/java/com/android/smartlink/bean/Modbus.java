@@ -90,9 +90,11 @@ public class Modbus
     // --------------------------------------------------------------
     public static class EquipmentToggle
     {
-        private int channel;
-
         private int id;
+
+        private int slaveID;
+
+        private int channel;
 
         private String name;
 
@@ -101,6 +103,11 @@ public class Modbus
         public int getChannel()
         {
             return channel;
+        }
+
+        public int getSlaveID()
+        {
+            return slaveID;
         }
 
         public int getId()

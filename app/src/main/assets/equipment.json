@@ -14,43 +14,51 @@
     ],
     "toggles": [
         {
+            "id": 1,
+            "slaveID": 255,
             "channel": 14200,
-            "id": 2551,
             "name": "会议室照明"
         },
         {
+            "id": 2,
+            "slaveID": 255,
             "channel": 14240,
-            "id": 2552,
             "name": "办公照明"
         },
         {
+            "id": 3,
+            "slaveID": 255,
             "channel": 14280,
-            "id": 2553,
             "name": "厂区照明"
         },
         {
+            "id": 4,
+            "slaveID": 255,
             "channel": 14320,
-            "id": 2554,
             "name": "公共照明"
         },
         {
+            "id": 5,
+            "slaveID": 255,
             "channel": 14360,
-            "id": 2555,
             "name": "自动分合闸1"
         },
         {
+            "id": 7,
+            "slaveID": 255,
             "channel": 14440,
-            "id": 2557,
             "name": "自动分合闸2"
         },
         {
-            "channel": 14480,
-            "id": 18,
+            "id": 7,
+            "slaveID": 1,
+            "channel": 14440,
             "name": "集成控制1"
         },
         {
+            "id": 9,
+            "slaveID": 1,
             "channel": 14520,
-            "id": 19,
             "name": "集成控制2"
         }
     ],

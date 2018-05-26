@@ -53,7 +53,7 @@ public class UIToggle implements Serializable, IModule
     @Override
     public String getName()
     {
-        EquipmentToggle toggle = AppManager.getInstance().getToggle(mToggle.getChannel());
+        EquipmentToggle toggle = AppManager.getInstance().getToggle(mToggle);
 
         return toggle != null ? toggle.getName() : null;
     }
