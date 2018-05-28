@@ -10,7 +10,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1." + releaseTime()
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -33,13 +33,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            signingConfig signingConfigs.release
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-
                     def type = productFlavors[0].name.contains("app") ? "" : "_compat"
-
-                    outputFileName = "chinaknot" + type + "_v" + "${releaseTime()}.apk"
+                    outputFileName = "chinaknot" + type + "_v1." + "${releaseTime()}.apk"
                 }
             }
         }
