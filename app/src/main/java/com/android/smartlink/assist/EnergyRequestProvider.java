@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.Energy;
 import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
@@ -72,13 +71,7 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
     @Override
     protected void getFromRemote(String url)
     {
-        // ignore
-    }
-
-    @Override
-    protected int shouldOverrideRequestMode()
-    {
-        return RequestMode.MODE_LOCAL;
+        getFromLocal(url);
     }
 
     @Override

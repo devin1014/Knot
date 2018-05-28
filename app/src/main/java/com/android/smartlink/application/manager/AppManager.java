@@ -239,17 +239,17 @@ public class AppManager
 
     public boolean isLocalMode()
     {
-        return mRequestMode == RequestMode.MODE_LOCAL;
+        return getRequestMode() == RequestMode.MODE_LOCAL;
     }
 
     public boolean isHttpMode()
     {
-        return mRequestMode == RequestMode.MODE_HTTP;
+        return getRequestMode() == RequestMode.MODE_HTTP;
     }
 
     public boolean isRemoteMode()
     {
-        return mRequestMode == RequestMode.MODE_REMOTE;
+        return getRequestMode() == RequestMode.MODE_REMOTE;
     }
 
     // -----------------------------------

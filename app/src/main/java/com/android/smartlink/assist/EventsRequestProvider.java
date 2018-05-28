@@ -58,7 +58,7 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
     @Override
     protected void getFromRemote(String url)
     {
-        // ignore
+        getFromLocal(url);
     }
 
     @Override

@@ -4,5 +4,5 @@ ls -l ./gradlew
 chmod +x gradlew
 
 ./gradlew :app:clean
-./gradlew :app:assembleAppRelease
+#./gradlew :app:assembleAppRelease
 ./gradlew :app:assembleTabletRelease
