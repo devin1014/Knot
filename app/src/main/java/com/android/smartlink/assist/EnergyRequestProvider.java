@@ -71,7 +71,13 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
     @Override
     protected void getFromRemote(String url)
     {
-        // ignore
+        getFromLocal(url);
+    }
+
+    @Override
+    protected boolean getFromOkHttp()
+    {
+        return false;
     }
 
     @Override
