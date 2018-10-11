@@ -4,7 +4,7 @@ import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2018-05-25
  * Time: 16:41
  */

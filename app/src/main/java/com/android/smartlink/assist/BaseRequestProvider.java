@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-17
  * Time: 09:55
  */

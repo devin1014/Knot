@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import java.io.InputStreamReader;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-16
  * Time: 14:39
  */

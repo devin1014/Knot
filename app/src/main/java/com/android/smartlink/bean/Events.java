@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-17
  * Time: 11:02
  */

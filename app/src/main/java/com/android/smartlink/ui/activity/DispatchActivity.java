@@ -9,7 +9,7 @@ import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.util.Utils;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-28
  * Time: 17:27
  */

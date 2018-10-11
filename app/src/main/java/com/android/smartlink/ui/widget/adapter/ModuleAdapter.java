@@ -14,7 +14,7 @@ import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-18
  * Time: 15:56
  */

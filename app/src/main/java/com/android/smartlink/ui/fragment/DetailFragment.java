@@ -35,7 +35,7 @@ import java.text.DecimalFormat;
 import butterknife.BindView;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-23
  * Time: 11:27
  */

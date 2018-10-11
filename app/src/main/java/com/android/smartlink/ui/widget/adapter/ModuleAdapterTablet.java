@@ -8,7 +8,7 @@ import com.android.smartlink.ui.model.UIModule;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-25
  * Time: 15:54
  */

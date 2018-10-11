@@ -12,7 +12,7 @@ import com.android.smartlink.bean.Equipments.Equipment;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-09
  * Time: 17:35
  */

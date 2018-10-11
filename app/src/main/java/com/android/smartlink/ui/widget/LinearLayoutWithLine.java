@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import com.android.smartlink.R;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-08
  * Time: 16:20
  */

@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-26
  * Time: 15:00
  */

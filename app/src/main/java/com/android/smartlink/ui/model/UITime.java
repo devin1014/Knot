@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-06
  * Time: 17:01
  */

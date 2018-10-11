@@ -11,7 +11,7 @@ import com.android.smartlink.ui.activity.base.BaseSmartlinkActivityTablet;
 import com.android.smartlink.ui.fragment.HomeFragmentTablet;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-05
  * Time: 15:55
  */

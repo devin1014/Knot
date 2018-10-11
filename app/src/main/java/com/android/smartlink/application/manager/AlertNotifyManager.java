@@ -14,7 +14,7 @@ import com.android.smartlink.ui.model.UIModule;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-12
  * Time: 17:39
  */

@@ -4,7 +4,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-02
  * Time: 15:30
  */

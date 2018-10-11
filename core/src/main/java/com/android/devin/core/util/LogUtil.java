@@ -4,7 +4,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-09-26
  * Time: 18:17
  */

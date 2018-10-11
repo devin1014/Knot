@@ -6,7 +6,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIFilter;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-23
  * Time: 17:13
  */

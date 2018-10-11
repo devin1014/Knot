@@ -11,7 +11,7 @@ import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.MyEquipmentFragment;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-24
  * Time: 17:56
  */

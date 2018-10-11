@@ -11,7 +11,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-23
  * Time: 16:35
  */

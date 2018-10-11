@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-18
  * Time: 15:57
  */

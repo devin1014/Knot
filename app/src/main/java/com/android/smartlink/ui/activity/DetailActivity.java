@@ -14,7 +14,7 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment.OnFragmentCa
 import com.android.smartlink.ui.model.UIModule;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-24
  * Time: 16:56
  */
