@@ -11,7 +11,7 @@ import com.neulion.recyclerdiff.annotation.DiffItem;
 import java.io.Serializable;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-31
  * Time: 20:58
  */

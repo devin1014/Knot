@@ -4,7 +4,7 @@ import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.bean.Modules.Toggle;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2018-01-01
  * Time: 11:23
  */

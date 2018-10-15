@@ -1,7 +1,7 @@
 package com.android.smartlink.ui.model;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-17
  * Time: 16:38
  */

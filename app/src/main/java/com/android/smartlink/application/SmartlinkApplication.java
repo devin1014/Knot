@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import okhttp3.OkHttpClient;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-15
  * Time: 14:49
  */

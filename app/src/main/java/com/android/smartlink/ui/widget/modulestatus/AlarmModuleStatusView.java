@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-16
  * Time: 14:48
  */

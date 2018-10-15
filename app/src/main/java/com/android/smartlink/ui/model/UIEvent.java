@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-17
  * Time: 15:51
  */

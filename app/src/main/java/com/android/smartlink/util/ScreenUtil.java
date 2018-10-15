@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.android.devin.core.util.ScreenBrightnessUtil;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-12
  * Time: 17:13
  */

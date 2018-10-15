@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-19
  * Time: 14:09
  */

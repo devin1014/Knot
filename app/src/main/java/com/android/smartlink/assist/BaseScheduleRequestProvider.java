@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-08
  * Time: 18:03
  */

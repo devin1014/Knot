@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import com.android.smartlink.R;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-27
  * Time: 11:22
  */

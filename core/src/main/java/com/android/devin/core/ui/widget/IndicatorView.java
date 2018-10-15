@@ -15,7 +15,7 @@ import android.view.View;
 import com.android.devin.core.R;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-23
  * Time: 15:22
  */

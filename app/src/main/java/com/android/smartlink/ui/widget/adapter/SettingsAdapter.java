@@ -9,7 +9,7 @@ import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-17
  * Time: 16:42
  */

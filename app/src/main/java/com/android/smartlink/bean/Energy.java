@@ -1,7 +1,7 @@
 package com.android.smartlink.bean;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-19
  * Time: 11:16
  */

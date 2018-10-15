@@ -13,7 +13,7 @@ import com.android.smartlink.ui.fragment.DemoSettingFragment;
 import com.android.smartlink.ui.fragment.TermsFragment;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-10-28
  * Time: 16:06
  */

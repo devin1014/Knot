@@ -10,7 +10,7 @@ import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.util.Utils;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-05
  * Time: 15:55
  */

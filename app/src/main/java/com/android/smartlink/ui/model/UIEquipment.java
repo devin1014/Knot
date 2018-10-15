@@ -5,7 +5,7 @@ import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.util.ViewUtil;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-09
  * Time: 11:46
  */

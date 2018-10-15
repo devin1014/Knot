@@ -6,7 +6,7 @@ import com.android.smartlink.bean.WeatherLocation;
 import com.lzy.okgo.OkGo;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-12-25
  * Time: 11:52
  */

@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import okhttp3.Response;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-12
  * Time: 10:35
  */

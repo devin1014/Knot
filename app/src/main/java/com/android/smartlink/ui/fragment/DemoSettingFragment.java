@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: LIUWEI
  * Date: 2017-11-01
  * Time: 10:45
  */
