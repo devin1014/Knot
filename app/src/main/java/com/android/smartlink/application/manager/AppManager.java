@@ -9,6 +9,9 @@ import android.support.annotation.IntDef;
 import com.android.smartlink.Constants;
 import com.android.smartlink.bean.ModuleConfiguration;
 import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
+import com.android.smartlink.bean.RequestUrl;
+import com.android.smartlink.bean.RequestUrl.HttpUrl;
+import com.android.smartlink.bean.RequestUrl.LocalUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 
@@ -41,9 +44,9 @@ public class AppManager
     @IntDef({RequestMode.MODE_LOCAL, RequestMode.MODE_HTTP, RequestMode.MODE_REMOTE})
     public @interface RequestMode
     {
-        int MODE_LOCAL = 1;
-        int MODE_HTTP = 2;
-        int MODE_REMOTE = 3;
+        int MODE_LOCAL = 0;
+        int MODE_HTTP = 1;
+        int MODE_REMOTE = 2;
     }
 
     private final Application mApplication;
@@ -160,14 +163,24 @@ public class AppManager
         return mModuleManager.getModuleName(id);
     }
 
+    private RequestUrl mHttpUrl;
+
     public void setModuleConfiguration(ModuleConfiguration config) throws IllegalArgumentException
     {
-        if (config == null || config.getControl() == null || config.getMonitor() == null)
+        if (config == null)
         {
             throw new IllegalArgumentException("can not parse config!");
         }
 
+        //TODO:
+        mHttpUrl = config.getRequestMode() == RequestMode.MODE_LOCAL ? new LocalUrl(config.getLocalFeed()) : new HttpUrl(config.getHttpFeed());
+
         mModuleManager.setModuleConfiguration(config);
+    }
+
+    public RequestUrl getHttpUrl()
+    {
+        return mHttpUrl;
     }
 
     public ModuleInfo getEquipment(int id)
@@ -204,32 +217,7 @@ public class AppManager
 
     public int getDemoModeStatus()
     {
-        return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, Constants.STATUS_NORMAL);
-    }
-
-    public void setRequestMode(@RequestMode int mode)
-    {
-        mRequestMode = mode;
-    }
-
-    public int getRequestMode()
-    {
-        return mRequestMode;
-    }
-
-    public boolean isLocalMode()
-    {
-        return getRequestMode() == RequestMode.MODE_LOCAL;
-    }
-
-    public boolean isHttpMode()
-    {
-        return getRequestMode() == RequestMode.MODE_HTTP;
-    }
-
-    public boolean isRemoteMode()
-    {
-        return getRequestMode() == RequestMode.MODE_REMOTE;
+        return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, -1);
     }
 
     // -----------------------------------
@@ -238,16 +226,10 @@ public class AppManager
     {
         final int index = mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, 0);
 
-        int nextIndex = index + 1;
-
-        if (nextIndex >= SuggestPagerAdapter.SUGGESTIONS.length)
-        {
-            nextIndex = 0;
-        }
+        final int nextIndex = (index + 1) % SuggestPagerAdapter.SUGGESTIONS.length;
 
         mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, nextIndex).apply();
 
         return index;
     }
-
 }

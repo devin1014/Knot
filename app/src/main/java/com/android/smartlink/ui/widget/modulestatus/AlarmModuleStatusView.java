@@ -1,7 +1,6 @@
 package com.android.smartlink.ui.widget.modulestatus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
@@ -28,7 +28,6 @@ import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.util.AppDataBindingAdapter;
-import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.UICompat;
 
 import java.util.Collections;
@@ -76,7 +75,7 @@ public class AlarmModuleStatusView extends LinearLayout
 
     private void initialize()
     {
-        mEventsRequestProvider = EventsRequestProvider.newInstance((Activity) getContext(), mEventsRequestCallback);
+        mEventsRequestProvider = EventsRequestProvider.newInstance(mEventsRequestCallback);
 
         mInflater = LayoutInflater.from(getContext());
 
@@ -151,7 +150,7 @@ public class AlarmModuleStatusView extends LinearLayout
 
             mStatus.setTextColor(UICompat.getStatusColor(status));
 
-            mEventsRequestProvider.request(HttpUrl.getEventsUrl());
+            mEventsRequestProvider.request(AppManager.getInstance().getHttpUrl().getEventsUrl());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.android.smartlink.util;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
 
 import com.google.gson.Gson;
 
@@ -14,11 +15,16 @@ import java.io.InputStreamReader;
  */
 public class FileUtil
 {
-    public static <T> T openAssets(Activity activity, String name, Class<T> cls)
+    public static <T> T openAssets(Context context, String name, Class<T> cls)
+    {
+        return openAssets(context.getAssets(), name, cls);
+    }
+
+    public static <T> T openAssets(AssetManager assetManager, String name, Class<T> cls)
     {
         try
         {
-            return new Gson().fromJson(new InputStreamReader(activity.getAssets().open(name)), cls);
+            return new Gson().fromJson(new InputStreamReader(assetManager.open(name)), cls);
         }
         catch (Exception e)
         {

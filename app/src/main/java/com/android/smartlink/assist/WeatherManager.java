@@ -1,13 +1,11 @@
 package com.android.smartlink.assist;
 
-import android.app.Activity;
 import android.text.TextUtils;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.WeatherLocation;
-import com.android.smartlink.util.HttpUrl;
 
 /**
  * User: LIUWEI
@@ -22,17 +20,17 @@ public class WeatherManager
 
     private WeatherCallback mCallback;
 
-    private boolean mDestroy = false;
+    private boolean mDestroy;
 
-    public WeatherManager(Activity activity, WeatherCallback callback)
+    public WeatherManager(WeatherCallback callback)
     {
         mDestroy = false;
 
         mCallback = callback;
 
-        mWeatherProvider = WeatherProvider.newInstance(activity, mWeatherCallback);
+        mWeatherProvider = WeatherProvider.newInstance(mWeatherCallback);
 
-        mLocationProvider = LocationProvider.newInstance(activity, mWeatherLocationCallback);
+        mLocationProvider = LocationProvider.newInstance(mWeatherLocationCallback);
     }
 
     public void requestWeather()
@@ -41,13 +39,11 @@ public class WeatherManager
 
         if (TextUtils.isEmpty(location))
         {
-            mLocationProvider.request(HttpUrl.getAccuWeatherUrl(mLocationProvider.getActivity()));
-
-            mWeatherProvider.request("http://test.xxxx");//todo
+            mLocationProvider.request(AppManager.getInstance().getHttpUrl().getLocationUrl());
         }
         else
         {
-            mWeatherProvider.request(HttpUrl.getWeatherUrl(mWeatherProvider.getActivity(), location));
+            mWeatherProvider.request(AppManager.getInstance().getHttpUrl().getWeatherUrl(location));
         }
     }
 
@@ -95,7 +91,7 @@ public class WeatherManager
             {
                 AppManager.getInstance().setLocation(location.getLocation());
 
-                mWeatherProvider.request(HttpUrl.getWeatherUrl(mWeatherProvider.getActivity(), location.getLocation()));
+                mWeatherProvider.request(AppManager.getInstance().getHttpUrl().getWeatherUrl(location.getLocation()));
             }
         }
 
@@ -104,7 +100,7 @@ public class WeatherManager
         {
             if (!mDestroy)
             {
-                mWeatherProvider.request(HttpUrl.getWeatherUrl(mWeatherProvider.getActivity(), Constants.DEFAULT_LOCATION));
+                mWeatherProvider.request(AppManager.getInstance().getHttpUrl().getWeatherUrl(Constants.DEFAULT_LOCATION));
             }
         }
     };

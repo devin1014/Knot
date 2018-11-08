@@ -34,49 +34,45 @@
         <activity
             android:name=".ui.activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
             android:name=".ui.activity.WelcomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.activity.MainActivityTablet"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="sensorLandscape"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.DetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.SingleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.EquipmentActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
             android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="weatherKey"
             android:value="7f70fe2b7604408bafba86681d9ddcd4" />
         <meta-data
-            android:name="accuWeatherKey"
+            android:name="weatherLocalKey"
             android:value="0460650BB2524F84BAECAA9381D79EFC" />
         <meta-data
             android:name="UMENG_APPKEY"

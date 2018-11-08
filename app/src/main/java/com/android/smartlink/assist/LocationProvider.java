@@ -1,7 +1,5 @@
 package com.android.smartlink.assist;
 
-import android.app.Activity;
-
 import com.android.smartlink.bean.WeatherLocation;
 import com.lzy.okgo.OkGo;
 
@@ -12,14 +10,14 @@ import com.lzy.okgo.OkGo;
  */
 public abstract class LocationProvider extends BaseRequestProvider<WeatherLocation>
 {
-    public static LocationProvider newInstance(Activity activity, RequestCallback<WeatherLocation> callback)
+    public static LocationProvider newInstance(RequestCallback<WeatherLocation> callback)
     {
-        return new LocalProvider(activity, callback);
+        return new LocalProvider(callback);
     }
 
-    LocationProvider(Activity activity, RequestCallback<WeatherLocation> callback)
+    LocationProvider(RequestCallback<WeatherLocation> callback)
     {
-        super(activity, callback);
+        super(callback);
     }
 
     @Override
@@ -30,9 +28,9 @@ public abstract class LocationProvider extends BaseRequestProvider<WeatherLocati
 
     static class LocalProvider extends LocationProvider
     {
-        LocalProvider(Activity activity, RequestCallback<WeatherLocation> callback)
+        LocalProvider(RequestCallback<WeatherLocation> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override
@@ -44,9 +42,9 @@ public abstract class LocationProvider extends BaseRequestProvider<WeatherLocati
 
     static class HttpProvider extends LocationProvider
     {
-        HttpProvider(Activity activity, RequestCallback<WeatherLocation> callback)
+        HttpProvider(RequestCallback<WeatherLocation> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override
@@ -54,11 +52,7 @@ public abstract class LocationProvider extends BaseRequestProvider<WeatherLocati
         {
             OkGo.getInstance().cancelTag(this);
 
-            OkGo.<WeatherLocation>get(url)
-
-                    .tag(this)
-
-                    .execute(new ResponseCallback());
+            OkGo.<WeatherLocation>get(url).tag(this).execute(new ResponseCallback());
         }
     }
 }

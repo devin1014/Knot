@@ -1,14 +1,13 @@
 package com.android.smartlink.assist;
 
-import android.app.Activity;
 import android.text.TextUtils;
 
 import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
-import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.ModbusHelp;
+import com.android.smartlink.util.Utils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
@@ -19,19 +18,20 @@ import com.lzy.okgo.OkGo;
  */
 public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
 {
-    public static MainRequestProvider newInstance(Activity activity, RequestCallback<Modules> callback)
+    public static MainRequestProvider newInstance(RequestCallback<Modules> callback)
     {
-        if (AppManager.getInstance().isDemoMode())
+        if (Utils.isDevDebugMode(AppManager.getInstance().getApplication()))
         {
-            return new LocalProvider(activity, callback);
+            return new LocalProvider(callback);
+            //return new HttpProvider(callback);
         }
 
-        return new RemoteProvider(activity, callback);
+        return new RemoteProvider(callback);
     }
 
-    public MainRequestProvider(Activity activity, RequestCallback<Modules> callback)
+    MainRequestProvider(RequestCallback<Modules> callback)
     {
-        super(activity, callback);
+        super(callback);
     }
 
     @Override
@@ -42,17 +42,15 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
 
     static class LocalProvider extends MainRequestProvider
     {
-        LocalProvider(Activity activity, RequestCallback<Modules> callback)
+        LocalProvider(RequestCallback<Modules> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override
         public void request(String url)
         {
-            int status = AppManager.getInstance().getDemoModeStatus();
-
-            Modules modules = FileUtil.openAssets(getActivity(), "data/main_" + ConvertUtil.convertStatus(status) + ".json", Modules.class);
+            Modules modules = FileUtil.openAssets(AppManager.getInstance().getApplication(), url, Modules.class);
 
             if (modules != null)
             {
@@ -67,9 +65,9 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
 
     static class HttpProvider extends MainRequestProvider
     {
-        HttpProvider(Activity activity, RequestCallback<Modules> callback)
+        HttpProvider(RequestCallback<Modules> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override
@@ -77,11 +75,7 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
         {
             OkGo.getInstance().cancelTag(this);
 
-            OkGo.<Modules>get(url)
-
-                    .tag(this)
-
-                    .execute(new ResponseCallback());
+            OkGo.<Modules>get(url).tag(this).execute(new ResponseCallback());
         }
 
         @Override
@@ -95,9 +89,9 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
 
     static class RemoteProvider extends MainRequestProvider
     {
-        RemoteProvider(Activity activity, RequestCallback<Modules> callback)
+        RemoteProvider(RequestCallback<Modules> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override

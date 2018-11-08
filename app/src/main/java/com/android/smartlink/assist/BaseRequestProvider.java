@@ -1,6 +1,5 @@
 package com.android.smartlink.assist;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -19,8 +18,6 @@ import java.util.concurrent.Executors;
  */
 abstract class BaseRequestProvider<T>
 {
-    private Activity mActivity;
-
     private RequestCallback<T> mCallback;
 
     private boolean mDestroy;
@@ -29,10 +26,8 @@ abstract class BaseRequestProvider<T>
 
     private static final ExecutorService sExecutor = Executors.newCachedThreadPool();
 
-    BaseRequestProvider(Activity activity, RequestCallback<T> callback)
+    BaseRequestProvider(RequestCallback<T> callback)
     {
-        mActivity = activity;
-
         mCallback = callback;
 
         mDestroy = false;
@@ -42,16 +37,9 @@ abstract class BaseRequestProvider<T>
 
     public void destroy()
     {
-        mActivity = null;
-
         mCallback = null;
 
         mDestroy = true;
-    }
-
-    protected Activity getActivity()
-    {
-        return mActivity;
     }
 
     protected ExecutorService getsExecutor()

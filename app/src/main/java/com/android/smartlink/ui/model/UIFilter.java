@@ -12,7 +12,7 @@ public class UIFilter
 
     private String mName;
 
-    private boolean mChecked = true;
+    private boolean mChecked;
 
     public UIFilter(int id, String name)
     {

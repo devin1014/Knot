@@ -24,7 +24,6 @@ import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.AppDataBindingAdapter;
-import com.android.smartlink.util.HttpUrl;
 import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
 import com.umeng.analytics.MobclickAgent;
 
@@ -108,10 +107,10 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mIndicatorView.setViewPager(mViewPager);
 
-        mRequestProvider = EnergyRequestProvider.newInstance(getActivity(), this);
+        mRequestProvider = EnergyRequestProvider.newInstance(this);
 
         assert uiModule != null;
-        mRequestProvider.request(HttpUrl.getPowerConsumeUrl(uiModule.getId()));
+        mRequestProvider.request(AppManager.getInstance().getHttpUrl().getEnergyUrl(uiModule.getId()));
 
         mLoadingLayout.showLoading();
 

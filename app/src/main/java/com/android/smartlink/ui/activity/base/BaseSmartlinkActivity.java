@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.jessyan.autosize.AutoSize;
 
 /**
  * User: LIUWEI
@@ -89,6 +90,20 @@ public abstract class BaseSmartlinkActivity extends AppCompatActivity implements
         MobclickAgent.onPause(this);
 
         super.onPause();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        AutoSize.autoConvertDensityOfGlobal(this);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
     }
 
     @Override

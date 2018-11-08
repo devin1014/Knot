@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Energy;
@@ -16,7 +17,6 @@ import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.widget.Last15DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.ModuleBarChart;
-import com.android.smartlink.util.HttpUrl;
 
 import org.achartengine.GraphicalView;
 
@@ -55,9 +55,9 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
 
     private void initComponent()
     {
-        mRequestProvider = EnergyRequestProvider.newInstance(getActivity(), this);
+        mRequestProvider = EnergyRequestProvider.newInstance(this);
 
-        mRequestProvider.request(HttpUrl.getPowerConsumeUrl(151));
+        mRequestProvider.request(AppManager.getInstance().getHttpUrl().getEnergyUrl(150));
 
         mLoadingLayout.showLoading();
     }

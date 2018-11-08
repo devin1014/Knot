@@ -23,7 +23,6 @@ import com.android.smartlink.ui.widget.FilterPopupWindow.OnFilterChangedListener
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.Utils;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.umeng.analytics.MobclickAgent;
@@ -101,9 +100,9 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mRequestProvider = EventsRequestProvider.newInstance(getActivity(), this);
+        mRequestProvider = EventsRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(HttpUrl.getEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mLoadingLayout.showLoading();
     }
@@ -157,7 +156,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     @Override
     public void onRefresh()
     {
-        mRequestProvider.request(HttpUrl.getEventsUrl());
+        mRequestProvider.request(AppManager.getInstance().getHttpUrl().getEventsUrl());
     }
 
     @Override

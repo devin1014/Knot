@@ -1,7 +1,5 @@
 package com.android.smartlink.assist;
 
-import android.app.Activity;
-
 import com.android.devin.core.util.IOUtils;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
@@ -20,14 +18,20 @@ import okhttp3.Response;
  */
 public abstract class WeatherProvider extends BaseRequestProvider<Weather>
 {
-    public static WeatherProvider newInstance(Activity activity, RequestCallback<Weather> callback)
+    public static WeatherProvider newInstance(RequestCallback<Weather> callback)
     {
-        return new LocalProvider(activity, callback);
+        return new LocalProvider(callback);
     }
 
-    WeatherProvider(Activity activity, RequestCallback<Weather> callback)
+    WeatherProvider(RequestCallback<Weather> callback)
     {
-        super(activity, callback);
+        super(callback);
+    }
+
+    @Override
+    Class<Weather> getConvertObjectClass()
+    {
+        return Weather.class;
     }
 
     @Override
@@ -36,18 +40,6 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
         super.notifyResponse(weather);
 
         AppManager.getInstance().setWeather(weather);
-    }
-
-    @Override
-    protected void notifyResponse(Throwable throwable)
-    {
-        super.notifyResponse(throwable);
-    }
-
-    @Override
-    Class<Weather> getConvertObjectClass()
-    {
-        return Weather.class;
     }
 
     @Override
@@ -63,9 +55,9 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
 
     static class LocalProvider extends WeatherProvider
     {
-        LocalProvider(Activity activity, RequestCallback<Weather> callback)
+        LocalProvider(RequestCallback<Weather> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override
@@ -73,7 +65,7 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
         {
             try
             {
-                String resultString = IOUtils.parseStream(getActivity().getAssets().open("data/weather.json"));
+                String resultString = IOUtils.parseStream(AppManager.getInstance().getApplication().getAssets().open(url));
 
                 JSONObject jsonObject = new JSONObject(resultString);
 
@@ -92,9 +84,9 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
 
     static class HttpProvider extends WeatherProvider
     {
-        HttpProvider(Activity activity, RequestCallback<Weather> callback)
+        HttpProvider(RequestCallback<Weather> callback)
         {
-            super(activity, callback);
+            super(callback);
         }
 
         @Override
@@ -112,11 +104,7 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
 
             OkGo.getInstance().cancelTag(this);
 
-            OkGo.<Weather>get(url)
-
-                    .tag(this)
-
-                    .execute(new ResponseCallback());
+            OkGo.<Weather>get(url).tag(this).execute(new ResponseCallback());
         }
 
         private boolean needUpdate(Weather weather)

@@ -137,7 +137,9 @@ public class ConvertUtil
         {
             if (ids == null || ids.length == 0)
             {
-                result.add(new UIFilter(item.getId(), item.getName()));
+                //result.add(new UIFilter(item.getId(), item.getName()));
+
+                result.add(new UIFilter(item.getChannel(), item.getName()));
             }
             else
             {
@@ -145,7 +147,9 @@ public class ConvertUtil
                 {
                     if (item.getId() == id)
                     {
-                        result.add(new UIFilter(item.getId(), item.getName()));
+                        //result.add(new UIFilter(item.getId(), item.getName()));
+
+                        result.add(new UIFilter(item.getChannel(), item.getName()));
 
                         break;
                     }

@@ -1,4 +1,20 @@
 {
+    "requestMode": 0,
+    "requestModeDescription": "local=0 | http=1",
+    "localFeed": {
+        "weatherLocalUrl": "data/location.json",
+        "weatherUrl": "data/weather.json",
+        "mainDataUrl": "data/main/main_${state}.json",
+        "eventsUrl": "data/events/events_${state}.json",
+        "energyUrl": "data/energy/30DayEnergy_${id}.json"
+    },
+    "httpFeed": {
+        "weatherLocalUrl": "https://api.accuweather.com/localweather/v1/106577?apikey=${weatherLocalKey}",
+        "weatherUrl": "https://free-api.heweather.com/v5/weather?city=${city}&key=${weatherKey}",
+        "mainDataUrl": "http://localhost:8080/examples/knot/main/main_all.json",
+        "eventsUrl": "http://localhost:8080/examples/knot/main/events_all.json",
+        "energyUrl": "http://localhost:8080/examples/knot/main/30DayEnergy_${id}.json"
+    },
     "monitor": {
         "serverIP": "192.168.1.101",
         "port": 502,

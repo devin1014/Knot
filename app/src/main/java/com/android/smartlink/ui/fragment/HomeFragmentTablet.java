@@ -15,6 +15,7 @@ import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AlertNotifyManager;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
@@ -24,7 +25,6 @@ import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.UIConverter;
 
 import butterknife.BindView;
@@ -70,15 +70,15 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
-        mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
+        mWeatherManager = new WeatherManager(mWeatherCallback);
 
         mWeatherManager.requestWeather();
 
-        mRequestProvider = MainRequestProvider.newInstance(getActivity(), this);
+        mRequestProvider = MainRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
-        mLoadingLayout.showLoading();
+        //mLoadingLayout.showLoading();
     }
 
     @Override
@@ -156,7 +156,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     @Override
     public void onRefresh()
     {
-        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mWeatherManager.requestWeather();
     }

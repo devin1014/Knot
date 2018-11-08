@@ -1,7 +1,5 @@
 package com.android.smartlink.assist;
 
-import android.app.Activity;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,9 +12,9 @@ public abstract class BaseScheduleRequestProvider<T> extends BaseRequestProvider
 {
     private Timer mTimer;
 
-    BaseScheduleRequestProvider(Activity activity, RequestCallback<T> callback)
+    BaseScheduleRequestProvider(RequestCallback<T> callback)
     {
-        super(activity, callback);
+        super(callback);
     }
 
     public void schedule(final String url, long delay, long interval)

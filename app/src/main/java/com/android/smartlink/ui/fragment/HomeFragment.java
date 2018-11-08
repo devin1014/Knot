@@ -15,6 +15,7 @@ import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.BaseExecutorService;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
@@ -31,7 +32,6 @@ import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter.HeadHolder;
 import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
 import com.android.smartlink.util.ConvertUtil;
-import com.android.smartlink.util.HttpUrl;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
@@ -93,11 +93,11 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mLoadingLayout.showLoading();
 
-        mRequestProvider = MainRequestProvider.newInstance(getActivity(), this);
+        mRequestProvider = MainRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
-        mWeatherManager = new WeatherManager(getActivity(), mWeatherCallback);
+        mWeatherManager = new WeatherManager(mWeatherCallback);
 
         mWeatherManager.requestWeather();
     }
@@ -165,7 +165,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     @Override
     public void onRefresh()
     {
-        mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mWeatherManager.requestWeather();
     }

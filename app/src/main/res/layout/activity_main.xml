@@ -23,7 +23,7 @@
         <FrameLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="@dimen/menu_height"
             android:background="@color/colorPrimary"
             android:gravity="center_vertical"
             app:layout_scrollFlags="enterAlways"

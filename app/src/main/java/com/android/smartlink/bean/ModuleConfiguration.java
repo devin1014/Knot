@@ -4,8 +4,26 @@ import java.util.List;
 
 public class ModuleConfiguration
 {
+    private int requestMode;
+    private FeedUrl localFeed;
+    private FeedUrl httpFeed;
     private ModuleConfig monitor;
     private ModuleConfig control;
+
+    public int getRequestMode()
+    {
+        return requestMode;
+    }
+
+    public FeedUrl getLocalFeed()
+    {
+        return localFeed;
+    }
+
+    public FeedUrl getHttpFeed()
+    {
+        return httpFeed;
+    }
 
     public ModuleConfig getMonitor()
     {
@@ -15,6 +33,40 @@ public class ModuleConfiguration
     public ModuleConfig getControl()
     {
         return control;
+    }
+
+    public static class FeedUrl
+    {
+        private String weatherLocalUrl;
+        private String weatherUrl;
+        private String mainDataUrl;
+        private String eventsUrl;
+        private String energyUrl;
+
+        public String getWeatherLocalUrl()
+        {
+            return weatherLocalUrl;
+        }
+
+        public String getWeatherUrl()
+        {
+            return weatherUrl;
+        }
+
+        public String getMainDataUrl()
+        {
+            return mainDataUrl;
+        }
+
+        public String getEventsUrl()
+        {
+            return eventsUrl;
+        }
+
+        public String getEnergyUrl()
+        {
+            return energyUrl;
+        }
     }
 
     public static class ModuleConfig
@@ -87,4 +139,5 @@ public class ModuleConfiguration
             this.slaveID = slaveID;
         }
     }
+
 }

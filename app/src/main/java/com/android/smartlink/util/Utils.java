@@ -30,7 +30,7 @@ public class Utils
         }
     }
 
-    static String getApplicationMetaData(Context context, String key)
+    public static String getApplicationMetaData(Context context, String key)
     {
         try
         {
@@ -43,7 +43,7 @@ public class Utils
             e.printStackTrace();
         }
 
-        return null;
+        return "";
     }
 
     public static void resetOrientation(Activity activity)
