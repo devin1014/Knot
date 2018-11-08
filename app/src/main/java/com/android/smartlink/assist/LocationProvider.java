@@ -10,39 +10,55 @@ import com.lzy.okgo.OkGo;
  * Date: 2017-12-25
  * Time: 11:52
  */
-public class LocationProvider extends BaseRequestProvider<WeatherLocation>
+public abstract class LocationProvider extends BaseRequestProvider<WeatherLocation>
 {
+    public static LocationProvider newInstance(Activity activity, RequestCallback<WeatherLocation> callback)
+    {
+        return new LocalProvider(activity, callback);
+    }
+
     LocationProvider(Activity activity, RequestCallback<WeatherLocation> callback)
     {
         super(activity, callback);
     }
 
     @Override
-    protected void getFromLocal(String url)
-    {
-        notifyResponse(new WeatherLocation());
-    }
-
-    @Override
-    protected void getFromOkHttp(String url)
-    {
-        OkGo.getInstance().cancelTag(this);
-
-        OkGo.<WeatherLocation>get(url)
-
-                .tag(this)
-
-                .execute(new ResponseCallback());
-    }
-
-    @Override
-    protected void getFromRemote(String url)
-    {
-    }
-
-    @Override
     Class<WeatherLocation> getConvertObjectClass()
     {
         return WeatherLocation.class;
+    }
+
+    static class LocalProvider extends LocationProvider
+    {
+        LocalProvider(Activity activity, RequestCallback<WeatherLocation> callback)
+        {
+            super(activity, callback);
+        }
+
+        @Override
+        public void request(String url)
+        {
+            notifyResponse(new WeatherLocation());
+        }
+    }
+
+    static class HttpProvider extends LocationProvider
+    {
+        HttpProvider(Activity activity, RequestCallback<WeatherLocation> callback)
+        {
+            super(activity, callback);
+        }
+
+        @Override
+        public void request(String url)
+        {
+            OkGo.getInstance().cancelTag(this);
+
+            OkGo.<WeatherLocation>get(url)
+
+                    .tag(this)
+
+                    .execute(new ResponseCallback());
+        }
     }
 }

@@ -13,8 +13,13 @@ import com.lzy.okgo.OkGo;
  * Date: 2017-10-17
  * Time: 11:04
  */
-public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
+public abstract class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
 {
+    public static EventsRequestProvider newInstance(Activity activity, RequestCallback<Events> callback)
+    {
+        return new LocalProvider(activity, callback);
+    }
+
     public EventsRequestProvider(Activity activity, RequestCallback<Events> callback)
     {
         super(activity, callback);
@@ -26,46 +31,56 @@ public class EventsRequestProvider extends BaseScheduleRequestProvider<Events>
         return Events.class;
     }
 
-    @Override
-    protected void getFromLocal(String url)
+    static class LocalProvider extends EventsRequestProvider
     {
-        int status = AppManager.getInstance().getDemoModeStatus();
-
-        Events events = FileUtil.openAssets(getActivity(), "data/events_" + ConvertUtil.convertStatus(status) + ".json", Events.class);
-
-        if (events != null && events.getEvents() != null)
+        LocalProvider(Activity activity, RequestCallback<Events> callback)
         {
-            notifyResponse(events);
+            super(activity, callback);
         }
-        else
+
+        @Override
+        public void request(String url)
         {
-            notifyResponse(new EmptyDataException());
+            int status = AppManager.getInstance().getDemoModeStatus();
+
+            Events events = FileUtil.openAssets(getActivity(), "data/events_" + ConvertUtil.convertStatus(status) + ".json", Events.class);
+
+            if (events != null && events.getEvents() != null)
+            {
+                notifyResponse(events);
+            }
+            else
+            {
+                notifyResponse(new EmptyDataException());
+            }
         }
     }
 
-    @Override
-    protected void getFromOkHttp(String url)
+    static class HttpProvider extends EventsRequestProvider
     {
-        OkGo.getInstance().cancelTag(this);
+        HttpProvider(Activity activity, RequestCallback<Events> callback)
+        {
+            super(activity, callback);
+        }
 
-        OkGo.<Events>get(url)
+        @Override
+        public void request(String url)
+        {
+            OkGo.getInstance().cancelTag(this);
 
-                .tag(this)
+            OkGo.<Events>get(url)
 
-                .execute(new ResponseCallback());
-    }
+                    .tag(this)
 
-    @Override
-    protected void getFromRemote(String url)
-    {
-        getFromLocal(url);
-    }
+                    .execute(new ResponseCallback());
+        }
 
-    @Override
-    public void destroy()
-    {
-        OkGo.getInstance().cancelTag(this);
+        @Override
+        public void destroy()
+        {
+            OkGo.getInstance().cancelTag(this);
 
-        super.destroy();
+            super.destroy();
+        }
     }
 }

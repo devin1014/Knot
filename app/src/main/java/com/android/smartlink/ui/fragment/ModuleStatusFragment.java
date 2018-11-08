@@ -17,7 +17,7 @@ import com.neulion.core.widget.recyclerview.RecyclerView;
 import butterknife.BindView;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-20
  * Time: 14:03
  */
@@ -59,7 +59,6 @@ public class ModuleStatusFragment extends BaseModulesFragment
         mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getModules() : null));
 
         mRecyclerView.setAdapter(mModuleAdapter);
-
     }
 
     @Override

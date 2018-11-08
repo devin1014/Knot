@@ -10,7 +10,7 @@ import com.android.smartlink.ui.fragment.SettingsFragment;
 import com.android.smartlink.ui.fragment.SettingsFragmentTablet;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-16
  * Time: 23:50
  */

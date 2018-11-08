@@ -1,10 +1,11 @@
 package com.android.smartlink.ui.model;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modbus.EquipmentToggle;
+import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
 import com.android.smartlink.bean.Modules.Toggle;
 import com.android.smartlink.util.Helper.ToggleHelper;
-import com.android.smartlink.util.ViewUtil;
+import com.android.smartlink.util.ImageResUtil;
+import com.android.smartlink.util.ImageResUtil.ImageType;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
 
@@ -32,30 +33,25 @@ public class UIToggle implements Serializable, IModule
     @Override
     public int getId()
     {
-        //return AppManager.getInstance().getToggle(mToggle.getChannel()).getId();
         return mToggle.getChannel();
     }
 
-    @Override
     public int getImageRes()
     {
-        EquipmentToggle toggle = AppManager.getInstance().getToggle(mToggle.getChannel());
-
-        return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), toggle.getIcon());
+        return ImageResUtil.getImage(mToggle.getChannel(), ImageType.DRAWABLE_NORMAL);
     }
 
-    @Override
     public int getWhiteImageRes()
     {
-        return getImageRes();
+        return ImageResUtil.getImage(mToggle.getChannel(), ImageType.DRAWABLE_NORMAL_LIGHT);
     }
 
     @Override
     public String getName()
     {
-        EquipmentToggle toggle = AppManager.getInstance().getToggle(mToggle);
+        ModuleInfo moduleInfo = AppManager.getInstance().getToggle(mToggle.getChannel());
 
-        return toggle != null ? toggle.getName() : null;
+        return moduleInfo != null ? moduleInfo.getName() : null;
     }
 
     @Override

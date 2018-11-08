@@ -20,7 +20,8 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/app_content_margin"
             android:paddingRight="@dimen/app_content_margin"
-            android:paddingTop="@dimen/app_content_margin">
+            android:paddingTop="@dimen/app_content_margin"
+            tools:background="@drawable/main_background">
 
             <View
                 android:id="@+id/events_filter_anchor"

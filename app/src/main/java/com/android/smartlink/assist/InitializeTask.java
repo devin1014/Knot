@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.os.SystemClock;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modbus;
+import com.android.smartlink.bean.ModuleConfiguration;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
@@ -18,6 +18,8 @@ import java.io.InputStreamReader;
  */
 public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 {
+    private static final long MIN_DURATION = 2500L;
+
     private AssetManager mAssetManager;
 
     private InitializeTaskCallback mTaskCallback;
@@ -37,22 +39,18 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
     @Override
     protected Boolean doInBackground(Void... voids)
     {
-        if (mAssetManager == null)
-        {
-            return false;
-        }
-
         final long timeStamp = SystemClock.uptimeMillis();
-
-        //boolean isPhone = AppManager.getInstance().isPhone();
 
         Gson gson = new Gson();
 
         try
         {
-            Modbus modbus = gson.fromJson(new InputStreamReader(mAssetManager.open("equipment.json")), Modbus.class);
+            AppManager.getInstance().setModuleConfiguration(gson.fromJson(new InputStreamReader(mAssetManager.open("config.json")), ModuleConfiguration.class));
 
-            AppManager.getInstance().setEquipments(modbus);
+            if (SystemClock.uptimeMillis() - timeStamp < MIN_DURATION)
+            {
+                Thread.sleep(MIN_DURATION - (SystemClock.uptimeMillis() - timeStamp));
+            }
         }
         catch (Exception e)
         {
@@ -60,17 +58,9 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
             return false;
         }
-
-        try
+        finally
         {
-            if (SystemClock.uptimeMillis() - timeStamp < 1500)
-            {
-                Thread.sleep(1000);
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+            mAssetManager = null;
         }
 
         return true;
@@ -83,6 +73,8 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
         {
             mTaskCallback.onInitialized(result != null && result);
         }
+
+        mTaskCallback = null;
     }
 
     public void destroy()

@@ -5,7 +5,7 @@ def versionNamePrefix = '1.'
 android {
 
     compileSdkVersion 26
-    buildToolsVersion '26.0.3'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.android.smartlink.powertag"
@@ -78,8 +78,11 @@ static def getVersionName(String prefix) {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
     compile project(':core')
+
     compile(name: 'support_recyclerview_v1.1', ext: 'aar')
+
     compile "com.android.support:appcompat-v7:${SUPPORTLIBVERSION}"
     compile "com.android.support:design:${SUPPORTLIBVERSION}"
     compile "com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}"
@@ -90,9 +93,12 @@ dependencies {
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
     compile 'com.umeng.analytics:analytics:6.1.4'
+
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'me.jessyan:autosize:1.0.5'
+
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -104,16 +110,3 @@ repositories {
         dirs 'libs'
     }
 }
-
-//task('readPasswordFromInput') << {
-//    def console = System.console()
-//    ext.keystorePassword = console.readLine('\n\n\n> Enter keystore password: ')
-//    android.signingConfigs.release.storePassword = ext.keystorePassword
-//    android.signingConfigs.release.keyPassword = ext.keystorePassword
-//}
-//
-//tasks.whenTaskAdded { task ->
-//    if (task.name.contains("Release")) {
-//        task.dependsOn('readPasswordFromInput')
-//    }
-//}

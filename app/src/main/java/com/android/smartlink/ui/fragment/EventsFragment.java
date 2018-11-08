@@ -101,7 +101,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mRequestProvider = new EventsRequestProvider(getActivity(), this);
+        mRequestProvider = EventsRequestProvider.newInstance(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 

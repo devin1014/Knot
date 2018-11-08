@@ -10,7 +10,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-20
  * Time: 15:54
  */

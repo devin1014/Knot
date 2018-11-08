@@ -1,0 +1,109 @@
+{
+    "monitor": {
+        "serverIP": "192.168.1.101",
+        "port": 502,
+        "data": [
+            {
+                "slaveID": 0,
+                "modules": [
+                    {
+                        "id": 1,
+                        "channel": 150,
+                        "name": "总回路"
+                    },
+                    {
+                        "id": 2,
+                        "channel": 152,
+                        "name": "冰箱回路"
+                    },
+                    {
+                        "id": 3,
+                        "channel": 155,
+                        "name": "插座回路"
+                    },
+                    {
+                        "id": 4,
+                        "channel": 154,
+                        "name": "照明回路"
+                    },
+                    {
+                        "id": 5,
+                        "channel": 153,
+                        "name": "空调回路"
+                    },
+                    {
+                        "id": 6,
+                        "channel": 151,
+                        "name": "水泵回路"
+                    },
+                    {
+                        "id": 7,
+                        "channel": 156,
+                        "name": "主电梯回路"
+                    },
+                    {
+                        "id": 8,
+                        "channel": 157,
+                        "name": "备用回路"
+                    }
+                ]
+            }
+        ]
+    },
+    "control": {
+        "serverIP": "192.168.1.100",
+        "port": 502,
+        "data": [
+            {
+                "slaveID": 255,
+                "modules": [
+                    {
+                        "id": 1,
+                        "channel": 14200,
+                        "name": "会议室照明"
+                    },
+                    {
+                        "id": 2,
+                        "channel": 14240,
+                        "name": "办公照明"
+                    },
+                    {
+                        "id": 3,
+                        "channel": 14280,
+                        "name": "厂区照明"
+                    },
+                    {
+                        "id": 4,
+                        "channel": 14320,
+                        "name": "公共照明"
+                    },
+                    {
+                        "id": 5,
+                        "channel": 14360,
+                        "name": "自动分合闸1"
+                    },
+                    {
+                        "id": 6,
+                        "channel": 14440,
+                        "name": "自动分合闸2"
+                    }
+                ]
+            },
+            {
+                "slaveID": 1,
+                "modules": [
+                    {
+                        "id": 7,
+                        "channel": 14440,
+                        "name": "集成控制1"
+                    },
+                    {
+                        "id": 8,
+                        "channel": 14520,
+                        "name": "集成控制2"
+                    }
+                ]
+            }
+        ]
+    }
+}

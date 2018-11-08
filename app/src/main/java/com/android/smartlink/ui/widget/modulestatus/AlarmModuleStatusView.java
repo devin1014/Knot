@@ -27,7 +27,7 @@ import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIModule;
-import com.android.smartlink.util.DataBindingAdapterUtil;
+import com.android.smartlink.util.AppDataBindingAdapter;
 import com.android.smartlink.util.HttpUrl;
 import com.android.smartlink.util.UICompat;
 
@@ -76,7 +76,7 @@ public class AlarmModuleStatusView extends LinearLayout
 
     private void initialize()
     {
-        mEventsRequestProvider = new EventsRequestProvider((Activity) getContext(), mEventsRequestCallback);
+        mEventsRequestProvider = EventsRequestProvider.newInstance((Activity) getContext(), mEventsRequestCallback);
 
         mInflater = LayoutInflater.from(getContext());
 
@@ -226,7 +226,7 @@ public class AlarmModuleStatusView extends LinearLayout
                 {
                     View inflaterView = mInflater.inflate(R.layout.item_home_status_alarm, mDetailGroup, false);
 
-                    mDetailGroup.addView(DataBindingAdapterUtil.binding(inflaterView, BR.data, new UIEvent(e)));
+                    mDetailGroup.addView(AppDataBindingAdapter.binding(inflaterView, BR.data, new UIEvent(e)));
                 }
             }
         }

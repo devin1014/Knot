@@ -23,7 +23,7 @@ import com.umeng.analytics.MobclickAgent;
 import butterknife.BindView;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-16
  * Time: 15:11
  */

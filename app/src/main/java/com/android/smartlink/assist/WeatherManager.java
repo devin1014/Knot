@@ -30,9 +30,9 @@ public class WeatherManager
 
         mCallback = callback;
 
-        mWeatherProvider = new WeatherProvider(activity, mWeatherCallback);
+        mWeatherProvider = WeatherProvider.newInstance(activity, mWeatherCallback);
 
-        mLocationProvider = new LocationProvider(activity, mWeatherLocationCallback);
+        mLocationProvider = LocationProvider.newInstance(activity, mWeatherLocationCallback);
     }
 
     public void requestWeather()
@@ -43,7 +43,7 @@ public class WeatherManager
         {
             mLocationProvider.request(HttpUrl.getAccuWeatherUrl(mLocationProvider.getActivity()));
 
-            mWeatherProvider.requestByLocal();
+            mWeatherProvider.request("http://test.xxxx");//todo
         }
         else
         {

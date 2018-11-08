@@ -45,13 +45,7 @@ public class Modules implements Serializable
         @SerializedName("alarm")
         private int status;
 
-        //private float power;
-
-        //private float powerFactor;
-
         private String current;
-
-        //private float voltage;
 
         private String energy;
 

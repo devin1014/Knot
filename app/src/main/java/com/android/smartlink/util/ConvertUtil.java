@@ -4,7 +4,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
-import com.android.smartlink.bean.Modbus.Equipment;
+import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Modules.Toggle;
@@ -65,7 +65,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIEquipment> convertEquipment(List<Equipment> list)
+    public static List<UIEquipment> convertEquipment(List<ModuleInfo> list)
     {
         if (list == null || list.size() == 0)
         {
@@ -74,7 +74,7 @@ public class ConvertUtil
 
         List<UIEquipment> result = new ArrayList<>();
 
-        for (Equipment item : list)
+        for (ModuleInfo item : list)
         {
             result.add(new UIEquipment(item));
         }
@@ -124,7 +124,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIFilter> convertFilters(List<Equipment> list, int[] ids, boolean addOthers)
+    public static List<UIFilter> convertFilters(List<ModuleInfo> list, int[] ids, boolean addOthers)
     {
         if (list == null || list.size() == 0)
         {
@@ -133,7 +133,7 @@ public class ConvertUtil
 
         List<UIFilter> result = new ArrayList<>();
 
-        for (Equipment item : list)
+        for (ModuleInfo item : list)
         {
             if (ids == null || ids.length == 0)
             {

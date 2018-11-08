@@ -24,13 +24,13 @@ import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import butterknife.BindView;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-20
  * Time: 14:59
  */
 public class ToggleFragment extends BaseModulesFragment
 {
-    public static final int MAX_TOGGLE_SIZE = 3;
+    public static final int MAX_TOGGLE_SIZE = 5;
 
     public static ToggleFragment newInstance(Modules modules)
     {
@@ -78,7 +78,6 @@ public class ToggleFragment extends BaseModulesFragment
         }
 
         mViewPager.setAdapter(new ToggleAdapter(getChildFragmentManager()));
-
 
         ScaleCircleNavigator scaleCircleNavigator = new ScaleCircleNavigator(getActivity());
         scaleCircleNavigator.setCircleCount(mViewPager.getAdapter().getCount());

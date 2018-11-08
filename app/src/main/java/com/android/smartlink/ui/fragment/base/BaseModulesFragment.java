@@ -3,7 +3,7 @@ package com.android.smartlink.ui.fragment.base;
 import com.android.smartlink.bean.Modules;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-20
  * Time: 14:30
  */

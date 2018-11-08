@@ -25,7 +25,7 @@ import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import butterknife.BindView;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-20
  * Time: 13:54
  */

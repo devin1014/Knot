@@ -1,7 +1,7 @@
 package com.android.smartlink.ui.model;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modbus.Equipment;
+import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
 import com.android.smartlink.util.ViewUtil;
 
 /**
@@ -11,11 +11,11 @@ import com.android.smartlink.util.ViewUtil;
  */
 public class UIEquipment implements IEquipment
 {
-    private Equipment mSource;
+    private ModuleInfo mSource;
 
     private boolean mEditMode = false;
 
-    public UIEquipment(Equipment equipment)
+    public UIEquipment(ModuleInfo equipment)
     {
         mSource = equipment;
     }
@@ -35,7 +35,7 @@ public class UIEquipment implements IEquipment
     @Override
     public int getImageRes()
     {
-        return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), mSource.getIcon());
+        return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), mSource);
     }
 
     public boolean isEditMode()

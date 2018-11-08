@@ -23,7 +23,7 @@ import org.achartengine.GraphicalView;
 import butterknife.BindView;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
+ * User: liuwei
  * Date: 2018-05-20
  * Time: 14:03
  */
@@ -55,7 +55,7 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
 
     private void initComponent()
     {
-        mRequestProvider = new EnergyRequestProvider(getActivity(), this);
+        mRequestProvider = EnergyRequestProvider.newInstance(getActivity(), this);
 
         mRequestProvider.request(HttpUrl.getPowerConsumeUrl(151));
 

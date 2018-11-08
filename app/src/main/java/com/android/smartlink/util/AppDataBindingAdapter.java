@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Date: 2017-10-22
  * Time: 10:19
  */
-public class DataBindingAdapterUtil
+public class AppDataBindingAdapter
 {
     public static View binding(View view, int variableId, Object value)
     {
@@ -103,7 +103,7 @@ public class DataBindingAdapterUtil
         view.setSelected(selected);
     }
 
-    @BindingAdapter({"ebabled"})
+    @BindingAdapter({"enabled"})
     public static void setEnabled(View view, boolean enabled)
     {
         view.setEnabled(enabled);

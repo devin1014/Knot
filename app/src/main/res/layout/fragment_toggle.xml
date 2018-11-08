@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/toggle_title"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="72dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/label_module_control"
@@ -23,13 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toggle_title"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="48dp"
         android:overScrollMode="never" />
 
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

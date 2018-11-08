@@ -74,7 +74,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mWeatherManager.requestWeather();
 
-        mRequestProvider = new MainRequestProvider(getActivity(), this);
+        mRequestProvider = MainRequestProvider.newInstance(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 

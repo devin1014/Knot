@@ -6,9 +6,9 @@ import android.text.TextUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modbus.Equipment;
 import com.android.smartlink.bean.Modules.Module;
-import com.android.smartlink.util.ViewUtil;
+import com.android.smartlink.util.ImageResUtil;
+import com.android.smartlink.util.ImageResUtil.ImageType;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
 
@@ -88,30 +88,12 @@ public class UIModule implements Serializable, IModule
 
     public int getImageRes()
     {
-        Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
-
-        if (equipment != null)
-        {
-            return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), equipment.getIcon());
-        }
-        else
-        {
-            return R.mipmap.ic_launcher;
-        }
+        return ImageResUtil.getImage(mModule.getId(), ImageType.DRAWABLE_NORMAL);
     }
 
     public int getWhiteImageRes()
     {
-        Equipment equipment = AppManager.getInstance().getEquipment(mModule.getId());
-
-        if (equipment != null)
-        {
-            return ViewUtil.getDrawable(AppManager.getInstance().getApplication(), equipment.getLightIcon());
-        }
-        else
-        {
-            return R.mipmap.ic_launcher;
-        }
+        return ImageResUtil.getImage(mModule.getId(), ImageType.DRAWABLE_NORMAL_LIGHT);
     }
 
     public String getName()

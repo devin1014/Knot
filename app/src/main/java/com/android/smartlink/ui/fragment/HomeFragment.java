@@ -93,7 +93,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mLoadingLayout.showLoading();
 
-        mRequestProvider = new MainRequestProvider(getActivity(), this);
+        mRequestProvider = MainRequestProvider.newInstance(getActivity(), this);
 
         mRequestProvider.schedule(HttpUrl.getHomeUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 

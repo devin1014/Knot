@@ -1,6 +1,6 @@
 package com.android.smartlink.application;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.android.devin.core.util.Debug;
 import com.android.devin.core.util.LogUtil;
@@ -23,7 +23,7 @@ import okhttp3.OkHttpClient;
  * Date: 2017-10-15
  * Time: 14:49
  */
-public class SmartlinkApplication extends Application
+public class SmartlinkApplication extends MultiDexApplication
 {
     @Override
     public void onCreate()

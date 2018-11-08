@@ -18,76 +18,16 @@ import okhttp3.Response;
  * Date: 2017-11-12
  * Time: 10:35
  */
-public class WeatherProvider extends BaseRequestProvider<Weather>
+public abstract class WeatherProvider extends BaseRequestProvider<Weather>
 {
-    public WeatherProvider(Activity activity, RequestCallback<Weather> callback)
+    public static WeatherProvider newInstance(Activity activity, RequestCallback<Weather> callback)
+    {
+        return new LocalProvider(activity, callback);
+    }
+
+    WeatherProvider(Activity activity, RequestCallback<Weather> callback)
     {
         super(activity, callback);
-    }
-
-    public void requestByLocal()
-    {
-        getFromLocal("");
-    }
-
-    @Override
-    protected void getFromLocal(String url)
-    {
-        try
-        {
-            String resultString = IOUtils.parseStream(getActivity().getAssets().open("data/weather.json"));
-
-            JSONObject jsonObject = new JSONObject(resultString);
-
-            JSONObject weatherObj = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
-
-            Weather weather = new Gson().fromJson(weatherObj.toString(), Weather.class);
-
-            notifyResponse(weather);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void getFromOkHttp(String url)
-    {
-        if (AppManager.getInstance().getWeather() != null)
-        {
-            if (!needUpdate(AppManager.getInstance().getWeather()))
-            {
-                notifyResponse(AppManager.getInstance().getWeather());
-
-                return;
-            }
-        }
-
-        getFromLocal("null");
-
-        OkGo.getInstance().cancelTag(this);
-
-        OkGo.<Weather>get(url)
-
-                .tag(this)
-
-                .execute(new ResponseCallback());
-    }
-
-    private boolean needUpdate(Weather weather)
-    {
-        WeatherBasic weatherBasic = weather.getBasic();
-
-        long duration = System.currentTimeMillis() - weatherBasic.getUpdateTime().getTime();
-
-        return duration < 0 || duration > 6 * 60 * 60 * 1000;
-    }
-
-    @Override
-    protected void getFromRemote(String url)
-    {
-        getFromLocal(url);
     }
 
     @Override
@@ -119,5 +59,73 @@ public class WeatherProvider extends BaseRequestProvider<Weather>
         JSONObject weather = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
 
         return new Gson().fromJson(weather.toString(), Weather.class);
+    }
+
+    static class LocalProvider extends WeatherProvider
+    {
+        LocalProvider(Activity activity, RequestCallback<Weather> callback)
+        {
+            super(activity, callback);
+        }
+
+        @Override
+        public void request(String url)
+        {
+            try
+            {
+                String resultString = IOUtils.parseStream(getActivity().getAssets().open("data/weather.json"));
+
+                JSONObject jsonObject = new JSONObject(resultString);
+
+                JSONObject weatherObj = jsonObject.getJSONArray("HeWeather5").getJSONObject(0);
+
+                Weather weather = new Gson().fromJson(weatherObj.toString(), Weather.class);
+
+                notifyResponse(weather);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static class HttpProvider extends WeatherProvider
+    {
+        HttpProvider(Activity activity, RequestCallback<Weather> callback)
+        {
+            super(activity, callback);
+        }
+
+        @Override
+        public void request(String url)
+        {
+            if (AppManager.getInstance().getWeather() != null)
+            {
+                if (!needUpdate(AppManager.getInstance().getWeather()))
+                {
+                    notifyResponse(AppManager.getInstance().getWeather());
+
+                    return;
+                }
+            }
+
+            OkGo.getInstance().cancelTag(this);
+
+            OkGo.<Weather>get(url)
+
+                    .tag(this)
+
+                    .execute(new ResponseCallback());
+        }
+
+        private boolean needUpdate(Weather weather)
+        {
+            WeatherBasic weatherBasic = weather.getBasic();
+
+            long duration = System.currentTimeMillis() - weatherBasic.getUpdateTime().getTime();
+
+            return duration < 0 || duration > 6 * 60 * 60 * 1000;
+        }
     }
 }

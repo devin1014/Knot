@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.android.smartlink.application.manager.AppManager;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.model.Response;
@@ -39,40 +38,7 @@ abstract class BaseRequestProvider<T>
         mDestroy = false;
     }
 
-    public final void request(final String url)
-    {
-        if (AppManager.getInstance().isHttpMode())
-        {
-            getFromOkHttp(url);
-        }
-        else
-        {
-            if (!mDestroy)
-            {
-                sExecutor.execute(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        if (AppManager.getInstance().isLocalMode())
-                        {
-                            getFromLocal(url);
-                        }
-                        else if (AppManager.getInstance().isRemoteMode())
-                        {
-                            getFromRemote(url);
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    protected abstract void getFromLocal(String url);
-
-    protected abstract void getFromOkHttp(String url);
-
-    protected abstract void getFromRemote(String url);
+    public abstract void request(String url);
 
     public void destroy()
     {
@@ -86,6 +52,11 @@ abstract class BaseRequestProvider<T>
     protected Activity getActivity()
     {
         return mActivity;
+    }
+
+    protected ExecutorService getsExecutor()
+    {
+        return sExecutor;
     }
 
     protected boolean isDestroy()

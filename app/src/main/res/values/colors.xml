@@ -13,4 +13,6 @@
     <color name="indicator">#bfdcc6</color>
     <color name="indicator_select">#009c41</color>
 
+    <color name="splashBackground">#009c42</color>
+
 </resources>

@@ -7,10 +7,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.IntDef;
 
 import com.android.smartlink.Constants;
-import com.android.smartlink.bean.Modbus;
-import com.android.smartlink.bean.Modbus.Equipment;
-import com.android.smartlink.bean.Modbus.EquipmentToggle;
-import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.bean.ModuleConfiguration;
+import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 
@@ -52,9 +50,9 @@ public class AppManager
 
     private SharedPreferences mSharedPreferences;
 
-    private EquipmentManager mEquipmentManager;
+    private ModuleManager mModuleManager;
 
-    private List<EquipmentToggle> mToggles;
+    //private List<EquipmentToggle> mToggles;
 
     private Weather mWeather;
 
@@ -69,7 +67,7 @@ public class AppManager
 
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
 
-        mEquipmentManager = new EquipmentManager(application);
+        mModuleManager = new ModuleManager(application);
 
         mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 600;
     }
@@ -78,7 +76,7 @@ public class AppManager
     // ------------ 初始化 ----------------
     public boolean isInitialized()
     {
-        return mApplication != null && mEquipmentManager.isInitialized();
+        return mApplication != null && mModuleManager.isInitialized();
     }
 
     public Application getApplication()
@@ -154,55 +152,37 @@ public class AppManager
     // ------------ Equipment ------------
     public void setEquipmentName(int id, String name)
     {
-        mEquipmentManager.update(id, name);
+        mModuleManager.setModuleName(id, name);
     }
 
     public String getEquipmentName(int id)
     {
-        return mEquipmentManager.getName(id);
+        return mModuleManager.getModuleName(id);
     }
 
-    public void setEquipments(Modbus modbus)
+    public void setModuleConfiguration(ModuleConfiguration config) throws IllegalArgumentException
     {
-        mEquipmentManager.setEquipments(modbus);
-
-        mToggles = modbus.getToggles();
-    }
-
-    public Equipment getEquipment(int id)
-    {
-        return mEquipmentManager.getEquipment(id);
-    }
-
-    public List<Equipment> getEquipments()
-    {
-        return mEquipmentManager.getEquipments();
-    }
-
-    public EquipmentToggle getToggle(int channelId)
-    {
-        for (EquipmentToggle t : mToggles)
+        if (config == null || config.getControl() == null || config.getMonitor() == null)
         {
-            if (t.getChannel() == channelId)
-            {
-                return t;
-            }
+            throw new IllegalArgumentException("can not parse config!");
         }
 
-        return null;
+        mModuleManager.setModuleConfiguration(config);
     }
 
-    public EquipmentToggle getToggle(Toggle toggle)
+    public ModuleInfo getEquipment(int id)
     {
-        for (EquipmentToggle t : mToggles)
-        {
-            if (t.getChannel() == toggle.getChannel() && t.getSlaveID() == toggle.getSlaveID())
-            {
-                return t;
-            }
-        }
+        return mModuleManager.getModule(id);
+    }
 
-        return null;
+    public List<ModuleInfo> getEquipments()
+    {
+        return mModuleManager.getAllModuleList();
+    }
+
+    public ModuleInfo getToggle(int id)
+    {
+        return mModuleManager.getModule(id);
     }
 
     // -----------------------------------

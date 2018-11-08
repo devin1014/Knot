@@ -13,8 +13,13 @@ import com.lzy.okgo.OkGo;
  * Date: 2017-10-19
  * Time: 11:17
  */
-public class EnergyRequestProvider extends BaseRequestProvider<Energy>
+public abstract class EnergyRequestProvider extends BaseRequestProvider<Energy>
 {
+    public static EnergyRequestProvider newInstance(Activity activity, RequestCallback<Energy> callback)
+    {
+        return new LocalProvider(activity, callback);
+    }
+
     public EnergyRequestProvider(Activity activity, RequestCallback<Energy> callback)
     {
         super(activity, callback);
@@ -26,59 +31,69 @@ public class EnergyRequestProvider extends BaseRequestProvider<Energy>
         return Energy.class;
     }
 
-    @Override
-    protected void getFromLocal(String url)
+    static class LocalProvider extends EnergyRequestProvider
     {
-        String name;
-
-        Uri uri = Uri.parse(url);
-
-        String id = uri.getQueryParameter("id");
-
-        if (TextUtils.isEmpty(id))
+        public LocalProvider(Activity activity, RequestCallback<Energy> callback)
         {
-            name = "data/" + uri.getPath().substring(uri.getPath().lastIndexOf("/") + 1);
-        }
-        else
-        {
-            name = "data/30DayEnergy_" + id + ".json";
+            super(activity, callback);
         }
 
-        Energy energy = FileUtil.openAssets(getActivity(), name, Energy.class);
+        @Override
+        public void request(String url)
+        {
+            String name;
 
-        if (energy != null)
-        {
-            notifyResponse(energy);
-        }
-        else
-        {
-            notifyResponse(new EmptyDataException());
+            Uri uri = Uri.parse(url);
+
+            String id = uri.getQueryParameter("id");
+
+            if (TextUtils.isEmpty(id))
+            {
+                name = "data/" + uri.getPath().substring(uri.getPath().lastIndexOf("/") + 1);
+            }
+            else
+            {
+                name = "data/30DayEnergy_" + id + ".json";
+            }
+
+            Energy energy = FileUtil.openAssets(getActivity(), name, Energy.class);
+
+            if (energy != null)
+            {
+                notifyResponse(energy);
+            }
+            else
+            {
+                notifyResponse(new EmptyDataException());
+            }
         }
     }
 
-    @Override
-    protected void getFromOkHttp(String url)
+    static class HttpProvider extends EnergyRequestProvider
     {
-        OkGo.getInstance().cancelTag(this);
+        public HttpProvider(Activity activity, RequestCallback<Energy> callback)
+        {
+            super(activity, callback);
+        }
 
-        OkGo.<Energy>get(url)
+        @Override
+        public void request(String url)
+        {
+            OkGo.getInstance().cancelTag(this);
 
-                .tag(this)
+            OkGo.<Energy>get(url)
 
-                .execute(new ResponseCallback());
-    }
+                    .tag(this)
 
-    @Override
-    protected void getFromRemote(String url)
-    {
-        getFromLocal(url);
-    }
+                    .execute(new ResponseCallback());
+        }
 
-    @Override
-    public void destroy()
-    {
-        OkGo.getInstance().cancelTag(this);
+        @Override
+        public void destroy()
+        {
+            OkGo.getInstance().cancelTag(this);
 
-        super.destroy();
+            super.destroy();
+        }
     }
 }
