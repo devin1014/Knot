@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.widget.ScaleCircleNavigator;
 
@@ -32,7 +32,7 @@ public class ToggleFragment extends BaseModulesFragment
 {
     public static final int MAX_TOGGLE_SIZE = 5;
 
-    public static ToggleFragment newInstance(Modules modules)
+    public static ToggleFragment newInstance(ModulesData modules)
     {
         ToggleFragment fragment = new ToggleFragment();
         Bundle arguments = new Bundle();
@@ -65,13 +65,13 @@ public class ToggleFragment extends BaseModulesFragment
 
     private void initComponent()
     {
-        Modules modules = (Modules) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
+        ModulesData modules = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
-        if (modules != null && modules.getToggles() != null)
+        if (modules != null && modules.getToggleModules() != null)
         {
-            mPageSize = modules.getToggles().size() / MAX_TOGGLE_SIZE;
+            mPageSize = modules.getToggleModules().size() / MAX_TOGGLE_SIZE;
 
-            if (modules.getToggles().size() % MAX_TOGGLE_SIZE != 0)
+            if (modules.getToggleModules().size() % MAX_TOGGLE_SIZE != 0)
             {
                 mPageSize++;
             }
@@ -90,7 +90,7 @@ public class ToggleFragment extends BaseModulesFragment
     }
 
     @Override
-    public void notifyModulesChanged(Modules modules)
+    public void notifyModulesChanged(ModulesData modules)
     {
         if (mViewPager != null)
         {

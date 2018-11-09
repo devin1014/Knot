@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.widget.ScaleCircleNavigator;
@@ -31,7 +31,7 @@ import butterknife.BindView;
  */
 public class ModuleFragment extends BaseSmartlinkFragment
 {
-    public static ModuleFragment newInstance(Modules modules)
+    public static ModuleFragment newInstance(ModulesData modules)
     {
         ModuleFragment fragment = new ModuleFragment();
         Bundle arguments = new Bundle();
@@ -74,7 +74,7 @@ public class ModuleFragment extends BaseSmartlinkFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    public void notifyModulesChanged(Modules modules)
+    public void notifyModulesChanged(ModulesData modules)
     {
         if (mViewPager != null && mViewPager.getAdapter() != null)
         {

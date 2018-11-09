@@ -17,6 +17,7 @@ import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.ScheduleHandler;
 import com.android.smartlink.bean.Energy;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.widget.IndicatorView;
@@ -25,7 +26,6 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.AppDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
-import com.umeng.analytics.MobclickAgent;
 
 import org.achartengine.GraphicalView;
 
@@ -110,7 +110,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         mRequestProvider = EnergyRequestProvider.newInstance(this);
 
         assert uiModule != null;
-        mRequestProvider.request(AppManager.getInstance().getHttpUrl().getEnergyUrl(uiModule.getId()));
+        mRequestProvider.request(RequestUrl.obtainEnergyUrl(uiModule.getId()));
 
         mLoadingLayout.showLoading();
 
@@ -119,22 +119,6 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         mScheduleHandler.setOnScheduleListener(this);
 
         mScheduleHandler.schedule(30 * 1000);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("Detail");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("Detail");
-
-        super.onPause();
     }
 
     @Override

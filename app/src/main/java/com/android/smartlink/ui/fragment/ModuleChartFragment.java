@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Energy;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.widget.Last15DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -57,13 +57,13 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
     {
         mRequestProvider = EnergyRequestProvider.newInstance(this);
 
-        mRequestProvider.request(AppManager.getInstance().getHttpUrl().getEnergyUrl(150));
+        mRequestProvider.request(RequestUrl.obtainEnergyUrl(150));
 
         mLoadingLayout.showLoading();
     }
 
     @Override
-    public void notifyModulesChanged(Modules modules)
+    public void notifyModulesChanged(ModulesData modules)
     {
     }
 

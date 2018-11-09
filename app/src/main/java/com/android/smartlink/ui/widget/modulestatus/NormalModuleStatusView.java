@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.util.AppDataBindingAdapter;
 
@@ -73,7 +73,7 @@ public class NormalModuleStatusView extends LinearLayout implements OnClickListe
         mDetailGroup = findViewById(R.id.status_details);
     }
 
-    protected void onModuleChanged(final List<Module> newList, final List<Module> oldList)
+    protected void onModuleChanged(final List<MonitorModuleData> newList, final List<MonitorModuleData> oldList)
     {
         //resetDetailView();
 
@@ -112,7 +112,7 @@ public class NormalModuleStatusView extends LinearLayout implements OnClickListe
         {
             mDetailGroup.removeAllViews();
 
-            for (Module module : newList)
+            for (MonitorModuleData module : newList)
             {
                 View inflaterView = mLayoutInflater.inflate(R.layout.comp_home_status_detail, mDetailGroup, false);
 

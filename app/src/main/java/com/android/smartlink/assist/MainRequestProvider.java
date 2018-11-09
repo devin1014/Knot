@@ -1,7 +1,7 @@
 package com.android.smartlink.assist;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.ModbusHelp;
 import com.android.smartlink.util.Utils;
@@ -13,9 +13,9 @@ import com.lzy.okgo.OkGo;
  * Date: 2017-10-16
  * Time: 18:46
  */
-public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Modules>
+public abstract class MainRequestProvider extends BaseScheduleRequestProvider<ModulesData>
 {
-    public static MainRequestProvider newInstance(RequestCallback<Modules> callback)
+    public static MainRequestProvider newInstance(RequestCallback<ModulesData> callback)
     {
         if (Utils.isDevDebugMode(AppManager.getInstance().getApplication()))
         {
@@ -26,20 +26,20 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
         return new RemoteProvider(callback);
     }
 
-    MainRequestProvider(RequestCallback<Modules> callback)
+    MainRequestProvider(RequestCallback<ModulesData> callback)
     {
         super(callback);
     }
 
     @Override
-    Class<Modules> getConvertObjectClass()
+    Class<ModulesData> getConvertObjectClass()
     {
-        return Modules.class;
+        return ModulesData.class;
     }
 
     static class LocalProvider extends MainRequestProvider
     {
-        LocalProvider(RequestCallback<Modules> callback)
+        LocalProvider(RequestCallback<ModulesData> callback)
         {
             super(callback);
         }
@@ -47,7 +47,7 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
         @Override
         public void request(String url)
         {
-            Modules modules = FileUtil.openAssets(AppManager.getInstance().getApplication(), url, Modules.class);
+            ModulesData modules = FileUtil.openAssets(AppManager.getInstance().getApplication(), url, ModulesData.class);
 
             if (modules != null)
             {
@@ -62,7 +62,7 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
 
     static class HttpProvider extends MainRequestProvider
     {
-        HttpProvider(RequestCallback<Modules> callback)
+        HttpProvider(RequestCallback<ModulesData> callback)
         {
             super(callback);
         }
@@ -72,7 +72,7 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
         {
             OkGo.getInstance().cancelTag(this);
 
-            OkGo.<Modules>get(url).tag(this).execute(new ResponseCallback());
+            OkGo.<ModulesData>get(url).tag(this).execute(new ResponseCallback());
         }
 
         @Override
@@ -86,7 +86,7 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
 
     static class RemoteProvider extends MainRequestProvider
     {
-        RemoteProvider(RequestCallback<Modules> callback)
+        RemoteProvider(RequestCallback<ModulesData> callback)
         {
             super(callback);
         }
@@ -118,10 +118,10 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
 
                     //        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
 
-                    Modules modules = null;
+                    ModulesData modules = null;
                     try
                     {
-                        modules = new Gson().fromJson(tStr, Modules.class);
+                        modules = new Gson().fromJson(tStr, ModulesData.class);
                     }
                     catch (Exception e)
                     {

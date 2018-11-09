@@ -13,7 +13,6 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,22 +63,6 @@ public class DemoSettingFragment extends BaseSmartlinkFragment
         int ovenStatus = status % 10;
 
         setModule(mOvenModule, ovenStatus);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("DemoSetting");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("DemoSetting");
-
-        super.onPause();
     }
 
     private void setModule(RadioGroup group, int status)

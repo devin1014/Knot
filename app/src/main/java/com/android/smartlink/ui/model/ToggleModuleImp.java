@@ -1,7 +1,7 @@
 package com.android.smartlink.ui.model;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultSourceModuleImp;
 import com.android.smartlink.util.Helper.ToggleHelper;
 import com.android.smartlink.util.ImageResUtil;
@@ -19,19 +19,19 @@ public class ToggleModuleImp extends DefaultSourceModuleImp implements Serializa
 {
     private static final long serialVersionUID = -2506753032922419481L;
 
-    private Toggle mToggle;
+    private ToggleModuleData mToggle;
 
     private int mImageType;
 
     @DiffItem
     int mId;
 
-    public ToggleModuleImp(Toggle toggle)
+    public ToggleModuleImp(ToggleModuleData toggle)
     {
         this(toggle, ImageType.DRAWABLE_NORMAL);
     }
 
-    public ToggleModuleImp(Toggle toggle, @ImageType int imageType)
+    public ToggleModuleImp(ToggleModuleData toggle, @ImageType int imageType)
     {
         super(toggle);
 

@@ -21,7 +21,6 @@ import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -65,22 +64,6 @@ public class SettingsFragment extends BaseSmartlinkFragment
                 getResources().getStringArray(R.array.settings_image)));
 
         mSettingDemo.setVisibility(AppManager.getInstance().isDemoMode() ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("Settings");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("Settings");
-
-        super.onPause();
     }
 
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()

@@ -10,7 +10,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.BaseExecutorService;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.model.ToggleModuleImp;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
@@ -66,7 +66,7 @@ public class ToggleListFragment extends BaseModulesFragment
     {
         mPageIndex = getArguments().getInt(Constants.KEY_EXTRA_TOGGLE_INDEX);
 
-        Modules modules = (Modules) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
+        ModulesData modules = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
         mAdapter = new ToggleAdapterTablet(getLayoutInflater(), mToggleOnItemClickListener);
 
@@ -76,7 +76,7 @@ public class ToggleListFragment extends BaseModulesFragment
     }
 
     @Override
-    public void notifyModulesChanged(Modules modules)
+    public void notifyModulesChanged(ModulesData modules)
     {
         if (mAdapter != null)
         {
@@ -84,14 +84,14 @@ public class ToggleListFragment extends BaseModulesFragment
         }
     }
 
-    private List<ToggleModuleImp> parseList(@Nullable Modules modules)
+    private List<ToggleModuleImp> parseList(@Nullable ModulesData modules)
     {
-        if (modules == null || modules.getToggles() == null)
+        if (modules == null || modules.getToggleModules() == null)
         {
             return null;
         }
 
-        return UIConverter.convertToggle(modules.getToggles(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
+        return UIConverter.convertToggle(modules.getToggleModules(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
     }
 
     private OnItemClickListener<ToggleModuleImp> mToggleOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()

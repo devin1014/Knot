@@ -59,9 +59,6 @@ public class AppManager
 
     private boolean mPhoneType;
 
-    @RequestMode
-    private int mRequestMode = RequestMode.MODE_REMOTE;
-
     private AppManager(Application application)
     {
         mApplication = application;

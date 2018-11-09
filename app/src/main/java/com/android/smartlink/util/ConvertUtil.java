@@ -4,9 +4,9 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
-import com.android.smartlink.bean.Modules;
-import com.android.smartlink.bean.Modules.Module;
-import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.bean.ModulesData;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
+import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule;
 import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.model.MonitorModuleImp;
@@ -82,7 +82,7 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<MonitorModuleImp> convertModule(List<Module> list, int start, int end)
+    public static List<MonitorModuleImp> convertModule(List<MonitorModuleData> list, int start, int end)
     {
         List<MonitorModuleImp> result = new ArrayList<>();
 
@@ -97,25 +97,25 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<IModule> convertModule(Modules modules)
+    public static List<IModule> convertModule(ModulesData modules)
     {
         List<IModule> result = new ArrayList<>();
 
-        List<Module> list = modules.getModules();
+        List<MonitorModuleData> list = modules.getMonitorModules();
 
         if (list != null)
         {
-            for (Module m : list)
+            for (MonitorModuleData m : list)
             {
                 result.add(new MonitorModuleImp(m));
             }
         }
 
-        List<Toggle> toggles = modules.getToggles();
+        List<ToggleModuleData> toggles = modules.getToggleModules();
 
         if (toggles != null)
         {
-            for (Toggle t : toggles)
+            for (ToggleModuleData t : toggles)
             {
                 result.add(new ToggleModuleImp(t));
             }

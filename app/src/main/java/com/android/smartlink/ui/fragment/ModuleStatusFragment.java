@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
 import com.android.smartlink.util.UIConverter;
@@ -52,18 +52,18 @@ public class ModuleStatusFragment extends BaseModulesFragment
 
     private void initComponent()
     {
-        Modules modules = (Modules) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
+        ModulesData modules = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
         mModuleAdapter = new ModuleAdapterTablet(getLayoutInflater());
 
-        mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getModules() : null));
+        mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getMonitorModules() : null));
 
         mRecyclerView.setAdapter(mModuleAdapter);
     }
 
     @Override
-    public void notifyModulesChanged(Modules modules)
+    public void notifyModulesChanged(ModulesData modules)
     {
-        mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getModules() : null));
+        mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getMonitorModules() : null));
     }
 }

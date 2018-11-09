@@ -1,6 +1,6 @@
 package com.android.smartlink.ui.fragment.base;
 
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
 
 /**
  * User: liuwei
@@ -9,5 +9,5 @@ import com.android.smartlink.bean.Modules;
  */
 public abstract class BaseModulesFragment extends BaseSmartlinkFragment
 {
-    public abstract void notifyModulesChanged(Modules modules);
+    public abstract void notifyModulesChanged(ModulesData modules);
 }

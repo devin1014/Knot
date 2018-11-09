@@ -10,7 +10,6 @@ import android.webkit.WebView;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -50,21 +49,5 @@ public class TermsFragment extends BaseSmartlinkFragment
         settings.setUseWideViewPort(false);
 
         mWebView.loadUrl("file:///android_asset/conditions/default.html");
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("Terms");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("Terms");
-
-        super.onPause();
     }
 }

@@ -1,7 +1,7 @@
 package com.android.smartlink.util;
 
-import com.android.smartlink.bean.Modules.Module;
-import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
+import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.ToggleModuleImp;
 
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class UIConverter
 {
-    public static List<MonitorModuleImp> convertModules(List<Module> list)
+    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list)
     {
         List<MonitorModuleImp> moduleList = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class UIConverter
         return moduleList;
     }
 
-    public static List<ToggleModuleImp> convertToggle(List<Toggle> list)
+    public static List<ToggleModuleImp> convertToggle(List<ToggleModuleData> list)
     {
         List<ToggleModuleImp> moduleList = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class UIConverter
         return moduleList;
     }
 
-    public static List<ToggleModuleImp> convertToggle(List<Toggle> list, int startIndex, int count)
+    public static List<ToggleModuleImp> convertToggle(List<ToggleModuleData> list, int startIndex, int count)
     {
         List<ToggleModuleImp> moduleList = new ArrayList<>();
 

@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.smartlink.R;
-import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
@@ -66,7 +66,7 @@ public class ModuleAdapter extends BaseAdapter<IModule>
         @Override
         public void onBindViewHolder(Object object)
         {
-            mModuleStatusLayout.setModules((List<Module>) object);
+            mModuleStatusLayout.setModules((List<MonitorModuleData>) object);
         }
 
         public ModuleStatusLayout getModuleStatusLayout()

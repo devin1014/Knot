@@ -15,12 +15,12 @@ import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AlertNotifyManager;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
 import com.android.smartlink.assist.WeatherManager.WeatherCallback;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIWeather;
@@ -34,7 +34,7 @@ import butterknife.BindView;
  * Date: 2017-12-05
  * Time: 18:05
  */
-public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
+public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<ModulesData>, OnRefreshListener
 {
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
@@ -76,9 +76,9 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mRequestProvider = MainRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(RequestUrl.obtainMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
-        //mLoadingLayout.showLoading();
+        mLoadingLayout.showLoading();
     }
 
     @Override
@@ -100,11 +100,11 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     }
 
     @Override
-    public void onResponse(Modules modules)
+    public void onResponse(ModulesData modules)
     {
         mLoadingLayout.showContent();
 
-        mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getModules()));
+        mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getMonitorModules()));
 
         Fragment fragment = getChildFragmentManager().findFragmentById(R.id.module_panel);
 
@@ -156,7 +156,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     @Override
     public void onRefresh()
     {
-        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(RequestUrl.obtainMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mWeatherManager.requestWeather();
     }

@@ -19,12 +19,12 @@ import android.widget.TextView;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.bean.Events.Event;
-import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.util.AppDataBindingAdapter;
@@ -103,7 +103,7 @@ public class AlarmModuleStatusView extends LinearLayout
     }
 
     @SuppressLint("SetTextI18n")
-    protected void onModuleChanged(final List<Module> newList, final List<Module> oldList)
+    protected void onModuleChanged(final List<MonitorModuleData> newList, final List<MonitorModuleData> oldList)
     {
         mListUpdated = false;
 
@@ -130,9 +130,9 @@ public class AlarmModuleStatusView extends LinearLayout
             @Override
             public boolean areContentsTheSame(int oldItemPosition, int newItemPosition)
             {
-                Module oldItem = oldList.get(oldItemPosition);
+                MonitorModuleData oldItem = oldList.get(oldItemPosition);
 
-                Module newItem = newList.get(newItemPosition);
+                MonitorModuleData newItem = newList.get(newItemPosition);
 
                 return oldItem.getStatus() == newItem.getStatus() && getPowerLoad(oldItem) == getPowerLoad(newItem);
             }
@@ -150,11 +150,11 @@ public class AlarmModuleStatusView extends LinearLayout
 
             mStatus.setTextColor(UICompat.getStatusColor(status));
 
-            mEventsRequestProvider.request(AppManager.getInstance().getHttpUrl().getEventsUrl());
+            mEventsRequestProvider.request(RequestUrl.obtainEventsUrl());
         }
     }
 
-    private int getPowerLoad(Module module)
+    private int getPowerLoad(MonitorModuleData module)
     {
         if (!TextUtils.isEmpty(module.getCurrent()))
         {
@@ -164,11 +164,11 @@ public class AlarmModuleStatusView extends LinearLayout
         return 0;
     }
 
-    private int getMaxStatus(List<Module> list)
+    private int getMaxStatus(List<MonitorModuleData> list)
     {
-        Module alarmModule = list.get(0);
+        MonitorModuleData alarmModule = list.get(0);
 
-        for (Module module : list)
+        for (MonitorModuleData module : list)
         {
             if (module.getStatus() == Constants.STATUS_ERROR)
             {
@@ -186,11 +186,11 @@ public class AlarmModuleStatusView extends LinearLayout
         return MonitorModuleImp.getStatus(alarmModule);
     }
 
-    private int getAlarmSize(List<Module> list)
+    private int getAlarmSize(List<MonitorModuleData> list)
     {
         int size = 0;
 
-        for (Module module : list)
+        for (MonitorModuleData module : list)
         {
             if (module.getStatus() != Constants.STATUS_NORMAL)
             {

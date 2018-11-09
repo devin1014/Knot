@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultSourceModuleImp;
 import com.android.smartlink.util.ImageResUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class MonitorModuleImp extends DefaultSourceModuleImp<Module> implements Serializable, IModule<Module>
+public class MonitorModuleImp extends DefaultSourceModuleImp<MonitorModuleData> implements Serializable, IModule<MonitorModuleData>
 {
     private static final long serialVersionUID = 179763754284831614L;
 
@@ -33,7 +33,7 @@ public class MonitorModuleImp extends DefaultSourceModuleImp<Module> implements 
     @DiffContent
     String mEnergy;
 
-    private Module mModule;
+    private MonitorModuleData mModule;
 
     private final String POWER_KWH;
 
@@ -49,12 +49,12 @@ public class MonitorModuleImp extends DefaultSourceModuleImp<Module> implements 
 
     private int mImageType;
 
-    public MonitorModuleImp(Module module)
+    public MonitorModuleImp(MonitorModuleData module)
     {
         this(module, ImageType.DRAWABLE_NORMAL);
     }
 
-    public MonitorModuleImp(Module module, @ImageType int imageType)
+    public MonitorModuleImp(MonitorModuleData module, @ImageType int imageType)
     {
         super(module);
 
@@ -179,7 +179,7 @@ public class MonitorModuleImp extends DefaultSourceModuleImp<Module> implements 
         return mModule.getStatus();
     }
 
-    public static int getStatus(Module module)
+    public static int getStatus(MonitorModuleData module)
     {
         int status = module.getStatus();
 

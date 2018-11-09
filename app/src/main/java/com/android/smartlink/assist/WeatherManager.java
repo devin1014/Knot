@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.WeatherLocation;
 
@@ -39,11 +40,11 @@ public class WeatherManager
 
         if (TextUtils.isEmpty(location))
         {
-            mLocationProvider.request(AppManager.getInstance().getHttpUrl().getLocationUrl());
+            mLocationProvider.request(RequestUrl.obtainLocationUrl());
         }
         else
         {
-            mWeatherProvider.request(AppManager.getInstance().getHttpUrl().getWeatherUrl(location));
+            mWeatherProvider.request(RequestUrl.obtainWeatherUrl(location));
         }
     }
 
@@ -91,7 +92,7 @@ public class WeatherManager
             {
                 AppManager.getInstance().setLocation(location.getLocation());
 
-                mWeatherProvider.request(AppManager.getInstance().getHttpUrl().getWeatherUrl(location.getLocation()));
+                mWeatherProvider.request(RequestUrl.obtainWeatherUrl(location.getLocation()));
             }
         }
 
@@ -100,7 +101,7 @@ public class WeatherManager
         {
             if (!mDestroy)
             {
-                mWeatherProvider.request(AppManager.getInstance().getHttpUrl().getWeatherUrl(Constants.DEFAULT_LOCATION));
+                mWeatherProvider.request(RequestUrl.obtainWeatherUrl(Constants.DEFAULT_LOCATION));
             }
         }
     };

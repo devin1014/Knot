@@ -18,7 +18,6 @@ import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -59,22 +58,6 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
 
         // show default account
         showFragment(R.id.settings_detail_container, new AccountFragment());
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("Settings");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("Settings");
-
-        super.onPause();
     }
 
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()

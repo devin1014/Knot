@@ -12,31 +12,38 @@ import java.util.List;
  * Date: 2017-10-16
  * Time: 18:22
  */
-public class Modules implements Serializable
+public class ModulesData implements Serializable
 {
     @SerializedName("data")
-    private List<Module> modules;
+    private List<MonitorModuleData> modules;
 
     @SerializedName("data255")
-    private List<Toggle> toggles255;
+    private List<ToggleModuleData> toggles255;
 
     @SerializedName("data1")
-    private List<Toggle> toggles1;
+    private List<ToggleModuleData> toggles1;
 
-    public List<Module> getModules()
+    public List<MonitorModuleData> getMonitorModules()
     {
         return modules;
     }
 
-    public List<Toggle> getToggles()
+    private List<ToggleModuleData> mToggles;
+
+    public List<ToggleModuleData> getToggleModules()
     {
-        List<Toggle> list = new ArrayList<>();
-        list.addAll(toggles255);
-        list.addAll(toggles1);
-        return list;
+        if (mToggles == null)
+        {
+            List<ToggleModuleData> list = new ArrayList<>();
+            list.addAll(toggles255);
+            list.addAll(toggles1);
+            mToggles = list;
+        }
+
+        return mToggles;
     }
 
-    public static class Module implements Serializable, BaseModule
+    public static class MonitorModuleData implements Serializable, BaseModule
     {
         private static final long serialVersionUID = -4975045285069888629L;
 
@@ -83,7 +90,7 @@ public class Modules implements Serializable
         }
     }
 
-    public static class Toggle implements Serializable, BaseModule
+    public static class ToggleModuleData implements Serializable, BaseModule
     {
         private static final long serialVersionUID = -5677078707406604424L;
 
@@ -103,15 +110,15 @@ public class Modules implements Serializable
             return channel;
         }
 
+        public int getStatus()
+        {
+            return status;
+        }
+
         @Override
         public String getName()
         {
             return null;
-        }
-
-        public int getStatus()
-        {
-            return status;
         }
     }
 }

@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ModuleStatusLayout extends FrameLayout
 
     private AlarmModuleStatusView mAlarmModuleStatusView;
 
-    private List<Module> mModules;
+    private List<MonitorModuleData> mModules;
 
     public ModuleStatusLayout(@NonNull Context context)
     {
@@ -55,9 +55,9 @@ public class ModuleStatusLayout extends FrameLayout
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public final void setModules(List<Module> modules)
+    public final void setModules(List<MonitorModuleData> modules)
     {
-        final List<Module> mOldList = mModules;
+        final List<MonitorModuleData> mOldList = mModules;
 
         if (mModules != modules)
         {
@@ -104,11 +104,11 @@ public class ModuleStatusLayout extends FrameLayout
         }
     }
 
-    private int getMaxStatus(List<Module> list)
+    private int getMaxStatus(List<MonitorModuleData> list)
     {
-        Module alarmModule = list.get(0);
+        MonitorModuleData alarmModule = list.get(0);
 
-        for (Module module : list)
+        for (MonitorModuleData module : list)
         {
             if (module.getStatus() == Constants.STATUS_ERROR)
             {

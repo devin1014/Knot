@@ -15,12 +15,12 @@ import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.BaseExecutorService;
 import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
-import com.android.smartlink.bean.Modules;
+import com.android.smartlink.bean.ModulesData;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
@@ -35,7 +35,6 @@ import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -44,7 +43,7 @@ import butterknife.BindView;
  * Date: 2017-10-27
  * Time: 10:18
  */
-public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<Modules>, OnRefreshListener
+public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<ModulesData>, OnRefreshListener
 {
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -95,27 +94,11 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mRequestProvider = MainRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(RequestUrl.obtainMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mWeatherManager = new WeatherManager(mWeatherCallback);
 
         mWeatherManager.requestWeather();
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("Home");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("Home");
-
-        super.onPause();
     }
 
     @Override
@@ -131,7 +114,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     }
 
     @Override
-    public void onResponse(Modules modules)
+    public void onResponse(ModulesData modules)
     {
         mLoadingLayout.showContent();
 
@@ -139,7 +122,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         if (mModuleAdapter.getHeadCount() == 0)
         {
-            mModuleAdapter.addHeadObject(modules.getModules());
+            mModuleAdapter.addHeadObject(modules.getMonitorModules());
         }
         else
         {
@@ -147,7 +130,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
             if (holder instanceof HeadHolder)
             {
-                ((HeadHolder) holder).getModuleStatusLayout().setModules(modules.getModules());
+                ((HeadHolder) holder).getModuleStatusLayout().setModules(modules.getMonitorModules());
             }
         }
 
@@ -165,7 +148,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     @Override
     public void onRefresh()
     {
-        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(RequestUrl.obtainMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mWeatherManager.requestWeather();
     }

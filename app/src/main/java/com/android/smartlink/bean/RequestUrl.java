@@ -15,27 +15,27 @@ public abstract class RequestUrl
     String mEventsUrl;
     String mEnergyUrl;
 
-    public String getLocationUrl()
+    private String getLocationUrl()
     {
         return mLocationUrl;
     }
 
-    public String getWeatherUrl(String city)
+    private String getWeatherUrl(String city)
     {
         return mWeatherUrl.replace("${city}", city);
     }
 
-    public String getMainDataUrl()
+    private String getMainDataUrl()
     {
         return mMainDataUrl;
     }
 
-    public String getEventsUrl()
+    private String getEventsUrl()
     {
         return mEventsUrl;
     }
 
-    public String getEnergyUrl(int id)
+    private String getEnergyUrl(int id)
     {
         return mEnergyUrl.replace("${id}", String.valueOf(id));
     }
@@ -79,5 +79,31 @@ public abstract class RequestUrl
 
             mEnergyUrl = feedUrl.getEnergyUrl();
         }
+    }
+
+    // --------------
+    public static String obtainLocationUrl()
+    {
+        return AppManager.getInstance().getHttpUrl().getLocationUrl();
+    }
+
+    public static String obtainWeatherUrl(String city)
+    {
+        return AppManager.getInstance().getHttpUrl().getWeatherUrl(city);
+    }
+
+    public static String obtainMainDataUrl()
+    {
+        return AppManager.getInstance().getHttpUrl().getMainDataUrl();
+    }
+
+    public static String obtainEventsUrl()
+    {
+        return AppManager.getInstance().getHttpUrl().getEventsUrl();
+    }
+
+    public static String obtainEnergyUrl(int id)
+    {
+        return AppManager.getInstance().getHttpUrl().getEnergyUrl(id);
     }
 }

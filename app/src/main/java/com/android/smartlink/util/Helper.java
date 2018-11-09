@@ -1,7 +1,7 @@
 package com.android.smartlink.util;
 
 import com.android.smartlink.Constants.MODULE_FLAG;
-import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 
 /**
  * User: LIUWEI
@@ -12,7 +12,7 @@ public class Helper
 {
     public static class ToggleHelper
     {
-        public static boolean isToggleOn(Toggle toggle)
+        public static boolean isToggleOn(ToggleModuleData toggle)
         {
             return isToggleOn(toggle.getStatus());
         }

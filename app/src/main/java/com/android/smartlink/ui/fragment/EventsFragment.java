@@ -3,7 +3,6 @@ package com.android.smartlink.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.EventsRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
+import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
@@ -25,7 +25,6 @@ import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.Utils;
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,9 +51,6 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         return fragment;
     }
-
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
@@ -98,37 +94,17 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater()));
 
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-
         mRequestProvider = EventsRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(AppManager.getInstance().getHttpUrl().getEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.schedule(RequestUrl.obtainEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
 
         mLoadingLayout.showLoading();
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        MobclickAgent.onPageStart("Events");
-    }
-
-    @Override
-    public void onPause()
-    {
-        MobclickAgent.onPageEnd("Events");
-
-        super.onPause();
     }
 
     @Override
     public void onDestroyView()
     {
         mRequestProvider.destroy();
-
-        mSwipeRefreshLayout.setRefreshing(false);
 
         super.onDestroyView();
     }
@@ -137,8 +113,6 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     public void onResponse(Events events)
     {
         mLoadingLayout.showContent();
-
-        mSwipeRefreshLayout.setRefreshing(false);
 
         mUIEvents = ConvertUtil.convertEvents(events.getEvents());
 
@@ -149,14 +123,12 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     public void onError(Throwable throwable)
     {
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
-
-        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onRefresh()
     {
-        mRequestProvider.request(AppManager.getInstance().getHttpUrl().getEventsUrl());
+        mRequestProvider.request(RequestUrl.obtainEventsUrl());
     }
 
     @Override
