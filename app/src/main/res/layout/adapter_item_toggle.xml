@@ -9,7 +9,7 @@
 
         <variable
             name="data"
-            type="com.android.smartlink.ui.model.UIToggle" />
+            type="com.android.smartlink.ui.model.ToggleModuleImp" />
 
         <variable
             name="handler"

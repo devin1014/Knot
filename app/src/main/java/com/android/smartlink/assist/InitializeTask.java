@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.os.SystemClock;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.ModuleConfiguration;
+import com.android.smartlink.bean.Configurations;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
@@ -45,7 +45,7 @@ public class InitializeTask extends AsyncTask<Void, Void, Boolean>
 
         try
         {
-            AppManager.getInstance().setModuleConfiguration(gson.fromJson(new InputStreamReader(mAssetManager.open("config.json")), ModuleConfiguration.class));
+            AppManager.getInstance().setModuleConfiguration(gson.fromJson(new InputStreamReader(mAssetManager.open("config.json")), Configurations.class));
 
             if (SystemClock.uptimeMillis() - timeStamp < MIN_DURATION)
             {

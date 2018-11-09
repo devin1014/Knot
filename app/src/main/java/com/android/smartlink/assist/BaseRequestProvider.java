@@ -52,14 +52,18 @@ abstract class BaseRequestProvider<T>
         return mDestroy;
     }
 
-    @SuppressWarnings("WeakerAccess")
-    protected void notifyResponse(final T t)
+    protected T processResult(T t)
+    {
+        return t;
+    }
+
+    protected final void notifyResponse(final T t)
     {
         if (mCallback != null && !mDestroy)
         {
             if (isUIThread())
             {
-                mCallback.onResponse(t);
+                mCallback.onResponse(processResult(t));
             }
             else if (mHandler != null)
             {
@@ -75,8 +79,7 @@ abstract class BaseRequestProvider<T>
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
-    protected void notifyResponse(final Throwable throwable)
+    protected final void notifyResponse(final Throwable throwable)
     {
         if (mCallback != null && !mDestroy)
         {

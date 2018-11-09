@@ -4,17 +4,17 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
-import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Modules.Toggle;
+import com.android.smartlink.ui.model.BaseModule;
 import com.android.smartlink.ui.model.IModule;
-import com.android.smartlink.ui.model.UIEquipment;
+import com.android.smartlink.ui.model.MonitorModuleImp;
+import com.android.smartlink.ui.model.ToggleModuleImp;
+import com.android.smartlink.ui.model.UIModuleImp;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
-import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.ui.model.UISetting;
-import com.android.smartlink.ui.model.UIToggle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,32 +65,32 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIEquipment> convertEquipment(List<ModuleInfo> list)
+    public static List<UIModuleImp> convertEquipment(List<BaseModule> list)
     {
         if (list == null || list.size() == 0)
         {
             return null;
         }
 
-        List<UIEquipment> result = new ArrayList<>();
+        List<UIModuleImp> result = new ArrayList<>();
 
-        for (ModuleInfo item : list)
+        for (BaseModule item : list)
         {
-            result.add(new UIEquipment(item));
+            result.add(new UIModuleImp(item));
         }
 
         return result;
     }
 
-    public static List<UIModule> convertModule(List<Module> list, int start, int end)
+    public static List<MonitorModuleImp> convertModule(List<Module> list, int start, int end)
     {
-        List<UIModule> result = new ArrayList<>();
+        List<MonitorModuleImp> result = new ArrayList<>();
 
         if (list != null)
         {
             for (int i = start; i < list.size() && i < end; i++)
             {
-                result.add(new UIModule(list.get(i)));
+                result.add(new MonitorModuleImp(list.get(i)));
             }
         }
 
@@ -107,7 +107,7 @@ public class ConvertUtil
         {
             for (Module m : list)
             {
-                result.add(new UIModule(m));
+                result.add(new MonitorModuleImp(m));
             }
         }
 
@@ -117,14 +117,14 @@ public class ConvertUtil
         {
             for (Toggle t : toggles)
             {
-                result.add(new UIToggle(t));
+                result.add(new ToggleModuleImp(t));
             }
         }
 
         return result;
     }
 
-    public static List<UIFilter> convertFilters(List<ModuleInfo> list, int[] ids, boolean addOthers)
+    public static List<UIFilter> convertFilters(List<BaseModule> list, int[] ids, boolean addOthers)
     {
         if (list == null || list.size() == 0)
         {
@@ -133,23 +133,21 @@ public class ConvertUtil
 
         List<UIFilter> result = new ArrayList<>();
 
-        for (ModuleInfo item : list)
+        for (BaseModule item : list)
         {
             if (ids == null || ids.length == 0)
             {
-                //result.add(new UIFilter(item.getId(), item.getName()));
-
-                result.add(new UIFilter(item.getChannel(), item.getName()));
+                result.add(new UIFilter(item));
             }
             else
             {
                 for (int id : ids)
                 {
-                    if (item.getId() == id)
-                    {
-                        //result.add(new UIFilter(item.getId(), item.getName()));
+                    UIFilter filter = new UIFilter(item);
 
-                        result.add(new UIFilter(item.getChannel(), item.getName()));
+                    if (filter.getId() == id)
+                    {
+                        result.add(filter);
 
                         break;
                     }
@@ -159,10 +157,31 @@ public class ConvertUtil
 
         if (addOthers)
         {
-            result.add(new UIFilter(Constants.ID_ALL, AppManager.getInstance().getString(R.string.events_filter_other)));
+            result.add(new UIFilter(new OtherFilter()));
         }
 
         return result;
+    }
+
+    private static class OtherFilter implements BaseModule
+    {
+        @Override
+        public int getSlaveID()
+        {
+            return Constants.ID_ALL;
+        }
+
+        @Override
+        public int getChannel()
+        {
+            return Constants.ID_ALL;
+        }
+
+        @Override
+        public String getName()
+        {
+            return AppManager.getInstance().getString(R.string.events_filter_other);
+        }
     }
 
     public static String convertStatus(int status)

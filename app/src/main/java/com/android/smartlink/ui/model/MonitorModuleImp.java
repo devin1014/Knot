@@ -7,8 +7,8 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.ui.model.BaseModule.DefaultSourceModuleImp;
 import com.android.smartlink.util.ImageResUtil;
-import com.android.smartlink.util.ImageResUtil.ImageType;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
 
@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class UIModule implements Serializable, IModule
+public class MonitorModuleImp extends DefaultSourceModuleImp<Module> implements Serializable, IModule<Module>
 {
     private static final long serialVersionUID = 179763754284831614L;
 
@@ -47,13 +47,22 @@ public class UIModule implements Serializable, IModule
 
     private DecimalFormat mNumberFormat = new DecimalFormat("0.0");
 
-    public UIModule(Module module)
+    private int mImageType;
+
+    public MonitorModuleImp(Module module)
     {
+        this(module, ImageType.DRAWABLE_NORMAL);
+    }
+
+    public MonitorModuleImp(Module module, @ImageType int imageType)
+    {
+        super(module);
+
         mModule = module;
 
         POWER_KWH = AppManager.getInstance().getApplication().getResources().getString(R.string.format_power);
 
-        mId = module.getId();
+        mId = getId();
 
         mEnergy = module.getEnergy();
 
@@ -79,26 +88,18 @@ public class UIModule implements Serializable, IModule
         {
             mPowerLoad = Math.min((int) (Float.valueOf(mModule.getCurrent()) / 5f * 100), 100);
         }
-    }
 
-    public int getId()
-    {
-        return mModule.getId();
+        mImageType = imageType;
     }
 
     public int getImageRes()
     {
-        return ImageResUtil.getImage(mModule.getId(), ImageType.DRAWABLE_NORMAL);
-    }
-
-    public int getWhiteImageRes()
-    {
-        return ImageResUtil.getImage(mModule.getId(), ImageType.DRAWABLE_NORMAL_LIGHT);
+        return ImageResUtil.getImage(getId(), mImageType);
     }
 
     public String getName()
     {
-        return AppManager.getInstance().getEquipmentName(mModule.getId());
+        return AppManager.getInstance().getModuleName(getId());
     }
 
     public String getEnergy()

@@ -39,7 +39,7 @@
                 app:circleBorderWidth="3dp"
                 app:circleProgress="@{data.powerLoad}"
                 app:circleProgressColor="@{data.color}"
-                app:imageRes="@{data.whiteImageRes}"
+                app:imageRes="@{data.imageRes}"
                 app:selected="@{ToggleHelper.isToggleOn(data.status)}" />
 
             <ImageView

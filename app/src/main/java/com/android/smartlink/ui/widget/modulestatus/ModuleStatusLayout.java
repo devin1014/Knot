@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.Modules.Module;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 
 import java.util.List;
 
@@ -117,12 +117,12 @@ public class ModuleStatusLayout extends FrameLayout
                 break;
             }
 
-            if (UIModule.getStatus(module) > UIModule.getStatus(alarmModule))
+            if (MonitorModuleImp.getStatus(module) > MonitorModuleImp.getStatus(alarmModule))
             {
                 alarmModule = module;
             }
         }
 
-        return UIModule.getStatus(alarmModule);
+        return MonitorModuleImp.getStatus(alarmModule);
     }
 }

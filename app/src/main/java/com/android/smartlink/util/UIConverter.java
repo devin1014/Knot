@@ -2,8 +2,8 @@ package com.android.smartlink.util;
 
 import com.android.smartlink.bean.Modules.Module;
 import com.android.smartlink.bean.Modules.Toggle;
-import com.android.smartlink.ui.model.UIModule;
-import com.android.smartlink.ui.model.UIToggle;
+import com.android.smartlink.ui.model.MonitorModuleImp;
+import com.android.smartlink.ui.model.ToggleModuleImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +15,13 @@ import java.util.List;
  */
 public class UIConverter
 {
-    public static List<UIModule> convertModules(List<Module> list)
+    public static List<MonitorModuleImp> convertModules(List<Module> list)
     {
-        List<UIModule> moduleList = new ArrayList<>();
+        List<MonitorModuleImp> moduleList = new ArrayList<>();
 
         for (int i = 0; list != null && i < list.size(); i++)
         {
-            UIModule m = new UIModule(list.get(i));
+            MonitorModuleImp m = new MonitorModuleImp(list.get(i));
 
             moduleList.add(m);
         }
@@ -29,13 +29,13 @@ public class UIConverter
         return moduleList;
     }
 
-    public static List<UIToggle> convertToggle(List<Toggle> list)
+    public static List<ToggleModuleImp> convertToggle(List<Toggle> list)
     {
-        List<UIToggle> moduleList = new ArrayList<>();
+        List<ToggleModuleImp> moduleList = new ArrayList<>();
 
         for (int i = 0; list != null && i < list.size(); i++)
         {
-            UIToggle m = new UIToggle(list.get(i));
+            ToggleModuleImp m = new ToggleModuleImp(list.get(i));
 
             moduleList.add(m);
         }
@@ -43,13 +43,13 @@ public class UIConverter
         return moduleList;
     }
 
-    public static List<UIToggle> convertToggle(List<Toggle> list, int startIndex, int count)
+    public static List<ToggleModuleImp> convertToggle(List<Toggle> list, int startIndex, int count)
     {
-        List<UIToggle> moduleList = new ArrayList<>();
+        List<ToggleModuleImp> moduleList = new ArrayList<>();
 
         for (int i = startIndex; list != null && i < startIndex + count && i < list.size(); i++)
         {
-            UIToggle m = new UIToggle(list.get(i));
+            ToggleModuleImp m = new ToggleModuleImp(list.get(i));
 
             moduleList.add(m);
         }

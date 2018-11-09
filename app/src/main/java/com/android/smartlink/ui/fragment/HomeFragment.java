@@ -25,7 +25,7 @@ import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.IModule;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
@@ -187,7 +187,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
             }
             else
             {
-                DetailActivity.startActivity(getActivity(), module.getName(), (UIModule) module);
+                DetailActivity.startActivity(getActivity(), module.getName(), (MonitorModuleImp) module);
             }
         }
     };

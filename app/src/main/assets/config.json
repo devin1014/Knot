@@ -6,60 +6,102 @@
         "weatherUrl": "data/weather.json",
         "mainDataUrl": "data/main/main_${state}.json",
         "eventsUrl": "data/events/events_${state}.json",
-        "energyUrl": "data/energy/30DayEnergy_${id}.json"
+        "energyUrl": "data/energy/30DayEnergy_${index}.json"
     },
     "httpFeed": {
         "weatherLocalUrl": "https://api.accuweather.com/localweather/v1/106577?apikey=${weatherLocalKey}",
         "weatherUrl": "https://free-api.heweather.com/v5/weather?city=${city}&key=${weatherKey}",
         "mainDataUrl": "http://localhost:8080/examples/knot/main/main_all.json",
         "eventsUrl": "http://localhost:8080/examples/knot/main/events_all.json",
-        "energyUrl": "http://localhost:8080/examples/knot/main/30DayEnergy_${id}.json"
+        "energyUrl": "http://localhost:8080/examples/knot/main/30DayEnergy_${index}.json"
     },
     "monitor": {
         "serverIP": "192.168.1.101",
         "port": 502,
         "data": [
             {
-                "slaveID": 0,
+                "slaveID": 150,
                 "modules": [
                     {
-                        "id": 1,
-                        "channel": 150,
+                        "index": 1,
+                        "channel": 0,
+                        "slaveID": 150,
                         "name": "总回路"
-                    },
+                    }
+                ]
+            }, {
+                "slaveID": 151,
+                "modules": [
                     {
-                        "id": 2,
-                        "channel": 152,
+                        "index": 1,
+                        "channel": 0,
+                        "slaveID": 151,
                         "name": "冰箱回路"
-                    },
+                    }
+                ]
+            },
+            {
+                "slaveID": 152,
+                "modules": [
                     {
-                        "id": 3,
-                        "channel": 155,
+                        "index": 1,
+                        "channel": 0,
+                        "slaveID": 152,
                         "name": "插座回路"
-                    },
+                    }
+                ]
+            },
+            {
+                "slaveID": 153,
+                "modules": [
                     {
-                        "id": 4,
-                        "channel": 154,
+                        "index": 1,
+                        "channel": 0,
+                        "slaveID": 153,
                         "name": "照明回路"
-                    },
+                    }
+                ]
+            },
+            {
+                "slaveID": 154,
+                "modules": [
                     {
-                        "id": 5,
-                        "channel": 153,
+                        "index": 1,
+                        "slaveID": 154,
+                        "channel": 0,
                         "name": "空调回路"
-                    },
+                    }
+                ]
+            },
+            {
+                "slaveID": 155,
+                "modules": [
                     {
-                        "id": 6,
-                        "channel": 151,
+                        "index": 1,
+                        "slaveID": 155,
+                        "channel": 0,
                         "name": "水泵回路"
-                    },
+                    }
+                ]
+            },
+            {
+                "slaveID": 156,
+                "modules": [
                     {
-                        "id": 7,
-                        "channel": 156,
+                        "index": 1,
+                        "slaveID": 156,
+                        "channel": 0,
                         "name": "主电梯回路"
-                    },
+                    }
+                ]
+            },
+            {
+                "slaveID": 157,
+                "modules": [
                     {
-                        "id": 8,
-                        "channel": 157,
+                        "index": 1,
+                        "slaveID": 157,
+                        "channel": 0,
                         "name": "备用回路"
                     }
                 ]
@@ -74,32 +116,38 @@
                 "slaveID": 255,
                 "modules": [
                     {
-                        "id": 1,
+                        "index": 1,
+                        "slaveID": 255,
                         "channel": 14200,
                         "name": "会议室照明"
                     },
                     {
-                        "id": 2,
+                        "index": 2,
+                        "slaveID": 255,
                         "channel": 14240,
                         "name": "办公照明"
                     },
                     {
-                        "id": 3,
+                        "index": 3,
+                        "slaveID": 255,
                         "channel": 14280,
                         "name": "厂区照明"
                     },
                     {
-                        "id": 4,
+                        "index": 4,
+                        "slaveID": 255,
                         "channel": 14320,
                         "name": "公共照明"
                     },
                     {
-                        "id": 5,
+                        "index": 5,
+                        "slaveID": 255,
                         "channel": 14360,
                         "name": "自动分合闸1"
                     },
                     {
-                        "id": 6,
+                        "index": 6,
+                        "slaveID": 255,
                         "channel": 14440,
                         "name": "自动分合闸2"
                     }
@@ -109,12 +157,14 @@
                 "slaveID": 1,
                 "modules": [
                     {
-                        "id": 7,
+                        "index": 1,
+                        "slaveID": 1,
                         "channel": 14440,
                         "name": "集成控制1"
                     },
                     {
-                        "id": 8,
+                        "index": 2,
+                        "slaveID": 1,
                         "channel": 14520,
                         "name": "集成控制2"
                     }

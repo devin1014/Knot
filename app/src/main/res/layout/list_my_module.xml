@@ -10,7 +10,7 @@
 
         <variable
             name="data"
-            type="com.android.smartlink.ui.model.UIEquipment" />
+            type="com.android.smartlink.ui.model.UIModuleImp" />
 
         <variable
             name="handler"
@@ -34,7 +34,7 @@
             android:contentDescription="@null"
             android:scaleType="centerInside"
             app:imageRes="@{data.imageRes}"
-            tools:src="@drawable/ic_group_electrical" />
+            tools:src="@drawable/module_electrical" />
 
         <TextView
             android:layout_width="wrap_content"

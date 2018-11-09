@@ -12,7 +12,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.assist.BaseExecutorService;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
-import com.android.smartlink.ui.model.UIToggle;
+import com.android.smartlink.ui.model.ToggleModuleImp;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
 import com.android.smartlink.util.UIConverter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
@@ -84,7 +84,7 @@ public class ToggleListFragment extends BaseModulesFragment
         }
     }
 
-    private List<UIToggle> parseList(@Nullable Modules modules)
+    private List<ToggleModuleImp> parseList(@Nullable Modules modules)
     {
         if (modules == null || modules.getToggles() == null)
         {
@@ -94,10 +94,10 @@ public class ToggleListFragment extends BaseModulesFragment
         return UIConverter.convertToggle(modules.getToggles(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
     }
 
-    private OnItemClickListener<UIToggle> mToggleOnItemClickListener = new OnItemClickListener<UIToggle>()
+    private OnItemClickListener<ToggleModuleImp> mToggleOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<UIToggle> dataBindingAdapter, View view, UIToggle uiToggle, int i)
+        public void onItemClick(DataBindingAdapter<ToggleModuleImp> dataBindingAdapter, View view, ToggleModuleImp uiToggle, int i)
         {
             boolean isToggleOn = uiToggle.isToggleOn();
 

@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
-import com.android.smartlink.bean.ModuleConfiguration;
-import com.android.smartlink.bean.ModuleConfiguration.DataInfo;
-import com.android.smartlink.bean.ModuleConfiguration.ModuleConfig;
-import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
+import com.android.smartlink.bean.Configurations;
+import com.android.smartlink.bean.Configurations.DataInfo;
+import com.android.smartlink.bean.Configurations.ModuleConfig;
+import com.android.smartlink.bean.Configurations.ModuleInfo;
+import com.android.smartlink.ui.model.BaseModule;
+import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,13 @@ import java.util.List;
  */
 class ModuleManager
 {
-    private static final String NAME = "Module:";
+    private static final String NAME = "Module:%s";
 
     private SharedPreferences mSharedPreferences;
 
-    private List<ModuleInfo> mModuleList;
-    private SparseArray<List<ModuleInfo>> mModuleTypes; //slaveId=0,1,255
-    private SparseArray<ModuleInfo> mModuleIds;
+    private List<BaseModule> mModuleList;
+
+    private SparseArray<BaseModule> mModuleIds;
     private SparseArray<String> mModuleNames;
 
     ModuleManager(Application application)
@@ -35,58 +37,52 @@ class ModuleManager
         mSharedPreferences = application.getSharedPreferences(application.getPackageName(), Context.MODE_PRIVATE);
 
         mModuleList = new ArrayList<>();
-        mModuleTypes = new SparseArray<>();
         mModuleIds = new SparseArray<>();
         mModuleNames = new SparseArray<>();
     }
 
     boolean isInitialized()
     {
-        return mModuleTypes != null && mModuleTypes.size() > 0 && mModuleIds != null && mModuleIds.size() > 0;
+        return mModuleIds != null && mModuleIds.size() > 0;
     }
 
-    void setModuleConfiguration(ModuleConfiguration configuration)
+    void setModuleConfiguration(Configurations configuration)
     {
+        clear();
+
         parseModules(configuration.getMonitor());
 
         parseModules(configuration.getControl());
+    }
+
+    private void clear()
+    {
+        mModuleList.clear();
+        mModuleIds.clear();
+        mModuleNames.clear();
     }
 
     private void parseModules(ModuleConfig moduleConfig)
     {
         for (DataInfo e : moduleConfig.getData())
         {
-            List<ModuleInfo> list = mModuleTypes.get(e.getSlaveID());
-
-            if (list == null)
-            {
-                list = new ArrayList<>();
-
-                mModuleTypes.put(e.getSlaveID(), list);
-            }
-
             for (ModuleInfo info : e.getModules())
             {
-                info.setSlaveID(e.getSlaveID());
+                DefaultBaseModuleImp moduleImp = new DefaultBaseModuleImp(info);
 
-                list.add(info);
+                mModuleIds.put(moduleImp.getId(), moduleImp);
 
-                mModuleIds.put(info.getId(), info);
+                mModuleList.add(moduleImp);
 
-                mModuleIds.put(info.getChannel(), info);
-
-                mModuleList.add(info);
-
-                String name = innerGetModuleName(info.getId());
+                String name = innerGetModuleName(moduleImp.getId());
 
                 if (TextUtils.isEmpty(name))
                 {
-                    setModuleName(info.getId(), info.getName());
+                    setModuleName(moduleImp.getId(), info.getName());
                 }
                 else
                 {
-                    mModuleNames.put(info.getId(), name);
-                    mModuleNames.put(info.getChannel(), name);
+                    setModuleName(moduleImp.getId(), info.getName(), false);
                 }
             }
         }
@@ -94,9 +90,17 @@ class ModuleManager
 
     void setModuleName(int id, String name)
     {
-        mSharedPreferences.edit().putString(NAME + id, name).apply();
+        setModuleName(id, name, true);
+    }
 
+    private void setModuleName(int id, String name, boolean save)
+    {
         mModuleNames.put(id, name);
+
+        if (save)
+        {
+            mSharedPreferences.edit().putString(String.format(NAME, Integer.toHexString(id)), name).apply();
+        }
     }
 
     String getModuleName(int id)
@@ -106,20 +110,15 @@ class ModuleManager
 
     private String innerGetModuleName(int id)
     {
-        return mSharedPreferences.getString(NAME + id, "");
+        return mSharedPreferences.getString(String.format(NAME, Integer.toHexString(id)), "");
     }
 
-    List<ModuleInfo> getAllModuleList()
+    List<BaseModule> getAllModuleList()
     {
         return mModuleList;
     }
 
-    List<ModuleInfo> getModuleList(int slaveId)
-    {
-        return mModuleTypes.get(slaveId);
-    }
-
-    ModuleInfo getModule(int id)
+    BaseModule getModule(int id)
     {
         return mModuleIds.get(id);
     }

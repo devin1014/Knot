@@ -35,14 +35,6 @@
             android:layout_width="72dp"
             android:layout_height="72dp">
 
-            <!--<ImageView-->
-            <!--android:id="@+id/module_toggle"-->
-            <!--android:layout_width="36dp"-->
-            <!--android:layout_height="36dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:contentDescription="@null"-->
-            <!--android:onClick="@{(view)->handler.onItemClick(view,data)}" />-->
-
             <com.android.smartlink.ui.widget.CircleView
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -53,7 +45,7 @@
                 app:circleBorderWidth="5dp"
                 app:circleProgress="@{data.powerLoad}"
                 app:circleProgressColor="@{data.color}"
-                app:imageRes="@{data.whiteImageRes}"
+                app:imageRes="@{data.imageRes}"
                 app:selected="@{ToggleHelper.isToggleOn(data.status)}" />
 
             <ImageView

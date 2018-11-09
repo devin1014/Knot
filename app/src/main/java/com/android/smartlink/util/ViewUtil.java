@@ -5,22 +5,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.smartlink.R;
-import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
-
 
 public class ViewUtil
 {
-    @SuppressWarnings("unused")
     public static int getDrawable(Context context, String name)
     {
         return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
-    }
-
-    public static int getDrawable(Context context, ModuleInfo moduleInfo)
-    {
-        return R.drawable.module_electrical_white_large;//FIXME
-        //return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
     }
 
     public static void setVisibility(View view, boolean visible)

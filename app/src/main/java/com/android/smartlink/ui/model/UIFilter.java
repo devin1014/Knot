@@ -1,36 +1,22 @@
 package com.android.smartlink.ui.model;
 
 
+import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
+
 /**
  * User: LIUWEI
  * Date: 2017-10-23
  * Time: 17:51
  */
-public class UIFilter
+public class UIFilter extends DefaultBaseModuleImp
 {
-    private int mId;
-
-    private String mName;
-
     private boolean mChecked;
 
-    public UIFilter(int id, String name)
+    public UIFilter(BaseModule baseModule)
     {
-        mId = id;
-
-        mName = name;
+        super(baseModule);
 
         mChecked = true;
-    }
-
-    public int getId()
-    {
-        return mId;
-    }
-
-    public String getName()
-    {
-        return mName;
     }
 
     public boolean isChecked()

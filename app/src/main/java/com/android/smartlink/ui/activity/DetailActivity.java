@@ -11,7 +11,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.DetailFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment.OnFragmentCallback;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 
 /**
  * User: LIUWEI
@@ -20,7 +20,7 @@ import com.android.smartlink.ui.model.UIModule;
  */
 public class DetailActivity extends BaseSmartlinkActivity implements OnFragmentCallback
 {
-    public static void startActivity(Activity activity, String title, UIModule module)
+    public static void startActivity(Activity activity, String title, MonitorModuleImp module)
     {
         Intent intent = new Intent(activity, DetailActivity.class);
 

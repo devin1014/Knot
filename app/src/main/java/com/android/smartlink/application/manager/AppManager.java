@@ -7,12 +7,12 @@ import android.content.SharedPreferences;
 import android.support.annotation.IntDef;
 
 import com.android.smartlink.Constants;
-import com.android.smartlink.bean.ModuleConfiguration;
-import com.android.smartlink.bean.ModuleConfiguration.ModuleInfo;
+import com.android.smartlink.bean.Configurations;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.RequestUrl.HttpUrl;
 import com.android.smartlink.bean.RequestUrl.LocalUrl;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.ui.model.BaseModule;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 
 import java.util.Date;
@@ -55,8 +55,6 @@ public class AppManager
 
     private ModuleManager mModuleManager;
 
-    //private List<EquipmentToggle> mToggles;
-
     private Weather mWeather;
 
     private boolean mPhoneType;
@@ -75,8 +73,8 @@ public class AppManager
         mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 600;
     }
 
-    // -----------------------------------
-    // ------------ 初始化 ----------------
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------ 初始化 --------------------------------------------------------------------------------------
     public boolean isInitialized()
     {
         return mApplication != null && mModuleManager.isInitialized();
@@ -102,8 +100,8 @@ public class AppManager
         return mPhoneType;
     }
 
-    // -----------------------------------
-    // ------------ Weather&Location -----
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------ Weather&Location ---------------------------------------------------------------------------
     public Weather getWeather()
     {
         if (mWeather != null)
@@ -151,21 +149,28 @@ public class AppManager
         return mSharedPreferences.getString(Constants.KEY_SHARE_PREFERENCE_LOCATION, null);
     }
 
-    // -----------------------------------
-    // ------------ Equipment ------------
-    public void setEquipmentName(int id, String name)
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------  Modules  ----------------------------------------------------------------------------------
+    public void setModuleName(int id, String name)
     {
         mModuleManager.setModuleName(id, name);
     }
 
-    public String getEquipmentName(int id)
+    public String getModuleName(int id)
     {
         return mModuleManager.getModuleName(id);
     }
 
+    public List<BaseModule> getAllModules()
+    {
+        return mModuleManager.getAllModuleList();
+    }
+
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------ Configuration ------------------------------------------------------------------------------
     private RequestUrl mHttpUrl;
 
-    public void setModuleConfiguration(ModuleConfiguration config) throws IllegalArgumentException
+    public void setModuleConfiguration(Configurations config) throws IllegalArgumentException
     {
         if (config == null)
         {
@@ -183,23 +188,8 @@ public class AppManager
         return mHttpUrl;
     }
 
-    public ModuleInfo getEquipment(int id)
-    {
-        return mModuleManager.getModule(id);
-    }
-
-    public List<ModuleInfo> getEquipments()
-    {
-        return mModuleManager.getAllModuleList();
-    }
-
-    public ModuleInfo getToggle(int id)
-    {
-        return mModuleManager.getModule(id);
-    }
-
-    // -----------------------------------
-    // ------------ Demo status ----------
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------ Demo status --------------------------------------------------------------------------------
     public void setDemoMode(boolean demoMode)
     {
         mSharedPreferences.edit().putBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, demoMode).apply();
@@ -220,8 +210,8 @@ public class AppManager
         return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, -1);
     }
 
-    // -----------------------------------
-    // ------------ Suggest --------------
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------ Suggest ------------------------------------------------------------------------------------
     public int getEnergySuggestIndex()
     {
         final int index = mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_SUGGEST, 0);

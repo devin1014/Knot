@@ -22,15 +22,34 @@ public class Events
     {
         private int id;
 
+        private int slaveID;
+
+        private int channel;
+
         private int status;
 
         private String description;
 
         private long time;
 
+        public void setId(int id)
+        {
+            this.id = id;
+        }
+
         public int getId()
         {
             return id;
+        }
+
+        public int getSlaveID()
+        {
+            return slaveID;
+        }
+
+        public int getChannel()
+        {
+            return channel;
         }
 
         public int getStatus()

@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -45,6 +47,22 @@ public class BaseSmartlinkFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         mButterKnife = ButterKnife.bind(this, view);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        MobclickAgent.onPageStart(getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause()
+    {
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
+
+        super.onPause();
     }
 
     @Override

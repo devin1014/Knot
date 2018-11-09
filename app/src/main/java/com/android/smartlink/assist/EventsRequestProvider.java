@@ -2,6 +2,8 @@ package com.android.smartlink.assist;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events;
+import com.android.smartlink.bean.Events.Event;
+import com.android.smartlink.ui.model.BaseModule.ModuleParser;
 import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
 
@@ -26,6 +28,20 @@ public abstract class EventsRequestProvider extends BaseScheduleRequestProvider<
     Class<Events> getConvertObjectClass()
     {
         return Events.class;
+    }
+
+    @Override
+    protected Events processResult(Events events)
+    {
+        if (events != null && events.getEvents() != null)
+        {
+            for (Event e : events.getEvents())
+            {
+                e.setId(ModuleParser.generateId(e.getSlaveID(), e.getChannel()));
+            }
+        }
+
+        return events;
     }
 
     static class LocalProvider extends EventsRequestProvider

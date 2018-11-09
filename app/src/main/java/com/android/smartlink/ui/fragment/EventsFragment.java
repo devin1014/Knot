@@ -94,7 +94,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         int[] ids = getArguments().getIntArray(Constants.KEY_EXTRA_IDS);
 
-        mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getEquipments(), ids, Utils.isEmpty(ids));
+        mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getAllModules(), ids, Utils.isEmpty(ids));
 
         mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater()));
 

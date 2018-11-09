@@ -1,8 +1,10 @@
 package com.android.smartlink.bean;
 
+import com.android.smartlink.ui.model.BaseModule;
+
 import java.util.List;
 
-public class ModuleConfiguration
+public class Configurations
 {
     private int requestMode;
     private FeedUrl localFeed;
@@ -107,17 +109,11 @@ public class ModuleConfiguration
         }
     }
 
-    public static class ModuleInfo
+    public static class ModuleInfo implements BaseModule
     {
-        private int id;
+        private int slaveID;
         private int channel;
         private String name;
-        private int slaveID;
-
-        public int getId()
-        {
-            return id;
-        }
 
         public int getChannel()
         {
@@ -132,11 +128,6 @@ public class ModuleConfiguration
         public int getSlaveID()
         {
             return slaveID;
-        }
-
-        public void setSlaveID(int slaveID)
-        {
-            this.slaveID = slaveID;
         }
     }
 

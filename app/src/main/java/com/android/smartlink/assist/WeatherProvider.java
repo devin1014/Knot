@@ -35,11 +35,11 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
     }
 
     @Override
-    protected void notifyResponse(Weather weather)
+    protected Weather processResult(Weather weather)
     {
-        super.notifyResponse(weather);
-
         AppManager.getInstance().setWeather(weather);
+
+        return weather;
     }
 
     @Override

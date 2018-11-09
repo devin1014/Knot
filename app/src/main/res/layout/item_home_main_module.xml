@@ -42,7 +42,7 @@
                 app:circleBorderWidth="5dp"
                 app:circleProgress="@{data.powerLoad}"
                 app:circleProgressColor="@{data.color}"
-                app:imageRes="@{data.whiteImageRes}" />
+                app:imageRes="@{data.imageRes}" />
 
             <ImageView
                 android:layout_width="20dp"

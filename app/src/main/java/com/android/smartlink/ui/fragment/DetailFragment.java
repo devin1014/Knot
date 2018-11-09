@@ -18,7 +18,7 @@ import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.ScheduleHandler;
 import com.android.smartlink.bean.Energy;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.widget.IndicatorView;
 import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -41,7 +41,7 @@ import butterknife.BindView;
 public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<Energy>, ScheduleHandler.OnScheduleListener
 {
     @SuppressWarnings("unused")
-    public static DetailFragment newInstance(UIModule module)
+    public static DetailFragment newInstance(MonitorModuleImp module)
     {
         DetailFragment fragment = new DetailFragment();
 
@@ -99,7 +99,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
     private void initComponent(View view)
     {
-        UIModule uiModule = (UIModule) getArguments().getSerializable(Constants.KEY_EXTRA_UI_MODULE);
+        MonitorModuleImp uiModule = (MonitorModuleImp) getArguments().getSerializable(Constants.KEY_EXTRA_UI_MODULE);
 
         AppDataBindingAdapter.binding(view, new int[]{BR.data, BR.handler}, new Object[]{uiModule, mOnItemClickListener});
 
@@ -180,10 +180,10 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         mViewPager.setCurrentItem(nextPos, true);
     }
 
-    private DataBindingHandler<UIModule> mOnItemClickListener = new DataBindingHandler<UIModule>()
+    private DataBindingHandler<MonitorModuleImp> mOnItemClickListener = new DataBindingHandler<MonitorModuleImp>()
     {
         @Override
-        public void onItemClick(View view, UIModule module)
+        public void onItemClick(View view, MonitorModuleImp module)
         {
             showDetailFragment(EventsFragment.newInstance(module.getId()), getString(R.string.events));
         }

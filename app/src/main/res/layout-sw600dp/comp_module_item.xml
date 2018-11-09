@@ -8,7 +8,7 @@
 
         <variable
             name="data"
-            type="com.android.smartlink.ui.model.UIModule" />
+            type="com.android.smartlink.ui.model.MonitorModuleImp" />
 
         <variable
             name="handler"
@@ -33,7 +33,7 @@
             app:circleBorderWidth="1dp"
             app:circleGradientWidth="5dp"
             app:color="@{data.color}"
-            app:imageRes="@{data.whiteImageRes}" />
+            app:imageRes="@{data.imageRes}" />
 
         <TextView
             android:layout_width="wrap_content"

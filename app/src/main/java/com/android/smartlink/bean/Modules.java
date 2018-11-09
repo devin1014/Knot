@@ -1,5 +1,6 @@
 package com.android.smartlink.bean;
 
+import com.android.smartlink.ui.model.BaseModule;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -35,12 +36,11 @@ public class Modules implements Serializable
         return list;
     }
 
-    public static class Module implements Serializable
+    public static class Module implements Serializable, BaseModule
     {
         private static final long serialVersionUID = -4975045285069888629L;
 
-        @SerializedName("slaveID")
-        private int id;
+        private int slaveID;
 
         @SerializedName("alarm")
         private int status;
@@ -48,11 +48,6 @@ public class Modules implements Serializable
         private String current;
 
         private String energy;
-
-        public int getId()
-        {
-            return id;
-        }
 
         public int getStatus()
         {
@@ -68,9 +63,27 @@ public class Modules implements Serializable
         {
             return energy;
         }
+
+        @Override
+        public int getSlaveID()
+        {
+            return slaveID;
+        }
+
+        @Override
+        public int getChannel()
+        {
+            return 0;
+        }
+
+        @Override
+        public String getName()
+        {
+            return null;
+        }
     }
 
-    public static class Toggle implements Serializable
+    public static class Toggle implements Serializable, BaseModule
     {
         private static final long serialVersionUID = -5677078707406604424L;
 
@@ -88,6 +101,12 @@ public class Modules implements Serializable
         public int getChannel()
         {
             return channel;
+        }
+
+        @Override
+        public String getName()
+        {
+            return null;
         }
 
         public int getStatus()

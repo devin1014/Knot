@@ -10,7 +10,7 @@ import android.os.SystemClock;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class AlertNotifyManager
         mNotificationManager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
     }
 
-    public void notifyNotification(Context context, List<UIModule> moduleList)
+    public void notifyNotification(Context context, List<MonitorModuleImp> moduleList)
     {
         if (checkModules(moduleList))
         {
@@ -60,9 +60,9 @@ public class AlertNotifyManager
         }
     }
 
-    private boolean checkModules(List<UIModule> moduleList)
+    private boolean checkModules(List<MonitorModuleImp> moduleList)
     {
-        for (UIModule module : moduleList)
+        for (MonitorModuleImp module : moduleList)
         {
             if (module.isError() || module.isAlarm())
             {
@@ -73,7 +73,7 @@ public class AlertNotifyManager
         return false;
     }
 
-    public void warning(Context context, List<UIModule> moduleList)
+    public void warning(Context context, List<MonitorModuleImp> moduleList)
     {
         final int lastWarningLevel = mWarningLevel;
 
@@ -124,7 +124,7 @@ public class AlertNotifyManager
     }
 
 
-    private String parseModule(Context context, List<UIModule> moduleList)
+    private String parseModule(Context context, List<MonitorModuleImp> moduleList)
     {
         StringBuilder builder = new StringBuilder();
 
@@ -132,7 +132,7 @@ public class AlertNotifyManager
 
         String alarmFormat = context.getResources().getString(R.string.notify_alarm);
 
-        for (UIModule module : moduleList)
+        for (MonitorModuleImp module : moduleList)
         {
             if (module.isError())
             {
@@ -142,7 +142,7 @@ public class AlertNotifyManager
             }
         }
 
-        for (UIModule module : moduleList)
+        for (MonitorModuleImp module : moduleList)
         {
             if (module.isAlarm())
             {

@@ -25,8 +25,8 @@ import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.Modules.Module;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIEvent;
-import com.android.smartlink.ui.model.UIModule;
 import com.android.smartlink.util.AppDataBindingAdapter;
 import com.android.smartlink.util.UICompat;
 
@@ -124,7 +124,7 @@ public class AlarmModuleStatusView extends LinearLayout
             @Override
             public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
             {
-                return oldList.get(oldItemPosition).getId() == newList.get(newItemPosition).getId();
+                return oldList.get(oldItemPosition).getSlaveID() == newList.get(newItemPosition).getSlaveID();
             }
 
             @Override
@@ -177,13 +177,13 @@ public class AlarmModuleStatusView extends LinearLayout
                 break;
             }
 
-            if (UIModule.getStatus(module) > UIModule.getStatus(alarmModule))
+            if (MonitorModuleImp.getStatus(module) > MonitorModuleImp.getStatus(alarmModule))
             {
                 alarmModule = module;
             }
         }
 
-        return UIModule.getStatus(alarmModule);
+        return MonitorModuleImp.getStatus(alarmModule);
     }
 
     private int getAlarmSize(List<Module> list)

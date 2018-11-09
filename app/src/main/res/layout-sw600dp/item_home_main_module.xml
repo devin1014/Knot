@@ -32,7 +32,7 @@
             app:circleBorderWidth="4dp"
             app:circleProgress="@{data.powerLoad}"
             app:circleProgressColor="@{data.color}"
-            app:imageRes="@{data.whiteImageRes}" />
+            app:imageRes="@{data.imageRes}" />
 
         <TextView
             android:layout_width="wrap_content"

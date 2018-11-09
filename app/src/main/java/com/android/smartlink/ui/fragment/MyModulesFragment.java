@@ -8,15 +8,19 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.ui.activity.EquipmentActivity;
+import com.android.smartlink.assist.eventbus.MessageEvent.EditModuleEvent;
+import com.android.smartlink.ui.activity.MyModuleActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIEquipment;
-import com.android.smartlink.ui.widget.adapter.EquipmentAdapter;
+import com.android.smartlink.ui.model.UIModuleImp;
+import com.android.smartlink.ui.widget.adapter.MyModulesAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
-import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -25,18 +29,18 @@ import butterknife.BindView;
  * Date: 2017-10-22
  * Time: 13:42
  */
-public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIEquipment>
+public class MyModulesFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIModuleImp>
 {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    private EquipmentAdapter mAdapter;
+    private MyModulesAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_my_equipment, container, false);
+        return inflater.inflate(R.layout.fragment_my_modules, container, false);
     }
 
     @Override
@@ -49,27 +53,33 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
 
     private void initComponent()
     {
-        mAdapter = new EquipmentAdapter(getActivity().getLayoutInflater(), this);
+        mAdapter = new MyModulesAdapter(getActivity().getLayoutInflater(), this);
 
-        mAdapter.setData(ConvertUtil.convertEquipment(AppManager.getInstance().getEquipments()));
+        mAdapter.setData(ConvertUtil.convertEquipment(AppManager.getInstance().getAllModules()));
 
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
-    public void onResume()
+    public void onStart()
     {
-        super.onResume();
+        super.onStart();
 
-        MobclickAgent.onPageStart("Equipment");
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onPause()
+    public void onStop()
     {
-        MobclickAgent.onPageEnd("Equipment");
+        super.onStop();
 
-        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEditModuleEvent(EditModuleEvent event)
+    {
+        mAdapter.setEditMode(event.edited);
     }
 
     @Override
@@ -79,11 +89,11 @@ public class MyEquipmentFragment extends BaseSmartlinkFragment implements OnItem
     }
 
     @Override
-    public void onItemClick(DataBindingAdapter<UIEquipment> adapter, View view, UIEquipment item, int position)
+    public void onItemClick(DataBindingAdapter<UIModuleImp> adapter, View view, UIModuleImp item, int position)
     {
-        if (getActivity() instanceof EquipmentActivity)
+        if (getActivity() instanceof MyModuleActivity)
         {
-            ((EquipmentActivity) getActivity()).toEditMode();
+            ((MyModuleActivity) getActivity()).toEditMode();
         }
     }
 }

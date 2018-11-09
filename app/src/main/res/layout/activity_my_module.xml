@@ -23,7 +23,7 @@
         <FrameLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="@dimen/menu_height"
             android:background="@color/colorPrimary"
             android:gravity="center_vertical"
             app:layout_scrollFlags="enterAlways"
@@ -31,11 +31,11 @@
 
             <ImageView
                 android:id="@+id/toolbar_nav_back"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/menu_height"
+                android:layout_height="@dimen/menu_height"
                 android:layout_gravity="center_vertical"
-                android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@null"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="centerInside"
                 android:src="@drawable/nav_back_selector" />
 
@@ -51,13 +51,13 @@
 
             <ImageView
                 android:id="@+id/toolbar_nav_edit"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/menu_height"
+                android:layout_height="@dimen/menu_height"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
-                android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@null"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="centerInside"
                 android:src="@drawable/nav_edit_selector"
                 android:visibility="visible" />

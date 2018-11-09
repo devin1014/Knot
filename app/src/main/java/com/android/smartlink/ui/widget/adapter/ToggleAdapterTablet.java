@@ -3,7 +3,7 @@ package com.android.smartlink.ui.widget.adapter;
 import android.view.LayoutInflater;
 
 import com.android.smartlink.R;
-import com.android.smartlink.ui.model.UIToggle;
+import com.android.smartlink.ui.model.ToggleModuleImp;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
  * Date: 2018-05-18
  * Time: 15:30
  */
-public class ToggleAdapterTablet extends BaseAdapter<UIToggle>
+public class ToggleAdapterTablet extends BaseAdapter<ToggleModuleImp>
 {
-    public ToggleAdapterTablet(LayoutInflater layoutInflater, OnItemClickListener<UIToggle> listener)
+    public ToggleAdapterTablet(LayoutInflater layoutInflater, OnItemClickListener<ToggleModuleImp> listener)
     {
         super(layoutInflater, listener);
     }
@@ -26,7 +26,7 @@ public class ToggleAdapterTablet extends BaseAdapter<UIToggle>
     }
 
     @Override
-    protected void onDataSetChanged(List<UIToggle> oldList, List<UIToggle> newList)
+    protected void onDataSetChanged(List<ToggleModuleImp> oldList, List<ToggleModuleImp> newList)
     {
         notifyDataSetChanged(); //todo,should fix! toggle status
     }

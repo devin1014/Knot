@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import com.android.smartlink.BR;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.Modules.Module;
-import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.util.AppDataBindingAdapter;
 
 import java.util.List;
@@ -96,7 +96,7 @@ public class NormalModuleStatusView extends LinearLayout implements OnClickListe
             @Override
             public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
             {
-                return oldList.get(oldItemPosition).getId() == newList.get(newItemPosition).getId();
+                return oldList.get(oldItemPosition).getSlaveID() == newList.get(newItemPosition).getSlaveID();
             }
 
             @Override
@@ -116,7 +116,7 @@ public class NormalModuleStatusView extends LinearLayout implements OnClickListe
             {
                 View inflaterView = mLayoutInflater.inflate(R.layout.comp_home_status_detail, mDetailGroup, false);
 
-                mDetailGroup.addView(AppDataBindingAdapter.binding(inflaterView, BR.data, new UIModule(module)));
+                mDetailGroup.addView(AppDataBindingAdapter.binding(inflaterView, BR.data, new MonitorModuleImp(module)));
             }
         }
     }

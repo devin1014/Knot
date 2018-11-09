@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.ui.model.UIEquipment;
+import com.android.smartlink.ui.model.UIModuleImp;
 import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 
@@ -17,31 +17,31 @@ import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
  * Date: 2017-10-22
  * Time: 13:51
  */
-public class EquipmentAdapter extends BaseAdapter<UIEquipment>
+public class MyModulesAdapter extends BaseAdapter<UIModuleImp>
 {
     private boolean mEditMode = false;
 
-    private SparseArray<DataBindingHolder<UIEquipment>> mSparseArray = new SparseArray<>();
+    private SparseArray<DataBindingHolder<UIModuleImp>> mSparseArray = new SparseArray<>();
 
-    public EquipmentAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIEquipment> listener)
+    public MyModulesAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModuleImp> listener)
     {
         super(layoutInflater, listener);
     }
 
     @Override
-    public DataBindingHolder<UIEquipment> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
+    public DataBindingHolder<UIModuleImp> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new Holder(inflater, parent, R.layout.list_item_my_equipment, this);
+        return new Holder(inflater, parent, R.layout.list_my_module, this);
     }
 
     @Override
     protected int getLayout(int i)
     {
-        return R.layout.list_item_my_equipment;
+        return R.layout.list_my_module;
     }
 
     @Override
-    public void onBindViewHolder(DataBindingHolder<UIEquipment> holder, int position)
+    public void onBindViewHolder(DataBindingHolder<UIModuleImp> holder, int position)
     {
         super.onBindViewHolder(holder, position);
 
@@ -62,12 +62,12 @@ public class EquipmentAdapter extends BaseAdapter<UIEquipment>
 
                     if (!TextUtils.isEmpty(name))
                     {
-                        AppManager.getInstance().setEquipmentName(id, name);
+                        AppManager.getInstance().setModuleName(id, name);
                     }
                 }
             }
 
-            for (UIEquipment module : getDataList())
+            for (UIModuleImp module : getDataList())
             {
                 module.setEditMode(editMode);
             }
@@ -78,11 +78,11 @@ public class EquipmentAdapter extends BaseAdapter<UIEquipment>
         }
     }
 
-    private class Holder extends DataBindingHolder<UIEquipment>
+    private class Holder extends DataBindingHolder<UIModuleImp>
     {
         TextInputEditText editText;
 
-        Holder(LayoutInflater inflater, ViewGroup parent, int layoutId, DataBindingHandler<UIEquipment> handler)
+        Holder(LayoutInflater inflater, ViewGroup parent, int layoutId, DataBindingHandler<UIModuleImp> handler)
         {
             super(inflater, parent, layoutId, handler);
 

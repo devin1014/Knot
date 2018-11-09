@@ -97,6 +97,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'me.jessyan:autosize:1.0.5'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
 static def getVersionName(String prefix) {

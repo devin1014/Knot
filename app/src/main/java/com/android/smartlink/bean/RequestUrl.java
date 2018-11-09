@@ -3,7 +3,7 @@ package com.android.smartlink.bean;
 import android.content.Context;
 
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.bean.ModuleConfiguration.FeedUrl;
+import com.android.smartlink.bean.Configurations.FeedUrl;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.Utils;
 
