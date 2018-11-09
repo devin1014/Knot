@@ -68,8 +68,8 @@ public class ModuleFragment extends BaseSmartlinkFragment
         scaleCircleNavigator.setCircleCount(mViewPager.getAdapter().getCount());
         scaleCircleNavigator.setNormalCircleColor(Color.parseColor("#aaffffff"));
         scaleCircleNavigator.setSelectedCircleColor(Color.WHITE);
-        scaleCircleNavigator.setMaxRadius(3);
-        scaleCircleNavigator.setMinRadius(2);
+        scaleCircleNavigator.setMaxRadius(6);
+        scaleCircleNavigator.setMinRadius(4);
         mMagicIndicator.setNavigator(scaleCircleNavigator);
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }

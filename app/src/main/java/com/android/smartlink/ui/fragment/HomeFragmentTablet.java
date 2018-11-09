@@ -5,8 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +32,7 @@ import butterknife.BindView;
  * Date: 2017-12-05
  * Time: 18:05
  */
-public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<ModulesData>, OnRefreshListener
+public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<ModulesData>
 {
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
@@ -44,8 +42,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     private MainRequestProvider mRequestProvider;
 
     private WeatherManager mWeatherManager;
-
-    private ViewDataBinding mWeatherBinding;
 
     private AlertNotifyManager mAlertManager;
 
@@ -68,9 +64,21 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mAlertManager = new AlertNotifyManager(getActivity());
 
-        mWeatherBinding = DataBindingUtil.bind(mWeatherView);
+        final ViewDataBinding mWeatherBinding = DataBindingUtil.bind(mWeatherView);
 
-        mWeatherManager = new WeatherManager(mWeatherCallback);
+        mWeatherManager = new WeatherManager(new WeatherCallback()
+        {
+            @Override
+            public void onWeatherResponse(Weather weather)
+            {
+                if (mWeatherBinding != null)
+                {
+                    mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
+
+                    mWeatherBinding.executePendingBindings();
+                }
+            }
+        });
 
         mWeatherManager.requestWeather();
 
@@ -110,16 +118,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         if (fragment == null)
         {
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction().replace(R.id.module_panel, ModuleFragment.newInstance(modules));
-
-            if (isResumed())
-            {
-                fragmentTransaction.commit();
-            }
-            else
-            {
-                fragmentTransaction.commitAllowingStateLoss();
-            }
+            replaceFragment(R.id.module_panel, ModuleFragment.newInstance(modules));
         }
         else if (fragment instanceof ModuleFragment)
         {
@@ -130,16 +129,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         if (toggleFragment == null)
         {
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction().replace(R.id.toggle_panel, ToggleFragment.newInstance(modules));
-
-            if (isResumed())
-            {
-                fragmentTransaction.commit();
-            }
-            else
-            {
-                fragmentTransaction.commitAllowingStateLoss();
-            }
+            replaceFragment(R.id.toggle_panel, ToggleFragment.newInstance(modules));
         }
         else if (toggleFragment instanceof ToggleFragment)
         {
@@ -153,22 +143,4 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
     }
 
-    @Override
-    public void onRefresh()
-    {
-        mRequestProvider.schedule(RequestUrl.obtainMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
-
-        mWeatherManager.requestWeather();
-    }
-
-    private WeatherCallback mWeatherCallback = new WeatherCallback()
-    {
-        @Override
-        public void onWeatherResponse(Weather weather)
-        {
-            mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
-
-            mWeatherBinding.executePendingBindings();
-        }
-    };
 }

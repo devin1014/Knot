@@ -30,7 +30,7 @@ import butterknife.BindView;
  */
 public class ToggleFragment extends BaseModulesFragment
 {
-    public static final int MAX_TOGGLE_SIZE = 5;
+    public static final int MAX_TOGGLE_SIZE = 6;
 
     public static ToggleFragment newInstance(ModulesData modules)
     {
@@ -84,8 +84,8 @@ public class ToggleFragment extends BaseModulesFragment
         scaleCircleNavigator.setNormalCircleColor(Color.parseColor("#aaffffff"));
         scaleCircleNavigator.setSelectedCircleColor(Color.WHITE);
         mMagicIndicator.setNavigator(scaleCircleNavigator);
-        scaleCircleNavigator.setMaxRadius(3);
-        scaleCircleNavigator.setMinRadius(2);
+        scaleCircleNavigator.setMaxRadius(6);
+        scaleCircleNavigator.setMinRadius(4);
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 

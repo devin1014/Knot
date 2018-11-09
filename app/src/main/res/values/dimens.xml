@@ -12,12 +12,12 @@
 
     <dimen name="filter_window_width">360dp</dimen>
 
-    <!--myEquipment-->
-    <dimen name="myEquipmentItemHeight">40dp</dimen>
-    <dimen name="myEquipmentItemPadding">20dp</dimen>
-
-    <!--settings-->
-    <dimen name="settingsItemHeight">55dp</dimen>
+    <!--Settings-->
+    <dimen name="settings_adapter_item_height">55dp</dimen>
     <dimen name="settings_content_padding">16dp</dimen>
+
+    <!--MyModules-->
+    <dimen name="equipment_adapter_Item_height">40dp</dimen>
+    <dimen name="equipment_adapter_item_padding">20dp</dimen>
 
 </resources>

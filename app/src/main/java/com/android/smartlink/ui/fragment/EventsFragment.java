@@ -114,9 +114,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         mLoadingLayout.showContent();
 
-        mUIEvents = ConvertUtil.convertEvents(events.getEvents());
-
-        setDataByFilters(mUIEvents, mFilters);
+        setDataByFilters(mUIEvents = ConvertUtil.convertEvents(events.getEvents()), mFilters);
     }
 
     @Override
@@ -137,9 +135,9 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
         if (mFilterPopupWindow == null)
         {
             mFilterPopupWindow = new FilterPopupWindow(getActivity(), this);
-        }
 
-        mFilterPopupWindow.setFilterList(mFilters);
+            mFilterPopupWindow.setFilterList(mFilters);
+        }
 
         mFilterPopupWindow.showAsDropDown(mFilterAnchorView);
     }
@@ -156,7 +154,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     {
         if (list == null || list.size() == 0 || filters == null || filters.size() == 0)
         {
-            showEmptyData();
+            mLoadingLayout.showMessage(getString(R.string.empty_events));
 
             return;
         }
@@ -181,7 +179,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         if (result.size() == 0)
         {
-            showEmptyData();
+            mLoadingLayout.showMessage(getString(R.string.empty_events));
         }
         else
         {
@@ -191,11 +189,6 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
             mEventsAdapter.setData(result);
         }
-    }
-
-    private void showEmptyData()
-    {
-        mLoadingLayout.showMessage(getString(R.string.empty_events));
     }
 
 }

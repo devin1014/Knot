@@ -81,7 +81,8 @@ public abstract class RequestUrl
         }
     }
 
-    // --------------
+    // ---------------------------------------------------------------------------------------------------------
+    // ------------ Helper -------------------------------------------------------------------------------------
     public static String obtainLocationUrl()
     {
         return AppManager.getInstance().getHttpUrl().getLocationUrl();

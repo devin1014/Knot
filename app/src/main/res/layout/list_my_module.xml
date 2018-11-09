@@ -20,12 +20,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/myEquipmentItemHeight"
+        android:layout_height="@dimen/equipment_adapter_Item_height"
         android:background="@drawable/common_item_bg"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{(view)->handler.onItemClick(view,data)}"
-        android:paddingLeft="@dimen/myEquipmentItemPadding"
-        android:paddingRight="@dimen/myEquipmentItemPadding">
+        android:paddingLeft="@dimen/equipment_adapter_item_padding"
+        android:paddingRight="@dimen/equipment_adapter_item_padding">
 
         <ImageView
             android:layout_width="32dp"

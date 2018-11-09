@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
@@ -18,9 +19,12 @@ import butterknife.Unbinder;
  */
 public class BaseSmartlinkFragment extends Fragment
 {
-    private Unbinder mButterKnife;
-
     private OnFragmentCallback mCallback;
+
+    public interface OnFragmentCallback
+    {
+        void showDetailFragment(Fragment fragment, String title);
+    }
 
     @Override
     public void onAttach(Context context)
@@ -40,6 +44,8 @@ public class BaseSmartlinkFragment extends Fragment
 
         super.onDetach();
     }
+
+    private Unbinder mButterKnife;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
@@ -90,8 +96,17 @@ public class BaseSmartlinkFragment extends Fragment
         }
     }
 
-    public interface OnFragmentCallback
+    protected void replaceFragment(int containerId, Fragment fragment)
     {
-        void showDetailFragment(Fragment fragment, String title);
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction().replace(containerId, fragment);
+
+        if (isResumed())
+        {
+            fragmentTransaction.commit();
+        }
+        else
+        {
+            fragmentTransaction.commitAllowingStateLoss();
+        }
     }
 }
