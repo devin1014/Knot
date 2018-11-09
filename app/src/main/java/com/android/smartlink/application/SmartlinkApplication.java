@@ -2,8 +2,6 @@ package com.android.smartlink.application;
 
 import android.support.multidex.MultiDexApplication;
 
-import com.android.devin.core.util.Debug;
-import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.util.Utils;
 import com.lzy.okgo.OkGo;
@@ -31,10 +29,6 @@ public class SmartlinkApplication extends MultiDexApplication
         super.onCreate();
 
         final boolean debugMode = Utils.isDevDebugMode(this);
-
-        Debug.init(debugMode); // 初始化Log,debug模式才输出
-
-        LogUtil.set();
 
         // App
         {
@@ -76,7 +70,5 @@ public class SmartlinkApplication extends MultiDexApplication
 
             MobclickAgent.openActivityDurationTrack(false);
         }
-
-        LogUtil.test(this, "Application onCreate");
     }
 }

@@ -1,8 +1,5 @@
 package com.android.smartlink.assist;
 
-import android.text.TextUtils;
-
-import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Modules;
 import com.android.smartlink.util.FileUtil;
@@ -109,17 +106,14 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
                     int[] idArr = new int[]{150, 152, 155, 154, 153, 151, 156}; //157备用回路
 
                     String tStr = ModbusHelp.modbusRTCP(serverAddress, port, idArr);
-                    LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);
 
                     int[] registerStart = new int[]{14200, 14240, 14280, 14320, 14360, 14440};
                     String myStr = ModbusHelp.modbusRDefaultTCP("192.168.1.100", port, 255, registerStart);
-                    LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : myStr);
                     tStr += myStr;
 
                     //14360, 14400
                     registerStart = new int[]{14440, 14520};
                     myStr = ModbusHelp.modbusRDefaultTCP("192.168.1.100", port, 1, registerStart);
-                    LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : myStr);
                     tStr = tStr + "," + myStr + "}";
 
                     //        LogUtil.warn(this, TextUtils.isEmpty(tStr) ? "NULL" : tStr);

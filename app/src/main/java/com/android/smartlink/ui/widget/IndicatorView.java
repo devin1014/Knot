@@ -1,4 +1,4 @@
-package com.android.devin.core.ui.widget;
+package com.android.smartlink.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,7 +12,8 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.android.devin.core.R;
+import com.android.smartlink.R;
+
 
 /**
  * User: LIUWEI

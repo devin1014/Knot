@@ -1,9 +1,9 @@
 package com.android.smartlink.assist;
 
-import com.android.devin.core.util.IOUtils;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.Weather.WeatherBasic;
+import com.android.smartlink.util.IOUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 

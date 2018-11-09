@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.android.devin.core.util.LogUtil;
 import com.android.smartlink.R;
 import com.android.smartlink.util.ViewUtil;
 
@@ -64,8 +63,7 @@ public class LoadingLayout extends FrameLayout
 
         if (getChildCount() != 1)
         {
-            //throw new IllegalArgumentException("LoadingLayout must has one child view! current count=" + getChildCount());
-            LogUtil.error(this, "LoadingLayout find one more child!");
+            throw new IllegalArgumentException("LoadingLayout must has one child view! current count=" + getChildCount());
         }
 
         mContentView = getChildAt(0);

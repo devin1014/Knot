@@ -1,4 +1,4 @@
-package com.android.devin.core.util;
+package com.android.smartlink.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

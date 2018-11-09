@@ -35,4 +35,11 @@
         <attr name="lineOffsetX" format="reference|dimension" />
     </declare-styleable>
 
+    <declare-styleable name="IndicatorView">
+        <attr name="indicatorColor" format="reference|color" />
+        <attr name="indicatorSelectColor" format="reference|color" />
+        <attr name="indicatorSize" format="dimension|reference" />
+        <attr name="indicatorDividerSize" format="dimension|reference" />
+    </declare-styleable>
+
 </resources>

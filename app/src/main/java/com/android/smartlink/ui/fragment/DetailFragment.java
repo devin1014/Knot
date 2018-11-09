@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.android.devin.core.ui.widget.IndicatorView;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
@@ -20,6 +19,7 @@ import com.android.smartlink.assist.ScheduleHandler;
 import com.android.smartlink.bean.Energy;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModule;
+import com.android.smartlink.ui.widget.IndicatorView;
 import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;

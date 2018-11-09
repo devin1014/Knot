@@ -1,4 +1,4 @@
-package com.android.devin.core.util;
+package com.android.smartlink.util;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class LogUtil
 {
-    private static boolean DEBUG = Debug.DEBUG;
+    private static boolean DEBUG = true;
 
     private static final String TAG = "LW.Log.";
 

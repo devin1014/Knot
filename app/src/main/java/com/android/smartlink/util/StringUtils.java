@@ -1,4 +1,4 @@
-package com.android.devin.core.util;
+package com.android.smartlink.util;
 
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;

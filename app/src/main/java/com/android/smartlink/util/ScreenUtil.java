@@ -2,7 +2,6 @@ package com.android.smartlink.util;
 
 import android.app.Activity;
 
-import com.android.devin.core.util.ScreenBrightnessUtil;
 
 /**
  * User: LIUWEI

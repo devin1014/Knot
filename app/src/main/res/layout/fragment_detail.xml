@@ -220,7 +220,7 @@
                     android:textColor="#585b5d"
                     android:textSize="14dp" />
 
-                <com.android.devin.core.ui.widget.IndicatorView
+                <com.android.smartlink.ui.widget.IndicatorView
                     android:id="@+id/detail_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"

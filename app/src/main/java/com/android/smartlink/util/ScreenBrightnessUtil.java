@@ -1,4 +1,4 @@
-package com.android.devin.core.util;
+package com.android.smartlink.util;
 
 import android.app.Activity;
 import android.support.annotation.FloatRange;

@@ -1,4 +1,4 @@
-package com.android.devin.core.ui.widget;
+package com.android.smartlink.ui.widget;
 
 
 import android.animation.ObjectAnimator;
