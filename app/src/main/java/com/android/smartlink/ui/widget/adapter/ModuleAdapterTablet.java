@@ -20,10 +20,10 @@ public class ModuleAdapterTablet extends BaseAdapter<MonitorModuleImp>
     @Override
     protected int getLayout(int type)
     {
-        if (type == 0)
-        {
-            return R.layout.item_home_main_module;
-        }
+        //        if (type == 0)
+        //        {
+        //            return R.layout.item_home_main_module;
+        //        }
 
         return R.layout.item_home_module;
     }

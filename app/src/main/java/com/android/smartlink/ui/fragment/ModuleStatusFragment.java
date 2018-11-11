@@ -2,17 +2,24 @@ package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.ModulesData;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.model.IModule.ImageType;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
+import com.android.smartlink.util.AppDataBindingAdapter;
 import com.android.smartlink.util.UIConverter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -32,6 +39,8 @@ public class ModuleStatusFragment extends BaseModulesFragment
 
     @BindView(R.id.module_status_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.home_main_module)
+    View mMainModule;
 
     ModuleAdapterTablet mModuleAdapter;
 
@@ -54,16 +63,28 @@ public class ModuleStatusFragment extends BaseModulesFragment
     {
         ModulesData modules = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
+        List<MonitorModuleData> list = modules.getMonitorModules();
+
         mModuleAdapter = new ModuleAdapterTablet(getLayoutInflater());
 
-        mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getMonitorModules() : null));
+        mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false);
+
+        mRecyclerView.setLayoutManager(gridLayoutManager);
 
         mRecyclerView.setAdapter(mModuleAdapter);
+
+        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
 
     @Override
     public void notifyModulesChanged(ModulesData modules)
     {
-        mModuleAdapter.setData(UIConverter.convertModules(modules != null ? modules.getMonitorModules() : null));
+        List<MonitorModuleData> list = modules.getMonitorModules();
+
+        mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
+
+        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
 }

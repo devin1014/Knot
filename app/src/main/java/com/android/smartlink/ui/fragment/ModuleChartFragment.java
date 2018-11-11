@@ -59,7 +59,7 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
 
         mRequestProvider.request(RequestUrl.obtainEnergyUrl(150));
 
-        mLoadingLayout.showLoading();
+        //mLoadingLayout.showLoading();
     }
 
     @Override

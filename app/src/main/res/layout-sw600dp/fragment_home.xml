@@ -29,7 +29,7 @@
                 layout="@layout/comp_home_bottom" />
 
             <FrameLayout
-                android:id="@+id/toggle_panel"
+                android:id="@+id/home_toggle_container"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_above="@id/home_bottom_panel"
@@ -40,17 +40,17 @@
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:layout_above="@id/home_bottom_panel"
-                android:layout_toLeftOf="@id/toggle_panel"
-                android:layout_toStartOf="@id/toggle_panel"
+                android:layout_toLeftOf="@id/home_toggle_container"
+                android:layout_toStartOf="@id/home_toggle_container"
                 android:background="#ffffff" />
 
             <FrameLayout
-                android:id="@+id/module_panel"
+                android:id="@+id/home_module_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/home_bottom_panel"
-                android:layout_toLeftOf="@id/toggle_panel"
-                android:layout_toStartOf="@id/toggle_panel" />
+                android:layout_toLeftOf="@id/home_toggle_container"
+                android:layout_toStartOf="@id/home_toggle_container" />
 
             <View
                 android:layout_width="match_parent"

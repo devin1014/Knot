@@ -2,6 +2,8 @@ package com.android.smartlink.util;
 
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
+import com.android.smartlink.ui.model.IModule;
+import com.android.smartlink.ui.model.IModule.ImageType;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.ToggleModuleImp;
 
@@ -17,16 +19,26 @@ public class UIConverter
 {
     public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list)
     {
+        return convertModules(list, 0, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT);
+    }
+
+    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list, int from, int to, int imageType)
+    {
         List<MonitorModuleImp> moduleList = new ArrayList<>();
 
-        for (int i = 0; list != null && i < list.size(); i++)
+        for (int i = from; list != null && i < to; i++)
         {
-            MonitorModuleImp m = new MonitorModuleImp(list.get(i));
+            MonitorModuleImp m = new MonitorModuleImp(list.get(i), imageType);
 
             moduleList.add(m);
         }
 
         return moduleList;
+    }
+
+    public static IModule convertModule(List<MonitorModuleData> list, int index, int imageType)
+    {
+        return new MonitorModuleImp(list.get(index), imageType);
     }
 
     public static List<ToggleModuleImp> convertToggle(List<ToggleModuleData> list)

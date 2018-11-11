@@ -6,7 +6,7 @@
         "weatherUrl": "data/weather.json",
         "mainDataUrl": "data/main/main_${state}.json",
         "eventsUrl": "data/events/events_${state}.json",
-        "energyUrl": "data/energy/30DayEnergy_${index}.json"
+        "energyUrl": "data/energy/${id}.json"
     },
     "httpFeed": {
         "weatherLocalUrl": "https://api.accuweather.com/localweather/v1/106577?apikey=${weatherLocalKey}",

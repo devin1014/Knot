@@ -71,6 +71,24 @@
             "powerFactor": "1.0",
             "energy": "0.029",
             "alarm": "0"
+        },
+        {
+            "slaveID": "158",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
+        },
+        {
+            "slaveID": "159",
+            "current": "0.12",
+            "voltage": "223.4",
+            "power": "0.0",
+            "powerFactor": "1.0",
+            "energy": "0.029",
+            "alarm": "0"
         }
     ],
     "data255": [

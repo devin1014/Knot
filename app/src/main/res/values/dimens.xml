@@ -12,6 +12,9 @@
 
     <dimen name="filter_window_width">360dp</dimen>
 
+    <!--home-->
+    <dimen name="home_indicator_height">36dp</dimen>
+
     <!--Settings-->
     <dimen name="settings_adapter_item_height">55dp</dimen>
     <dimen name="settings_content_padding">16dp</dimen>

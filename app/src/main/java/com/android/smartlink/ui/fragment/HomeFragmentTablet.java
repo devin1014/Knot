@@ -114,22 +114,22 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getMonitorModules()));
 
-        Fragment fragment = getChildFragmentManager().findFragmentById(R.id.module_panel);
+        Fragment fragment = getChildFragmentManager().findFragmentById(R.id.home_module_container);
 
         if (fragment == null)
         {
-            replaceFragment(R.id.module_panel, ModuleFragment.newInstance(modules));
+            replaceFragment(R.id.home_module_container, ModuleFragment.newInstance(modules));
         }
         else if (fragment instanceof ModuleFragment)
         {
             ((ModuleFragment) fragment).notifyModulesChanged(modules);
         }
 
-        Fragment toggleFragment = getChildFragmentManager().findFragmentById(R.id.toggle_panel);
+        Fragment toggleFragment = getChildFragmentManager().findFragmentById(R.id.home_toggle_container);
 
         if (toggleFragment == null)
         {
-            replaceFragment(R.id.toggle_panel, ToggleFragment.newInstance(modules));
+            replaceFragment(R.id.home_toggle_container, ToggleFragment.newInstance(modules));
         }
         else if (toggleFragment instanceof ToggleFragment)
         {

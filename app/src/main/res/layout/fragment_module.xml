@@ -18,18 +18,19 @@
         android:textSize="16dp"
         tools:ignore="SpUsage" />
 
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="48dp"
+        android:layout_height="@dimen/home_indicator_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/model_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/magic_indicator"
         android:layout_below="@id/model_title"
         android:overScrollMode="never" />
-
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -16,7 +16,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
-import com.android.smartlink.ui.widget.ScaleCircleNavigator;
+import com.android.smartlink.util.ui.MagicIndicatorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -79,13 +79,11 @@ public class ToggleFragment extends BaseModulesFragment
 
         mViewPager.setAdapter(new ToggleAdapter(getChildFragmentManager()));
 
-        ScaleCircleNavigator scaleCircleNavigator = new ScaleCircleNavigator(getActivity());
-        scaleCircleNavigator.setCircleCount(mViewPager.getAdapter().getCount());
-        scaleCircleNavigator.setNormalCircleColor(Color.parseColor("#aaffffff"));
-        scaleCircleNavigator.setSelectedCircleColor(Color.WHITE);
-        mMagicIndicator.setNavigator(scaleCircleNavigator);
-        scaleCircleNavigator.setMaxRadius(6);
-        scaleCircleNavigator.setMinRadius(4);
+        mMagicIndicator.setNavigator(MagicIndicatorHelper.newScaleCircleNavigator(getActivity(),
+                mViewPager.getAdapter().getCount(),
+                new int[]{Color.parseColor("#ccffffff"), Color.parseColor("#ffffffff")},
+                new int[]{2, 4}));
+
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
