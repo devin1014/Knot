@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.ModulesData;
-import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.util.ui.MagicIndicatorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -28,7 +28,7 @@ import butterknife.BindView;
  * Date: 2018-05-20
  * Time: 14:59
  */
-public class ToggleFragment extends BaseModulesFragment
+public class ToggleFragment extends BaseSmartlinkFragment
 {
     public static final int MAX_TOGGLE_SIZE = 6;
 
@@ -87,19 +87,19 @@ public class ToggleFragment extends BaseModulesFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    @Override
-    public void notifyModulesChanged(ModulesData modules)
-    {
-        if (mViewPager != null)
-        {
-            FragmentPagerAdapter adapter = (FragmentPagerAdapter) mViewPager.getAdapter();
-
-            for (int i = 0; i < adapter.getCount(); i++)
-            {
-                ((ToggleListFragment) adapter.getItem(i)).notifyModulesChanged(modules);
-            }
-        }
-    }
+    //    @Override
+    //    public void notifyModulesChanged(ModulesData modules)
+    //    {
+    //        if (mViewPager != null)
+    //        {
+    //            FragmentPagerAdapter adapter = (FragmentPagerAdapter) mViewPager.getAdapter();
+    //
+    //            for (int i = 0; i < adapter.getCount(); i++)
+    //            {
+    //                ((ToggleListFragment) adapter.getItem(i)).notifyModulesChanged(modules);
+    //            }
+    //        }
+    //    }
 
     private class ToggleAdapter extends FragmentPagerAdapter
     {

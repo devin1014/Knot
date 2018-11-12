@@ -1,6 +1,7 @@
 package com.android.smartlink.assist;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.Weather.WeatherBasic;
 import com.android.smartlink.util.IOUtils;
@@ -20,7 +21,8 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
 {
     public static WeatherProvider newInstance(RequestCallback<Weather> callback)
     {
-        return new LocalProvider(callback);
+        return AppManager.getInstance().getRequestMode() == RequestMode.MODE_HTTP ?
+                new HttpProvider(callback) : new LocalProvider(callback);
     }
 
     WeatherProvider(RequestCallback<Weather> callback)

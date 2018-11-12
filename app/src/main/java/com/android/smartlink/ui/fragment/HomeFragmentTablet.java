@@ -17,13 +17,17 @@ import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
 import com.android.smartlink.assist.WeatherManager.WeatherCallback;
+import com.android.smartlink.assist.eventbus.EventBusMessages.ModuleDataChangedEvent;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.IModule.ImageType;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.util.UIConverter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 
@@ -112,7 +116,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mLoadingLayout.showContent();
 
-        mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getMonitorModules()));
+        mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getMonitorModules(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
         Fragment fragment = getChildFragmentManager().findFragmentById(R.id.home_module_container);
 
@@ -122,7 +126,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         }
         else if (fragment instanceof ModuleFragment)
         {
-            ((ModuleFragment) fragment).notifyModulesChanged(modules);
+            //((ModuleFragment) fragment).notifyModulesChanged(modules);
+            EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
         }
 
         Fragment toggleFragment = getChildFragmentManager().findFragmentById(R.id.home_toggle_container);
@@ -133,7 +138,8 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         }
         else if (toggleFragment instanceof ToggleFragment)
         {
-            ((ToggleFragment) toggleFragment).notifyModulesChanged(modules);
+            //((ToggleFragment) toggleFragment).notifyModulesChanged(modules);
+            EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
         }
     }
 

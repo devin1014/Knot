@@ -1,5 +1,7 @@
 package com.android.smartlink.assist;
 
+import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.WeatherLocation;
 import com.lzy.okgo.OkGo;
 
@@ -12,7 +14,8 @@ public abstract class LocationProvider extends BaseRequestProvider<WeatherLocati
 {
     public static LocationProvider newInstance(RequestCallback<WeatherLocation> callback)
     {
-        return new LocalProvider(callback);
+        return AppManager.getInstance().getRequestMode() == RequestMode.MODE_HTTP
+                ? new HttpProvider(callback) : new LocalProvider(callback);
     }
 
     LocationProvider(RequestCallback<WeatherLocation> callback)

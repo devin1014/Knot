@@ -1,5 +1,5 @@
 {
-    "requestMode": 0,
+    "requestMode": 1,
     "requestModeDescription": "local=0 | http=1",
     "localFeed": {
         "weatherLocalUrl": "data/location.json",
@@ -12,8 +12,8 @@
         "weatherLocalUrl": "https://api.accuweather.com/localweather/v1/106577?apikey=${weatherLocalKey}",
         "weatherUrl": "https://free-api.heweather.com/v5/weather?city=${city}&key=${weatherKey}",
         "mainDataUrl": "http://localhost:8080/examples/knot/main/main_all.json",
-        "eventsUrl": "http://localhost:8080/examples/knot/main/events_all.json",
-        "energyUrl": "http://localhost:8080/examples/knot/main/30DayEnergy_${index}.json"
+        "eventsUrl": "http://localhost:8080/examples/knot/events/events_all.json",
+        "energyUrl": "http://localhost:8080/examples/knot/energy/${id}.json"
     },
     "monitor": {
         "serverIP": "192.168.1.101",

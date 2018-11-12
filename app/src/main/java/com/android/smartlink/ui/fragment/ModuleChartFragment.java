@@ -11,9 +11,8 @@ import com.android.smartlink.R;
 import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.bean.Energy;
-import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
-import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.widget.Last15DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.ModuleBarChart;
@@ -27,7 +26,7 @@ import butterknife.BindView;
  * Date: 2018-05-20
  * Time: 14:03
  */
-public class ModuleChartFragment extends BaseModulesFragment implements RequestCallback<Energy>
+public class ModuleChartFragment extends BaseSmartlinkFragment implements RequestCallback<Energy>
 {
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
@@ -59,12 +58,7 @@ public class ModuleChartFragment extends BaseModulesFragment implements RequestC
 
         mRequestProvider.request(RequestUrl.obtainEnergyUrl(150));
 
-        //mLoadingLayout.showLoading();
-    }
-
-    @Override
-    public void notifyModulesChanged(ModulesData modules)
-    {
+        mLoadingLayout.showLoading();
     }
 
     @Override

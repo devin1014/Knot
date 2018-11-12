@@ -11,9 +11,9 @@ import com.android.smartlink.ui.model.BaseModule;
 import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.ToggleModuleImp;
-import com.android.smartlink.ui.model.UIModuleImp;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
+import com.android.smartlink.ui.model.UIModuleImp;
 import com.android.smartlink.ui.model.UISetting;
 
 import java.util.ArrayList;
@@ -82,20 +82,20 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<MonitorModuleImp> convertModule(List<MonitorModuleData> list, int start, int end)
-    {
-        List<MonitorModuleImp> result = new ArrayList<>();
-
-        if (list != null)
-        {
-            for (int i = start; i < list.size() && i < end; i++)
-            {
-                result.add(new MonitorModuleImp(list.get(i)));
-            }
-        }
-
-        return result;
-    }
+    //    public static List<MonitorModuleImp> convertModule(List<MonitorModuleData> list, int start, int end)
+    //    {
+    //        List<MonitorModuleImp> result = new ArrayList<>();
+    //
+    //        if (list != null)
+    //        {
+    //            for (int i = start; i < list.size() && i < end; i++)
+    //            {
+    //                result.add(new MonitorModuleImp(list.get(i)));
+    //            }
+    //        }
+    //
+    //        return result;
+    //    }
 
     public static List<IModule> convertModule(ModulesData modules)
     {

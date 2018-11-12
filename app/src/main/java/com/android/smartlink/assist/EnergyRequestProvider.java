@@ -1,6 +1,7 @@
 package com.android.smartlink.assist;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.Energy;
 import com.android.smartlink.util.FileUtil;
 import com.lzy.okgo.OkGo;
@@ -14,7 +15,8 @@ public abstract class EnergyRequestProvider extends BaseRequestProvider<Energy>
 {
     public static EnergyRequestProvider newInstance(RequestCallback<Energy> callback)
     {
-        return new LocalProvider(callback);
+        return AppManager.getInstance().getRequestMode() == RequestMode.MODE_HTTP ?
+                new HttpProvider(callback) : new LocalProvider(callback);
     }
 
     EnergyRequestProvider(RequestCallback<Energy> callback)

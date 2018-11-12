@@ -10,14 +10,19 @@ import android.view.ViewGroup;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
+import com.android.smartlink.assist.eventbus.EventBusMessages.ModuleDataChangedEvent;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
-import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.IModule.ImageType;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
 import com.android.smartlink.util.AppDataBindingAdapter;
 import com.android.smartlink.util.UIConverter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -28,7 +33,7 @@ import butterknife.BindView;
  * Date: 2018-05-20
  * Time: 14:03
  */
-public class ModuleStatusFragment extends BaseModulesFragment
+public class ModuleStatusFragment extends BaseSmartlinkFragment
 {
     public static ModuleStatusFragment newInstance(Bundle arguments)
     {
@@ -75,16 +80,44 @@ public class ModuleStatusFragment extends BaseModulesFragment
 
         mRecyclerView.setAdapter(mModuleAdapter);
 
+        //reset main module
         AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
 
     @Override
-    public void notifyModulesChanged(ModulesData modules)
+    public void onStart()
     {
-        List<MonitorModuleData> list = modules.getMonitorModules();
+        super.onStart();
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onModuleDataChangedEvent(ModuleDataChangedEvent event)
+    {
+        List<MonitorModuleData> list = event.modulesData.getMonitorModules();
 
         mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
+        //reset main module
         AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
+
+    //    @Override
+    //    public void notifyModulesChanged(ModulesData modules)
+    //    {
+    //        List<MonitorModuleData> list = modules.getMonitorModules();
+    //
+    //        mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
+    //
+    //        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
+    //    }
 }

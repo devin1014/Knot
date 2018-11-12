@@ -1,6 +1,7 @@
 package com.android.smartlink.assist;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.util.FileUtil;
 import com.android.smartlink.util.ModbusHelp;
@@ -19,8 +20,8 @@ public abstract class MainRequestProvider extends BaseScheduleRequestProvider<Mo
     {
         if (Utils.isDevDebugMode(AppManager.getInstance().getApplication()))
         {
-            return new LocalProvider(callback);
-            //return new HttpProvider(callback);
+            return AppManager.getInstance().getRequestMode() == RequestMode.MODE_HTTP ?
+                    new HttpProvider(callback) : new LocalProvider(callback);
         }
 
         return new RemoteProvider(callback);

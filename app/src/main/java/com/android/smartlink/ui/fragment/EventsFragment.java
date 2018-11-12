@@ -3,7 +3,6 @@ package com.android.smartlink.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,7 @@ import butterknife.BindView;
  * Date: 2017-10-16
  * Time: 18:00
  */
-public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnRefreshListener, OnFilterChangedListener
+public class EventsFragment extends BaseSmartlinkFragment implements RequestCallback<Events>, OnFilterChangedListener
 {
     public static EventsFragment newInstance(int... ids)
     {
@@ -96,7 +95,8 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mRequestProvider = EventsRequestProvider.newInstance(this);
 
-        mRequestProvider.schedule(RequestUrl.obtainEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        //mRequestProvider.schedule(RequestUrl.obtainEventsUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
+        mRequestProvider.request(RequestUrl.obtainEventsUrl());
 
         mLoadingLayout.showLoading();
     }
@@ -121,12 +121,6 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     public void onError(Throwable throwable)
     {
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
-    }
-
-    @Override
-    public void onRefresh()
-    {
-        mRequestProvider.request(RequestUrl.obtainEventsUrl());
     }
 
     @Override

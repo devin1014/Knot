@@ -31,7 +31,7 @@ public interface IModuleAddress
     int TOGGLE_255_CHANNEL_9 = 14560;
 
     int TOGGLE_SLAVE_ID_1 = 1;
-    int TOGGLE_1_CHANNEL_1 = 14400;
+    int TOGGLE_1_CHANNEL_1 = 14440;
     int TOGGLE_1_CHANNEL_2 = 14520;
 
     class ModuleAddress

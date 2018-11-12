@@ -10,14 +10,19 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.BaseExecutorService;
+import com.android.smartlink.assist.eventbus.EventBusMessages.ModuleDataChangedEvent;
 import com.android.smartlink.bean.ModulesData;
-import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
+import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.ToggleModuleImp;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
 import com.android.smartlink.util.UIConverter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -28,7 +33,7 @@ import butterknife.BindView;
  * Date: 2018-05-20
  * Time: 15:04
  */
-public class ToggleListFragment extends BaseModulesFragment
+public class ToggleListFragment extends BaseSmartlinkFragment
 {
     public static ToggleListFragment newInstance(Bundle arguments, int index)
     {
@@ -76,13 +81,38 @@ public class ToggleListFragment extends BaseModulesFragment
     }
 
     @Override
-    public void notifyModulesChanged(ModulesData modules)
+    public void onStart()
+    {
+        super.onStart();
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onModuleDataChangedEvent(ModuleDataChangedEvent event)
     {
         if (mAdapter != null)
         {
-            mAdapter.setData(parseList(modules));
+            mAdapter.setData(parseList(event.modulesData));
         }
     }
+
+    //    @Override
+    //    public void notifyModulesChanged(ModulesData modules)
+    //    {
+    //        if (mAdapter != null)
+    //        {
+    //            mAdapter.setData(parseList(modules));
+    //        }
+    //    }
 
     private List<ToggleModuleImp> parseList(@Nullable ModulesData modules)
     {

@@ -13,17 +13,17 @@ public class ImageResUtil
 
     static
     {
-        final Integer[] defaultImages = new Integer[]{R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo};
+        final Integer[] defaultImages = new Integer[]{R.drawable.module_default,
+                R.drawable.module_default_light,
+                R.drawable.module_default,
+                R.drawable.module_default_light};
 
         mImageResourceSparse.put(ModuleAddress.parse(ModuleAddress.MODULE_0),
                 new Integer[]{
                         R.drawable.module_electrical,
                         R.drawable.module_electrical_white,
-                        R.drawable.module_electrical_white_large,
-                        R.drawable.module_electrical_white_large});
+                        R.drawable.module_electrical_large,
+                        R.drawable.module_electrical_large_white});
 
         mImageResourceSparse.put(ModuleAddress.parse(ModuleAddress.MODULE_5),
                 new Integer[]{
@@ -36,7 +36,7 @@ public class ImageResUtil
                 new Integer[]{
                         R.drawable.module_freezer,
                         R.drawable.module_freezer_white,
-                        R.drawable.module_freezer_white_large,
+                        R.drawable.module_freezer,
                         R.drawable.module_freezer_white_large});
 
         mImageResourceSparse.put(ModuleAddress.parse(ModuleAddress.MODULE_4),
@@ -97,14 +97,9 @@ public class ImageResUtil
     {
         Integer[] array = mImageResourceSparse.get(id);
 
-        if (array != null)
+        if (array != null && array.length == 4)
         {
-            int res = array[type];
-
-            if (res > 0)
-            {
-                return res;
-            }
+            return array[type];
         }
 
         return R.drawable.ic_logo;

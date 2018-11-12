@@ -41,12 +41,11 @@ public class AppManager
         }
     }
 
-    @IntDef({RequestMode.MODE_LOCAL, RequestMode.MODE_HTTP, RequestMode.MODE_REMOTE})
+    @IntDef({RequestMode.MODE_LOCAL, RequestMode.MODE_HTTP})
     public @interface RequestMode
     {
         int MODE_LOCAL = 0;
         int MODE_HTTP = 1;
-        int MODE_REMOTE = 2;
     }
 
     private final Application mApplication;
@@ -167,6 +166,8 @@ public class AppManager
     // ------------ Configuration ------------------------------------------------------------------------------
     private RequestUrl mHttpUrl;
 
+    private int mRequestMode;
+
     public void setModuleConfiguration(Configurations config) throws IllegalArgumentException
     {
         if (config == null)
@@ -174,8 +175,9 @@ public class AppManager
             throw new IllegalArgumentException("can not parse config!");
         }
 
-        //TODO:
-        mHttpUrl = config.getRequestMode() == RequestMode.MODE_LOCAL ? new LocalUrl(config.getLocalFeed()) : new HttpUrl(config.getHttpFeed());
+        mRequestMode = config.getRequestMode();
+
+        mHttpUrl = mRequestMode == RequestMode.MODE_LOCAL ? new LocalUrl(config.getLocalFeed()) : new HttpUrl(config.getHttpFeed());
 
         mModuleManager.setModuleConfiguration(config);
     }
@@ -183,6 +185,11 @@ public class AppManager
     public RequestUrl getHttpUrl()
     {
         return mHttpUrl;
+    }
+
+    public int getRequestMode()
+    {
+        return mRequestMode;
     }
 
     // ---------------------------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 package com.android.smartlink.assist;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.Events;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.ui.model.BaseModule.ModuleParser;
@@ -16,7 +17,8 @@ public abstract class EventsRequestProvider extends BaseScheduleRequestProvider<
 {
     public static EventsRequestProvider newInstance(RequestCallback<Events> callback)
     {
-        return new LocalProvider(callback);
+        return AppManager.getInstance().getRequestMode() == RequestMode.MODE_HTTP ?
+                new HttpProvider(callback) : new LocalProvider(callback);
     }
 
     EventsRequestProvider(RequestCallback<Events> callback)
@@ -37,6 +39,7 @@ public abstract class EventsRequestProvider extends BaseScheduleRequestProvider<
         {
             for (Event e : events.getEvents())
             {
+                //FIXME: should not generate id here!
                 e.setId(ModuleParser.generateId(e.getSlaveID(), e.getChannel()));
             }
         }

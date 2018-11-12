@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.ModulesData;
-import com.android.smartlink.ui.fragment.base.BaseModulesFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.util.ui.MagicIndicatorHelper;
 
@@ -72,22 +71,22 @@ public class ModuleFragment extends BaseSmartlinkFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    public void notifyModulesChanged(ModulesData modules)
-    {
-        if (mViewPager != null && mViewPager.getAdapter() != null)
-        {
-            Fragment fragment = ((ModuleAdapter) mViewPager.getAdapter()).getItem(0);
-
-            if (fragment instanceof ModuleStatusFragment)
-            {
-                ((ModuleStatusFragment) fragment).notifyModulesChanged(modules);
-            }
-        }
-    }
+    //    public void notifyModulesChanged(ModulesData modules)
+    //    {
+    //        if (mViewPager != null && mViewPager.getAdapter() != null)
+    //        {
+    //            Fragment fragment = ((ModuleAdapter) mViewPager.getAdapter()).getItem(0);
+    //
+    //            if (fragment instanceof ModuleStatusFragment)
+    //            {
+    //                ((ModuleStatusFragment) fragment).notifyModulesChanged(modules);
+    //            }
+    //        }
+    //    }
 
     private class ModuleAdapter extends FragmentPagerAdapter
     {
-        private SparseArray<BaseModulesFragment> mFragments;
+        private SparseArray<BaseSmartlinkFragment> mFragments;
 
         ModuleAdapter(FragmentManager fm)
         {
@@ -98,7 +97,7 @@ public class ModuleFragment extends BaseSmartlinkFragment
         @Override
         public Fragment getItem(int position)
         {
-            BaseModulesFragment fragment = mFragments.get(position);
+            BaseSmartlinkFragment fragment = mFragments.get(position);
 
             if (fragment != null)
             {

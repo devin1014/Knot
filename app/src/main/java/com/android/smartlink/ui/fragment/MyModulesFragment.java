@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.assist.eventbus.MessageEvent.EditModuleEvent;
+import com.android.smartlink.assist.eventbus.EventBusMessages.EditModuleEvent;
 import com.android.smartlink.ui.activity.MyModuleActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIModuleImp;

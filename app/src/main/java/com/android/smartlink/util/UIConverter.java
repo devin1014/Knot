@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class UIConverter
 {
-    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list)
+    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list, @ImageType int imageType)
     {
-        return convertModules(list, 0, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT);
+        return convertModules(list, 0, list.size(), imageType);
     }
 
     public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list, int from, int to, int imageType)
