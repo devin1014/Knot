@@ -126,7 +126,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         }
         else if (fragment instanceof ModuleFragment)
         {
-            //((ModuleFragment) fragment).notifyModulesChanged(modules);
             EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
         }
 
@@ -138,7 +137,6 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         }
         else if (toggleFragment instanceof ToggleFragment)
         {
-            //((ToggleFragment) toggleFragment).notifyModulesChanged(modules);
             EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
         }
     }

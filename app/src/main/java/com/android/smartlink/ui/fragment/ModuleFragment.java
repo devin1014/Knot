@@ -71,19 +71,6 @@ public class ModuleFragment extends BaseSmartlinkFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    //    public void notifyModulesChanged(ModulesData modules)
-    //    {
-    //        if (mViewPager != null && mViewPager.getAdapter() != null)
-    //        {
-    //            Fragment fragment = ((ModuleAdapter) mViewPager.getAdapter()).getItem(0);
-    //
-    //            if (fragment instanceof ModuleStatusFragment)
-    //            {
-    //                ((ModuleStatusFragment) fragment).notifyModulesChanged(modules);
-    //            }
-    //        }
-    //    }
-
     private class ModuleAdapter extends FragmentPagerAdapter
     {
         private SparseArray<BaseSmartlinkFragment> mFragments;

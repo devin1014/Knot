@@ -87,20 +87,6 @@ public class ToggleFragment extends BaseSmartlinkFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    //    @Override
-    //    public void notifyModulesChanged(ModulesData modules)
-    //    {
-    //        if (mViewPager != null)
-    //        {
-    //            FragmentPagerAdapter adapter = (FragmentPagerAdapter) mViewPager.getAdapter();
-    //
-    //            for (int i = 0; i < adapter.getCount(); i++)
-    //            {
-    //                ((ToggleListFragment) adapter.getItem(i)).notifyModulesChanged(modules);
-    //            }
-    //        }
-    //    }
-
     private class ToggleAdapter extends FragmentPagerAdapter
     {
         private SparseArray<Fragment> mFragmentSparseArray = new SparseArray<>();

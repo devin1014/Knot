@@ -100,6 +100,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
         EventBus.getDefault().unregister(this);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onModuleDataChangedEvent(ModuleDataChangedEvent event)
     {
@@ -111,13 +112,4 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
         AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
 
-    //    @Override
-    //    public void notifyModulesChanged(ModulesData modules)
-    //    {
-    //        List<MonitorModuleData> list = modules.getMonitorModules();
-    //
-    //        mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
-    //
-    //        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
-    //    }
 }

@@ -95,6 +95,7 @@ public class ToggleListFragment extends BaseSmartlinkFragment
         EventBus.getDefault().unregister(this);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onModuleDataChangedEvent(ModuleDataChangedEvent event)
     {
@@ -103,15 +104,6 @@ public class ToggleListFragment extends BaseSmartlinkFragment
             mAdapter.setData(parseList(event.modulesData));
         }
     }
-
-    //    @Override
-    //    public void notifyModulesChanged(ModulesData modules)
-    //    {
-    //        if (mAdapter != null)
-    //        {
-    //            mAdapter.setData(parseList(modules));
-    //        }
-    //    }
 
     private List<ToggleModuleImp> parseList(@Nullable ModulesData modules)
     {
