@@ -19,8 +19,7 @@ import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,6 +36,8 @@ public class SettingsFragment extends BaseSmartlinkFragment
 
     @BindView(R.id.settings_demo)
     View mSettingDemo;
+
+    private SettingsAdapter mSettingsAdapter;
 
     @Nullable
     @Override
@@ -55,11 +56,9 @@ public class SettingsFragment extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        SettingsAdapter adapter;
+        mRecyclerView.setAdapter(mSettingsAdapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
 
-        mRecyclerView.setAdapter(adapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener));
-
-        adapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings),
+        mSettingsAdapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings),
 
                 getResources().getStringArray(R.array.settings_image)));
 
@@ -69,8 +68,10 @@ public class SettingsFragment extends BaseSmartlinkFragment
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<UISetting> adapter, View view, UISetting setting, int position)
+        public void onItemClick(View view, UISetting uiSetting)
         {
+            final int position = mSettingsAdapter.findItemPosition(uiSetting);
+
             switch (position)
             {
                 case Constants.POS_SETTINGS_ACCOUNT:
@@ -80,7 +81,7 @@ public class SettingsFragment extends BaseSmartlinkFragment
                 case Constants.POS_SETTINGS_MY_EQUIPMENT:
 
                     //showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
-                    MyModuleActivity.startActivity(getActivity(), setting.getName());
+                    MyModuleActivity.startActivity(getActivity(), uiSetting.getName());
 
                     break;
 
@@ -98,13 +99,13 @@ public class SettingsFragment extends BaseSmartlinkFragment
 
                 case Constants.POS_SETTINGS_TERMS:
 
-                    SingleActivity.startTermsActivity(getActivity(), setting.getName());
+                    SingleActivity.startTermsActivity(getActivity(), uiSetting.getName());
 
                     break;
 
                 case Constants.POS_SETTINGS_ABOUT:
 
-                    SingleActivity.startAboutActivity(getActivity(), setting.getName());
+                    SingleActivity.startAboutActivity(getActivity(), uiSetting.getName());
 
                     break;
             }

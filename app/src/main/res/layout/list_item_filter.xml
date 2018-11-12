@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -10,17 +11,16 @@
             type="com.android.smartlink.ui.model.UIFilter" />
 
         <variable
-            name="handler"
-            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+            name="itemClickListener"
+            type="com.neulion.core.widget.recyclerview.listener.OnItemClickListener" />
 
     </data>
 
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{(view)->handler.onItemClick(view,data)}"
+        android:onClick="@{(view) -> itemClickListener.onItemClick(view , data)}"
         android:paddingLeft="30dp"
         android:paddingRight="20dp"
         app:selected="@{data.checked}"

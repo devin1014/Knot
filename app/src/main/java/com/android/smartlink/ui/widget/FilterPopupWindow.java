@@ -13,8 +13,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.widget.adapter.FilterAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import java.util.List;
 
@@ -68,11 +67,11 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
     }
 
     @Override
-    public void onItemClick(DataBindingAdapter<UIFilter> adapter, View view, UIFilter module, int position)
+    public void onItemClick(View view, UIFilter uiFilter)
     {
         view.setSelected(!view.isSelected());
 
-        module.setChecked(view.isSelected());
+        uiFilter.setChecked(view.isSelected());
 
         if (mOnFilterChangedListener != null)
         {

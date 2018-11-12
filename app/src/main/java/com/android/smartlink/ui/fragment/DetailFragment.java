@@ -25,7 +25,7 @@ import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
 import com.android.smartlink.util.AppDataBindingAdapter;
-import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import org.achartengine.GraphicalView;
 
@@ -101,7 +101,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
     {
         MonitorModuleImp uiModule = (MonitorModuleImp) getArguments().getSerializable(Constants.KEY_EXTRA_UI_MODULE);
 
-        AppDataBindingAdapter.binding(view, new int[]{BR.data, BR.handler}, new Object[]{uiModule, mOnItemClickListener});
+        AppDataBindingAdapter.binding(view, new int[]{BR.data, BR.itemClickListener}, new Object[]{uiModule, mOnItemClickListener});
 
         mViewPager.setAdapter(new SuggestPagerAdapter(getActivity()));
 
@@ -164,7 +164,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
         mViewPager.setCurrentItem(nextPos, true);
     }
 
-    private DataBindingHandler<MonitorModuleImp> mOnItemClickListener = new DataBindingHandler<MonitorModuleImp>()
+    private OnItemClickListener<MonitorModuleImp> mOnItemClickListener = new OnItemClickListener<MonitorModuleImp>()
     {
         @Override
         public void onItemClick(View view, MonitorModuleImp module)

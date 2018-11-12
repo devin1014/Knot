@@ -15,8 +15,7 @@ import com.android.smartlink.ui.model.UIModuleImp;
 import com.android.smartlink.ui.widget.adapter.MyModulesAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -76,6 +75,7 @@ public class MyModulesFragment extends BaseSmartlinkFragment implements OnItemCl
         EventBus.getDefault().unregister(this);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEditModuleEvent(EditModuleEvent event)
     {
@@ -89,7 +89,7 @@ public class MyModulesFragment extends BaseSmartlinkFragment implements OnItemCl
     }
 
     @Override
-    public void onItemClick(DataBindingAdapter<UIModuleImp> adapter, View view, UIModuleImp item, int position)
+    public void onItemClick(View view, UIModuleImp uiModuleImp)
     {
         if (getActivity() instanceof MyModuleActivity)
         {

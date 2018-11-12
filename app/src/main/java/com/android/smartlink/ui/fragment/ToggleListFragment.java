@@ -17,8 +17,7 @@ import com.android.smartlink.ui.model.ToggleModuleImp;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
 import com.android.smartlink.util.UIConverter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -127,15 +126,15 @@ public class ToggleListFragment extends BaseSmartlinkFragment
     private OnItemClickListener<ToggleModuleImp> mToggleOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<ToggleModuleImp> dataBindingAdapter, View view, ToggleModuleImp uiToggle, int i)
+        public void onItemClick(View view, ToggleModuleImp toggleModuleImp)
         {
-            boolean isToggleOn = uiToggle.isToggleOn();
+            boolean isToggleOn = toggleModuleImp.isToggleOn();
 
-            uiToggle.setToggleOn(!isToggleOn);
+            toggleModuleImp.setToggleOn(!isToggleOn);
 
             int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
 
-            mExecutorService.execute(uiToggle.getId(), uiToggle.getDeviceId(), value);
+            mExecutorService.execute(toggleModuleImp.getId(), toggleModuleImp.getDeviceId(), value);
 
             view.setSelected(!isToggleOn);
         }

@@ -33,8 +33,7 @@ import com.android.smartlink.ui.widget.adapter.ModuleAdapter.HeadHolder;
 import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import butterknife.BindView;
 
@@ -120,11 +119,12 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        if (mModuleAdapter.getHeadCount() == 0)
-        {
-            mModuleAdapter.addHeadObject(modules.getMonitorModules());
-        }
-        else
+        //TODO
+        //        if (mModuleAdapter.getHeadCount() == 0)
+        //        {
+        //            mModuleAdapter.addHeadObject(modules.getMonitorModules());
+        //        }
+        //        else
         {
             ViewHolder holder = mRecyclerView.findViewHolderForLayoutPosition(0);
 
@@ -156,21 +156,21 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     private OnItemClickListener<IModule> mOnItemClickListener = new OnItemClickListener<IModule>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<IModule> dataBindingAdapter, View view, IModule module, int i)
+        public void onItemClick(View view, IModule iModule)
         {
-            if (module.isToggle())
+            if (iModule.isToggle())
             {
                 boolean isToggleOn = view.isSelected();
 
                 int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
 
-                mExecutorService.execute(module.getId(), 255, value);//FIXME,deviceId
+                mExecutorService.execute(iModule.getId(), 255, value);//FIXME,deviceId
 
                 view.setSelected(!isToggleOn);
             }
             else
             {
-                DetailActivity.startActivity(getActivity(), module.getName(), (MonitorModuleImp) module);
+                DetailActivity.startActivity(getActivity(), iModule.getName(), (MonitorModuleImp) iModule);
             }
         }
     };

@@ -1,34 +1,27 @@
 package com.android.smartlink.ui.widget.adapter;
 
+import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.android.smartlink.BR;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
-import com.neulion.core.widget.recyclerview.handler.DataBindingHandler;
+import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
-
-import java.util.List;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 /**
  * User: LIUWEI
  * Date: 2017-10-18
  * Time: 15:56
  */
-public class ModuleAdapter extends BaseAdapter<IModule>
+public class ModuleAdapter extends DiffDataBindingAdapter<IModule>
 {
     public ModuleAdapter(LayoutInflater layoutInflater, OnItemClickListener<IModule> listener)
     {
         super(layoutInflater, listener);
-    }
-
-    @Override
-    public DataBindingHolder<IModule> onCreateHeadHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i)
-    {
-        return new HeadHolder(layoutInflater.inflate(R.layout.comp_home_module_status, viewGroup, false), null);
     }
 
     @Override
@@ -43,9 +36,18 @@ public class ModuleAdapter extends BaseAdapter<IModule>
     }
 
     @Override
-    public int getViewType(int position)
+    public int getItemViewType(int position)
     {
         return position;
+    }
+
+    @Override
+    public void onBindViewHolder(DataBindingHolder<IModule> holder, IModule iModule, int i)
+    {
+        ViewDataBinding binding = holder.getViewDataBinding();
+        binding.setVariable(BR.data, iModule);
+        binding.setVariable(BR.itemClickListener, this);
+        binding.executePendingBindings();
     }
 
     // ----------------------------------------------------------------
@@ -55,19 +57,19 @@ public class ModuleAdapter extends BaseAdapter<IModule>
     {
         private ModuleStatusLayout mModuleStatusLayout;
 
-        HeadHolder(View itemView, DataBindingHandler<IModule> handler)
+        HeadHolder(View itemView, OnItemClickListener<IModule> handler)
         {
             super(itemView, handler);
 
             mModuleStatusLayout = (ModuleStatusLayout) itemView;
         }
 
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onBindViewHolder(Object object)
-        {
-            mModuleStatusLayout.setModules((List<MonitorModuleData>) object);
-        }
+        //        @SuppressWarnings("unchecked")
+        //        @Override
+        //        public void onBindViewHolder(Object object)
+        //        {
+        //            mModuleStatusLayout.setModules((List<MonitorModuleData>) object);
+        //        }
 
         public ModuleStatusLayout getModuleStatusLayout()
         {

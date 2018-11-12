@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,7 @@ import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter.OnItemClickListener;
+import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import butterknife.BindView;
 
@@ -30,6 +30,8 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
 {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    private SettingsAdapter mSettingsAdapter;
 
     @Nullable
     @Override
@@ -48,13 +50,15 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        SettingsAdapter adapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener);
+        mSettingsAdapter = new SettingsAdapter(getActivity().getLayoutInflater(), mOnItemClickListener);
 
-        adapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings),
+        mSettingsAdapter.setData(ConvertUtil.convertSettings(getResources().getStringArray(R.array.settings),
 
                 getResources().getStringArray(R.array.settings_image)));
 
-        mRecyclerView.setAdapter(adapter);
+        ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+
+        mRecyclerView.setAdapter(mSettingsAdapter);
 
         // show default account
         showFragment(R.id.settings_detail_container, new AccountFragment());
@@ -63,8 +67,10 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()
     {
         @Override
-        public void onItemClick(DataBindingAdapter<UISetting> adapter, View view, UISetting setting, int position)
+        public void onItemClick(View view, UISetting uiSetting)
         {
+            final int position = mSettingsAdapter.findItemPosition(uiSetting);
+
             switch (position)
             {
                 case Constants.POS_SETTINGS_ACCOUNT:

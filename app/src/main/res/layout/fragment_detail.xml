@@ -10,8 +10,8 @@
             type="com.android.smartlink.ui.model.MonitorModuleImp" />
 
         <variable
-            name="handler"
-            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+            name="itemClickListener"
+            type="com.neulion.core.widget.recyclerview.listener.OnItemClickListener" />
 
     </data>
 
@@ -111,7 +111,7 @@
                 android:layout_marginTop="@dimen/app_content_margin"
                 android:background="@drawable/common_item_bg"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:onClick="@{(view)->handler.onItemClick(view,data)}"
+                android:onClick="@{(view) -> itemClickListener.onItemClick(view , data)}"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 

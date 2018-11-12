@@ -13,8 +13,8 @@
             type="com.android.smartlink.ui.model.UITime" />
 
         <variable
-            name="handler"
-            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+            name="itemClickListener"
+            type="com.neulion.core.widget.recyclerview.listener.OnItemClickListener" />
 
     </data>
 

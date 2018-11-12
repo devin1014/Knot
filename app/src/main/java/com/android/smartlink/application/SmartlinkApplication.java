@@ -3,6 +3,7 @@ package com.android.smartlink.application;
 import android.support.multidex.MultiDexApplication;
 
 import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.assist.eventbus.AppEventBusIndex;
 import com.android.smartlink.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
@@ -10,6 +11,8 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.EScenarioType;
 import com.umeng.commonsdk.UMConfigure;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -33,6 +36,7 @@ public class SmartlinkApplication extends MultiDexApplication
         // App
         {
             AppManager.initialize(this);
+            EventBus.builder().addIndex(new AppEventBusIndex()).installDefaultEventBus();
         }
 
         // OkGo初始化

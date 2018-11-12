@@ -11,8 +11,8 @@
             type="com.android.smartlink.ui.model.UISetting" />
 
         <variable
-            name="handler"
-            type="com.neulion.core.widget.recyclerview.handler.DataBindingHandler" />
+            name="itemClickListener"
+            type="com.neulion.core.widget.recyclerview.listener.OnItemClickListener" />
 
     </data>
 
@@ -21,7 +21,7 @@
         android:layout_height="@dimen/settings_adapter_item_height"
         android:background="@drawable/common_status_background_white"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{(view)->handler.onItemClick(view,data)}">
+        android:onClick="@{(view) -> itemClickListener.onItemClick(view , data)}">
 
         <ImageView
             android:layout_width="30dp"
