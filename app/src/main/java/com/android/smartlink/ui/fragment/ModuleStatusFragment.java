@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.assist.eventbus.EventBusMessages.ModuleDataChangedEvent;
+import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataChanged;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
@@ -95,7 +95,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
     @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onModuleDataChangedEvent(ModuleDataChangedEvent event)
+    public void onModuleDataChangedEvent(EventModuleDataChanged event)
     {
         List<MonitorModuleData> list = event.modulesData.getMonitorModules();
 

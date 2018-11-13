@@ -17,7 +17,7 @@ import com.android.smartlink.assist.MainRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.WeatherManager;
 import com.android.smartlink.assist.WeatherManager.WeatherCallback;
-import com.android.smartlink.assist.eventbus.EventBusMessages.ModuleDataChangedEvent;
+import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataChanged;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
@@ -133,7 +133,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
                     FragmentUtils.newInstance(ToggleListFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
         }
 
-        EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
+        EventBus.getDefault().post(new EventModuleDataChanged(modules));
     }
 
     @Override

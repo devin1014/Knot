@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.assist.eventbus.EventBusMessages.EditModuleEvent;
+import com.android.smartlink.assist.eventbus.EventBusMessages.EventEditAction;
 import com.android.smartlink.ui.activity.MyDeviceActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIDeviceImp;
@@ -77,7 +77,7 @@ public class DevicesFragment extends BaseSmartlinkFragment implements OnItemClic
 
     @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEditModuleEvent(EditModuleEvent event)
+    public void onEditModuleEvent(EventEditAction event)
     {
         mAdapter.setEditMode(event.edited);
     }
