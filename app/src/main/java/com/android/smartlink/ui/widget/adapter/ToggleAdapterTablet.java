@@ -24,13 +24,4 @@ public class ToggleAdapterTablet extends DiffDataBindingAdapter<ToggleModuleImp>
     {
         return R.layout.adapter_item_toggle;
     }
-
-    //    @Override
-    //    public void onBindViewHolder(DataBindingHolder<ToggleModuleImp> holder, ToggleModuleImp toggleModuleImp, int i)
-    //    {
-    //        ViewDataBinding binding = holder.getViewDataBinding();
-    //        binding.setVariable(BR.data, toggleModuleImp);
-    //        binding.setVariable(BR.itemClickListener, this);
-    //        binding.executePendingBindings();
-    //    }
 }

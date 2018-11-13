@@ -28,13 +28,13 @@ public interface UIMonitorModule extends Module
 
     String getEnergy();
 
-    int getStatus();
+    int getModuleStatus();
 
     int getPowerLoad();
 
     int getColor();
 
-    boolean isNormal();
+    boolean hasAlarm();
 
     boolean isToggle();
 }

@@ -76,6 +76,11 @@ public class CircleView extends android.support.v7.widget.AppCompatImageView
         mBorderColor = color;
     }
 
+    public void setCircleBorderColorRes(int colorRes)
+    {
+        mBorderColor = getResources().getColor(colorRes);
+    }
+
     @SuppressWarnings("SuspiciousNameCombination")
     public void setCircleBorderWidth(int width)
     {
@@ -89,6 +94,11 @@ public class CircleView extends android.support.v7.widget.AppCompatImageView
         mProgressColor = color;
     }
 
+    public void setCircleProgressColorRes(int colorRes)
+    {
+        mProgressColor = getResources().getColor(colorRes);
+    }
+
     public void setCircleProgress(int progress)
     {
         mProgress = Math.min(Math.max(progress, 0), 100);
@@ -99,6 +109,11 @@ public class CircleView extends android.support.v7.widget.AppCompatImageView
     public void setCircleBackgroundColor(int color)
     {
         mCircleBackgroundColor = color;
+    }
+
+    public void setCircleBackgroundColorRes(int colorRes)
+    {
+        mCircleBackgroundColor = getResources().getColor(colorRes);
     }
 
     private RectF mRectF;

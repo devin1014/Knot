@@ -3,10 +3,8 @@ package com.android.smartlink.ui.widget.adapter;
 import android.view.LayoutInflater;
 
 import com.android.smartlink.R;
-import com.android.smartlink.databinding.ListItemFilterBinding;
 import com.android.smartlink.ui.model.UIFilter;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 /**
@@ -25,14 +23,5 @@ public class FilterAdapter extends DataBindingAdapter<UIFilter>
     protected int getLayout(int i)
     {
         return R.layout.list_item_filter;
-    }
-
-    @Override
-    public void onBindViewHolder(DataBindingHolder<UIFilter> holder, UIFilter uiFilter, int i)
-    {
-        ListItemFilterBinding binding = holder.getViewDataBinding();
-        binding.setData(uiFilter);
-        binding.setItemClickListener(this);
-        binding.executePendingBindings();
     }
 }

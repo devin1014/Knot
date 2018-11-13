@@ -3,7 +3,6 @@ package com.android.smartlink.ui.widget.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UISetting;
 import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
@@ -54,9 +53,8 @@ public class SettingsAdapter extends DataBindingAdapter<UISetting> implements On
     @Override
     public void onBindViewHolder(DataBindingHolder<UISetting> holder, UISetting uiSetting, int i)
     {
+        super.onBindViewHolder(holder, uiSetting, i);
+
         holder.itemView.setSelected(mSelectedPosition == i);
-        holder.getViewDataBinding().setVariable(BR.data, uiSetting);
-        holder.getViewDataBinding().setVariable(BR.itemClickListener, this);
-        holder.getViewDataBinding().executePendingBindings();
     }
 }

@@ -8,8 +8,6 @@
 
         <import type="android.view.View" />
 
-        <import type="com.android.smartlink.util.Helper.ToggleHelper" />
-
         <variable
             name="data"
             type="com.android.smartlink.ui.model.UIMonitorModule" />
@@ -45,8 +43,7 @@
                 app:circleBorderWidth="5dp"
                 app:circleProgress="@{data.powerLoad}"
                 app:circleProgressColor="@{data.color}"
-                app:imageRes="@{data.imageRes}"
-                app:selected="@{ToggleHelper.isToggleOn(data.status)}" />
+                app:imageRes="@{data.imageRes}" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -56,8 +53,8 @@
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/module_status_selector"
-                android:visibility="@{data.normal?View.GONE:View.VISIBLE}"
-                app:imageLevel="@{data.status}" />
+                app:imageLevel="@{data.moduleStatus}"
+                app:visible="@{data.hasAlarm}" />
 
         </FrameLayout>
 

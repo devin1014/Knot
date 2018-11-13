@@ -64,7 +64,7 @@ public class AlertNotifyManager
     {
         for (MonitorModuleImp module : moduleList)
         {
-            if (module.isError() || module.isAlarm())
+            if (module.hasAlarm())
             {
                 return true;
             }

@@ -68,7 +68,7 @@
                     android:contentDescription="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/status_circle_selector"
-                    app:imageLevel="@{data.status}" />
+                    app:imageLevel="@{data.moduleStatus}" />
 
             </FrameLayout>
 
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:gravity="center_vertical"
-                    android:text="@{(data.alarm||data.error)?data.powerLoadPercent:@string/module_status_normal}"
+                    android:text="@{data.hasAlarm?data.powerLoadPercent:@string/module_status_normal}"
                     android:textColor="#585b5d"
                     android:textSize="14dp" />
 

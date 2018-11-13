@@ -41,7 +41,7 @@
                 app:circleProgress="@{data.powerLoad}"
                 app:circleProgressColor="@{data.color}"
                 app:imageRes="@{data.imageRes}"
-                app:selected="@{ToggleHelper.isToggleOn(data.status)}" />
+                tools:src="@drawable/module_electrical" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -51,8 +51,8 @@
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/module_status_selector"
-                android:visibility="@{data.normal?View.GONE:View.VISIBLE}"
-                app:imageLevel="@{data.status}" />
+                app:imageLevel="@{data.moduleStatus}"
+                app:visible="@{data.hasAlarm}" />
 
         </FrameLayout>
 
@@ -66,7 +66,8 @@
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textStyle="normal"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="@string/app_name" />
 
     </LinearLayout>
 

@@ -26,7 +26,8 @@
         android:onClick="@{(view) -> itemClickListener.onItemClick(view , data)}"
         android:orientation="vertical"
         android:paddingBottom="12dp"
-        android:paddingTop="24dp">
+        android:paddingTop="24dp"
+        tools:background="#55888888">
 
         <FrameLayout
             android:layout_width="106dp"
@@ -52,8 +53,8 @@
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/module_status_selector"
-                android:visibility="@{data.normal ? View.GONE : View.VISIBLE}"
-                app:imageLevel="@{data.status}" />
+                app:imageLevel="@{data.moduleStatus}"
+                app:visible="@{data.hasAlarm}" />
 
         </FrameLayout>
 
@@ -72,7 +73,8 @@
             android:text="@{data.energy}"
             android:textColor="#bbffffff"
             android:textSize="14dp"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="12pw" />
 
     </LinearLayout>
 

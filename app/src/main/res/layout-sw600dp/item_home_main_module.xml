@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:background="#55888888">
 
         <com.android.smartlink.ui.widget.CircleView
             android:layout_width="130dp"
@@ -33,7 +34,7 @@
             app:circleProgress="@{data.powerLoad}"
             app:circleProgressColor="@{data.color}"
             app:imageRes="@{data.imageRes}"
-            tools:src="@drawable/module_electrical_white" />
+            tools:src="@drawable/module_electrical_large_white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
             android:textColor="#ffffff"
             android:textSize="16dp"
             android:textStyle="bold"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="@string/app_name" />
 
     </LinearLayout>
 

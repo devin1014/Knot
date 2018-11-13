@@ -16,7 +16,7 @@ import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
-import com.android.smartlink.util.AppDataBindingAdapter;
+import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 

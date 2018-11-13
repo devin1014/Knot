@@ -24,7 +24,7 @@ import com.android.smartlink.ui.widget.IndicatorView;
 import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
-import com.android.smartlink.util.AppDataBindingAdapter;
+import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import org.achartengine.GraphicalView;

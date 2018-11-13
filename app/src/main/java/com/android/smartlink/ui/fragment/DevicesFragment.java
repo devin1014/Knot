@@ -12,7 +12,7 @@ import com.android.smartlink.assist.eventbus.EventBusMessages.EditModuleEvent;
 import com.android.smartlink.ui.activity.MyDeviceActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIDeviceImp;
-import com.android.smartlink.ui.widget.adapter.MyModulesAdapter;
+import com.android.smartlink.ui.widget.adapter.MyDeviceAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
@@ -33,7 +33,7 @@ public class DevicesFragment extends BaseSmartlinkFragment implements OnItemClic
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    private MyModulesAdapter mAdapter;
+    private MyDeviceAdapter mAdapter;
 
     @Nullable
     @Override
@@ -52,7 +52,7 @@ public class DevicesFragment extends BaseSmartlinkFragment implements OnItemClic
 
     private void initComponent()
     {
-        mAdapter = new MyModulesAdapter(getActivity().getLayoutInflater(), this);
+        mAdapter = new MyDeviceAdapter(getActivity().getLayoutInflater(), this);
 
         mAdapter.setData(ConvertUtil.convertEquipment(AppManager.getInstance().getAllModules()));
 

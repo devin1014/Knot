@@ -163,6 +163,11 @@ public class ConvertUtil
         return result;
     }
 
+    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list)
+    {
+        return convertModules(list, ImageType.DRAWABLE_NORMAL);
+    }
+
     public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list, @ImageType int imageType)
     {
         return convertModules(list, 0, list.size(), imageType);

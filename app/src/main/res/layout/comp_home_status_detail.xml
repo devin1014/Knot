@@ -33,7 +33,7 @@
             android:contentDescription="@null"
             android:scaleType="centerInside"
             android:src="@drawable/module_status_s"
-            app:imageLevel="@{data.status}" />
+            app:imageLevel="@{data.moduleStatus}" />
 
         <TextView
             android:id="@+id/title"

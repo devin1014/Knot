@@ -27,7 +27,7 @@ import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIEvent;
-import com.android.smartlink.util.AppDataBindingAdapter;
+import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.android.smartlink.util.UICompat;
 
 import java.util.Collections;

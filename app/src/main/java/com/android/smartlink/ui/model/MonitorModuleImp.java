@@ -114,22 +114,28 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
 
     public String getStatusFormat()
     {
-        return mStatusArray[adjustStatus()];
+        return mStatusArray[getModuleStatus()];
     }
 
     public int getColor()
     {
-        return mStatusColor[adjustStatus() % mStatusColor.length];
+        return mStatusColor[getModuleStatus() % mStatusColor.length];
     }
 
     public int getTextColor()
     {
-        return mTextStatusColor[adjustStatus()];
+        return mTextStatusColor[getModuleStatus()];
     }
 
-    public int getStatus()
+    @Override
+    public int getModuleStatus()
     {
-        return adjustStatus();
+        if (isAlarm())
+        {
+            return Constants.STATUS_WARNING;
+        }
+
+        return mModule.getStatus();
     }
 
     @DiffContent
@@ -144,9 +150,13 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
         return false;
     }
 
-    public boolean isNormal()
+    @Override
+    public boolean hasAlarm()
     {
-        return !isAlarm() && (mModule.getStatus() == Constants.STATUS_NORMAL);
+        int status = mModule.getStatus();
+
+        return (status == Constants.STATUS_ERROR) // error
+                || (status == Constants.STATUS_NORMAL && getPowerLoad() >= Constants.POWER_LOAD_ALARM); // alert
     }
 
     public boolean isAlarm()
@@ -161,7 +171,6 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
         int status = mModule.getStatus();
 
         return status == Constants.STATUS_ERROR;
-
     }
 
     public String getPowerLoadPercent()
@@ -169,16 +178,20 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
         return getPowerLoad() + "%";
     }
 
-    private int adjustStatus()
+    @Override
+    public boolean equals(Object obj)
     {
-        if (isAlarm())
+        if (obj instanceof MonitorModuleImp)
         {
-            return Constants.STATUS_WARNING;
+            return getId() == ((MonitorModuleImp) obj).getId();
         }
 
-        return mModule.getStatus();
+        return super.equals(obj);
     }
 
+    // --------------------------------------------------------------------------------------------------
+    // - Helper
+    // --------------------------------------------------------------------------------------------------
     public static int getStatus(MonitorModuleData module)
     {
         int status = module.getStatus();
@@ -196,16 +209,5 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
         }
 
         return module.getStatus();
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof MonitorModuleImp)
-        {
-            return getId() == ((MonitorModuleImp) obj).getId();
-        }
-
-        return super.equals(obj);
     }
 }

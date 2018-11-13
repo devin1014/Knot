@@ -1,4 +1,4 @@
-package com.android.smartlink.util;
+package com.android.smartlink.util.databinding;
 
 import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.smartlink.Constants;
 import com.android.smartlink.Constants.MODULE_FLAG;
+import com.android.smartlink.ui.model.UIMonitorModule;
+import com.android.smartlink.util.ViewUtil;
 
 /**
  * User: LIUWEI
