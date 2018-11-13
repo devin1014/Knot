@@ -26,7 +26,7 @@ public class MyDeviceAdapter extends DiffDataBindingAdapter<UIDeviceImp>
     @Override
     protected int getLayout(int i)
     {
-        return R.layout.list_my_device;
+        return R.layout.adapter_mydevice;
     }
 
     //    @Override

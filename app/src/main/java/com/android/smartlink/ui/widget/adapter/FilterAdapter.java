@@ -22,6 +22,6 @@ public class FilterAdapter extends DataBindingAdapter<UIFilter>
     @Override
     protected int getLayout(int i)
     {
-        return R.layout.list_item_filter;
+        return R.layout.adapter_filter;
     }
 }

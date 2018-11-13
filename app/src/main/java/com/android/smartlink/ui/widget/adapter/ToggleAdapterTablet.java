@@ -22,6 +22,6 @@ public class ToggleAdapterTablet extends DiffDataBindingAdapter<ToggleModuleImp>
     @Override
     protected int getLayout(int i)
     {
-        return R.layout.adapter_item_toggle;
+        return R.layout.adapter_toggle;
     }
 }

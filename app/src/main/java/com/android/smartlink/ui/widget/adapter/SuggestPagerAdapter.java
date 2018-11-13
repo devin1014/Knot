@@ -46,7 +46,7 @@ public class SuggestPagerAdapter extends PagerAdapter
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
-        TextView textView = (TextView) mInflater.inflate(R.layout.list_item_engener_suggest, container, false);
+        TextView textView = (TextView) mInflater.inflate(R.layout.adapter_suggest, container, false);
 
         textView.setText(mDataArray[position]);
 

@@ -26,7 +26,7 @@ public class SettingsAdapter extends DataBindingAdapter<UISetting> implements On
     @Override
     protected int getLayout(int i)
     {
-        return R.layout.list_item_settings;
+        return R.layout.adapter_settings;
     }
 
     private static final int POS_FEEDBACK = 2; // not selected 'FeedBack' menu

@@ -21,6 +21,6 @@ public class EventsAdapter extends DiffDataBindingAdapter<UIEvent>
     @Override
     protected int getLayout(int i)
     {
-        return R.layout.list_item_events;
+        return R.layout.adapter_events;
     }
 }
