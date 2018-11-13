@@ -2,6 +2,8 @@ package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +21,11 @@ import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
+import net.lucode.hackware.magicindicator.MagicIndicator;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -34,22 +36,12 @@ import butterknife.BindView;
  */
 public class ToggleListFragment extends BaseSmartlinkFragment
 {
-    public static ToggleListFragment newInstance(Bundle arguments, int index)
-    {
-        arguments.putInt(Constants.KEY_EXTRA_TOGGLE_INDEX, index);
-        ToggleListFragment fragment = new ToggleListFragment();
-        fragment.setArguments(arguments);
-        return fragment;
-    }
-
     @BindView(R.id.toggle_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.magic_indicator)
+    MagicIndicator mMagicIndicator;
 
     private ToggleAdapterTablet mAdapter;
-
-    private int mPageIndex = 0;
-
-    private BaseExecutorService mExecutorService = new BaseExecutorService();
 
     @Nullable
     @Override
@@ -68,15 +60,28 @@ public class ToggleListFragment extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        mPageIndex = getArguments().getInt(Constants.KEY_EXTRA_TOGGLE_INDEX);
-
         ModulesData modules = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
-        mAdapter = new ToggleAdapterTablet(getLayoutInflater(), mToggleOnItemClickListener);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.HORIZONTAL, false));
 
-        mAdapter.setData(parseList(modules));
+        mRecyclerView.setItemAnimator(null);
+
+        mAdapter = new ToggleAdapterTablet(getLayoutInflater(), mOnItemClickListener);
+
+        mAdapter.setData(ConvertUtil.convertToggle(modules.getToggleModules()));
 
         mRecyclerView.setAdapter(mAdapter);
+
+        LinearSnapHelper pagerSnapHelper = new LinearSnapHelper();
+
+        pagerSnapHelper.attachToRecyclerView(mRecyclerView);
+
+        //        mMagicIndicator.setNavigator(MagicIndicatorHelper.newScaleCircleNavigator(getActivity(),
+        //                2,
+        //                new int[]{Color.parseColor("#ccffffff"), Color.parseColor("#ffffffff")},
+        //                new int[]{2, 4}));
+        //
+        // ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
     @Override
@@ -101,21 +106,13 @@ public class ToggleListFragment extends BaseSmartlinkFragment
     {
         if (mAdapter != null)
         {
-            mAdapter.setData(parseList(event.modulesData));
+            mAdapter.setData(ConvertUtil.convertToggle(event.modulesData.getToggleModules()));
         }
     }
 
-    private List<ToggleModuleImp> parseList(@Nullable ModulesData modules)
-    {
-        if (modules == null || modules.getToggleModules() == null)
-        {
-            return null;
-        }
+    private BaseExecutorService mExecutorService = new BaseExecutorService();
 
-        return ConvertUtil.convertToggle(modules.getToggleModules(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
-    }
-
-    private OnItemClickListener<ToggleModuleImp> mToggleOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()
+    private OnItemClickListener<ToggleModuleImp> mOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()
     {
         @Override
         public void onItemClick(View view, ToggleModuleImp toggleModuleImp)
@@ -124,9 +121,9 @@ public class ToggleListFragment extends BaseSmartlinkFragment
 
             int value = on ? MODULE_FLAG.CTRL_ON.value : MODULE_FLAG.CTRL_OFF.value;
 
-            view.setSelected(on);
-
             mExecutorService.execute(toggleModuleImp.getId(), toggleModuleImp.getSlaveID(), value);
+
+            mAdapter.updateItem(toggleModuleImp);
         }
     };
 }

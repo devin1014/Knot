@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +26,11 @@ import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.util.ConvertUtil;
+import com.android.smartlink.util.FragmentUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 
@@ -111,6 +114,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
         super.onDestroyView();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onResponse(ModulesData modules)
     {
@@ -118,27 +122,19 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
         mAlertManager.notifyNotification(getActivity(), ConvertUtil.convertModules(modules.getMonitorModules(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
-        Fragment fragment = getChildFragmentManager().findFragmentById(R.id.home_module_container);
-
-        if (fragment == null)
+        if (getChildFragmentManager().findFragmentById(R.id.home_module_container) == null)
         {
-            replaceFragment(R.id.home_module_container, ModuleFragment.newInstance(modules));
-        }
-        else if (fragment instanceof ModuleFragment)
-        {
-            EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
+            replaceFragment(R.id.home_module_container,
+                    FragmentUtils.newInstance(ModuleFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
         }
 
-        Fragment toggleFragment = getChildFragmentManager().findFragmentById(R.id.home_toggle_container);
+        if (getChildFragmentManager().findFragmentById(R.id.home_toggle_container) == null)
+        {
+            replaceFragment(R.id.home_toggle_container,
+                    FragmentUtils.newInstance(ToggleListFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
+        }
 
-        if (toggleFragment == null)
-        {
-            replaceFragment(R.id.home_toggle_container, ToggleFragment.newInstance(modules));
-        }
-        else if (toggleFragment instanceof ToggleFragment)
-        {
-            EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
-        }
+        EventBus.getDefault().post(new ModuleDataChangedEvent(modules));
     }
 
     @Override

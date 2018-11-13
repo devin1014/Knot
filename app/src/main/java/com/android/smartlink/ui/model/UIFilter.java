@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.model;
 
 
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
 
 /**
@@ -17,6 +18,12 @@ public class UIFilter extends DefaultBaseModuleImp
         super(baseModule);
 
         mChecked = true;
+    }
+
+    @Override
+    public String getName()
+    {
+        return AppManager.getInstance().getModuleName(getId());
     }
 
     public boolean isChecked()

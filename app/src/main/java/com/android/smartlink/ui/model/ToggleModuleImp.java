@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.model;
 
 import com.android.smartlink.Constants.MODULE_FLAG;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
@@ -49,6 +50,12 @@ public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializabl
     }
 
     @Override
+    public String getName()
+    {
+        return AppManager.getInstance().getModuleName(getId());
+    }
+
+    @Override
     public int getStatus()
     {
         return mStatus;
@@ -72,4 +79,16 @@ public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializabl
 
         return false;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof ToggleModuleImp)
+        {
+            return getId() == ((ToggleModuleImp) obj).getId();
+        }
+
+        return super.equals(obj);
+    }
+
 }

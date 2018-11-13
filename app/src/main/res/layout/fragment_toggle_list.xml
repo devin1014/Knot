@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.neulion.core.widget.recyclerview.RecyclerView
-    android:id="@+id/toggle_recycler_view"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
-    app:dividerSize="10dp"
-    app:orientation="vertical" />
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/toggle_title"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/label_module_control"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        tools:ignore="SpUsage" />
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="48dp"
+        android:layout_height="@dimen/home_indicator_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <com.neulion.core.widget.recyclerview.RecyclerView
+        android:id="@+id/toggle_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/magic_indicator"
+        android:layout_below="@id/toggle_title"
+        android:overScrollMode="never" />
+
+</RelativeLayout>

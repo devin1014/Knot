@@ -197,4 +197,15 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
 
         return module.getStatus();
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof MonitorModuleImp)
+        {
+            return getId() == ((MonitorModuleImp) obj).getId();
+        }
+
+        return super.equals(obj);
+    }
 }

@@ -8,6 +8,7 @@ import com.android.smartlink.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.neulion.core.widget.recyclerview.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.EScenarioType;
 import com.umeng.commonsdk.UMConfigure;
@@ -37,6 +38,7 @@ public class SmartlinkApplication extends MultiDexApplication
         {
             AppManager.initialize(this);
             EventBus.builder().addIndex(new AppEventBusIndex()).installDefaultEventBus();
+            LogUtil.setDEBUG(debugMode);
         }
 
         // OkGo初始化

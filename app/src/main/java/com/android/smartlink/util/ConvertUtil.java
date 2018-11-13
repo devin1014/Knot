@@ -1,8 +1,6 @@
 package com.android.smartlink.util;
 
-import com.android.smartlink.Constants;
-import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.bean.AllFilter;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
@@ -159,7 +157,7 @@ public class ConvertUtil
 
         if (addOthers)
         {
-            result.add(new UIFilter(new OtherFilter()));
+            result.add(new UIFilter(new AllFilter()));
         }
 
         return result;
@@ -215,27 +213,6 @@ public class ConvertUtil
         }
 
         return moduleList;
-    }
-
-    private static class OtherFilter implements BaseModule
-    {
-        @Override
-        public int getSlaveID()
-        {
-            return Constants.ID_ALL;
-        }
-
-        @Override
-        public int getChannel()
-        {
-            return Constants.ID_ALL;
-        }
-
-        @Override
-        public String getName()
-        {
-            return AppManager.getInstance().getString(R.string.events_filter_other);
-        }
     }
 
     public static String convertStatus(int status)

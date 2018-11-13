@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
+import com.android.smartlink.bean.AllFilter;
 import com.android.smartlink.bean.Configurations;
 import com.android.smartlink.bean.Configurations.DataInfo;
 import com.android.smartlink.bean.Configurations.ModuleConfig;
@@ -53,6 +54,10 @@ class ModuleManager
         parseModules(configuration.getMonitor());
 
         parseModules(configuration.getControl());
+
+        DefaultBaseModuleImp allFilterModuleImp = new DefaultBaseModuleImp(new AllFilter());
+
+        setModuleName(allFilterModuleImp.getId(), allFilterModuleImp.getName());
     }
 
     private void clear()

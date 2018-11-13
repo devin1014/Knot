@@ -1,6 +1,5 @@
 package com.android.smartlink.ui.model;
 
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.util.ImageResUtil;
 
@@ -52,7 +51,7 @@ public interface BaseModule
         @Override
         public String getName()
         {
-            return AppManager.getInstance().getModuleName(getId());
+            return mModule.getName();
         }
 
         public final int getId()

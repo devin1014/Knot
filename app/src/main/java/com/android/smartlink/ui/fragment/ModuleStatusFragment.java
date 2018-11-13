@@ -35,13 +35,6 @@ import butterknife.BindView;
  */
 public class ModuleStatusFragment extends BaseSmartlinkFragment
 {
-    public static ModuleStatusFragment newInstance(Bundle arguments)
-    {
-        ModuleStatusFragment fragment = new ModuleStatusFragment();
-        fragment.setArguments(arguments);
-        return fragment;
-    }
-
     @BindView(R.id.module_status_recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.home_main_module)

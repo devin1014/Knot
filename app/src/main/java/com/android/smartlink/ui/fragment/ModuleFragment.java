@@ -16,6 +16,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.util.FragmentUtils;
 import com.android.smartlink.util.ui.MagicIndicatorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -93,7 +94,7 @@ public class ModuleFragment extends BaseSmartlinkFragment
 
             if (position == 0)
             {
-                fragment = ModuleStatusFragment.newInstance(getArguments());
+                fragment = FragmentUtils.newInstance(ModuleStatusFragment.class, getArguments());
             }
             else
             {
