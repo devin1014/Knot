@@ -10,7 +10,7 @@
 
         <variable
             name="data"
-            type="com.android.smartlink.ui.model.UIModuleImp" />
+            type="com.android.smartlink.ui.model.UIDeviceImp" />
 
         <variable
             name="itemClickListener"

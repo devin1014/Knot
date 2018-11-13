@@ -8,18 +8,18 @@ import android.support.annotation.Nullable;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
-import com.android.smartlink.ui.fragment.MyModulesFragment;
+import com.android.smartlink.ui.fragment.DevicesFragment;
 
 /**
  * User: LIUWEI
  * Date: 2017-10-24
  * Time: 17:56
  */
-public class MyModuleActivity extends BaseSmartlinkActivity
+public class MyDeviceActivity extends BaseSmartlinkActivity
 {
     public static void startActivity(Activity activity, String title)
     {
-        Intent intent = new Intent(activity, MyModuleActivity.class);
+        Intent intent = new Intent(activity, MyDeviceActivity.class);
 
         intent.putExtra(Constants.KEY_EXTRA_TITLE, title);
 
@@ -29,13 +29,13 @@ public class MyModuleActivity extends BaseSmartlinkActivity
     @Override
     protected int getLayoutId()
     {
-        return R.layout.activity_my_module;
+        return R.layout.activity_my_device;
     }
 
     @Override
     protected void onActivityCreate(@Nullable Bundle savedInstanceState)
     {
-        mNavigationComposite.showPrimaryFragment(new MyModulesFragment(), getIntent().getStringExtra(Constants.KEY_EXTRA_TITLE));
+        mNavigationComposite.showPrimaryFragment(new DevicesFragment(), getIntent().getStringExtra(Constants.KEY_EXTRA_TITLE));
     }
 
     public void toEditMode()

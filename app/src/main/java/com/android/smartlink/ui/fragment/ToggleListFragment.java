@@ -15,7 +15,7 @@ import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.ToggleModuleImp;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
-import com.android.smartlink.util.UIConverter;
+import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
@@ -112,7 +112,7 @@ public class ToggleListFragment extends BaseSmartlinkFragment
             return null;
         }
 
-        return UIConverter.convertToggle(modules.getToggleModules(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
+        return ConvertUtil.convertToggle(modules.getToggleModules(), mPageIndex * ToggleFragment.MAX_TOGGLE_SIZE, ToggleFragment.MAX_TOGGLE_SIZE);
     }
 
     private OnItemClickListener<ToggleModuleImp> mToggleOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()
@@ -120,15 +120,13 @@ public class ToggleListFragment extends BaseSmartlinkFragment
         @Override
         public void onItemClick(View view, ToggleModuleImp toggleModuleImp)
         {
-            boolean isToggleOn = toggleModuleImp.isToggleOn();
+            boolean on = toggleModuleImp.toggle();
 
-            toggleModuleImp.setToggleOn(!isToggleOn);
+            int value = on ? MODULE_FLAG.CTRL_ON.value : MODULE_FLAG.CTRL_OFF.value;
 
-            int value = isToggleOn ? MODULE_FLAG.CTRL_OFF.value : MODULE_FLAG.CTRL_ON.value;
+            view.setSelected(on);
 
-            mExecutorService.execute(toggleModuleImp.getId(), toggleModuleImp.getDeviceId(), value);
-
-            view.setSelected(!isToggleOn);
+            mExecutorService.execute(toggleModuleImp.getId(), toggleModuleImp.getSlaveID(), value);
         }
     };
 }

@@ -10,7 +10,7 @@
 
         <variable
             name="data"
-            type="com.android.smartlink.ui.model.IModule" />
+            type="com.android.smartlink.ui.model.UIMonitorModule" />
 
     </data>
 
@@ -22,7 +22,8 @@
         android:layout_gravity="center"
         android:clipChildren="false"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:background="#88888888">
 
         <FrameLayout
             android:layout_width="68dp"

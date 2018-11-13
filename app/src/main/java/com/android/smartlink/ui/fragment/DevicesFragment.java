@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.eventbus.EventBusMessages.EditModuleEvent;
-import com.android.smartlink.ui.activity.MyModuleActivity;
+import com.android.smartlink.ui.activity.MyDeviceActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIModuleImp;
+import com.android.smartlink.ui.model.UIDeviceImp;
 import com.android.smartlink.ui.widget.adapter.MyModulesAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
@@ -28,7 +28,7 @@ import butterknife.BindView;
  * Date: 2017-10-22
  * Time: 13:42
  */
-public class MyModulesFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIModuleImp>
+public class DevicesFragment extends BaseSmartlinkFragment implements OnItemClickListener<UIDeviceImp>
 {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -39,7 +39,7 @@ public class MyModulesFragment extends BaseSmartlinkFragment implements OnItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_my_modules, container, false);
+        return inflater.inflate(R.layout.fragment_devices, container, false);
     }
 
     @Override
@@ -89,11 +89,11 @@ public class MyModulesFragment extends BaseSmartlinkFragment implements OnItemCl
     }
 
     @Override
-    public void onItemClick(View view, UIModuleImp uiModuleImp)
+    public void onItemClick(View view, UIDeviceImp uiModuleImp)
     {
-        if (getActivity() instanceof MyModuleActivity)
+        if (getActivity() instanceof MyDeviceActivity)
         {
-            ((MyModuleActivity) getActivity()).toEditMode();
+            ((MyDeviceActivity) getActivity()).toEditMode();
         }
     }
 }

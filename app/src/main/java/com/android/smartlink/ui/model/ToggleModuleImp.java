@@ -1,9 +1,9 @@
 package com.android.smartlink.ui.model;
 
-import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
-import com.android.smartlink.ui.model.BaseModule.DefaultSourceModuleImp;
-import com.android.smartlink.util.Helper.ToggleHelper;
+import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
+import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.util.ImageResUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
@@ -15,16 +15,17 @@ import java.io.Serializable;
  * Date: 2017-12-31
  * Time: 20:58
  */
-public class ToggleModuleImp extends DefaultSourceModuleImp implements Serializable, IModule
+public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializable, UIToggleModule
 {
     private static final long serialVersionUID = -2506753032922419481L;
-
-    private ToggleModuleData mToggle;
 
     private int mImageType;
 
     @DiffItem
-    int mId;
+    final int mId;
+
+    @DiffContent
+    int mStatus;
 
     public ToggleModuleImp(ToggleModuleData toggle)
     {
@@ -37,76 +38,38 @@ public class ToggleModuleImp extends DefaultSourceModuleImp implements Serializa
 
         mId = getId();
 
-        mToggle = toggle;
-
-        toggleOn = ToggleHelper.isToggleOn(toggle);
+        mStatus = toggle.getStatus();
 
         mImageType = imageType;
     }
 
     public int getImageRes()
     {
-        return ImageResUtil.getImage(mToggle.getChannel(), mImageType);
+        return ImageResUtil.getImage(getId(), mImageType);
     }
 
-    @Override
-    public String getName()
-    {
-        return AppManager.getInstance().getModuleName(getId());
-    }
-
-    @Override
-    public String getEnergy()
-    {
-        return null;
-    }
-
-    @DiffContent
     @Override
     public int getStatus()
     {
-        return mToggle.getStatus();
+        return mStatus;
     }
 
     @Override
-    public int getPowerLoad()
+    public boolean toggle()
     {
-        return 0;
-    }
+        if (mStatus == MODULE_FLAG.STATUS_ON.value)
+        {
+            mStatus = MODULE_FLAG.STATUS_OFF.value;
 
-    @Override
-    public int getColor()
-    {
-        return 0;
-    }
+            return false;
+        }
+        else if (mStatus == MODULE_FLAG.STATUS_OFF.value)
+        {
+            mStatus = MODULE_FLAG.STATUS_ON.value;
 
-    @Override
-    public boolean isNormal()
-    {
-        return true;
-    }
+            return true;
+        }
 
-    @Override
-    public boolean isToggle()
-    {
-        return true;
-    }
-
-    private boolean toggleOn;
-
-    public void setToggleOn(boolean on)
-    {
-        toggleOn = on;
-    }
-
-    @DiffContent
-    public boolean isToggleOn()
-    {
-        return toggleOn;
-    }
-
-    public int getDeviceId()
-    {
-        return mToggle.getSlaveID();
+        return false;
     }
 }

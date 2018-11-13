@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.R;
-import com.android.smartlink.ui.model.UIModuleImp;
+import com.android.smartlink.ui.model.UIDeviceImp;
 import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
@@ -15,13 +15,13 @@ import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
  * Date: 2017-10-22
  * Time: 13:51
  */
-public class MyModulesAdapter extends DiffDataBindingAdapter<UIModuleImp>
+public class MyModulesAdapter extends DiffDataBindingAdapter<UIDeviceImp>
 {
     //private boolean mEditMode = false;
 
-    private SparseArray<DataBindingHolder<UIModuleImp>> mSparseArray = new SparseArray<>();
+    private SparseArray<DataBindingHolder<UIDeviceImp>> mSparseArray = new SparseArray<>();
 
-    public MyModulesAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIModuleImp> listener)
+    public MyModulesAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIDeviceImp> listener)
     {
         super(layoutInflater, listener);
     }
@@ -33,7 +33,7 @@ public class MyModulesAdapter extends DiffDataBindingAdapter<UIModuleImp>
     }
 
     @Override
-    public void onBindViewHolder(DataBindingHolder<UIModuleImp> holder, UIModuleImp uiModuleImp, int position)
+    public void onBindViewHolder(DataBindingHolder<UIDeviceImp> holder, UIDeviceImp uiModuleImp, int position)
     {
         mSparseArray.put(uiModuleImp.getId(), holder);
 

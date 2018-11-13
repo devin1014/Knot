@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.smartlink.Constants.MODULE_FLAG;
+
 /**
  * User: LIUWEI
  * Date: 2017-10-22
@@ -118,4 +120,33 @@ public class AppDataBindingAdapter
         textView.setTextColor(list);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // View
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @BindingAdapter({"visible"})
+    public static void setVisible(View view, boolean visible)
+    {
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    @BindingAdapter({"invisible"})
+    public static void setInvisible(View view, boolean invisible)
+    {
+        view.setVisibility(invisible ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // App
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @BindingAdapter({"toggleEnable"})
+    public static void setToggleEnable(View view, int toggleStatus)
+    {
+        view.setEnabled(toggleStatus != MODULE_FLAG.STATUS_DISABLE.value);
+    }
+
+    @BindingAdapter({"toggleOn"})
+    public static void setToggleOn(View view, int toggleStatus)
+    {
+        view.setSelected(toggleStatus == MODULE_FLAG.STATUS_ON.value);
+    }
 }

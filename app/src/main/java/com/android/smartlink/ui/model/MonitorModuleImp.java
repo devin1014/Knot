@@ -7,7 +7,7 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
-import com.android.smartlink.ui.model.BaseModule.DefaultSourceModuleImp;
+import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
 import com.android.smartlink.util.ImageResUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
  * Date: 2017-10-18
  * Time: 15:57
  */
-public class MonitorModuleImp extends DefaultSourceModuleImp<MonitorModuleData> implements Serializable, IModule<MonitorModuleData>
+public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> implements Serializable, UIMonitorModule
 {
     private static final long serialVersionUID = 179763754284831614L;
 

@@ -83,7 +83,7 @@ public class SettingsFragmentTablet extends BaseSmartlinkFragment
 
                     //showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
                     //EquipmentActivity.startActivity(getActivity(), setting.getName());
-                    showFragment(R.id.settings_detail_container, new MyModulesFragment());
+                    showFragment(R.id.settings_detail_container, new DevicesFragment());
 
                     break;
 

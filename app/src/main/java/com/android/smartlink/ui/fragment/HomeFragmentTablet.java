@@ -22,10 +22,10 @@ import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.IModule.ImageType;
+import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.util.UIConverter;
+import com.android.smartlink.util.ConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -116,7 +116,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
     {
         mLoadingLayout.showContent();
 
-        mAlertManager.notifyNotification(getActivity(), UIConverter.convertModules(modules.getMonitorModules(), ImageType.DRAWABLE_NORMAL_LIGHT));
+        mAlertManager.notifyNotification(getActivity(), ConvertUtil.convertModules(modules.getMonitorModules(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
         Fragment fragment = getChildFragmentManager().findFragmentById(R.id.home_module_container);
 

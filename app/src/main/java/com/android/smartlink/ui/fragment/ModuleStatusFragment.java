@@ -14,10 +14,10 @@ import com.android.smartlink.assist.eventbus.EventBusMessages.ModuleDataChangedE
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.IModule.ImageType;
+import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
 import com.android.smartlink.util.AppDataBindingAdapter;
-import com.android.smartlink.util.UIConverter;
+import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +72,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
         mModuleAdapter = new ModuleAdapterTablet(getLayoutInflater());
 
-        mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
+        mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false);
 
@@ -81,7 +81,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
         mRecyclerView.setAdapter(mModuleAdapter);
 
         //reset main module
-        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
+        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, ConvertUtil.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
 
     @Override
@@ -106,10 +106,10 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     {
         List<MonitorModuleData> list = event.modulesData.getMonitorModules();
 
-        mModuleAdapter.setData(UIConverter.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
+        mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
         //reset main module
-        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, UIConverter.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
+        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, ConvertUtil.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
     }
 
 }

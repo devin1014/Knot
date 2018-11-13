@@ -8,12 +8,13 @@ import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule;
-import com.android.smartlink.ui.model.IModule;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.ToggleModuleImp;
+import com.android.smartlink.ui.model.UIDeviceImp;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
-import com.android.smartlink.ui.model.UIModuleImp;
+import com.android.smartlink.ui.model.UIMonitorModule;
+import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.model.UISetting;
 
 import java.util.ArrayList;
@@ -65,18 +66,18 @@ public class ConvertUtil
         return result;
     }
 
-    public static List<UIModuleImp> convertEquipment(List<BaseModule> list)
+    public static List<UIDeviceImp> convertEquipment(List<BaseModule> list)
     {
         if (list == null || list.size() == 0)
         {
             return null;
         }
 
-        List<UIModuleImp> result = new ArrayList<>();
+        List<UIDeviceImp> result = new ArrayList<>();
 
         for (BaseModule item : list)
         {
-            result.add(new UIModuleImp(item));
+            result.add(new UIDeviceImp(item));
         }
 
         return result;
@@ -97,9 +98,9 @@ public class ConvertUtil
     //        return result;
     //    }
 
-    public static List<IModule> convertModule(ModulesData modules)
+    public static List<UIMonitorModule> convertModule(ModulesData modules)
     {
-        List<IModule> result = new ArrayList<>();
+        List<UIMonitorModule> result = new ArrayList<>();
 
         List<MonitorModuleData> list = modules.getMonitorModules();
 
@@ -117,7 +118,8 @@ public class ConvertUtil
         {
             for (ToggleModuleData t : toggles)
             {
-                result.add(new ToggleModuleImp(t));
+                //FIXME,should add toggle in phone
+                //result.add(new ToggleModuleImp(t));
             }
         }
 
@@ -161,6 +163,58 @@ public class ConvertUtil
         }
 
         return result;
+    }
+
+    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list, @ImageType int imageType)
+    {
+        return convertModules(list, 0, list.size(), imageType);
+    }
+
+    public static List<MonitorModuleImp> convertModules(List<MonitorModuleData> list, int from, int to, int imageType)
+    {
+        List<MonitorModuleImp> moduleList = new ArrayList<>();
+
+        for (int i = from; list != null && i < to; i++)
+        {
+            MonitorModuleImp m = new MonitorModuleImp(list.get(i), imageType);
+
+            moduleList.add(m);
+        }
+
+        return moduleList;
+    }
+
+    public static UIMonitorModule convertModule(List<MonitorModuleData> list, int index, int imageType)
+    {
+        return new MonitorModuleImp(list.get(index), imageType);
+    }
+
+    public static List<ToggleModuleImp> convertToggle(List<ToggleModuleData> list)
+    {
+        List<ToggleModuleImp> moduleList = new ArrayList<>();
+
+        for (int i = 0; list != null && i < list.size(); i++)
+        {
+            ToggleModuleImp m = new ToggleModuleImp(list.get(i));
+
+            moduleList.add(m);
+        }
+
+        return moduleList;
+    }
+
+    public static List<ToggleModuleImp> convertToggle(List<ToggleModuleData> list, int startIndex, int count)
+    {
+        List<ToggleModuleImp> moduleList = new ArrayList<>();
+
+        for (int i = startIndex; list != null && i < startIndex + count && i < list.size(); i++)
+        {
+            ToggleModuleImp m = new ToggleModuleImp(list.get(i));
+
+            moduleList.add(m);
+        }
+
+        return moduleList;
     }
 
     private static class OtherFilter implements BaseModule

@@ -28,17 +28,11 @@ public class ModuleAdapterTablet extends DiffDataBindingAdapter<MonitorModuleImp
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
-        return position;
-    }
-
-    @Override
     public void onBindViewHolder(DataBindingHolder<MonitorModuleImp> holder, MonitorModuleImp monitorModuleImp, int i)
     {
         ViewDataBinding binding = holder.getViewDataBinding();
         binding.setVariable(BR.data, monitorModuleImp);
-        binding.setVariable(BR.itemClickListener, this);
+        //binding.setVariable(BR.itemClickListener, this);
         binding.executePendingBindings();
     }
 }

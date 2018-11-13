@@ -24,7 +24,7 @@ import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.IModule;
+import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -153,10 +153,10 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         mWeatherManager.requestWeather();
     }
 
-    private OnItemClickListener<IModule> mOnItemClickListener = new OnItemClickListener<IModule>()
+    private OnItemClickListener<UIMonitorModule> mOnItemClickListener = new OnItemClickListener<UIMonitorModule>()
     {
         @Override
-        public void onItemClick(View view, IModule iModule)
+        public void onItemClick(View view, UIMonitorModule iModule)
         {
             if (iModule.isToggle())
             {

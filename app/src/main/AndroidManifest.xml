@@ -62,7 +62,7 @@
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.MyModuleActivity"
+            android:name=".ui.activity.MyDeviceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="sensor"

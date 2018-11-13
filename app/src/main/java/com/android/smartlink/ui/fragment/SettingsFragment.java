@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
-import com.android.smartlink.ui.activity.MyModuleActivity;
+import com.android.smartlink.ui.activity.MyDeviceActivity;
 import com.android.smartlink.ui.activity.SingleActivity;
 import com.android.smartlink.ui.activity.WelcomeActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
@@ -81,7 +81,7 @@ public class SettingsFragment extends BaseSmartlinkFragment
                 case Constants.POS_SETTINGS_MY_EQUIPMENT:
 
                     //showDetailFragment(new MyEquipmentFragment(), setting.getName(), Constants.MODE_EDIT);
-                    MyModuleActivity.startActivity(getActivity(), uiSetting.getName());
+                    MyDeviceActivity.startActivity(getActivity(), uiSetting.getName());
 
                     break;
 

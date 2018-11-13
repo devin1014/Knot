@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.android.smartlink.BR;
 import com.android.smartlink.R;
-import com.android.smartlink.ui.model.IModule;
+import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.widget.modulestatus.ModuleStatusLayout;
 import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
@@ -17,9 +17,9 @@ import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
  * Date: 2017-10-18
  * Time: 15:56
  */
-public class ModuleAdapter extends DiffDataBindingAdapter<IModule>
+public class ModuleAdapter extends DiffDataBindingAdapter<UIMonitorModule>
 {
-    public ModuleAdapter(LayoutInflater layoutInflater, OnItemClickListener<IModule> listener)
+    public ModuleAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIMonitorModule> listener)
     {
         super(layoutInflater, listener);
     }
@@ -42,7 +42,7 @@ public class ModuleAdapter extends DiffDataBindingAdapter<IModule>
     }
 
     @Override
-    public void onBindViewHolder(DataBindingHolder<IModule> holder, IModule iModule, int i)
+    public void onBindViewHolder(DataBindingHolder<UIMonitorModule> holder, UIMonitorModule iModule, int i)
     {
         ViewDataBinding binding = holder.getViewDataBinding();
         binding.setVariable(BR.data, iModule);
@@ -53,11 +53,11 @@ public class ModuleAdapter extends DiffDataBindingAdapter<IModule>
     // ----------------------------------------------------------------
     // HeadHolder
     // ----------------------------------------------------------------
-    public static class HeadHolder extends DataBindingHolder<IModule>
+    public static class HeadHolder extends DataBindingHolder<UIMonitorModule>
     {
         private ModuleStatusLayout mModuleStatusLayout;
 
-        HeadHolder(View itemView, OnItemClickListener<IModule> handler)
+        HeadHolder(View itemView, OnItemClickListener<UIMonitorModule> handler)
         {
             super(itemView, handler);
 
