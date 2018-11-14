@@ -68,6 +68,13 @@
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme" />
 
+        <!--autoSizeProvider-->
+        <provider
+            android:name="me.jessyan.autosize.InitProvider"
+            android:authorities="${applicationId}.autosize-init-provider"
+            android:exported="false"
+            android:multiprocess="true" />
+
         <meta-data
             android:name="weatherKey"
             android:value="7f70fe2b7604408bafba86681d9ddcd4" />
@@ -85,24 +92,12 @@
             android:value="05b6bb6ba3903acccc77307280e3ba48" />
 
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
-        <!--<meta-data-->
-        <!--android:name="design_width_in_dp"-->
-        <!--android:value="360" />-->
-        <!--<meta-data-->
-        <!--android:name="design_height_in_dp"-->
-        <!--android:value="640" />-->
         <meta-data
             android:name="design_width_in_dp"
-            android:value="1280" />
+            android:value="${design_width_in_dp}" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="800" />
-
-        <provider
-            android:name="me.jessyan.autosize.InitProvider"
-            android:authorities="${applicationId}.autosize-init-provider"
-            android:exported="false"
-            android:multiprocess="true" />
+            android:value="${design_height_in_dp}" />
 
     </application>
 

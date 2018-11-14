@@ -17,7 +17,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
-                arguments = [ eventBusIndex : 'com.android.smartlink.assist.eventbus.AppEventBusIndex' ]
+                arguments = [eventBusIndex: 'com.android.smartlink.assist.eventbus.AppEventBusIndex']
             }
         }
     }
@@ -45,25 +45,21 @@ android {
         }
     }
 
-    flavorDimensions("device")
+    flavorDimensions("product")
 
     productFlavors {
-        dev {
-            applicationId "com.android.smartlink.powertag.debug"
-            dimension "device"
-            resValue("string", "app_name", "PowerTag 测试版")
-        }
-
         app {
             applicationId "com.android.smartlink.powertag"
-            dimension "device"
+            dimension "product"
             resValue("string", "app_name", "PowerTag")
+            manifestPlaceholders = [design_width_in_dp: "360", design_height_in_dp: "640"]
         }
 
         tablet {
             applicationId "com.android.smartlink.powertag.pad"
-            dimension "device"
+            dimension "product"
             resValue("string", "app_name", "PowerTag HD")
+            manifestPlaceholders = [design_width_in_dp: "1280", design_height_in_dp: "800"]
         }
     }
 
