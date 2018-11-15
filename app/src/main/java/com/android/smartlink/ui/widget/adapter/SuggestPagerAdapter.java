@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.widget.adapter;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,13 @@ import com.android.smartlink.application.manager.AppManager;
  */
 public class SuggestPagerAdapter extends PagerAdapter
 {
-    public static final int[] SUGGESTIONS = new int[]{R.array.energy_suggest_1, R.array.energy_suggest_2, R.array.energy_suggest_3,
-            R.array.energy_suggest_4, R.array.energy_suggest_5, R.array.energy_suggest_6};
+    public static final int[] SUGGESTIONS = new int[]{
+            R.array.energy_suggest_1,
+            R.array.energy_suggest_2,
+            R.array.energy_suggest_3,
+            R.array.energy_suggest_4,
+            R.array.energy_suggest_5,
+            R.array.energy_suggest_6};
 
     private String[] mDataArray;
 
@@ -38,13 +44,14 @@ public class SuggestPagerAdapter extends PagerAdapter
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object)
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object)
     {
         return view.equals(object);
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position)
+    public Object instantiateItem(@NonNull ViewGroup container, int position)
     {
         TextView textView = (TextView) mInflater.inflate(R.layout.adapter_suggest, container, false);
 
@@ -56,11 +63,8 @@ public class SuggestPagerAdapter extends PagerAdapter
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object)
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object)
     {
-        if (object != null)
-        {
-            container.removeView((View) object);
-        }
+        container.removeView((View) object);
     }
 }
