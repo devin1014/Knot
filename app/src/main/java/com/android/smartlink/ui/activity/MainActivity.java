@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
-import com.android.smartlink.util.FragmentUtils;
+import com.android.smartlink.ui.fragment.EventsFragment;
+import com.android.smartlink.ui.fragment.HomeFragment;
+import com.android.smartlink.ui.fragment.SettingsFragment;
 
 import butterknife.BindView;
 
@@ -98,7 +100,7 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
         {
             case POS_MAIN:
 
-                mNavigationComposite.showPrimaryFragment(FragmentUtils.newHomeFragment(), MENUS_TITLE[POS_MAIN]);
+                mNavigationComposite.showPrimaryFragment(new HomeFragment(), MENUS_TITLE[POS_MAIN]);
 
                 setEditButtonVisibility(false);
 
@@ -106,7 +108,7 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
             case POS_EVENTS:
 
-                mNavigationComposite.showPrimaryFragment(FragmentUtils.newEventsFragment(), MENUS_TITLE[POS_EVENTS]);
+                mNavigationComposite.showPrimaryFragment(EventsFragment.newInstance(), MENUS_TITLE[POS_EVENTS]);
 
                 setEditButtonVisibility(true);
 
@@ -114,7 +116,7 @@ public class MainActivity extends BaseSmartlinkActivity implements OnTabSelected
 
             case POS_SETTINGS:
 
-                mNavigationComposite.showPrimaryFragment(FragmentUtils.newSettingsFragment(), MENUS_TITLE[POS_SETTINGS]);
+                mNavigationComposite.showPrimaryFragment(new SettingsFragment(), MENUS_TITLE[POS_SETTINGS]);
 
                 setEditButtonVisibility(false);
 

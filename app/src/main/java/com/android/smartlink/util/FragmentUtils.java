@@ -4,13 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
 
-import com.android.smartlink.BuildConfig;
-import com.android.smartlink.ui.fragment.EventsFragment;
-import com.android.smartlink.ui.fragment.HomeFragment;
-import com.android.smartlink.ui.fragment.HomeFragmentTablet;
-import com.android.smartlink.ui.fragment.SettingsFragment;
-import com.android.smartlink.ui.fragment.SettingsFragmentTablet;
-
 import java.io.Serializable;
 
 /**
@@ -20,21 +13,6 @@ import java.io.Serializable;
  */
 public class FragmentUtils
 {
-    public static Fragment newHomeFragment()
-    {
-        return BuildConfig.PHONE ? new HomeFragment() : new HomeFragmentTablet();
-    }
-
-    public static Fragment newEventsFragment(int... ids)
-    {
-        return EventsFragment.newInstance(ids);
-    }
-
-    public static Fragment newSettingsFragment()
-    {
-        return BuildConfig.PHONE ? new SettingsFragment() : new SettingsFragmentTablet();
-    }
-
     @SuppressWarnings("unchecked")
     public static <T extends Fragment> T newInstance(Class<T> cls, Pair<String, ? extends Serializable>... pairs)
     {

@@ -109,4 +109,5 @@ public class BaseSmartlinkFragment extends Fragment
             fragmentTransaction.commitAllowingStateLoss();
         }
     }
+
 }

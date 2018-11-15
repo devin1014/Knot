@@ -3,6 +3,7 @@ package com.android.smartlink.ui.fragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ import butterknife.BindView;
  * Date: 2017-12-05
  * Time: 18:05
  */
-public class HomeFragmentTablet extends BaseSmartlinkFragment implements RequestCallback<ModulesData>
+public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<ModulesData>
 {
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
@@ -53,7 +54,7 @@ public class HomeFragmentTablet extends BaseSmartlinkFragment implements Request
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }

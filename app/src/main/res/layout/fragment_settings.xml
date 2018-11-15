@@ -31,6 +31,7 @@
         android:textColor="#ffffff"
         android:textSize="16dp"
         android:textStyle="normal"
+        android:visibility="gone"
         tools:ignore="SpUsage" />
 
     <Button
@@ -43,6 +44,7 @@
         android:textColor="#ffffff"
         android:textSize="16dp"
         android:textStyle="normal"
+        android:visibility="gone"
         tools:ignore="SpUsage" />
 
 </FrameLayout>
