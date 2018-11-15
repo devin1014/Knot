@@ -5,9 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +22,12 @@ import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.model.MonitorModuleImp;
+import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
-import com.android.smartlink.ui.widget.adapter.ModuleAdapter.HeadHolder;
-import com.android.smartlink.ui.widget.layoutmanager.MyGridLayoutManager;
+import com.android.smartlink.ui.widget.layoutmanager.ModuleGridLayoutManager;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
@@ -43,11 +39,8 @@ import butterknife.BindView;
  * Date: 2017-10-27
  * Time: 10:18
  */
-public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<ModulesData>, OnRefreshListener
+public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<ModulesData>
 {
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
 
@@ -64,8 +57,6 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     private ModuleAdapter mModuleAdapter;
 
     private WeatherManager mWeatherManager;
-
-    private BaseExecutorService mExecutorService = new BaseExecutorService();
 
     @Nullable
     @Override
@@ -84,9 +75,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
     private void initComponent()
     {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-
-        mRecyclerView.setLayoutManager(new MyGridLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new ModuleGridLayoutManager(getActivity(), 4));
 
         mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapter(getLayoutInflater(), mOnItemClickListener));
 
@@ -108,8 +97,6 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mWeatherManager.destroy();
 
-        mSwipeRefreshLayout.setRefreshing(false);
-
         super.onDestroyView();
     }
 
@@ -118,22 +105,20 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         mLoadingLayout.showContent();
 
-        mSwipeRefreshLayout.setRefreshing(false);
-
         //TODO
         //        if (mModuleAdapter.getHeadCount() == 0)
         //        {
         //            mModuleAdapter.addHeadObject(modules.getMonitorModules());
         //        }
         //        else
-        {
-            ViewHolder holder = mRecyclerView.findViewHolderForLayoutPosition(0);
-
-            if (holder instanceof HeadHolder)
-            {
-                ((HeadHolder) holder).getModuleStatusLayout().setModules(modules.getMonitorModules());
-            }
-        }
+        //        {
+        //            ViewHolder holder = mRecyclerView.findViewHolderForLayoutPosition(0);
+        //
+        //            if (holder instanceof HeadHolder)
+        //            {
+        //                ((HeadHolder) holder).getModuleStatusLayout().setModules(modules.getMonitorModules());
+        //            }
+        //        }
 
         mModuleAdapter.setData(ConvertUtil.convertModule(modules));
     }
@@ -142,20 +127,12 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     public void onError(Throwable throwable)
     {
         mLoadingLayout.showMessage(getString(R.string.request_data_error));
-
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onRefresh()
-    {
-        mRequestProvider.schedule(RequestUrl.obtainMainDataUrl(), 0, Constants.REQUEST_SCHEDULE_INTERVAL);
-
-        mWeatherManager.requestWeather();
     }
 
     private OnItemClickListener<UIMonitorModule> mOnItemClickListener = new OnItemClickListener<UIMonitorModule>()
     {
+        private BaseExecutorService mExecutorService = new BaseExecutorService();
+
         @Override
         public void onItemClick(View view, UIMonitorModule iModule)
         {

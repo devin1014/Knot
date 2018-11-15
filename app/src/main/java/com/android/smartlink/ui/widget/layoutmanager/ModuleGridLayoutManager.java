@@ -8,20 +8,22 @@ import android.support.v7.widget.GridLayoutManager;
  * Date: 2017-12-25
  * Time: 11:44
  */
-public class MyGridLayoutManager extends GridLayoutManager
+public class ModuleGridLayoutManager extends GridLayoutManager
 {
-    public MyGridLayoutManager(Context context)
+    public ModuleGridLayoutManager(Context context, final int spanCount)
     {
-        super(context, 4);
+        super(context, spanCount);
+
+        setOrientation(GridLayoutManager.VERTICAL);
 
         setSpanSizeLookup(new SpanSizeLookup()
         {
             @Override
             public int getSpanSize(int position)
             {
-                if (position <= 1)
+                if (position == 0)
                 {
-                    return 4;
+                    return spanCount;
                 }
 
                 return 1;

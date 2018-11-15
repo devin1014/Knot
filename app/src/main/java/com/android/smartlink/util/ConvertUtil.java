@@ -96,6 +96,7 @@ public class ConvertUtil
     //        return result;
     //    }
 
+    // convert all modules to list contains monitors and toggles
     public static List<UIMonitorModule> convertModule(ModulesData modules)
     {
         List<UIMonitorModule> result = new ArrayList<>();
@@ -106,7 +107,7 @@ public class ConvertUtil
         {
             for (MonitorModuleData m : list)
             {
-                result.add(new MonitorModuleImp(m));
+                result.add(new MonitorModuleImp(m, ImageType.DRAWABLE_NORMAL_LIGHT));
             }
         }
 
@@ -116,8 +117,7 @@ public class ConvertUtil
         {
             for (ToggleModuleData t : toggles)
             {
-                //FIXME,should add toggle in phone
-                //result.add(new ToggleModuleImp(t));
+                result.add(new ToggleModuleImp(t));
             }
         }
 

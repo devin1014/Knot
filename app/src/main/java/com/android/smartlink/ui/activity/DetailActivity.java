@@ -1,6 +1,6 @@
 package com.android.smartlink.ui.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,8 @@ import com.android.smartlink.ui.fragment.DetailFragment;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment.OnFragmentCallback;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 
+import java.io.Serializable;
+
 /**
  * User: LIUWEI
  * Date: 2017-10-24
@@ -20,15 +22,15 @@ import com.android.smartlink.ui.model.MonitorModuleImp;
  */
 public class DetailActivity extends BaseSmartlinkActivity implements OnFragmentCallback
 {
-    public static void startActivity(Activity activity, String title, MonitorModuleImp module)
+    public static void startActivity(Context context, String title, MonitorModuleImp module)
     {
-        Intent intent = new Intent(activity, DetailActivity.class);
+        Intent intent = new Intent(context, DetailActivity.class);
 
         intent.putExtra(Constants.KEY_EXTRA_TITLE, title);
 
-        intent.putExtra(Constants.KEY_EXTRA_UI_MODULE, module);
+        intent.putExtra(Constants.KEY_EXTRA_UI_MODULE, module.getSource());
 
-        activity.startActivity(intent);
+        context.startActivity(intent);
     }
 
     @Override
@@ -40,7 +42,11 @@ public class DetailActivity extends BaseSmartlinkActivity implements OnFragmentC
     @Override
     protected void onActivityCreate(@Nullable Bundle savedInstanceState)
     {
-        mNavigationComposite.showPrimaryFragment(DetailFragment.newInstance(getIntent().getExtras()), getIntent().getStringExtra(Constants.KEY_EXTRA_TITLE));
+        Serializable serializable = getIntent().getExtras().getSerializable(Constants.KEY_EXTRA_UI_MODULE);
+
+        String title = getIntent().getStringExtra(Constants.KEY_EXTRA_TITLE);
+
+        mNavigationComposite.showPrimaryFragment(DetailFragment.newInstance(serializable), title);
     }
 
     @Override

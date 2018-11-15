@@ -1,6 +1,8 @@
 package com.android.smartlink.ui.fragment;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -9,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
@@ -17,18 +18,20 @@ import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
 import com.android.smartlink.assist.ScheduleHandler;
 import com.android.smartlink.bean.Energy;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.RequestUrl;
+import com.android.smartlink.databinding.FragmentDetailBindingImpl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.widget.IndicatorView;
 import com.android.smartlink.ui.widget.Last30DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.SuggestPagerAdapter;
-import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 import org.achartengine.GraphicalView;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import butterknife.BindView;
@@ -41,22 +44,13 @@ import butterknife.BindView;
 public class DetailFragment extends BaseSmartlinkFragment implements RequestCallback<Energy>, ScheduleHandler.OnScheduleListener
 {
     @SuppressWarnings("unused")
-    public static DetailFragment newInstance(MonitorModuleImp module)
+    public static DetailFragment newInstance(Serializable module)
     {
         DetailFragment fragment = new DetailFragment();
 
         Bundle arguments = new Bundle();
 
         arguments.putSerializable(Constants.KEY_EXTRA_UI_MODULE, module);
-
-        fragment.setArguments(arguments);
-
-        return fragment;
-    }
-
-    public static DetailFragment newInstance(Bundle arguments)
-    {
-        DetailFragment fragment = new DetailFragment();
 
         fragment.setArguments(arguments);
 
@@ -84,7 +78,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_detail, container, false);
     }
@@ -99,9 +93,17 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
     private void initComponent(View view)
     {
-        MonitorModuleImp uiModule = (MonitorModuleImp) getArguments().getSerializable(Constants.KEY_EXTRA_UI_MODULE);
+        MonitorModuleData moduleData = (MonitorModuleData) getArguments().getSerializable(Constants.KEY_EXTRA_UI_MODULE);
 
-        AppDataBindingAdapter.binding(view, new int[]{BR.data, BR.itemClickListener}, new Object[]{uiModule, mOnItemClickListener});
+        MonitorModuleImp uiModule = new MonitorModuleImp(moduleData);
+
+        FragmentDetailBindingImpl viewDataBinding = DataBindingUtil.bind(view);
+
+        viewDataBinding.setData(uiModule);
+
+        viewDataBinding.setItemClickListener(mOnItemClickListener);
+
+        viewDataBinding.executePendingBindings();
 
         mViewPager.setAdapter(new SuggestPagerAdapter(getActivity()));
 
@@ -109,8 +111,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mRequestProvider = EnergyRequestProvider.newInstance(this);
 
-        assert uiModule != null;
-        mRequestProvider.request(RequestUrl.obtainEnergyUrl(uiModule.getId()));
+        mRequestProvider.request(RequestUrl.obtainEnergyUrl(uiModule.getSlaveID()));
 
         mLoadingLayout.showLoading();
 

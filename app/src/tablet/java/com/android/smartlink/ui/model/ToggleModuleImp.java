@@ -4,6 +4,7 @@ import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
+import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.util.ui.ImageResUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * Date: 2017-12-31
  * Time: 20:58
  */
-public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializable, UIToggleModule, UIMonitorModule
+public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializable, UIToggleModule
 {
     private static final long serialVersionUID = -2506753032922419481L;
 
@@ -90,39 +91,4 @@ public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializabl
         return super.equals(obj);
     }
 
-    @Override
-    public String getEnergy()
-    {
-        return null;
-    }
-
-    @Override
-    public int getModuleStatus()
-    {
-        return 0;
-    }
-
-    @Override
-    public int getPowerLoad()
-    {
-        return 0;
-    }
-
-    @Override
-    public int getColor()
-    {
-        return 0;
-    }
-
-    @Override
-    public boolean hasAlarm()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isToggle()
-    {
-        return true;
-    }
 }
