@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
-import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.android.smartlink.util.ConvertUtil;
+import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +45,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_module_status, container, false);
     }

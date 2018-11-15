@@ -12,9 +12,9 @@ import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
  * Date: 2018-05-18
  * Time: 15:30
  */
-public class ToggleAdapterTablet extends DiffDataBindingAdapter<ToggleModuleImp>
+public class ToggleAdapter extends DiffDataBindingAdapter<ToggleModuleImp>
 {
-    public ToggleAdapterTablet(LayoutInflater layoutInflater, OnItemClickListener<ToggleModuleImp> listener)
+    public ToggleAdapter(LayoutInflater layoutInflater, OnItemClickListener<ToggleModuleImp> listener)
     {
         super(layoutInflater, listener);
     }

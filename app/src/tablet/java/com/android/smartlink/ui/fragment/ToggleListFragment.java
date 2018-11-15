@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -16,7 +17,7 @@ import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataCha
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.ToggleModuleImp;
-import com.android.smartlink.ui.widget.adapter.ToggleAdapterTablet;
+import com.android.smartlink.ui.widget.adapter.ToggleAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
@@ -41,11 +42,11 @@ public class ToggleListFragment extends BaseSmartlinkFragment
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
 
-    private ToggleAdapterTablet mAdapter;
+    private ToggleAdapter mAdapter;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_toggle_list, container, false);
     }
@@ -66,7 +67,7 @@ public class ToggleListFragment extends BaseSmartlinkFragment
 
         mRecyclerView.setItemAnimator(null);
 
-        mAdapter = new ToggleAdapterTablet(getLayoutInflater(), mOnItemClickListener);
+        mAdapter = new ToggleAdapter(getLayoutInflater(), mOnItemClickListener);
 
         mAdapter.setData(ConvertUtil.convertToggle(modules.getToggleModules()));
 

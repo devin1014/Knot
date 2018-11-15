@@ -2,20 +2,18 @@ package com.android.smartlink.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.widget.adapter.MyFragmentPagerAdapter;
 import com.android.smartlink.util.FragmentUtils;
 import com.android.smartlink.util.ui.MagicIndicatorHelper;
 
@@ -31,15 +29,6 @@ import butterknife.BindView;
  */
 public class ModuleFragment extends BaseSmartlinkFragment
 {
-    public static ModuleFragment newInstance(ModulesData modules)
-    {
-        ModuleFragment fragment = new ModuleFragment();
-        Bundle arguments = new Bundle();
-        arguments.putSerializable(Constants.KEY_EXTRA_MODULES, modules);
-        fragment.setArguments(arguments);
-        return fragment;
-    }
-
     @BindView(R.id.model_pager)
     ViewPager mViewPager;
     @BindView(R.id.magic_indicator)
@@ -47,7 +36,7 @@ public class ModuleFragment extends BaseSmartlinkFragment
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_module, container, false);
     }
@@ -72,44 +61,24 @@ public class ModuleFragment extends BaseSmartlinkFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    private class ModuleAdapter extends FragmentPagerAdapter
+    private class ModuleAdapter extends MyFragmentPagerAdapter
     {
-        private SparseArray<BaseSmartlinkFragment> mFragments;
-
         ModuleAdapter(FragmentManager fm)
         {
-            super(fm);
-            mFragments = new SparseArray<>();
+            super(fm, 2);
         }
 
         @Override
-        public Fragment getItem(int position)
+        public Fragment createFragment(int position)
         {
-            BaseSmartlinkFragment fragment = mFragments.get(position);
-
-            if (fragment != null)
-            {
-                return fragment;
-            }
-
             if (position == 0)
             {
-                fragment = FragmentUtils.newInstance(ModuleStatusFragment.class, getArguments());
+                return FragmentUtils.newInstance(ModuleStatusFragment.class, getArguments());
             }
             else
             {
-                fragment = new ModuleChartFragment();
+                return new ModuleChartFragment();
             }
-
-            mFragments.put(position, fragment);
-
-            return fragment;
-        }
-
-        @Override
-        public int getCount()
-        {
-            return 2;
         }
     }
 }
