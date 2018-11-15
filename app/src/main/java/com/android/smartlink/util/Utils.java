@@ -9,7 +9,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
-import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.BuildConfig;
 
 /**
  * User: LIUWEI
@@ -50,7 +50,7 @@ public class Utils
 
     public static void resetOrientation(Activity activity)
     {
-        activity.setRequestedOrientation(AppManager.getInstance().isPhone() ?
+        activity.setRequestedOrientation(BuildConfig.PHONE ?
 
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
     }

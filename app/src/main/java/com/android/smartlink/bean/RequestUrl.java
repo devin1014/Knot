@@ -65,9 +65,7 @@ public abstract class RequestUrl
     {
         public LocalUrl(FeedUrl feedUrl)
         {
-            //Context context = AppManager.getInstance().getApplication();
-
-            int status = AppManager.getInstance().getDemoModeStatus();
+            int status = -1;
 
             mLocationUrl = feedUrl.getWeatherLocalUrl();
 

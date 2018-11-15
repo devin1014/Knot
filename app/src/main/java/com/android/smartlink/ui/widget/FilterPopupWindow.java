@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.PopupWindow;
 
+import com.android.smartlink.BuildConfig;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.widget.adapter.FilterAdapter;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
@@ -32,7 +32,7 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
     {
         mOnFilterChangedListener = listener;
 
-        setWidth(AppManager.getInstance().isPhone() ? LayoutParams.MATCH_PARENT :
+        setWidth(BuildConfig.PHONE ? LayoutParams.MATCH_PARENT :
                 activity.getResources().getDimensionPixelSize(R.dimen.filter_window_width));
 
         setHeight(LayoutParams.WRAP_CONTENT);

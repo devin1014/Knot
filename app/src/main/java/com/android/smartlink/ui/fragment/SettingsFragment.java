@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.ui.activity.MyDeviceActivity;
 import com.android.smartlink.ui.activity.SingleActivity;
-import com.android.smartlink.ui.activity.WelcomeActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
@@ -34,8 +32,8 @@ public class SettingsFragment extends BaseSmartlinkFragment
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.settings_demo)
-    View mSettingDemo;
+    //    @BindView(R.id.settings_demo)
+    //    View mSettingDemo;
 
     private SettingsAdapter mSettingsAdapter;
 
@@ -62,7 +60,7 @@ public class SettingsFragment extends BaseSmartlinkFragment
 
                 getResources().getStringArray(R.array.settings_image)));
 
-        mSettingDemo.setVisibility(AppManager.getInstance().isDemoMode() ? View.VISIBLE : View.GONE);
+        //mSettingDemo.setVisibility(AppManager.getInstance().isDemoMode() ? View.VISIBLE : View.GONE);
     }
 
     private OnItemClickListener<UISetting> mOnItemClickListener = new OnItemClickListener<UISetting>()
@@ -112,13 +110,13 @@ public class SettingsFragment extends BaseSmartlinkFragment
         }
     };
 
-    @OnClick(R.id.settings_signout)
-    public void signOut()
-    {
-        getActivity().finish();
-
-        getActivity().startActivity(new Intent(getActivity(), WelcomeActivity.class));
-    }
+    //    @OnClick(R.id.settings_signout)
+    //    public void signOut()
+    //    {
+    //        getActivity().finish();
+    //
+    //        getActivity().startActivity(new Intent(getActivity(), WelcomeActivity.class));
+    //    }
 
     @OnClick(R.id.settings_demo)
     public void setDemoInfo()

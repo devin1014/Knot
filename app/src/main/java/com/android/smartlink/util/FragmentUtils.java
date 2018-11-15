@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
 
-import com.android.smartlink.application.manager.AppManager;
+import com.android.smartlink.BuildConfig;
 import com.android.smartlink.ui.fragment.EventsFragment;
 import com.android.smartlink.ui.fragment.HomeFragment;
 import com.android.smartlink.ui.fragment.HomeFragmentTablet;
@@ -22,7 +22,7 @@ public class FragmentUtils
 {
     public static Fragment newHomeFragment()
     {
-        return AppManager.getInstance().isPhone() ? new HomeFragment() : new HomeFragmentTablet();
+        return BuildConfig.PHONE ? new HomeFragment() : new HomeFragmentTablet();
     }
 
     public static Fragment newEventsFragment(int... ids)
@@ -32,7 +32,7 @@ public class FragmentUtils
 
     public static Fragment newSettingsFragment()
     {
-        return AppManager.getInstance().isPhone() ? new SettingsFragment() : new SettingsFragmentTablet();
+        return BuildConfig.PHONE ? new SettingsFragment() : new SettingsFragmentTablet();
     }
 
     @SuppressWarnings("unchecked")

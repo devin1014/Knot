@@ -26,7 +26,7 @@ public class DispatchActivity extends AppCompatActivity
 
         if (AppManager.getInstance().isInitialized() && AppManager.getInstance().getWeather() != null)
         {
-            startActivity(new Intent(this, AppManager.getInstance().isPhone() ? WelcomeActivity.class : MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         else
         {

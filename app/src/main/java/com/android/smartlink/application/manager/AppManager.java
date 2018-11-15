@@ -56,7 +56,7 @@ public class AppManager
 
     private Weather mWeather;
 
-    private boolean mPhoneType;
+    //private boolean mPhoneType;
 
     private AppManager(Application application)
     {
@@ -66,7 +66,7 @@ public class AppManager
 
         mModuleManager = new ModuleManager(application);
 
-        mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 600;
+        //mPhoneType = application.getResources().getConfiguration().smallestScreenWidthDp < 600;
     }
 
     // ---------------------------------------------------------------------------------------------------------
@@ -91,10 +91,10 @@ public class AppManager
         return mApplication.getResources().getStringArray(resId);
     }
 
-    public boolean isPhone()
-    {
-        return mPhoneType;
-    }
+    //    public boolean isPhone()
+    //    {
+    //        return mPhoneType;
+    //    }
 
     // ---------------------------------------------------------------------------------------------------------
     // ------------ Weather&Location ---------------------------------------------------------------------------
@@ -194,25 +194,25 @@ public class AppManager
 
     // ---------------------------------------------------------------------------------------------------------
     // ------------ Demo status --------------------------------------------------------------------------------
-    public void setDemoMode(boolean demoMode)
-    {
-        mSharedPreferences.edit().putBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, demoMode).apply();
-    }
-
-    public boolean isDemoMode()
-    {
-        return mSharedPreferences.getBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, isPhone());
-    }
-
-    public void setDemoModeStatus(int status)
-    {
-        mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, status).apply();
-    }
-
-    public int getDemoModeStatus()
-    {
-        return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, -1);
-    }
+    //public void setDemoMode(boolean demoMode)
+    //    {
+    //        mSharedPreferences.edit().putBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, demoMode).apply();
+    //    }
+    //
+    //    public boolean isDemoMode()
+    //    {
+    //        return mSharedPreferences.getBoolean(Constants.KEY_SHARE_PREFERENCE_DEMO_MODE, isPhone());
+    //    }
+    //
+    //    public void setDemoModeStatus(int status)
+    //    {
+    //        mSharedPreferences.edit().putInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, status).apply();
+    //    }
+    //
+    //    public int getDemoModeStatus()
+    //    {
+    //        return mSharedPreferences.getInt(Constants.KEY_SHARE_PREFERENCE_DEMO_STATUS, -1);
+    //    }
 
     // ---------------------------------------------------------------------------------------------------------
     // ------------ Suggest ------------------------------------------------------------------------------------

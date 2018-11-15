@@ -9,7 +9,6 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.activity.base.BaseSmartlinkActivity;
 import com.android.smartlink.ui.fragment.AboutFragment;
-import com.android.smartlink.ui.fragment.DemoSettingFragment;
 import com.android.smartlink.ui.fragment.TermsFragment;
 
 /**
@@ -79,9 +78,9 @@ public class SingleActivity extends BaseSmartlinkActivity
         {
             mNavigationComposite.showPrimaryFragment(new AboutFragment(), title);
         }
-        else if (page == PAGE_DEMO_SETTING)
-        {
-            mNavigationComposite.showPrimaryFragment(new DemoSettingFragment(), title);
-        }
+        //        else if (page == PAGE_DEMO_SETTING)
+        //        {
+        //            mNavigationComposite.showPrimaryFragment(new DemoSettingFragment(), title);
+        //        }
     }
 }

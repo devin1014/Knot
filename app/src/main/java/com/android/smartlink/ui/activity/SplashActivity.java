@@ -6,11 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.smartlink.R;
-import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.InitializeTask;
 import com.android.smartlink.assist.InitializeTask.InitializeTaskCallback;
-import com.android.smartlink.util.ui.AlertDialogUtil;
 import com.android.smartlink.util.Utils;
+import com.android.smartlink.util.ui.AlertDialogUtil;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -72,7 +71,7 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
         {
             finish();
 
-            startActivity(new Intent(this, AppManager.getInstance().isPhone() ? WelcomeActivity.class : MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         else
         {
