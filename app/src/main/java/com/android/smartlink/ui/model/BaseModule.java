@@ -1,7 +1,7 @@
 package com.android.smartlink.ui.model;
 
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
-import com.android.smartlink.util.ImageResUtil;
+import com.android.smartlink.util.ui.ImageResUtil;
 
 /**
  * User: LIUWEI

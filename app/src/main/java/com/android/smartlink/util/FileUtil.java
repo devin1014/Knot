@@ -5,6 +5,9 @@ import android.content.res.AssetManager;
 
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
@@ -32,5 +35,23 @@ public class FileUtil
 
             return null;
         }
+    }
+
+    public static String parseStream(InputStream inputStream) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+        String s;
+
+        StringBuilder builder = new StringBuilder();
+
+        while ((s = reader.readLine()) != null)
+        {
+            builder.append(s);
+        }
+
+        reader.close();
+
+        return builder.toString();
     }
 }

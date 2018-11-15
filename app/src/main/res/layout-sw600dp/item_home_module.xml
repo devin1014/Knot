@@ -6,8 +6,6 @@
 
         <import type="android.view.View" />
 
-        <import type="com.android.smartlink.util.Helper.ToggleHelper" />
-
         <variable
             name="data"
             type="com.android.smartlink.ui.model.UIMonitorModule" />

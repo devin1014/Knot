@@ -8,7 +8,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
-import com.android.smartlink.util.ImageResUtil;
+import com.android.smartlink.util.ui.ImageResUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
 

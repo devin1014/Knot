@@ -1,4 +1,4 @@
-package com.android.smartlink.util;
+package com.android.smartlink.util.ui;
 
 import android.support.annotation.DrawableRes;
 import android.util.SparseArray;

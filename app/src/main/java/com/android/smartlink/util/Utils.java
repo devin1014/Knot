@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 
 import com.android.smartlink.application.manager.AppManager;
 
@@ -82,4 +84,17 @@ public class Utils
         return params == null || params.length == 0;
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+    // - String
+    // ----------------------------------------------------------------------------------------------------------------
+    public static void setSpannable(SpannableStringBuilder spannableString, int start, int end, Object... objects)
+    {
+        if (objects != null)
+        {
+            for (Object obj : objects)
+            {
+                spannableString.setSpan(obj, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+        }
+    }
 }

@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.smartlink.Constants;
 import com.android.smartlink.Constants.MODULE_FLAG;
-import com.android.smartlink.ui.model.UIMonitorModule;
-import com.android.smartlink.util.ViewUtil;
+import com.android.smartlink.util.ui.ViewUtil;
 
 /**
  * User: LIUWEI

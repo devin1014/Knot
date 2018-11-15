@@ -9,7 +9,7 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.assist.InitializeTask;
 import com.android.smartlink.assist.InitializeTask.InitializeTaskCallback;
-import com.android.smartlink.util.AlertUtil;
+import com.android.smartlink.util.ui.AlertDialogUtil;
 import com.android.smartlink.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -76,7 +76,7 @@ public class SplashActivity extends AppCompatActivity implements InitializeTaskC
         }
         else
         {
-            AlertUtil.showLaunchFailedAlert(this);
+            AlertDialogUtil.showLaunchFailedAlert(this);
         }
     }
 }

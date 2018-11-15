@@ -4,7 +4,7 @@ import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.application.manager.AppManager.RequestMode;
 import com.android.smartlink.bean.Weather;
 import com.android.smartlink.bean.Weather.WeatherBasic;
-import com.android.smartlink.util.IOUtils;
+import com.android.smartlink.util.FileUtil;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 
@@ -67,7 +67,7 @@ public abstract class WeatherProvider extends BaseRequestProvider<Weather>
         {
             try
             {
-                String resultString = IOUtils.parseStream(AppManager.getInstance().getApplication().getAssets().open(url));
+                String resultString = FileUtil.parseStream(AppManager.getInstance().getApplication().getAssets().open(url));
 
                 JSONObject jsonObject = new JSONObject(resultString);
 

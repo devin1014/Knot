@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.smartlink.R;
-import com.android.smartlink.util.ViewUtil;
+import com.android.smartlink.util.ui.ViewUtil;
 
 
 /**

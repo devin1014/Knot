@@ -6,8 +6,6 @@
 
     <data>
 
-        <import type="com.android.smartlink.util.Helper.ToggleHelper" />
-
         <variable
             name="data"
             type="com.android.smartlink.ui.model.ToggleModuleImp" />

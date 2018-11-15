@@ -1,4 +1,4 @@
-package com.android.smartlink.util;
+package com.android.smartlink.util.ui;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -8,7 +8,7 @@ import android.support.v7.app.AlertDialog.Builder;
 
 import com.android.smartlink.R;
 
-public class AlertUtil
+public class AlertDialogUtil
 {
     public static void showLaunchFailedAlert(final Activity activity)
     {

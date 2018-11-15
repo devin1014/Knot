@@ -1,4 +1,4 @@
-package com.android.smartlink.util;
+package com.android.smartlink.util.ui;
 
 import android.content.res.Resources;
 
