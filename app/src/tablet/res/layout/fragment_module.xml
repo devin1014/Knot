@@ -30,28 +30,15 @@
 
         <RadioButton
             android:id="@+id/module_group_all"
-            android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:checked="true"
-            android:tag="0"
-            android:text="@string/group_all"
-            android:textColor="@color/module_filter_text" />
+            style="@style/ModuleGroupFilter" />
 
         <RadioButton
             android:id="@+id/module_group_fir_floor"
-            android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:tag="1"
-            android:text="@string/group_first_floor"
-            android:textColor="@color/module_filter_text" />
+            style="@style/ModuleGroupFilter.First" />
 
         <RadioButton
             android:id="@+id/module_group_sec_floor"
-            android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:tag="2"
-            android:text="@string/group_second_floor"
-            android:textColor="@color/module_filter_text" />
+            style="@style/ModuleGroupFilter.Second" />
 
     </RadioGroup>
 

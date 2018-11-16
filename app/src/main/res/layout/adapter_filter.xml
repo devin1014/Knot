@@ -32,7 +32,7 @@
             android:layout_gravity="center_vertical"
             android:duplicateParentState="true"
             android:text="@{data.name}"
-            android:textColor="@color/events_filter_text"
+            android:textColor="@color/text_events_filter"
             android:textSize="14dp"
             tools:ignore="SpUsage" />
 
