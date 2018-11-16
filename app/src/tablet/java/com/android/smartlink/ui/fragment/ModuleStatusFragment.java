@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.fragment;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,17 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataChanged;
+import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleGroupChanged;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
+import com.android.smartlink.databinding.ItemHomeMainModuleBindingImpl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.UIMonitorModule.GroupType;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,7 +43,9 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     @BindView(R.id.home_main_module)
     View mMainModule;
 
-    ModuleAdapter mModuleAdapter;
+    private ItemHomeMainModuleBindingImpl mMainModuleBinding;
+    private ModuleAdapter mModuleAdapter;
+    private ModulesData mModulesData;
 
     @Nullable
     @Override
@@ -60,22 +64,15 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        ModulesData modules = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
+        mModulesData = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
-        List<MonitorModuleData> list = modules.getMonitorModules();
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
 
-        mModuleAdapter = new ModuleAdapter(getLayoutInflater());
+        mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapter(getLayoutInflater()));
 
-        mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
+        mMainModuleBinding = DataBindingUtil.bind(mMainModule);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false);
-
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-
-        mRecyclerView.setAdapter(mModuleAdapter);
-
-        //reset main module
-        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, ConvertUtil.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
+        resetData();
     }
 
     @Override
@@ -98,12 +95,33 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onModuleDataChangedEvent(EventModuleDataChanged event)
     {
-        List<MonitorModuleData> list = event.modulesData.getMonitorModules();
+        mModulesData = event.modulesData;
 
-        mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
-
-        //reset main module
-        AppDataBindingAdapter.viewBinding(mMainModule, BR.data, ConvertUtil.convertModule(list, 0, ImageType.DRAWABLE_LARGE_LIGHT));
+        resetData();
     }
 
+    private int mGroupId = GroupType.GROUP_ALL;
+
+    @SuppressWarnings("unused")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onModuleGroupChangedEvent(EventModuleGroupChanged event)
+    {
+        mGroupId = event.group;
+
+        resetData();
+    }
+
+    private void resetData()
+    {
+        List<MonitorModuleData> list = mModulesData.getMonitorModules();
+
+        int group = mGroupId;
+
+        //reset main module
+        mMainModuleBinding.setData(ConvertUtil.convertModule(list.get(0), ImageType.DRAWABLE_LARGE_LIGHT));
+        mMainModuleBinding.executePendingBindings();
+
+        //reset others
+        mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT, group));
+    }
 }

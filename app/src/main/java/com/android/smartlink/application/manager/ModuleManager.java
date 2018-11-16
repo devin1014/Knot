@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 
 import com.android.smartlink.bean.AllFilter;
 import com.android.smartlink.bean.Configurations;
@@ -32,6 +33,7 @@ class ModuleManager
 
     private SparseArray<BaseModule> mModuleIds;
     private SparseArray<String> mModuleNames;
+    private SparseIntArray mModuleGroups;
 
     ModuleManager(Application application)
     {
@@ -40,6 +42,7 @@ class ModuleManager
         mModuleList = new ArrayList<>();
         mModuleIds = new SparseArray<>();
         mModuleNames = new SparseArray<>();
+        mModuleGroups = new SparseIntArray();
     }
 
     boolean isInitialized()
@@ -79,6 +82,8 @@ class ModuleManager
 
                 mModuleList.add(moduleImp);
 
+                mModuleGroups.put(moduleImp.getId(), info.getGroup());
+
                 String name = innerGetModuleName(moduleImp.getId());
 
                 if (TextUtils.isEmpty(name))
@@ -111,6 +116,11 @@ class ModuleManager
     String getModuleName(int id)
     {
         return mModuleNames.get(id);
+    }
+
+    int getModuleGroup(int id)
+    {
+        return mModuleGroups.get(id);
     }
 
     private String innerGetModuleName(int id)

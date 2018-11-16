@@ -162,6 +162,11 @@ public class AppManager
         return mModuleManager.getAllModuleList();
     }
 
+    public int getModuleGroup(int id)
+    {
+        return mModuleManager.getModuleGroup(id);
+    }
+
     // ---------------------------------------------------------------------------------------------------------
     // ------------ Configuration ------------------------------------------------------------------------------
     private RequestUrl mHttpUrl;

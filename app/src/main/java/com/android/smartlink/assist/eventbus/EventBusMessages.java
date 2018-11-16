@@ -23,4 +23,14 @@ public class EventBusMessages
             this.modulesData = modulesData;
         }
     }
+
+    public static class EventModuleGroupChanged
+    {
+        public final int group;
+
+        public EventModuleGroupChanged(int group)
+        {
+            this.group = group;
+        }
+    }
 }

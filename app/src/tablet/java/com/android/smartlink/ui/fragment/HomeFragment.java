@@ -1,7 +1,6 @@
 package com.android.smartlink.ui.fragment;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AlertNotifyManager;
@@ -22,6 +20,7 @@ import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataCha
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.databinding.ListItemHomeWeatherBindingImpl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -41,7 +40,7 @@ import butterknife.BindView;
  */
 public class HomeFragment extends BaseSmartlinkFragment implements RequestCallback<ModulesData>
 {
-    @BindView(R.id.loading_layout)
+    @BindView(R.id.home_loading_layout)
     LoadingLayout mLoadingLayout;
     @BindView(R.id.weather_root)
     View mWeatherView;
@@ -71,18 +70,18 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         mAlertManager = new AlertNotifyManager(getActivity());
 
-        final ViewDataBinding mWeatherBinding = DataBindingUtil.bind(mWeatherView);
+        final ListItemHomeWeatherBindingImpl viewBinding = DataBindingUtil.bind(mWeatherView);
 
         mWeatherManager = new WeatherManager(new WeatherCallback()
         {
             @Override
             public void onWeatherResponse(Weather weather)
             {
-                if (mWeatherBinding != null)
+                if (viewBinding != null)
                 {
-                    mWeatherBinding.setVariable(BR.data, new UIWeather(weather));
+                    viewBinding.setData(new UIWeather(weather));
 
-                    mWeatherBinding.executePendingBindings();
+                    viewBinding.executePendingBindings();
                 }
             }
         });
@@ -122,15 +121,15 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mAlertManager.notifyNotification(getActivity(), ConvertUtil.convertModules(modules.getMonitorModules()));
 
-        if (getChildFragmentManager().findFragmentById(R.id.home_module_container) == null)
+        if (getChildFragmentManager().findFragmentById(R.id.home_module_holder) == null)
         {
-            replaceFragment(R.id.home_module_container,
+            replaceFragment(R.id.home_module_holder,
                     FragmentUtils.newInstance(ModuleFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
         }
 
-        if (getChildFragmentManager().findFragmentById(R.id.home_toggle_container) == null)
+        if (getChildFragmentManager().findFragmentById(R.id.home_toggle_holder) == null)
         {
-            replaceFragment(R.id.home_toggle_container,
+            replaceFragment(R.id.home_toggle_holder,
                     FragmentUtils.newInstance(ToggleListFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
         }
 

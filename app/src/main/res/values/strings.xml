@@ -49,6 +49,11 @@
     <string name="notify_error">%1$s发生故障</string>
     <string name="notify_description">请及时检查相关设备</string>
 
+    <!--首页-->
+    <string name="group_all">全部</string>
+    <string name="group_first_floor">1楼</string>
+    <string name="group_second_floor">2楼</string>
+
     <!--演示设置-->
     <string name="demo_main_module">总回路</string>
     <string name="demo_freezer_module">冰箱回路</string>

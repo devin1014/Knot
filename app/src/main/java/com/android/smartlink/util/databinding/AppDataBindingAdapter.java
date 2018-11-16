@@ -30,42 +30,42 @@ public class AppDataBindingAdapter
         return view;
     }
 
-    public static View binding(View view, int[] variableIds, Object[] values)
-    {
-        if (variableIds.length != values.length)
-        {
-            throw new IllegalArgumentException("variableIds array size not match values array!");
-        }
+    //    public static View binding(View view, int[] variableIds, Object[] values)
+    //    {
+    //        if (variableIds.length != values.length)
+    //        {
+    //            throw new IllegalArgumentException("variableIds array size not match values array!");
+    //        }
+    //
+    //        ViewDataBinding viewDataBinding = DataBindingUtil.bind(view);
+    //
+    //        for (int i = 0; i < variableIds.length; i++)
+    //        {
+    //            viewDataBinding.setVariable(variableIds[i], values[i]);
+    //        }
+    //
+    //        viewDataBinding.executePendingBindings();
+    //
+    //        return view;
+    //    }
 
-        ViewDataBinding viewDataBinding = DataBindingUtil.bind(view);
+    //    public static void binding(ViewDataBinding viewDataBinding, int variableId, Object value)
+    //    {
+    //        viewDataBinding.setVariable(variableId, value);
+    //
+    //        viewDataBinding.executePendingBindings();
+    //    }
 
-        for (int i = 0; i < variableIds.length; i++)
-        {
-            viewDataBinding.setVariable(variableIds[i], values[i]);
-        }
-
-        viewDataBinding.executePendingBindings();
-
-        return view;
-    }
-
-    public static void binding(ViewDataBinding viewDataBinding, int variableId, Object value)
-    {
-        viewDataBinding.setVariable(variableId, value);
-
-        viewDataBinding.executePendingBindings();
-    }
-
-    public static ViewDataBinding viewBinding(View view, int variableId, Object value)
-    {
-        ViewDataBinding viewDataBinding = DataBindingUtil.bind(view);
-
-        viewDataBinding.setVariable(variableId, value);
-
-        viewDataBinding.executePendingBindings();
-
-        return viewDataBinding;
-    }
+    //    public static ViewDataBinding viewBinding(View view, int variableId, Object value)
+    //    {
+    //        ViewDataBinding viewDataBinding = DataBindingUtil.bind(view);
+    //
+    //        viewDataBinding.setVariable(variableId, value);
+    //
+    //        viewDataBinding.executePendingBindings();
+    //
+    //        return viewDataBinding;
+    //    }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // ImageView

@@ -26,7 +26,8 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 150,
-                        "name": "总回路"
+                        "name": "总回路",
+                        "group": 0
                     }
                 ]
             }, {
@@ -36,7 +37,8 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 151,
-                        "name": "冰箱回路"
+                        "name": "冰箱回路",
+                        "group": 1
                     }
                 ]
             },
@@ -47,7 +49,8 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 152,
-                        "name": "插座回路"
+                        "name": "插座回路",
+                        "group": 1
                     }
                 ]
             },
@@ -58,7 +61,8 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 153,
-                        "name": "照明回路"
+                        "name": "照明回路",
+                        "group": 1
                     }
                 ]
             },
@@ -69,7 +73,8 @@
                         "index": 1,
                         "slaveID": 154,
                         "channel": 0,
-                        "name": "空调回路"
+                        "name": "空调回路",
+                        "group": 1
                     }
                 ]
             },
@@ -80,7 +85,8 @@
                         "index": 1,
                         "slaveID": 155,
                         "channel": 0,
-                        "name": "水泵回路"
+                        "name": "水泵回路",
+                        "group": 2
                     }
                 ]
             },
@@ -91,7 +97,8 @@
                         "index": 1,
                         "slaveID": 156,
                         "channel": 0,
-                        "name": "主电梯回路"
+                        "name": "主电梯回路",
+                        "group": 2
                     }
                 ]
             },
@@ -102,7 +109,8 @@
                         "index": 1,
                         "slaveID": 157,
                         "channel": 0,
-                        "name": "备用回路"
+                        "name": "备用回路",
+                        "group": 2
                     }
                 ]
             }

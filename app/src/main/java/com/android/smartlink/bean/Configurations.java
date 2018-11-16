@@ -114,6 +114,7 @@ public class Configurations
         private int slaveID;
         private int channel;
         private String name;
+        private int group;
 
         public int getChannel()
         {
@@ -128,6 +129,11 @@ public class Configurations
         public int getSlaveID()
         {
             return slaveID;
+        }
+
+        public int getGroup()
+        {
+            return group;
         }
     }
 

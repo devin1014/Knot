@@ -82,6 +82,11 @@ public interface BaseModule
 
         private static final int MASK_CHANNEL_ID = 0x00FFFFFF;
 
+        public static int generateId(BaseModule module)
+        {
+            return generateId(module.getSlaveID(), module.getChannel());
+        }
+
         public static int generateId(int salveId, int channel)
         {
             return (salveId << LOW_BIT) & MASK_SALVE_ID | channel;

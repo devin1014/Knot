@@ -1,16 +1,19 @@
 package com.android.smartlink.util;
 
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.AllFilter;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule;
+import com.android.smartlink.ui.model.BaseModule.ModuleParser;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.ToggleModuleImp;
 import com.android.smartlink.ui.model.UIDeviceImp;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.model.UIMonitorModule;
+import com.android.smartlink.ui.model.UIMonitorModule.GroupType;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.model.UIToggleModule;
@@ -38,21 +41,41 @@ public class ConvertUtil
         return convertModules(list, 0, list.size(), imageType);
     }
 
-    public static List<UIMonitorModule> convertModules(List<MonitorModuleData> list, int from, int to, int imageType)
+    public static List<UIMonitorModule> convertModules(List<MonitorModuleData> list, int from, int to, @ImageType int imageType)
+    {
+        return convertModules(list, from, to, imageType, GroupType.GROUP_ALL);
+    }
+
+    public static List<UIMonitorModule> convertModules(List<MonitorModuleData> list, int from, int to, @ImageType int imageType, @GroupType int group)
     {
         List<UIMonitorModule> moduleList = new ArrayList<>();
 
         for (int i = from; list != null && i < to; i++)
         {
-            moduleList.add(new MonitorModuleImp(list.get(i), imageType));
+            boolean add = true;
+
+            if (group != GroupType.GROUP_ALL)
+            {
+                int generateId = ModuleParser.generateId(list.get(i));
+
+                if (group != AppManager.getInstance().getModuleGroup(generateId))
+                {
+                    add = false;
+                }
+            }
+
+            if (add)
+            {
+                moduleList.add(new MonitorModuleImp(list.get(i), imageType));
+            }
         }
 
         return moduleList;
     }
 
-    public static UIMonitorModule convertModule(List<MonitorModuleData> list, int index, int imageType)
+    public static UIMonitorModule convertModule(MonitorModuleData moduleData, int imageType)
     {
-        return new MonitorModuleImp(list.get(index), imageType);
+        return new MonitorModuleImp(moduleData, imageType);
     }
 
     // --------------------------------------------------------------------------------------------------------------

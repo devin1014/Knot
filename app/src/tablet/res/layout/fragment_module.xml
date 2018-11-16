@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="24dp"
-    android:paddingRight="24dp">
+    android:paddingRight="24dp"
+    tools:background="#55888888">
 
     <TextView
-        android:id="@+id/model_title"
+        android:id="@+id/module_title"
         android:layout_width="wrap_content"
         android:layout_height="72dp"
         android:gravity="center"
@@ -18,19 +19,56 @@
         android:textSize="16dp"
         tools:ignore="SpUsage" />
 
+    <RadioGroup
+        android:id="@+id/module_group"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginStart="200dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/module_group_all"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:tag="0"
+            android:text="@string/group_all"
+            android:textColor="@color/module_filter_text" />
+
+        <RadioButton
+            android:id="@+id/module_group_fir_floor"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:tag="1"
+            android:text="@string/group_first_floor"
+            android:textColor="@color/module_filter_text" />
+
+        <RadioButton
+            android:id="@+id/module_group_sec_floor"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:tag="2"
+            android:text="@string/group_second_floor"
+            android:textColor="@color/module_filter_text" />
+
+    </RadioGroup>
+
     <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator"
+        android:id="@+id/module_magic_indicator"
         android:layout_width="48dp"
         android:layout_height="@dimen/home_indicator_height"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        tools:background="#aa808080" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/model_pager"
+        android:id="@+id/module_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/magic_indicator"
-        android:layout_below="@id/model_title"
+        android:layout_above="@id/module_magic_indicator"
+        android:layout_below="@id/module_title"
         android:overScrollMode="never" />
 
 </RelativeLayout>
