@@ -26,9 +26,7 @@ import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
 import com.android.smartlink.ui.widget.layoutmanager.ModuleGridLayoutManager;
-import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 

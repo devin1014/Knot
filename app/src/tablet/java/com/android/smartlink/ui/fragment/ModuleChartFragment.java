@@ -57,7 +57,7 @@ public class ModuleChartFragment extends BaseSmartlinkFragment implements Reques
     {
         mRequestProvider = EnergyRequestProvider.newInstance(this);
 
-        mRequestProvider.request(RequestUrl.obtainEnergyUrl(150));
+        mRequestProvider.request(RequestUrl.obtainEnergyUrl());
 
         mLoadingLayout.showLoading();
     }

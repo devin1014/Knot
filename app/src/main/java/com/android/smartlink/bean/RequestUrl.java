@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Configurations.FeedUrl;
-import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.Utils;
 
 public abstract class RequestUrl
@@ -35,9 +34,9 @@ public abstract class RequestUrl
         return mEventsUrl;
     }
 
-    private String getEnergyUrl(int id)
+    private String getEnergyUrl()
     {
-        return mEnergyUrl.replace("${id}", String.valueOf(id));
+        return mEnergyUrl;
     }
 
     public static class HttpUrl extends RequestUrl
@@ -65,15 +64,13 @@ public abstract class RequestUrl
     {
         public LocalUrl(FeedUrl feedUrl)
         {
-            int status = -1;
-
             mLocationUrl = feedUrl.getWeatherLocalUrl();
 
             mWeatherUrl = feedUrl.getWeatherUrl();
 
-            mMainDataUrl = feedUrl.getMainDataUrl().replace("${state}", ConvertUtil.convertStatus(status));
+            mMainDataUrl = feedUrl.getMainDataUrl();
 
-            mEventsUrl = feedUrl.getEventsUrl().replace("${state}", ConvertUtil.convertStatus(status));
+            mEventsUrl = feedUrl.getEventsUrl();
 
             mEnergyUrl = feedUrl.getEnergyUrl();
         }
@@ -101,8 +98,8 @@ public abstract class RequestUrl
         return AppManager.getInstance().getHttpUrl().getEventsUrl();
     }
 
-    public static String obtainEnergyUrl(int id)
+    public static String obtainEnergyUrl()
     {
-        return AppManager.getInstance().getHttpUrl().getEnergyUrl(id);
+        return AppManager.getInstance().getHttpUrl().getEnergyUrl();
     }
 }

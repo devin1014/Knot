@@ -16,7 +16,6 @@ import com.android.smartlink.ui.activity.SingleActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
-import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 

@@ -16,7 +16,7 @@ import com.android.smartlink.assist.BaseExecutorService;
 import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataChanged;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
-import com.android.smartlink.ui.model.ToggleModuleImp;
+import com.android.smartlink.ui.model.UIToggleModule;
 import com.android.smartlink.ui.widget.adapter.ToggleAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.core.widget.recyclerview.RecyclerView;
@@ -110,18 +110,18 @@ public class ToggleListFragment extends BaseSmartlinkFragment
 
     private BaseExecutorService mExecutorService = new BaseExecutorService();
 
-    private OnItemClickListener<ToggleModuleImp> mOnItemClickListener = new OnItemClickListener<ToggleModuleImp>()
+    private OnItemClickListener<UIToggleModule> mOnItemClickListener = new OnItemClickListener<UIToggleModule>()
     {
         @Override
-        public void onItemClick(View view, ToggleModuleImp toggleModuleImp)
+        public void onItemClick(View view, UIToggleModule toggleModule)
         {
-            boolean on = toggleModuleImp.toggle();
+            boolean on = toggleModule.toggle();
 
             int value = on ? MODULE_FLAG.CTRL_ON.value : MODULE_FLAG.CTRL_OFF.value;
 
-            mExecutorService.execute(toggleModuleImp.getId(), toggleModuleImp.getSlaveID(), value);
+            mExecutorService.execute(toggleModule.getId(), toggleModule.getSlaveID(), value);
 
-            mAdapter.updateItem(toggleModuleImp);
+            mAdapter.updateItem(toggleModule);
         }
     };
 }

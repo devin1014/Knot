@@ -111,7 +111,7 @@ public class DetailFragment extends BaseSmartlinkFragment implements RequestCall
 
         mRequestProvider = EnergyRequestProvider.newInstance(this);
 
-        mRequestProvider.request(RequestUrl.obtainEnergyUrl(uiModule.getSlaveID()));
+        mRequestProvider.request(RequestUrl.obtainEnergyUrl());
 
         mLoadingLayout.showLoading();
 

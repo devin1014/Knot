@@ -51,7 +51,7 @@ public class ModuleFragment extends BaseSmartlinkFragment
 
     private void initComponent()
     {
-        mViewPager.setAdapter(new ModuleAdapter(getChildFragmentManager()));
+        mViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
         mMagicIndicator.setNavigator(MagicIndicatorHelper.newScaleCircleNavigator(getActivity(),
                 mViewPager.getAdapter().getCount(),
@@ -61,9 +61,9 @@ public class ModuleFragment extends BaseSmartlinkFragment
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    private class ModuleAdapter extends MyFragmentPagerAdapter
+    private class MyAdapter extends MyFragmentPagerAdapter
     {
-        ModuleAdapter(FragmentManager fm)
+        MyAdapter(FragmentManager fm)
         {
             super(fm, 2);
         }

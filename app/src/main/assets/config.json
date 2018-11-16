@@ -4,16 +4,16 @@
     "localFeed": {
         "weatherLocalUrl": "data/location.json",
         "weatherUrl": "data/weather.json",
-        "mainDataUrl": "data/main/main_${state}.json",
-        "eventsUrl": "data/events/events_${state}.json",
-        "energyUrl": "data/energy/${id}.json"
+        "mainDataUrl": "data/main/data.json",
+        "eventsUrl": "data/events/data.json",
+        "energyUrl": "data/energy/data.json"
     },
     "httpFeed": {
         "weatherLocalUrl": "https://api.accuweather.com/localweather/v1/106577?apikey=${weatherLocalKey}",
         "weatherUrl": "https://free-api.heweather.com/v5/weather?city=${city}&key=${weatherKey}",
-        "mainDataUrl": "http://localhost:8080/examples/knot/main/main_all.json",
-        "eventsUrl": "http://localhost:8080/examples/knot/events/events_all.json",
-        "energyUrl": "http://localhost:8080/examples/knot/energy/${id}.json"
+        "mainDataUrl": "http://localhost:8080/examples/knot/main/data.json",
+        "eventsUrl": "http://localhost:8080/examples/knot/events/data.json",
+        "energyUrl": "http://localhost:8080/examples/knot/energy/data.json"
     },
     "monitor": {
         "serverIP": "192.168.1.101",

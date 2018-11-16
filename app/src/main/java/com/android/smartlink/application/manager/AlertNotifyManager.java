@@ -10,7 +10,7 @@ import android.os.SystemClock;
 
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
-import com.android.smartlink.ui.model.MonitorModuleImp;
+import com.android.smartlink.ui.model.UIMonitorModule;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class AlertNotifyManager
         mNotificationManager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
     }
 
-    public void notifyNotification(Context context, List<MonitorModuleImp> moduleList)
+    public void notifyNotification(Context context, List<UIMonitorModule> moduleList)
     {
         if (checkModules(moduleList))
         {
@@ -60,9 +60,9 @@ public class AlertNotifyManager
         }
     }
 
-    private boolean checkModules(List<MonitorModuleImp> moduleList)
+    private boolean checkModules(List<UIMonitorModule> moduleList)
     {
-        for (MonitorModuleImp module : moduleList)
+        for (UIMonitorModule module : moduleList)
         {
             if (module.hasAlarm())
             {
@@ -73,7 +73,7 @@ public class AlertNotifyManager
         return false;
     }
 
-    public void warning(Context context, List<MonitorModuleImp> moduleList)
+    public void warning(Context context, List<UIMonitorModule> moduleList)
     {
         final int lastWarningLevel = mWarningLevel;
 
@@ -124,7 +124,7 @@ public class AlertNotifyManager
     }
 
 
-    private String parseModule(Context context, List<MonitorModuleImp> moduleList)
+    private String parseModule(Context context, List<UIMonitorModule> moduleList)
     {
         StringBuilder builder = new StringBuilder();
 
@@ -132,26 +132,26 @@ public class AlertNotifyManager
 
         String alarmFormat = context.getResources().getString(R.string.notify_alarm);
 
-        for (MonitorModuleImp module : moduleList)
+        if (moduleList != null)
         {
-            if (module.isError())
+            for (UIMonitorModule module : moduleList)
             {
-                mWarningLevel = Constants.STATUS_ERROR;
-
-                builder.append(String.format(errorFormat, module.getName())).append("\n");
-            }
-        }
-
-        for (MonitorModuleImp module : moduleList)
-        {
-            if (module.isAlarm())
-            {
-                if (mWarningLevel != Constants.STATUS_ERROR)
+                if (module.getModuleStatus() == Constants.STATUS_ERROR)
                 {
-                    mWarningLevel = Constants.STATUS_WARNING;
+                    mWarningLevel = Constants.STATUS_ERROR;
+
+                    builder.append(String.format(errorFormat, module.getName())).append("\n");
                 }
 
-                builder.append(String.format(alarmFormat, module.getName())).append("\n");
+                if (module.getModuleStatus() == Constants.STATUS_WARNING)
+                {
+                    if (mWarningLevel != Constants.STATUS_ERROR)
+                    {
+                        mWarningLevel = Constants.STATUS_WARNING;
+                    }
+
+                    builder.append(String.format(alarmFormat, module.getName())).append("\n");
+                }
             }
         }
 

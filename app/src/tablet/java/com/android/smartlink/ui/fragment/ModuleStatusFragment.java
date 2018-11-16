@@ -16,7 +16,7 @@ import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
-import com.android.smartlink.ui.widget.adapter.ModuleAdapterTablet;
+import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.RecyclerView;
@@ -41,7 +41,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     @BindView(R.id.home_main_module)
     View mMainModule;
 
-    ModuleAdapterTablet mModuleAdapter;
+    ModuleAdapter mModuleAdapter;
 
     @Nullable
     @Override
@@ -64,7 +64,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
         List<MonitorModuleData> list = modules.getMonitorModules();
 
-        mModuleAdapter = new ModuleAdapterTablet(getLayoutInflater());
+        mModuleAdapter = new ModuleAdapter(getLayoutInflater());
 
         mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT));
 
