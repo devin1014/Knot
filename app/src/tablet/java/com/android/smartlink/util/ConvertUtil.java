@@ -6,6 +6,8 @@ import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule;
+import com.android.smartlink.ui.model.BaseModule.Module.GroupType;
+import com.android.smartlink.ui.model.BaseModule.Module.ImageType;
 import com.android.smartlink.ui.model.BaseModule.ModuleParser;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.ToggleModuleImp;
@@ -13,8 +15,6 @@ import com.android.smartlink.ui.model.UIDeviceImp;
 import com.android.smartlink.ui.model.UIEvent;
 import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.model.UIMonitorModule;
-import com.android.smartlink.ui.model.UIMonitorModule.GroupType;
-import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.model.UIToggleModule;
 

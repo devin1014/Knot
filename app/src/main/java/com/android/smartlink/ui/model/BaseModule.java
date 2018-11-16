@@ -1,7 +1,16 @@
 package com.android.smartlink.ui.model;
 
-import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
+import android.support.annotation.IntDef;
+
 import com.android.smartlink.util.ui.ImageResUtil;
+
+import static com.android.smartlink.ui.model.BaseModule.Module.GroupType.GROUP_1;
+import static com.android.smartlink.ui.model.BaseModule.Module.GroupType.GROUP_2;
+import static com.android.smartlink.ui.model.BaseModule.Module.GroupType.GROUP_ALL;
+import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_LARGE;
+import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_LARGE_LIGHT;
+import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_NORMAL;
+import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_NORMAL_LIGHT;
 
 /**
  * User: LIUWEI
@@ -18,6 +27,23 @@ public interface BaseModule
 
     interface Module extends BaseModule
     {
+        @IntDef({DRAWABLE_NORMAL, DRAWABLE_NORMAL_LIGHT, DRAWABLE_LARGE, DRAWABLE_LARGE_LIGHT})
+        @interface ImageType
+        {
+            int DRAWABLE_NORMAL = 0;
+            int DRAWABLE_NORMAL_LIGHT = 1;
+            int DRAWABLE_LARGE = 2;
+            int DRAWABLE_LARGE_LIGHT = 3;
+        }
+
+        @IntDef({GROUP_ALL, GROUP_1, GROUP_2})
+        @interface GroupType
+        {
+            int GROUP_ALL = 0;
+            int GROUP_1 = 1;
+            int GROUP_2 = 2;
+        }
+
         int getId();
 
         int getImageRes();

@@ -5,7 +5,7 @@ import android.util.SparseArray;
 
 import com.android.smartlink.R;
 import com.android.smartlink.bean.IModuleAddress.ModuleAddress;
-import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
+import com.android.smartlink.ui.model.BaseModule.Module.ImageType;
 
 public class ImageResUtil
 {

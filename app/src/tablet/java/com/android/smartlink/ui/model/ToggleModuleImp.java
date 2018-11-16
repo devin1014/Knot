@@ -4,7 +4,6 @@ import com.android.smartlink.Constants.MODULE_FLAG;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
-import com.android.smartlink.ui.model.UIMonitorModule.ImageType;
 import com.android.smartlink.util.ui.ImageResUtil;
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
