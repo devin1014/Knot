@@ -20,7 +20,7 @@ import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataCha
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
-import com.android.smartlink.databinding.ListItemHomeWeatherBindingImpl;
+import com.android.smartlink.databinding.LayoutHomeWeatherBindingImpl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIWeather;
 import com.android.smartlink.ui.widget.LoadingLayout;
@@ -70,7 +70,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         mAlertManager = new AlertNotifyManager(getActivity());
 
-        final ListItemHomeWeatherBindingImpl viewBinding = DataBindingUtil.bind(mWeatherView);
+        final LayoutHomeWeatherBindingImpl viewBinding = DataBindingUtil.bind(mWeatherView);
 
         mWeatherManager = new WeatherManager(new WeatherCallback()
         {
@@ -121,15 +121,19 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
 
         mAlertManager.notifyNotification(getActivity(), ConvertUtil.convertModules(modules.getMonitorModules()));
 
-        if (getChildFragmentManager().findFragmentById(R.id.home_module_holder) == null)
+        int leftHolderId = R.id.home_module_holder;
+
+        if (getChildFragmentManager().findFragmentById(leftHolderId) == null)
         {
-            replaceFragment(R.id.home_module_holder,
+            replaceFragment(leftHolderId,
                     FragmentUtils.newInstance(ModuleFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
         }
 
-        if (getChildFragmentManager().findFragmentById(R.id.home_toggle_holder) == null)
+        int rightHolderId = R.id.home_toggle_holder;
+
+        if (getChildFragmentManager().findFragmentById(rightHolderId) == null)
         {
-            replaceFragment(R.id.home_toggle_holder,
+            replaceFragment(rightHolderId,
                     FragmentUtils.newInstance(ToggleListFragment.class, new Pair<String, Serializable>(Constants.KEY_EXTRA_MODULES, modules)));
         }
 

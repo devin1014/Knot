@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/list_item_home_weather" />
+        <include layout="@layout/layout_home_weather" />
 
         <RelativeLayout
             android:layout_width="match_parent"

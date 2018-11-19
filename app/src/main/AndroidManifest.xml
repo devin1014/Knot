@@ -38,12 +38,6 @@
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name=".ui.activity.WelcomeActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTop"
-            android:screenOrientation="sensor"
-            android:theme="@style/AppTheme.FullScreen" />
-        <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop"
