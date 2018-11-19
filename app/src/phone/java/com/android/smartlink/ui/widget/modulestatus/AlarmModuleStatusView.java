@@ -2,6 +2,7 @@ package com.android.smartlink.ui.widget.modulestatus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.util.DiffUtil.Callback;
@@ -16,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.assist.EventsRequestProvider;
@@ -25,9 +25,9 @@ import com.android.smartlink.bean.Events;
 import com.android.smartlink.bean.Events.Event;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.RequestUrl;
+import com.android.smartlink.databinding.ItemHomeStatusAlarmBindingImpl;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIEvent;
-import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 import com.android.smartlink.util.ui.UICompat;
 
 import java.util.Collections;
@@ -225,7 +225,13 @@ public class AlarmModuleStatusView extends LinearLayout
                 {
                     View inflaterView = mInflater.inflate(R.layout.item_home_status_alarm, mDetailGroup, false);
 
-                    mDetailGroup.addView(AppDataBindingAdapter.binding(inflaterView, BR.data, new UIEvent(e)));
+                    ItemHomeStatusAlarmBindingImpl viewBinding = DataBindingUtil.bind(inflaterView);
+
+                    viewBinding.setData(new UIEvent(e));
+
+                    viewBinding.executePendingBindings();
+
+                    mDetailGroup.addView(viewBinding.getRoot());
                 }
             }
         }

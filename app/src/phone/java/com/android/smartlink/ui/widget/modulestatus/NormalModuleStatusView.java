@@ -1,6 +1,7 @@
 package com.android.smartlink.ui.widget.modulestatus;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.util.DiffUtil.Callback;
@@ -14,11 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.R;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
+import com.android.smartlink.databinding.CompHomeStatusDetailBindingImpl;
 import com.android.smartlink.ui.model.MonitorModuleImp;
-import com.android.smartlink.util.databinding.AppDataBindingAdapter;
 
 import java.util.List;
 
@@ -116,7 +116,13 @@ public class NormalModuleStatusView extends LinearLayout implements OnClickListe
             {
                 View inflaterView = mLayoutInflater.inflate(R.layout.comp_home_status_detail, mDetailGroup, false);
 
-                mDetailGroup.addView(AppDataBindingAdapter.binding(inflaterView, BR.data, new MonitorModuleImp(module)));
+                CompHomeStatusDetailBindingImpl viewBinding = DataBindingUtil.bind(inflaterView);
+
+                viewBinding.setData(new MonitorModuleImp(module));
+
+                viewBinding.executePendingBindings();
+
+                mDetailGroup.addView(viewBinding.getRoot());
             }
         }
     }

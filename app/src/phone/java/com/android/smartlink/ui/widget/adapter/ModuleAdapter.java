@@ -1,13 +1,10 @@
 package com.android.smartlink.ui.widget.adapter;
 
-import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 
-import com.android.smartlink.BR;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIMonitorModule;
 import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
-import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 /**
@@ -27,25 +24,16 @@ public class ModuleAdapter extends DiffDataBindingAdapter<UIMonitorModule>
     {
         if (type == 0) // first item always main module
         {
-            return R.layout.item_home_main_module;
+            return R.layout.adapter_module_main;
         }
 
-        return R.layout.item_home_module;
+        return R.layout.adapter_module;
     }
 
     @Override
     public int getItemViewType(int position)
     {
         return position;
-    }
-
-    @Override
-    public void onBindViewHolder(DataBindingHolder<UIMonitorModule> holder, UIMonitorModule iModule, int i)
-    {
-        ViewDataBinding binding = holder.getViewDataBinding();
-        binding.setVariable(BR.data, iModule);
-        binding.setVariable(BR.itemClickListener, this);
-        binding.executePendingBindings();
     }
 
     // ----------------------------------------------------------------
