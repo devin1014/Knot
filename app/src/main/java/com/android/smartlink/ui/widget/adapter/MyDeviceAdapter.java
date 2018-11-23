@@ -4,15 +4,16 @@ import android.view.LayoutInflater;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIDeviceImp;
-import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
+import com.neulion.android.diffrecycler.holder.DiffViewHolder;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 /**
  * User: LIUWEI
  * Date: 2017-10-22
  * Time: 13:51
  */
-public class MyDeviceAdapter extends DiffDataBindingAdapter<UIDeviceImp>
+public class MyDeviceAdapter extends DiffRecyclerAdapter<UIDeviceImp>
 {
     //private boolean mEditMode = false;
 
@@ -24,7 +25,7 @@ public class MyDeviceAdapter extends DiffDataBindingAdapter<UIDeviceImp>
     }
 
     @Override
-    protected int getLayout(int i)
+    protected int getViewHolderLayout(int i)
     {
         return R.layout.adapter_mydevice;
     }
@@ -64,5 +65,11 @@ public class MyDeviceAdapter extends DiffDataBindingAdapter<UIDeviceImp>
         //
         //            notifyDataSetChanged();
         //        }
+    }
+
+    @Override
+    public void onBindViewHolder(DiffViewHolder<UIDeviceImp> holder, UIDeviceImp uiDeviceImp, int i)
+    {
+        holder.getViewDataBindingInterface().executePendingBindings(uiDeviceImp);
     }
 }

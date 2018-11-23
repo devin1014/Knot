@@ -7,8 +7,9 @@ import com.android.smartlink.Constants;
 import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.Events.Event;
-import com.neulion.recyclerdiff.annotation.DiffContent;
-import com.neulion.recyclerdiff.annotation.DiffItem;
+import com.neulion.android.diffrecycler.annotation.DiffContent;
+import com.neulion.android.diffrecycler.annotation.DiffItem;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,7 +22,7 @@ import java.util.TimeZone;
  * Date: 2017-10-17
  * Time: 15:51
  */
-public class UIEvent implements Comparable<UIEvent>
+public class UIEvent implements DataDiffCompare<UIEvent>, Comparable<UIEvent>
 {
     private Event mSource;
 
@@ -109,6 +110,12 @@ public class UIEvent implements Comparable<UIEvent>
     public long getTimeStamp()
     {
         return mTimeStamp;
+    }
+
+    @Override
+    public boolean compareData(UIEvent uiEvent)
+    {
+        return getId() == uiEvent.getId();
     }
 
     @Override

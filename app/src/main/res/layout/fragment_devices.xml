@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.neulion.core.widget.recyclerview.RecyclerView
+<com.neulion.android.diffrecycler.DiffRecyclerView
     android:id="@+id/recycler_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/settings_content_padding"
-    app:dividerColor="#00000000"
-    app:dividerSize="@dimen/settings_margin"
-    app:orientation="vertical" />
+    app:dividerSize="@dimen/app_content_margin"
+    app:layoutOrientation="vertical"
+    app:layoutType="linearLayout" />

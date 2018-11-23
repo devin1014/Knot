@@ -12,8 +12,8 @@ import android.widget.PopupWindow;
 import com.android.smartlink.BuildConfig;
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UIFilter;
-import com.android.smartlink.ui.widget.adapter.FilterAdapter;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
 {
     private OnFilterChangedListener mOnFilterChangedListener;
 
-    private FilterAdapter mFilterAdapter;
+    private DiffRecyclerSimpleAdapter<UIFilter> mFilterAdapter;
 
     public FilterPopupWindow(Activity activity, OnFilterChangedListener listener)
     {
@@ -61,7 +61,7 @@ public class FilterPopupWindow extends PopupWindow implements OnItemClickListene
 
         recyclerView.addItemDecoration(decoration);
 
-        recyclerView.setAdapter(mFilterAdapter = new FilterAdapter(activity.getLayoutInflater(), this));
+        recyclerView.setAdapter(mFilterAdapter = new DiffRecyclerSimpleAdapter<>(activity.getLayoutInflater(), com.android.smartlink.R.layout.adapter_filter, this));
 
         setContentView(recyclerView);
     }

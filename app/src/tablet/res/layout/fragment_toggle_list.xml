@@ -25,7 +25,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <com.neulion.core.widget.recyclerview.RecyclerView
+    <com.neulion.android.diffrecycler.DiffRecyclerView
         android:id="@+id/toggle_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

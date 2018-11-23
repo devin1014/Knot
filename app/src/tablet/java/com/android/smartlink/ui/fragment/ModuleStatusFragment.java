@@ -19,9 +19,10 @@ import com.android.smartlink.databinding.ItemHomeMainModuleBindingImpl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.BaseModule.Module.GroupType;
 import com.android.smartlink.ui.model.BaseModule.Module.ImageType;
-import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
+import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.util.ConvertUtil;
-import com.neulion.core.widget.recyclerview.RecyclerView;
+import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,12 +40,12 @@ import butterknife.BindView;
 public class ModuleStatusFragment extends BaseSmartlinkFragment
 {
     @BindView(R.id.module_status_recycler_view)
-    RecyclerView mRecyclerView;
+    DiffRecyclerView mRecyclerView;
     @BindView(R.id.home_main_module)
     View mMainModule;
 
     private ItemHomeMainModuleBindingImpl mMainModuleBinding;
-    private ModuleAdapter mModuleAdapter;
+    private DiffRecyclerSimpleAdapter<UIMonitorModule> mModuleAdapter;
     private ModulesData mModulesData;
 
     @Nullable
@@ -68,7 +69,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
 
-        mRecyclerView.setAdapter(mModuleAdapter = new ModuleAdapter(getLayoutInflater()));
+        mRecyclerView.setAdapter(mModuleAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.item_home_module));
 
         mMainModuleBinding = DataBindingUtil.bind(mMainModule);
 

@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             app:data="@{data}" />
 
-        <com.neulion.core.widget.recyclerview.RecyclerView
+        <com.neulion.android.diffrecycler.DiffRecyclerView
             android:id="@+id/module_status_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

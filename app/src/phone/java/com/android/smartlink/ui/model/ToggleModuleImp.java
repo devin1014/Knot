@@ -5,8 +5,8 @@ import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.ToggleModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
 import com.android.smartlink.util.ui.ImageResUtil;
-import com.neulion.recyclerdiff.annotation.DiffContent;
-import com.neulion.recyclerdiff.annotation.DiffItem;
+import com.neulion.android.diffrecycler.annotation.DiffContent;
+import com.neulion.android.diffrecycler.annotation.DiffItem;
 
 import java.io.Serializable;
 
@@ -79,16 +79,16 @@ public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializabl
         return false;
     }
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof ToggleModuleImp)
-        {
-            return getId() == ((ToggleModuleImp) obj).getId();
-        }
-
-        return super.equals(obj);
-    }
+    //    @Override
+    //    public boolean equals(Object obj)
+    //    {
+    //        if (obj instanceof ToggleModuleImp)
+    //        {
+    //            return getId() == ((ToggleModuleImp) obj).getId();
+    //        }
+    //
+    //        return super.equals(obj);
+    //    }
 
     @Override
     public String getEnergy()
@@ -124,5 +124,11 @@ public class ToggleModuleImp extends DefaultBaseModuleImp implements Serializabl
     public boolean isToggle()
     {
         return true;
+    }
+
+    @Override
+    public boolean compareData(UIMonitorModule monitorModule)
+    {
+        return getId() == monitorModule.getId();
     }
 }

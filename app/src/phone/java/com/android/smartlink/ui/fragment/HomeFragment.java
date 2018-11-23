@@ -20,8 +20,10 @@ import com.android.smartlink.assist.WeatherManager;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.bean.Weather;
+import com.android.smartlink.databinding.CompModuleStatusBarBindingImpl;
 import com.android.smartlink.ui.activity.DetailActivity;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.ModuleBarImp;
 import com.android.smartlink.ui.model.MonitorModuleImp;
 import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.model.UIWeather;
@@ -29,8 +31,10 @@ import com.android.smartlink.ui.widget.LoadingLayout;
 import com.android.smartlink.ui.widget.adapter.ModuleAdapter;
 import com.android.smartlink.ui.widget.layoutmanager.ModuleGridLayoutManager;
 import com.android.smartlink.util.ConvertUtil;
-import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -45,7 +49,7 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     LoadingLayout mLoadingLayout;
 
     @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    DiffRecyclerView mRecyclerView;
 
     @BindView(R.id.weather_root)
     View mWeatherView;
@@ -57,6 +61,8 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     private ModuleAdapter mModuleAdapter;
 
     private WeatherManager mWeatherManager;
+
+    private ViewDataBinding mModuleBarBinding;
 
     @Nullable
     @Override
@@ -105,22 +111,22 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
     {
         mLoadingLayout.showContent();
 
-        //TODO
-        //        if (mModuleAdapter.getHeadCount() == 0)
-        //        {
-        //            mModuleAdapter.addHeadObject(modules.getMonitorModules());
-        //        }
-        //        else
-        //        {
-        //            ViewHolder holder = mRecyclerView.findViewHolderForLayoutPosition(0);
-        //
-        //            if (holder instanceof HeadHolder)
-        //            {
-        //                ((HeadHolder) holder).getModuleStatusLayout().setModules(modules.getMonitorModules());
-        //            }
-        //        }
+        final List<UIMonitorModule> list = ConvertUtil.convertModule(modules);
 
-        mModuleAdapter.setData(ConvertUtil.convertModule(modules));
+        mModuleAdapter.setData(list);
+
+        if (mModuleBarBinding == null)
+        {
+            View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.comp_module_status_bar, mRecyclerView, false);
+
+            mRecyclerView.addHeader(headerView);
+
+            mModuleBarBinding = DataBindingUtil.bind(headerView);
+        }
+
+        ((CompModuleStatusBarBindingImpl) mModuleBarBinding).setData(new ModuleBarImp(list));
+
+        mModuleBarBinding.executePendingBindings();
     }
 
     @Override

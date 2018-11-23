@@ -20,10 +20,10 @@ import com.android.smartlink.ui.model.UIFilter;
 import com.android.smartlink.ui.widget.FilterPopupWindow;
 import com.android.smartlink.ui.widget.FilterPopupWindow.OnFilterChangedListener;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.adapter.EventsAdapter;
 import com.android.smartlink.util.ConvertUtil;
 import com.android.smartlink.util.Utils;
-import com.neulion.core.widget.recyclerview.RecyclerView;
+import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,14 +55,14 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
     LoadingLayout mLoadingLayout;
 
     @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    DiffRecyclerView mRecyclerView;
 
     @BindView(R.id.events_filter_anchor)
     View mFilterAnchorView;
 
     private EventsRequestProvider mRequestProvider;
 
-    private EventsAdapter mEventsAdapter;
+    private DiffRecyclerSimpleAdapter<UIEvent> mEventsAdapter;
 
     private FilterPopupWindow mFilterPopupWindow;
 
@@ -91,7 +91,7 @@ public class EventsFragment extends BaseSmartlinkFragment implements RequestCall
 
         mFilters = ConvertUtil.convertFilters(AppManager.getInstance().getAllModules(), ids, Utils.isEmpty(ids));
 
-        mRecyclerView.setAdapter(mEventsAdapter = new EventsAdapter(getActivity().getLayoutInflater()));
+        mRecyclerView.setAdapter(mEventsAdapter = new DiffRecyclerSimpleAdapter<>(getActivity().getLayoutInflater(), com.android.smartlink.R.layout.adapter_events));
 
         mRequestProvider = EventsRequestProvider.newInstance(this);
 

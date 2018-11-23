@@ -17,10 +17,10 @@ import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataCha
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UIToggleModule;
-import com.android.smartlink.ui.widget.adapter.ToggleAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -38,11 +38,11 @@ import butterknife.BindView;
 public class ToggleListFragment extends BaseSmartlinkFragment
 {
     @BindView(R.id.toggle_recycler_view)
-    RecyclerView mRecyclerView;
+    DiffRecyclerView mRecyclerView;
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
 
-    private ToggleAdapter mAdapter;
+    private DiffRecyclerSimpleAdapter<UIToggleModule> mAdapter;
 
     @Nullable
     @Override
@@ -67,7 +67,7 @@ public class ToggleListFragment extends BaseSmartlinkFragment
 
         mRecyclerView.setItemAnimator(null);
 
-        mAdapter = new ToggleAdapter(getLayoutInflater(), mOnItemClickListener);
+        mAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_toggle, mOnItemClickListener);
 
         mAdapter.setData(ConvertUtil.convertToggle(modules.getToggleModules()));
 

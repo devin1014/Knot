@@ -92,7 +92,7 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation(name: 'recyclerViewSupport_v1.0.1116', ext: 'aar')
+    implementation(name: 'DiffRecycler-v1.0.2-11231912', ext: 'aar')
 
     implementation "com.android.support:appcompat-v7:${SUPPORTLIBVERSION}"
     implementation "com.android.support:design:${SUPPORTLIBVERSION}"

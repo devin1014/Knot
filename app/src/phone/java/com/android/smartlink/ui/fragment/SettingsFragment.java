@@ -17,8 +17,8 @@ import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.UISetting;
 import com.android.smartlink.ui.widget.adapter.SettingsAdapter;
 import com.android.smartlink.util.ConvertUtil;
-import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 import butterknife.BindView;
 
@@ -30,7 +30,7 @@ import butterknife.BindView;
 public class SettingsFragment extends BaseSmartlinkFragment
 {
     @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    DiffRecyclerView mRecyclerView;
 
     private SettingsAdapter mSettingsAdapter;
 

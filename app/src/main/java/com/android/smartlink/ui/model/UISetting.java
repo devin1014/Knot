@@ -1,15 +1,19 @@
 package com.android.smartlink.ui.model;
 
+import com.neulion.android.diffrecycler.annotation.DiffItem;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
+
 /**
  * User: LIUWEI
  * Date: 2017-10-17
  * Time: 16:38
  */
-public class UISetting
+public class UISetting implements DataDiffCompare<UISetting>
 {
-    private String mName;
+    @DiffItem
+    String mName;
 
-    private String mImage;
+    String mImage;
 
     public UISetting(String name, String image)
     {
@@ -26,5 +30,11 @@ public class UISetting
     public String getImage()
     {
         return mImage;
+    }
+
+    @Override
+    public boolean compareData(UISetting uiSetting)
+    {
+        return getName().equalsIgnoreCase(uiSetting.getName());
     }
 }

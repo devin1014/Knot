@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.android.smartlink.ui.widget.modulestatus.NormalModuleStatusView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/home_status_detail_bg"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--total status-->
+    <data>
+
+        <variable
+            name="data"
+            type="com.android.smartlink.ui.model.UIModuleBar" />
+
+    </data>
+
     <android.support.v7.widget.CardView
         android:id="@+id/status_card_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
         app:cardBackgroundColor="#d9ffffff"
         app:cardCornerRadius="5dp"
         app:cardPreventCornerOverlap="false">
@@ -27,7 +31,8 @@
             android:layout_marginStart="14dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/notify_status_ok" />
+            android:src="@drawable/module_status_selector"
+            app:imageLevel="@{data.status}" />
 
         <TextView
             android:id="@+id/status_title"
@@ -36,10 +41,11 @@
             android:layout_marginLeft="62dp"
             android:layout_marginStart="62dp"
             android:gravity="center_vertical"
-            android:text="@string/module_status_normal"
-            android:textColor="@color/module_status_good"
+            android:text="@{data.title}"
+            android:textColor="@{data.textColor}"
             android:textSize="16dp"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="正常" />
 
         <ImageView
             android:id="@+id/status_arrow"
@@ -51,19 +57,11 @@
             android:layout_marginRight="14dp"
             android:contentDescription="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/arrow_selector" />
+            android:src="@drawable/arrow_selector"
+            android:tint="@{data.textColor}"
+            android:tintMode="multiply"
+            app:selected="@{data.selected}" />
 
     </android.support.v7.widget.CardView>
 
-    <!--module status-->
-    <com.android.smartlink.ui.widget.LinearLayoutWithLine
-        android:id="@+id/status_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:lineColor="#ffffff"
-        app:lineOffsetX="31.5dp"
-        app:lineWidth="1dp" />
-
-</com.android.smartlink.ui.widget.modulestatus.NormalModuleStatusView>
+</layout>

@@ -5,16 +5,16 @@ import android.view.View;
 
 import com.android.smartlink.R;
 import com.android.smartlink.ui.model.UISetting;
-import com.neulion.core.widget.recyclerview.adapter.DataBindingAdapter;
-import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
+import com.neulion.android.diffrecycler.holder.DiffViewHolder;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 /**
  * User: LIUWEI
  * Date: 2017-10-17
  * Time: 16:42
  */
-public class SettingsAdapter extends DataBindingAdapter<UISetting> implements OnItemClickListener<UISetting>
+public class SettingsAdapter extends DiffRecyclerAdapter<UISetting> implements OnItemClickListener<UISetting>
 {
     private int mSelectedPosition = 0;
 
@@ -24,7 +24,7 @@ public class SettingsAdapter extends DataBindingAdapter<UISetting> implements On
     }
 
     @Override
-    protected int getLayout(int i)
+    protected int getViewHolderLayout(int i)
     {
         return R.layout.adapter_settings;
     }
@@ -51,9 +51,9 @@ public class SettingsAdapter extends DataBindingAdapter<UISetting> implements On
     }
 
     @Override
-    public void onBindViewHolder(DataBindingHolder<UISetting> holder, UISetting uiSetting, int i)
+    public void onBindViewHolder(DiffViewHolder<UISetting> holder, UISetting uiSetting, int i)
     {
-        super.onBindViewHolder(holder, uiSetting, i);
+        holder.getViewDataBindingInterface().executePendingBindings(uiSetting);
 
         holder.itemView.setSelected(mSelectedPosition == i);
     }

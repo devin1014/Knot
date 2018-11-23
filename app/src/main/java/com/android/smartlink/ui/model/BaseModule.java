@@ -11,6 +11,9 @@ import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABL
 import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_LARGE_LIGHT;
 import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_NORMAL;
 import static com.android.smartlink.ui.model.BaseModule.Module.ImageType.DRAWABLE_NORMAL_LIGHT;
+import static com.android.smartlink.ui.model.BaseModule.Module.Status.STATUS_ERROR;
+import static com.android.smartlink.ui.model.BaseModule.Module.Status.STATUS_NORMAL;
+import static com.android.smartlink.ui.model.BaseModule.Module.Status.STATUS_WARNING;
 
 /**
  * User: LIUWEI
@@ -42,6 +45,14 @@ public interface BaseModule
             int GROUP_ALL = 0;
             int GROUP_1 = 1;
             int GROUP_2 = 2;
+        }
+
+        @IntDef({STATUS_NORMAL, STATUS_ERROR, STATUS_WARNING, DRAWABLE_LARGE_LIGHT})
+        @interface Status
+        {
+            int STATUS_NORMAL = 0;
+            int STATUS_ERROR = 1;
+            int STATUS_WARNING = 2;
         }
 
         int getId();
