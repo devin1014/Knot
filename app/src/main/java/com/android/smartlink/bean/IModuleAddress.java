@@ -5,7 +5,7 @@ import com.android.smartlink.ui.model.BaseModule.ModuleParser;
 public interface IModuleAddress
 {
     int MONITOR_CHANNEL = 0;
-
+    int MONITOR_SLAVE_ID_ALL = 100;
     int MONITOR_SLAVE_ID_0 = 150;
     int MONITOR_SLAVE_ID_1 = 151;
     int MONITOR_SLAVE_ID_2 = 152;
@@ -16,9 +16,14 @@ public interface IModuleAddress
     int MONITOR_SLAVE_ID_7 = 157;
     int MONITOR_SLAVE_ID_8 = 158;
     int MONITOR_SLAVE_ID_9 = 159;
+    int MONITOR_SLAVE_ID_10 = 160;
+    int MONITOR_SLAVE_ID_11 = 161;
+    int MONITOR_SLAVE_ID_12 = 162;
+    int MONITOR_SLAVE_ID_13 = 163;
+    int MONITOR_SLAVE_ID_14 = 164;
+    int MONITOR_SLAVE_ID_15 = 165;
 
     int TOGGLE_SLAVE_ID_255 = 255;
-
     int TOGGLE_255_CHANNEL_0 = 14200;
     int TOGGLE_255_CHANNEL_1 = 14240;
     int TOGGLE_255_CHANNEL_2 = 14280;
@@ -36,6 +41,7 @@ public interface IModuleAddress
 
     class ModuleAddress
     {
+        public static final int[] MODULE_MAIN = new int[]{MONITOR_SLAVE_ID_ALL, MONITOR_CHANNEL};
         public static final int[] MODULE_0 = new int[]{MONITOR_SLAVE_ID_0, MONITOR_CHANNEL};
         public static final int[] MODULE_1 = new int[]{MONITOR_SLAVE_ID_1, MONITOR_CHANNEL};
         public static final int[] MODULE_2 = new int[]{MONITOR_SLAVE_ID_2, MONITOR_CHANNEL};
@@ -46,6 +52,12 @@ public interface IModuleAddress
         public static final int[] MODULE_7 = new int[]{MONITOR_SLAVE_ID_7, MONITOR_CHANNEL};
         public static final int[] MODULE_8 = new int[]{MONITOR_SLAVE_ID_8, MONITOR_CHANNEL};
         public static final int[] MODULE_9 = new int[]{MONITOR_SLAVE_ID_9, MONITOR_CHANNEL};
+        public static final int[] MODULE_10 = new int[]{MONITOR_SLAVE_ID_10, MONITOR_CHANNEL};
+        public static final int[] MODULE_11 = new int[]{MONITOR_SLAVE_ID_11, MONITOR_CHANNEL};
+        public static final int[] MODULE_12 = new int[]{MONITOR_SLAVE_ID_12, MONITOR_CHANNEL};
+        public static final int[] MODULE_13 = new int[]{MONITOR_SLAVE_ID_13, MONITOR_CHANNEL};
+        public static final int[] MODULE_14 = new int[]{MONITOR_SLAVE_ID_14, MONITOR_CHANNEL};
+        public static final int[] MODULE_15 = new int[]{MONITOR_SLAVE_ID_15, MONITOR_CHANNEL};
 
         public static final int[] TOGGLE_255_0 = new int[]{TOGGLE_SLAVE_ID_255, TOGGLE_255_CHANNEL_0};
         public static final int[] TOGGLE_255_1 = new int[]{TOGGLE_SLAVE_ID_255, TOGGLE_255_CHANNEL_1};

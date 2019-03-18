@@ -7,18 +7,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.android.smartlink.R;
 import com.android.smartlink.assist.EnergyRequestProvider;
 import com.android.smartlink.assist.RequestCallback;
+import com.android.smartlink.assist.eventbus.EventBusMessages.EventModuleDataChanged;
 import com.android.smartlink.bean.Energy;
+import com.android.smartlink.bean.ModulesData;
+import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.bean.RequestUrl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
+import com.android.smartlink.ui.model.MonitorModuleImp;
+import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.ui.widget.Last15DaysPowerChart;
 import com.android.smartlink.ui.widget.LoadingLayout;
-import com.android.smartlink.ui.widget.ModuleBarChart;
+import com.android.smartlink.util.Utils;
 
 import org.achartengine.GraphicalView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -31,10 +40,18 @@ public class ModuleChartFragment extends BaseSmartlinkFragment implements Reques
 {
     @BindView(R.id.loading_layout)
     LoadingLayout mLoadingLayout;
-    @BindView(R.id.chart_left_panel)
-    FrameLayout mChartLayout1;
     @BindView(R.id.chart_right_panel)
     FrameLayout mChartLayout2;
+    @BindView(R.id.chart_electricity)
+    TextView mCurrent;
+    @BindView(R.id.chart_voltage)
+    TextView mVoltage;
+    @BindView(R.id.chart_power)
+    TextView mPower;
+    @BindView(R.id.chart_power_factor)
+    TextView mPowerFactor;
+    @BindView(R.id.chart_energy)
+    TextView mEnergy;
 
     private EnergyRequestProvider mRequestProvider;
 
@@ -46,7 +63,7 @@ public class ModuleChartFragment extends BaseSmartlinkFragment implements Reques
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
 
@@ -59,7 +76,24 @@ public class ModuleChartFragment extends BaseSmartlinkFragment implements Reques
 
         mRequestProvider.request(RequestUrl.obtainEnergyUrl());
 
-        mLoadingLayout.showLoading();
+        //mLoadingLayout.showLoading();
+        mLoadingLayout.showContent();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -70,18 +104,43 @@ public class ModuleChartFragment extends BaseSmartlinkFragment implements Reques
         super.onDestroyView();
     }
 
+    @SuppressWarnings("unused")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onModuleDataChangedEvent(EventModuleDataChanged event)
+    {
+        if (mUIMonitorModule != null)
+        {
+            ModulesData modulesData = event.modulesData;
+
+            for (MonitorModuleData d : modulesData.getMonitorModules())
+            {
+                if (d.getSlaveID() == mUIMonitorModule.getSlaveID()
+                        && d.getChannel() == mUIMonitorModule.getChannel())
+                {
+                    setModuleData(new MonitorModuleImp(d));
+
+                    break;
+                }
+            }
+        }
+    }
+
+    private UIMonitorModule mUIMonitorModule;
+
+    public void setModuleData(UIMonitorModule moduleData)
+    {
+        mUIMonitorModule = moduleData;
+        mCurrent.setText(Utils.formatString(getString(R.string.detail_current), moduleData.getCurrent()));
+        mVoltage.setText(Utils.formatString(getString(R.string.detail_voltage), moduleData.getVoltage()));
+        mPower.setText(Utils.formatString(getString(R.string.detail_power), moduleData.getPower()));
+        mPowerFactor.setText(Utils.formatString(getString(R.string.detail_power_factor), moduleData.getPowerFactor()));
+        mEnergy.setText(Utils.formatString(getString(R.string.detail_energy), moduleData.getEnergy()));
+    }
+
     @Override
     public void onResponse(Energy energy)
     {
         mLoadingLayout.showContent();
-
-        ModuleBarChart barChart = new ModuleBarChart(getContext());
-
-        barChart.setData(energy.getData());
-
-        mChartLayout1.removeAllViews();
-
-        mChartLayout1.addView(barChart);
 
         mChartLayout2.removeAllViews();
 

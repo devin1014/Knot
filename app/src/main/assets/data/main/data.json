@@ -1,138 +1,172 @@
 {
-    "data": [
-        {
-            "slaveID": "150",
-            "current": "0.713",
-            "voltage": "225.4",
-            "power": "0.015",
-            "powerFactor": "0.52",
-            "energy": "0.089",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "151",
-            "current": "1.16",
-            "voltage": "223.2",
-            "power": "0.012",
-            "powerFactor": "0.42",
-            "energy": "0.043",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "152",
-            "current": "0.0",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "1"
-        },
-        {
-            "slaveID": "153",
-            "current": "2.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "154",
-            "current": "4.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "155",
-            "current": "2.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "156",
-            "current": "1.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "157",
-            "current": "0.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "158",
-            "current": "0.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        },
-        {
-            "slaveID": "159",
-            "current": "0.12",
-            "voltage": "223.4",
-            "power": "0.0",
-            "powerFactor": "1.0",
-            "energy": "0.029",
-            "alarm": "0"
-        }
-    ],
-    "data255": [
-        {
-            "slaveID": "255",
-            "channel": "14200",
-            "status": "2"
-        },
-        {
-            "slaveID": "255",
-            "channel": "14240",
-            "status": "2"
-        },
-        {
-            "slaveID": "255",
-            "channel": "14280",
-            "status": "3"
-        },
-        {
-            "slaveID": "255",
-            "channel": "14320",
-            "status": "3"
-        },
-        {
-            "slaveID": "255",
-            "channel": "14360",
-            "status": "2"
-        },
-        {
-            "slaveID": "255",
-            "channel": "14440",
-            "status": "2"
-        }
-    ],
-    "data1": [
-        {
-            "slaveID": "1",
-            "channel": "14440",
-            "status": "2"
-        },
-        {
-            "slaveID": "1",
-            "channel": "14520",
-            "status": "2"
-        }
-    ]
+    "data": [{
+        "slaveID": "150",
+        "current1": "0.39",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "229.2",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.04",
+        "powerFactor": "0.45",
+        "energy": "9.558",
+        "alarm": "0"
+    }, {
+        "slaveID": "151",
+        "current1": "0.36",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "228.9",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.041",
+        "powerFactor": "0.5",
+        "energy": "9.548",
+        "alarm": "0"
+    }, {
+        "slaveID": "152",
+        "current1": "0.0",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "229.4",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.0",
+        "powerFactor": "1.0",
+        "energy": "0.0",
+        "alarm": "0"
+    }, {
+        "slaveID": "153",
+        "current1": "1.04",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "228.9",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.212",
+        "powerFactor": "0.88",
+        "energy": "310.792",
+        "alarm": "0"
+    }, {
+        "slaveID": "154",
+        "current1": "7.14",
+        "current2": "7.34",
+        "current3": "7.61",
+        "voltage1": "395.5",
+        "voltage2": "397.7",
+        "voltage3": "396.7",
+        "power": "2.846",
+        "powerFactor": "0.56",
+        "energy": "613.438",
+        "alarm": "0"
+    }, {
+        "slaveID": "155",
+        "current1": "0.64",
+        "current2": "0.56",
+        "current3": "3.07",
+        "voltage1": "396.2",
+        "voltage2": "398.3",
+        "voltage3": "397.5",
+        "power": "0.769",
+        "powerFactor": "0.78",
+        "energy": "646.518",
+        "alarm": "0"
+    }, {
+        "slaveID": "156",
+        "current1": "0.0",
+        "current2": "0.0",
+        "current3": "0.35",
+        "voltage1": "228.8",
+        "voltage2": "229.4",
+        "voltage3": "229.1",
+        "power": "0.064",
+        "powerFactor": "0.8",
+        "energy": "195.402",
+        "alarm": "0"
+    }, {
+        "slaveID": "157",
+        "current1": "0.46",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "229.6",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.055",
+        "powerFactor": "0.52",
+        "energy": "13.042",
+        "alarm": "0"
+    }, {
+        "slaveID": "158",
+        "current1": "3.12",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "228.9",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.513",
+        "powerFactor": "0.71",
+        "energy": "117.117",
+        "alarm": "0"
+    }, {
+        "slaveID": "159",
+        "current1": "3.33",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "229.4",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.702",
+        "powerFactor": "0.91",
+        "energy": "239.237",
+        "alarm": "0"
+    }, {
+        "slaveID": "160",
+        "current1": "5.33",
+        "current2": "NaN",
+        "current3": "NaN",
+        "voltage1": "228.9",
+        "voltage2": "NaN",
+        "voltage3": "NaN",
+        "power": "0.932",
+        "powerFactor": "0.76",
+        "energy": "379.641",
+        "alarm": "0"
+    }, {
+        "slaveID": "161",
+        "current1": "1.75",
+        "current2": "1.65",
+        "current3": "2.43",
+        "voltage1": "396.4",
+        "voltage2": "398.3",
+        "voltage3": "397.6",
+        "power": "1.016",
+        "powerFactor": "0.75",
+        "energy": "334.018",
+        "alarm": "0"
+    }, {
+        "slaveID": "162",
+        "current1": "0.0",
+        "current2": "0.09",
+        "current3": "0.0",
+        "voltage1": "229.0",
+        "voltage2": "229.0",
+        "voltage3": "229.4",
+        "power": "0.01",
+        "powerFactor": "0.32",
+        "energy": "51.364",
+        "alarm": "0"
+    }],
+    "data255": [{
+        "slaveID": "255",
+        "channel": "14200",
+        "status": "2"
+    }, {
+        "slaveID": "255",
+        "channel": "14240",
+        "status": "2"
+    }, {
+        "slaveID": "255",
+        "channel": "14280",
+        "status": "2"
+    }]
 }

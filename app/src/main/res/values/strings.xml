@@ -43,6 +43,7 @@
     <string name="module_status_normal">正常</string>
     <string name="module_status_alarm">预警</string>
     <string name="module_status_error">故障</string>
+    <string name="module_main">总电源</string>
     <string name="confirm_exit_app">再按一次退出PowerTag</string>
 
     <string name="notify_alarm">%1$s负载过高</string>
@@ -51,8 +52,9 @@
 
     <!--首页-->
     <string name="group_all">全部</string>
-    <string name="group_first_floor">1楼</string>
-    <string name="group_second_floor">2楼</string>
+    <string name="group_first_floor">一楼</string>
+    <string name="group_second_floor">二楼</string>
+    <string name="group_third_floor">三楼</string>
 
     <!--演示设置-->
     <string name="demo_main_module">总回路</string>
@@ -141,5 +143,11 @@
         <item>勿给外机穿“雨衣”，因为会影响散热，增加电耗。</item>
         <item>使用睡眠功能可以起到20%的节电效果。</item>
     </string-array>
+
+    <string name="detail_current">电流一：%s 安\n电流二：%s 安\n电流三：%s 安</string>
+    <string name="detail_voltage">电压一：%s 伏\n电压二：%s 伏\n电压三：%s 伏</string>
+    <string name="detail_power">功率：%s 瓦</string>
+    <string name="detail_power_factor">功率因数：%s</string>
+    <string name="detail_energy">能耗：%s</string>
 
 </resources>

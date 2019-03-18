@@ -1,6 +1,6 @@
 {
-    "requestMode": 1,
-    "requestModeDescription": "local=0 | http=1",
+    "requestMode": 2,
+    "requestModeDescription": "local=0 | http=1 | remote=2",
     "localFeed": {
         "weatherLocalUrl": "data/location.json",
         "weatherUrl": "data/weather.json",
@@ -26,8 +26,8 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 150,
-                        "name": "总回路",
-                        "group": 0
+                        "name": "北区射灯",
+                        "group": 1
                     }
                 ]
             }, {
@@ -37,7 +37,7 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 151,
-                        "name": "冰箱回路",
+                        "name": "南区射灯",
                         "group": 1
                     }
                 ]
@@ -49,7 +49,7 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 152,
-                        "name": "插座回路",
+                        "name": "室外电源",
                         "group": 1
                     }
                 ]
@@ -61,7 +61,7 @@
                         "index": 1,
                         "channel": 0,
                         "slaveID": 153,
-                        "name": "照明回路",
+                        "name": "大冰箱",
                         "group": 1
                     }
                 ]
@@ -73,7 +73,7 @@
                         "index": 1,
                         "slaveID": 154,
                         "channel": 0,
-                        "name": "空调回路",
+                        "name": "厨房风机",
                         "group": 1
                     }
                 ]
@@ -85,8 +85,8 @@
                         "index": 1,
                         "slaveID": 155,
                         "channel": 0,
-                        "name": "水泵回路",
-                        "group": 2
+                        "name": "三楼总想电源",
+                        "group": 3
                     }
                 ]
             },
@@ -97,8 +97,8 @@
                         "index": 1,
                         "slaveID": 156,
                         "channel": 0,
-                        "name": "主电梯回路",
-                        "group": 2
+                        "name": "万能烤箱",
+                        "group": 1
                     }
                 ]
             },
@@ -109,8 +109,68 @@
                         "index": 1,
                         "slaveID": 157,
                         "channel": 0,
-                        "name": "备用回路",
+                        "name": "中区筒灯",
+                        "group": 1
+                    }
+                ]
+            },
+            {
+                "slaveID": 158,
+                "modules": [
+                    {
+                        "index": 1,
+                        "slaveID": 158,
+                        "channel": 0,
+                        "name": "雪柜灶头",
+                        "group": 1
+                    }
+                ]
+            },
+            {
+                "slaveID": 159,
+                "modules": [
+                    {
+                        "index": 1,
+                        "slaveID": 159,
+                        "channel": 0,
+                        "name": "后吧台雪柜",
+                        "group": 1
+                    }
+                ]
+            },
+            {
+                "slaveID": 160,
+                "modules": [
+                    {
+                        "index": 1,
+                        "slaveID": 160,
+                        "channel": 0,
+                        "name": "牛奶冰箱",
+                        "group": 1
+                    }
+                ]
+            },
+            {
+                "slaveID": 161,
+                "modules": [
+                    {
+                        "index": 1,
+                        "slaveID": 161,
+                        "channel": 0,
+                        "name": "二楼总箱电源",
                         "group": 2
+                    }
+                ]
+            },
+            {
+                "slaveID": 162,
+                "modules": [
+                    {
+                        "index": 1,
+                        "slaveID": 162,
+                        "channel": 0,
+                        "name": "饼房烤箱",
+                        "group": 1
                     }
                 ]
             }
@@ -127,37 +187,19 @@
                         "index": 1,
                         "slaveID": 255,
                         "channel": 14200,
-                        "name": "会议室照明"
+                        "name": "南区射灯"
                     },
                     {
                         "index": 2,
                         "slaveID": 255,
                         "channel": 14240,
-                        "name": "办公照明"
+                        "name": "中区筒灯"
                     },
                     {
                         "index": 3,
                         "slaveID": 255,
                         "channel": 14280,
-                        "name": "厂区照明"
-                    },
-                    {
-                        "index": 4,
-                        "slaveID": 255,
-                        "channel": 14320,
-                        "name": "公共照明"
-                    },
-                    {
-                        "index": 5,
-                        "slaveID": 255,
-                        "channel": 14360,
-                        "name": "自动分合闸1"
-                    },
-                    {
-                        "index": 6,
-                        "slaveID": 255,
-                        "channel": 14440,
-                        "name": "自动分合闸2"
+                        "name": "北区射灯"
                     }
                 ]
             },
@@ -168,13 +210,13 @@
                         "index": 1,
                         "slaveID": 1,
                         "channel": 14440,
-                        "name": "集成控制1"
+                        "name": "控制1"
                     },
                     {
                         "index": 2,
                         "slaveID": 1,
                         "channel": 14520,
-                        "name": "集成控制2"
+                        "name": "控制2"
                     }
                 ]
             }

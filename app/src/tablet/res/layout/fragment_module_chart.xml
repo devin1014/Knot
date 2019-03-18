@@ -4,9 +4,11 @@
     android:id="@+id/loading_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:loading_layout="@layout/comp_loading_layout">
+    app:loading_layout="@layout/comp_loading_layout"
+    tools:ignore="SpUsage">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +21,7 @@
             android:layout_height="1px"
             android:layout_centerInParent="true" />
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/chart_left_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,18 +29,95 @@
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/anchor_view_in_center"
             android:layout_toStartOf="@id/anchor_view_in_center"
-            android:background="@drawable/shape_common_item_bg_ff_20" />
+            android:padding="12dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/anchor_view_in_center"
-            android:layout_toStartOf="@id/anchor_view_in_center"
-            android:gravity="center"
-            android:padding="2dp"
-            android:text="@string/power_chart_hour"
-            android:textColor="#ffffff"
-            android:textSize="10dp" />
+            <View
+                android:id="@+id/left_center"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/chart_electricity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/left_center"
+                android:layout_gravity="top|start"
+                android:layout_toLeftOf="@id/left_center"
+                android:drawablePadding="4dp"
+                android:drawableTop="@drawable/ic_l"
+                android:gravity="center_vertical"
+                android:lines="3"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/chart_voltage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/left_center"
+                android:layout_gravity="top|end"
+                android:layout_toRightOf="@id/left_center"
+                android:drawablePadding="4dp"
+                android:drawableTop="@drawable/ic_dy"
+                android:gravity="center_vertical"
+                android:lines="3"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/chart_power_factor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/left_center"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:drawablePadding="4dp"
+                android:drawableTop="@drawable/ic_glyz"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/chart_power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/left_center"
+                android:layout_gravity="bottom|start"
+                android:layout_toLeftOf="@id/chart_power_factor"
+                android:drawablePadding="4dp"
+                android:drawableTop="@drawable/ic_gl"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/chart_energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/left_center"
+                android:layout_gravity="bottom|end"
+                android:layout_toRightOf="@id/chart_power_factor"
+                android:drawablePadding="4dp"
+                android:drawableTop="@drawable/ic_nh"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toLeftOf="@id/anchor_view_in_center"-->
+        <!--android:layout_toStartOf="@id/anchor_view_in_center"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="2dp"-->
+        <!--android:text="@string/power_chart_hour"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="10dp" />-->
 
         <FrameLayout
             android:id="@+id/chart_right_panel"
@@ -50,16 +129,16 @@
             android:layout_toRightOf="@id/anchor_view_in_center"
             android:background="@drawable/shape_common_item_bg_ff_20" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/anchor_view_in_center"
-            android:layout_toRightOf="@id/anchor_view_in_center"
-            android:gravity="center"
-            android:padding="2dp"
-            android:text="@string/power_last_15_days"
-            android:textColor="#ffffff"
-            android:textSize="10dp" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@id/anchor_view_in_center"-->
+        <!--android:layout_toRightOf="@id/anchor_view_in_center"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="2dp"-->
+        <!--android:text="@string/power_last_15_days"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="10dp" />-->
 
     </RelativeLayout>
 

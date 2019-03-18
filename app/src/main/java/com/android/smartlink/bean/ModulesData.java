@@ -35,8 +35,14 @@ public class ModulesData implements Serializable
         if (mToggles == null)
         {
             List<ToggleModuleData> list = new ArrayList<>();
-            list.addAll(toggles255);
-            list.addAll(toggles1);
+            if (toggles255 != null)
+            {
+                list.addAll(toggles255);
+            }
+            if (toggles1 != null)
+            {
+                list.addAll(toggles1);
+            }
             mToggles = list;
         }
 
@@ -52,7 +58,21 @@ public class ModulesData implements Serializable
         @SerializedName("alarm")
         private int status;
 
-        private String current;
+        private String current1;
+
+        private String current2;
+
+        private String current3;
+
+        private String voltage1;
+
+        private String voltage2;
+
+        private String voltage3;
+
+        private String power;
+
+        private String powerFactor;
 
         private String energy;
 
@@ -61,9 +81,44 @@ public class ModulesData implements Serializable
             return status;
         }
 
-        public String getCurrent()
+        public String getCurrent1()
         {
-            return current;
+            return current1;
+        }
+
+        public String getCurrent2()
+        {
+            return current2;
+        }
+
+        public String getCurrent3()
+        {
+            return current3;
+        }
+
+        public String getVoltage1()
+        {
+            return voltage1;
+        }
+
+        public String getVoltage2()
+        {
+            return voltage2;
+        }
+
+        public String getVoltage3()
+        {
+            return voltage3;
+        }
+
+        public String getPower()
+        {
+            return power;
+        }
+
+        public String getPowerFactor()
+        {
+            return powerFactor;
         }
 
         public String getEnergy()

@@ -19,6 +19,20 @@
         android:textSize="16dp"
         tools:ignore="SpUsage" />
 
+    <TextView
+        android:id="@+id/module_back"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:drawableLeft="@drawable/ic_back"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_back"
+        android:gravity="center"
+        android:text="@string/label_module_measure"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:visibility="gone"
+        tools:ignore="SpUsage" />
+
     <RadioGroup
         android:id="@+id/module_group"
         android:layout_width="wrap_content"
@@ -34,28 +48,28 @@
 
         <RadioButton
             android:id="@+id/module_group_fir_floor"
-            style="@style/ModuleGroupFilter.First" />
+            style="@style/ModuleGroupFilter.Second" />
 
         <RadioButton
             android:id="@+id/module_group_sec_floor"
-            style="@style/ModuleGroupFilter.Second" />
+            style="@style/ModuleGroupFilter.Third" />
 
     </RadioGroup>
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/module_magic_indicator"
-        android:layout_width="48dp"
-        android:layout_height="@dimen/home_indicator_height"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        tools:background="#aa808080" />
+    <!--<net.lucode.hackware.magicindicator.MagicIndicator-->
+    <!--android:id="@+id/module_magic_indicator"-->
+    <!--android:layout_width="48dp"-->
+    <!--android:layout_height="@dimen/home_indicator_height"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--tools:background="#aa808080" />-->
 
-    <android.support.v4.view.ViewPager
+    <com.android.smartlink.ui.widget.NoTouchViewPager
         android:id="@+id/module_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/module_magic_indicator"
         android:layout_below="@id/module_title"
+        android:layout_marginBottom="48dp"
         android:overScrollMode="never" />
 
 </RelativeLayout>

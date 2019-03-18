@@ -49,6 +49,10 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
 
     private int mImageType;
 
+    private String[] mCurrent;
+
+    private String[] mVoltage;
+
     public MonitorModuleImp(MonitorModuleData module)
     {
         this(module, ImageType.DRAWABLE_NORMAL);
@@ -84,12 +88,16 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
 
         mStatusArray = AppManager.getInstance().getStringArray(R.array.module_status_array);
 
-        if (!TextUtils.isEmpty(mModule.getCurrent()))
+        if (!TextUtils.isEmpty(mModule.getPower()))
         {
-            mPowerLoad = Math.min((int) (Float.valueOf(mModule.getCurrent()) / 5f * 100), 100);
+            mPowerLoad = Math.min((int) (Float.valueOf(mModule.getPower()) / 5f * 100), 100);
         }
 
         mImageType = imageType;
+
+        mCurrent = new String[]{module.getCurrent1(), module.getCurrent2(), module.getCurrent3()};
+
+        mVoltage = new String[]{module.getVoltage1(), module.getVoltage2(), module.getVoltage3()};
     }
 
     public int getImageRes()
@@ -100,6 +108,30 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
     public String getName()
     {
         return AppManager.getInstance().getModuleName(getId());
+    }
+
+    @Override
+    public String[] getCurrent()
+    {
+        return mCurrent;
+    }
+
+    @Override
+    public String[] getVoltage()
+    {
+        return mVoltage;
+    }
+
+    @Override
+    public String getPower()
+    {
+        return mModule.getPower();
+    }
+
+    @Override
+    public String getPowerFactor()
+    {
+        return mModule.getPowerFactor();
     }
 
     public String getEnergy()
@@ -198,9 +230,9 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
 
         int powerLoad = 0;
 
-        if (!TextUtils.isEmpty(module.getCurrent()))
+        if (!TextUtils.isEmpty(module.getPower()))
         {
-            powerLoad = Math.min((int) (Float.valueOf(module.getCurrent()) / 5f * 100), 100);
+            powerLoad = Math.min((int) (Float.valueOf(module.getPower()) / 5f * 100), 100);
         }
 
         if (status == Constants.STATUS_NORMAL && powerLoad >= Constants.POWER_LOAD_ALARM)

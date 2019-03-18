@@ -1,5 +1,6 @@
 package com.android.smartlink.ui.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,10 +20,13 @@ import com.android.smartlink.databinding.ItemHomeMainModuleBindingImpl;
 import com.android.smartlink.ui.fragment.base.BaseSmartlinkFragment;
 import com.android.smartlink.ui.model.BaseModule.Module.GroupType;
 import com.android.smartlink.ui.model.BaseModule.Module.ImageType;
+import com.android.smartlink.ui.model.MainModuleMonitor;
+import com.android.smartlink.ui.model.MainModuleMonitorWrapper;
 import com.android.smartlink.ui.model.UIMonitorModule;
 import com.android.smartlink.util.ConvertUtil;
 import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
 import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +51,23 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     private ItemHomeMainModuleBindingImpl mMainModuleBinding;
     private DiffRecyclerSimpleAdapter<UIMonitorModule> mModuleAdapter;
     private ModulesData mModulesData;
+    private OnItemClickListener<UIMonitorModule> mOnItemClickListener;
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+
+        mOnItemClickListener = (OnItemClickListener<UIMonitorModule>) getParentFragment();
+    }
+
+    @Override
+    public void onDetach()
+    {
+        mOnItemClickListener = null;
+
+        super.onDetach();
+    }
 
     @Nullable
     @Override
@@ -56,7 +77,7 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
 
@@ -67,9 +88,9 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
     {
         mModulesData = (ModulesData) getArguments().getSerializable(Constants.KEY_EXTRA_MODULES);
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 7, GridLayoutManager.VERTICAL, false));
 
-        mRecyclerView.setAdapter(mModuleAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.item_home_module));
+        mRecyclerView.setAdapter(mModuleAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.item_home_module, mOnItemClickListener));
 
         mMainModuleBinding = DataBindingUtil.bind(mMainModule);
 
@@ -114,15 +135,28 @@ public class ModuleStatusFragment extends BaseSmartlinkFragment
 
     private void resetData()
     {
-        List<MonitorModuleData> list = mModulesData.getMonitorModules();
-
         int group = mGroupId;
 
-        //reset main module
-        mMainModuleBinding.setData(ConvertUtil.convertModule(list.get(0), ImageType.DRAWABLE_LARGE_LIGHT));
-        mMainModuleBinding.executePendingBindings();
+        List<MonitorModuleData> list = mModulesData.getMonitorModules();
 
-        //reset others
-        mModuleAdapter.setData(ConvertUtil.convertModules(list, 1, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT, group));
+        List<UIMonitorModule> groupList = ConvertUtil.convertModules(list, 0, list.size(), ImageType.DRAWABLE_NORMAL_LIGHT, group);
+
+        if (groupList.size() > 1)
+        {
+            //reset main module
+            mMainModuleBinding.setData(new MainModuleMonitor(mModulesData));
+            mMainModuleBinding.executePendingBindings();
+
+            //reset others
+            mModuleAdapter.setData(groupList);
+        }
+        else if (groupList.size() == 1)
+        {
+            mMainModuleBinding.setData(new MainModuleMonitorWrapper(groupList.get(0)));
+            mMainModuleBinding.executePendingBindings();
+
+            //reset others
+            mModuleAdapter.setData(null);
+        }
     }
 }

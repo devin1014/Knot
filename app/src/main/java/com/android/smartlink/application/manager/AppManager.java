@@ -41,11 +41,12 @@ public class AppManager
         }
     }
 
-    @IntDef({RequestMode.MODE_LOCAL, RequestMode.MODE_HTTP})
+    @IntDef({RequestMode.MODE_LOCAL, RequestMode.MODE_HTTP, RequestMode.MODE_REMOTE})
     public @interface RequestMode
     {
         int MODE_LOCAL = 0;
         int MODE_HTTP = 1;
+        int MODE_REMOTE = 2;
     }
 
     private final Application mApplication;

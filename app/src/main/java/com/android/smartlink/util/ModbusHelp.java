@@ -73,16 +73,20 @@ public class ModbusHelp {
         String tJson="";
         ByteQueue tqueue;
         byte[] tempArr;
-        float tCurrent;
-        float tVoltage;
+        float tCurrent1,tCurrent2,tCurrent3;
+        float tVoltage1,tVoltage2,tVoltage3;
         float tPower;
         float tPF;
         float tEnergy;
         int tAlarm;
        for(int i=0;i<IDArr.length;i++)
        {
-           tCurrent=0;
-           tVoltage=0;
+           tCurrent1=0;
+           tVoltage1=0;
+           tCurrent2=0;
+           tVoltage2=0;
+           tCurrent3=0;
+           tVoltage3=0;
            tPower=0;
            tPF=0;
            tEnergy=0;
@@ -92,16 +96,31 @@ public class ModbusHelp {
            tqueue=readData(tcpMaster,IDArr[i],2999,6);
            tempArr=tqueue.popAll();
            if(tempArr.length>14) {
-            tCurrent=byteToFloat(tempArr[3],tempArr[4],tempArr[5],tempArr[6]);
-               tCurrent+=byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10]);
-               tCurrent+=byteToFloat(tempArr[11],tempArr[12],tempArr[13],tempArr[14]);
+               tCurrent1=byteToFloat(tempArr[3],tempArr[4],tempArr[5],tempArr[6]);
+               tCurrent2=byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10]);
+               tCurrent3=byteToFloat(tempArr[11],tempArr[12],tempArr[13],tempArr[14]);
            }
            tqueue=readData(tcpMaster,IDArr[i],3027,6);
            tempArr=tqueue.popAll();
            if(tempArr.length>14) {
-               tVoltage=byteToFloat(tempArr[3],tempArr[4],tempArr[5],tempArr[6]);
-               tVoltage+=byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10]);
-               tVoltage+=byteToFloat(tempArr[11],tempArr[12],tempArr[13],tempArr[14]);
+               tVoltage1=byteToFloat(tempArr[3],tempArr[4],tempArr[5],tempArr[6]);
+
+              // if(byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10])>0)
+                 //  tVoltage1=1.732f*tVoltage;
+               tVoltage2=byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10]);
+               tVoltage3=byteToFloat(tempArr[11],tempArr[12],tempArr[13],tempArr[14]);
+           }
+           if(String.valueOf(tVoltage1).equals("NaN"))
+           {
+               tqueue=readData(tcpMaster,IDArr[i],3019,6);
+               tempArr=tqueue.popAll();
+               tVoltage1=byteToFloat(tempArr[3],tempArr[4],tempArr[5],tempArr[6]);
+
+               // if(byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10])>0)
+               //  tVoltage1=1.732f*tVoltage;
+               tVoltage2=byteToFloat(tempArr[7],tempArr[8],tempArr[9],tempArr[10]);
+               tVoltage3=byteToFloat(tempArr[11],tempArr[12],tempArr[13],tempArr[14]);
+
            }
            tqueue=readData(tcpMaster,IDArr[i],3059,2);
            tempArr=tqueue.popAll();
@@ -127,8 +146,12 @@ public class ModbusHelp {
                tAlarm=(int)tempArr[4];
 
             tJson="{\"slaveID\":"+"\""+IDArr[i]+"\",";
-           tJson+="\"current\":"+"\""+tCurrent+"\",";
-           tJson+="\"voltage\":"+"\""+tVoltage+"\",";
+           tJson+="\"current1\":"+"\""+tCurrent1+"\",";
+           tJson+="\"current2\":"+"\""+tCurrent2+"\",";
+           tJson+="\"current3\":"+"\""+tCurrent3+"\",";
+           tJson+="\"voltage1\":"+"\""+tVoltage1+"\",";
+           tJson+="\"voltage2\":"+"\""+tVoltage2+"\",";
+           tJson+="\"voltage3\":"+"\""+tVoltage3+"\",";
            tJson+="\"power\":"+"\""+tPower+"\",";
            tJson+="\"powerFactor\":"+"\""+tPF+"\",";
            tJson+="\"energy\":"+"\""+tEnergy+"\",";
@@ -145,7 +168,7 @@ public class ModbusHelp {
         resultStr+="],";
        // resultStr+=modbusRDefaultTCP(ip,port);
 
-               Log.d("resultTTT", resultStr);
+              // Log.d("resultTTT", resultStr);
         tcpMaster.destroy();
         return resultStr;
     }
@@ -193,7 +216,7 @@ public class ModbusHelp {
         wMessage[3]=0;
         wMessage[4]=0;
         wMessage[5]=6;
-        wMessage[6]=(byte)255;
+        wMessage[6]=(byte)deviceid;
         wMessage[7]=3;
         wMessage[8]=(byte)(14440>>8);;
         wMessage[9]=(byte)14440;
@@ -205,9 +228,9 @@ public class ModbusHelp {
             OutputStream OStream = mSocket.getOutputStream();
 
             for(int i=0;i<registerStart.length;i++) {
-                wMessage[8] = (byte) (registerStart[i]>>8);
-
-                wMessage[9] = (byte) registerStart[i];
+                wMessage[8] = (byte) (registerStart[i] >> 8);
+                ;
+                wMessage[9] = (byte) registerStart[i] ;
                 OStream.write(wMessage);
                 IStream.read(tBuffer);
                 channel5 = (int) tBuffer[10];
@@ -225,7 +248,7 @@ public class ModbusHelp {
                 resultStr += tJson;
             }
 
-            Log.d("chanelStatus",resultStr);
+          //  Log.d("chanelStatus",resultStr);
 
 
         }
@@ -238,7 +261,7 @@ public class ModbusHelp {
 
     }
 
-    public static  String modbusWDefaultTCP(String ip, int port,int deviceId,int registerStart,int tValue)
+    public static  String modbusWDefaultTCP(String ip, int port,int deviceid,int registerStart,int tValue)
     {
         String resultStr="{";
         byte[] tBuffer=new byte[11];
@@ -251,7 +274,7 @@ public class ModbusHelp {
         wMessage[3]=0;
         wMessage[4]=0;
         wMessage[5]=6;
-        wMessage[6]=(byte)deviceId;
+        wMessage[6]=(byte)deviceid;
         wMessage[7]=6;
         wMessage[8]=(byte)(registerStart>>8);
         wMessage[9]=(byte)registerStart;
@@ -306,11 +329,11 @@ public class ModbusHelp {
     }
     private  static float byteToFloat(byte t1,byte t2,byte t3,byte t4)
     {
-
-
         float f=0;
-        DataInputStream dis=new DataInputStream(new java.io.ByteArrayInputStream(new byte[]{t1,t2,t3,t4}));
         try {
+
+        DataInputStream dis=new DataInputStream(new java.io.ByteArrayInputStream(new byte[]{t1,t2,t3,t4}));
+
              f = dis.readFloat();
             dis.close();
 

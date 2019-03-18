@@ -10,6 +10,14 @@ import com.neulion.android.diffrecycler.diff.DataDiffCompare;
  */
 public interface UIMonitorModule extends Module, DataDiffCompare<UIMonitorModule>
 {
+    String[] getCurrent();
+
+    String[] getVoltage();
+
+    String getPower();
+
+    String getPowerFactor();
+
     String getEnergy();
 
     int getModuleStatus();

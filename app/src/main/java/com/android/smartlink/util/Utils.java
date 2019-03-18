@@ -97,4 +97,13 @@ public class Utils
             }
         }
     }
+
+    public static String formatString(String format, Object... args)
+    {
+        if (args != null)
+        {
+            return String.format(format, args);
+        }
+        return format;
+    }
 }

@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,19 @@ public class HomeFragment extends BaseSmartlinkFragment implements RequestCallba
         mRequestProvider.destroy();
 
         super.onDestroyView();
+    }
+
+    @Override
+    public boolean onBackPressed()
+    {
+        Fragment fragment = getChildFragmentManager().findFragmentById(R.id.home_module_holder);
+
+        if (fragment instanceof ModuleFragment)
+        {
+            return ((ModuleFragment) fragment).onBackPressed();
+        }
+
+        return super.onBackPressed();
     }
 
     @SuppressWarnings("unchecked")
