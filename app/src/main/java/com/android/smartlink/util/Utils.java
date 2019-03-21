@@ -11,6 +11,8 @@ import android.text.Spanned;
 
 import com.android.smartlink.BuildConfig;
 
+import java.util.Random;
+
 /**
  * User: LIUWEI
  * Date: 2017-10-17
@@ -105,5 +107,12 @@ public class Utils
             return String.format(format, args);
         }
         return format;
+    }
+
+    private static final Random RANDOM = new Random(System.currentTimeMillis());
+
+    public static int getRandomInt(int min, int max)
+    {
+        return RANDOM.nextInt(max - min + 1) + min;
     }
 }

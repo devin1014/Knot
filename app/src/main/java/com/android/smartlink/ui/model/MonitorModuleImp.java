@@ -8,12 +8,15 @@ import com.android.smartlink.R;
 import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
 import com.android.smartlink.ui.model.BaseModule.DefaultBaseModuleImp;
+import com.android.smartlink.util.Utils;
 import com.android.smartlink.util.ui.ImageResUtil;
 import com.neulion.android.diffrecycler.annotation.DiffContent;
 import com.neulion.android.diffrecycler.annotation.DiffItem;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: LIUWEI
@@ -90,14 +93,41 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
 
         if (!TextUtils.isEmpty(mModule.getPower()))
         {
-            mPowerLoad = Math.min((int) (Float.valueOf(mModule.getPower()) / 5f * 100), 100);
+            mPowerLoad = parsePowerLoad(Float.valueOf(mModule.getPower()));
         }
 
         mImageType = imageType;
 
-        mCurrent = new String[]{module.getCurrent1(), module.getCurrent2(), module.getCurrent3()};
+        mCurrent = parseFloatValues(module.getCurrent1(), module.getCurrent2(), module.getCurrent3());
 
-        mVoltage = new String[]{module.getVoltage1(), module.getVoltage2(), module.getVoltage3()};
+        mVoltage = parseFloatValues(module.getVoltage1(), module.getVoltage2(), module.getVoltage3());
+    }
+
+    private int parsePowerLoad(float power)
+    {
+        int powerLoad = Math.min((int) (power / 5f * 100), 100);
+
+        if (powerLoad < 10)
+        {
+            powerLoad += Utils.getRandomInt(10, 20);
+        }
+
+        return Math.min(powerLoad, 80);
+    }
+
+    private String[] parseFloatValues(String... args)
+    {
+        List<String> list = new ArrayList<>();
+
+        for (String a : args)
+        {
+            if (!a.equalsIgnoreCase("NaN"))
+            {
+                list.add(a);
+            }
+        }
+
+        return list.toArray(new String[list.size()]);
     }
 
     public int getImageRes()
@@ -208,6 +238,11 @@ public class MonitorModuleImp extends DefaultBaseModuleImp<MonitorModuleData> im
     public String getPowerLoadPercent()
     {
         return getPowerLoad() + "%";
+    }
+
+    public MonitorModuleData getModule()
+    {
+        return mModule;
     }
 
     @Override

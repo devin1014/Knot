@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="24dp">
+        android:paddingBottom="12dp">
 
         <View
             android:id="@+id/anchor_view_in_center"
@@ -29,12 +29,13 @@
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/anchor_view_in_center"
             android:layout_toStartOf="@id/anchor_view_in_center"
-            android:padding="12dp">
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
 
             <View
                 android:id="@+id/left_center"
                 android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_height="12dp"
                 android:layout_centerInParent="true" />
 
             <TextView
@@ -46,10 +47,10 @@
                 android:layout_toLeftOf="@id/left_center"
                 android:drawablePadding="4dp"
                 android:drawableTop="@drawable/ic_l"
-                android:gravity="center_vertical"
+                android:gravity="left"
                 android:lines="3"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/chart_voltage"
@@ -60,10 +61,10 @@
                 android:layout_toRightOf="@id/left_center"
                 android:drawablePadding="4dp"
                 android:drawableTop="@drawable/ic_dy"
-                android:gravity="center_vertical"
+                android:gravity="left"
                 android:lines="3"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/chart_power_factor"
@@ -78,7 +79,7 @@
                 android:drawableTop="@drawable/ic_glyz"
                 android:gravity="center_vertical"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/chart_power"
@@ -91,7 +92,7 @@
                 android:drawableTop="@drawable/ic_gl"
                 android:gravity="center_vertical"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/chart_energy"
@@ -104,7 +105,7 @@
                 android:drawableTop="@drawable/ic_nh"
                 android:gravity="center_vertical"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
         </RelativeLayout>
 

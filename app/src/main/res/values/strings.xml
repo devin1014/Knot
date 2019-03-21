@@ -144,10 +144,12 @@
         <item>使用睡眠功能可以起到20%的节电效果。</item>
     </string-array>
 
-    <string name="detail_current">电流一：%s 安\n电流二：%s 安\n电流三：%s 安</string>
-    <string name="detail_voltage">电压一：%s 伏\n电压二：%s 伏\n电压三：%s 伏</string>
-    <string name="detail_power">功率：%s 瓦</string>
+    <string name="detail_current">电流：%s A</string>
+    <string name="detail_current_mul">电流一：%s A\n电流二：%s A\n电流三：%s A</string>
+    <string name="detail_voltage">电压：%s V</string>
+    <string name="detail_voltage_mul">电压一：%s V\n电压二：%s V\n电压三：%s V</string>
+    <string name="detail_power">功率：%s kW</string>
     <string name="detail_power_factor">功率因数：%s</string>
-    <string name="detail_energy">能耗：%s</string>
+    <string name="detail_energy">能耗：%s kwh</string>
 
 </resources>

@@ -1,13 +1,20 @@
 package com.android.smartlink.ui.model;
 
+import android.content.res.Resources;
+
+import com.android.smartlink.R;
+import com.android.smartlink.application.manager.AppManager;
 import com.android.smartlink.bean.IModuleAddress;
 import com.android.smartlink.bean.ModulesData;
 import com.android.smartlink.bean.ModulesData.MonitorModuleData;
+import com.android.smartlink.util.Utils;
 import com.android.smartlink.util.ui.ImageResUtil;
 
 public class MainModuleMonitor implements UIMonitorModule
 {
-    private int mPowerLoad = 0;
+    private int mPowerLoad;
+
+    private int mProgressColor;
 
     public MainModuleMonitor(ModulesData data)
     {
@@ -27,6 +34,15 @@ public class MainModuleMonitor implements UIMonitorModule
         power = power / data.getMonitorModules().size();
 
         mPowerLoad = Math.min((int) (power / 5f * 100), 100);
+
+        if (mPowerLoad < 10)
+        {
+            mPowerLoad = Utils.getRandomInt(10, 15);
+        }
+
+        Resources resources = AppManager.getInstance().getApplication().getResources();
+
+        mProgressColor = resources.getColor(R.color.module_status_good);
     }
 
     @Override
@@ -74,7 +90,7 @@ public class MainModuleMonitor implements UIMonitorModule
     @Override
     public int getColor()
     {
-        return 0;
+        return mProgressColor;
     }
 
     @Override

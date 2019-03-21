@@ -130,11 +130,33 @@ public class ModuleChartFragment extends BaseSmartlinkFragment implements Reques
     public void setModuleData(UIMonitorModule moduleData)
     {
         mUIMonitorModule = moduleData;
-        mCurrent.setText(Utils.formatString(getString(R.string.detail_current), moduleData.getCurrent()));
-        mVoltage.setText(Utils.formatString(getString(R.string.detail_voltage), moduleData.getVoltage()));
+        mCurrent.setText(formatCurrent(moduleData));
+        mVoltage.setText(formatVoltage(moduleData));
         mPower.setText(Utils.formatString(getString(R.string.detail_power), moduleData.getPower()));
         mPowerFactor.setText(Utils.formatString(getString(R.string.detail_power_factor), moduleData.getPowerFactor()));
-        mEnergy.setText(Utils.formatString(getString(R.string.detail_energy), moduleData.getEnergy()));
+        if (moduleData instanceof MonitorModuleImp)
+        {
+            MonitorModuleImp imp = (MonitorModuleImp) moduleData;
+            mEnergy.setText(Utils.formatString(getString(R.string.detail_energy), imp.getModule().getEnergy()));
+        }
+    }
+
+    private String formatCurrent(UIMonitorModule moduleData)
+    {
+        int stringRes = moduleData.getCurrent().length <= 1 ? R.string.detail_current : R.string.detail_current_mul;
+
+        Object[] args = moduleData.getCurrent().length == 0 ? new Object[]{"NAN"} : moduleData.getCurrent();
+
+        return String.format(getString(stringRes), args);
+    }
+
+    private String formatVoltage(UIMonitorModule moduleData)
+    {
+        int stringRes = moduleData.getVoltage().length <= 1 ? R.string.detail_voltage : R.string.detail_voltage_mul;
+
+        Object[] args = moduleData.getVoltage().length == 0 ? new Object[]{"NAN"} : moduleData.getVoltage();
+
+        return String.format(getString(stringRes), args);
     }
 
     @Override

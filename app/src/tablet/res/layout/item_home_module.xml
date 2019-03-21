@@ -67,7 +67,7 @@
             android:singleLine="true"
             android:text="@{data.name}"
             android:textColor="#ffffff"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:textStyle="normal"
             tools:ignore="SpUsage"
             tools:text="@string/app_name" />

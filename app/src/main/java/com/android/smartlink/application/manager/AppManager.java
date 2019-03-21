@@ -183,7 +183,7 @@ public class AppManager
 
         mRequestMode = config.getRequestMode();
 
-        mHttpUrl = mRequestMode == RequestMode.MODE_LOCAL ? new LocalUrl(config.getLocalFeed()) : new HttpUrl(config.getHttpFeed());
+        mHttpUrl = mRequestMode == RequestMode.MODE_HTTP ? new HttpUrl(config.getHttpFeed()) : new LocalUrl(config.getLocalFeed());
 
         mModuleManager.setModuleConfiguration(config);
     }

@@ -25,7 +25,7 @@ public class Constants
 
     public static final int POS_SETTINGS_ABOUT = 4;
 
-    public static final int POWER_LOAD_ALARM = 80;
+    public static final int POWER_LOAD_ALARM = 85;
 
     public static final String DEFAULT_LOCATION = "shanghai";
 
